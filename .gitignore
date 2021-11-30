@@ -32,7 +32,7 @@
 *.app
 
 #custom
-#/super-mario/Debug/
-#/super-mario/packages/
+/super-mario/Debug/
+/super-mario/packages/
 /super-mario/.vs/
 
