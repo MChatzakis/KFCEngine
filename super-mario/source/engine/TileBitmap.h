@@ -1,4 +1,5 @@
 #include "../TypeDefinitions.h"
+#include <cstdio>
 
 byte MakeIndex(byte row, byte col)
 {
@@ -51,4 +52,45 @@ void PutTile(Bitmap dest, Dim x, Dim y, Bitmap tiles, Index tile) {
 		tiles, Rect{ TileX3(tile), TileY3(tile), TILE_WIDTH, TILE_HEIGHT },
 		dest, Point{ x, y }
 	);
+}
+
+
+
+
+typedef Index TileMap[MAX_WIDTH][MAX_HEIGHT];
+static TileMap map; // example of a global static map
+void SetTile(TileMap* m, Dim col, Dim row, Index index)
+{
+	(*m)[row][col] = index;
+}
+Index GetTile(const TileMap* m, Dim col, Dim row)
+{
+	return (*m)[row][col];
+}
+
+/*void WriteBinMap(const TileMap* m, FILE* fp)
+{
+	fwrite(m, sizeof(TileMap), 1, fp);
+} // simplistic...
+bool ReadBinMap(TileMap* m, FILE* fp)
+{ // binary formatted read, like descent parsing
+}
+void WriteTextMap(const TileMap*, FILE* fp)
+{ // custom write in text format
+}*/
+
+/*Nomizw oti afoy paei sto engine prepei na pairnei kai width, height san arguments*/
+bool ReadTextMap(TileMap* m, FILE* fp)
+{
+	if (fp == NULL) return false;
+
+	Index index;
+	for (Dim row = 0; row < MAX_HEIGHT; row++) {
+		for (Dim column = 0; column < MAX_WIDTH; column++) {
+			//read number from fp
+			fp >> index;
+			SetTile(m, column, row, index);
+		}
+	}
+	return true;
 }

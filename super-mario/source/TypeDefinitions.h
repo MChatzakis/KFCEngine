@@ -1,7 +1,10 @@
-#define TILESET_WIDTH 16 // row = 16 tiles
-#define TILESET_HEIGHT 16 // col = 16 tiles
+#define TILESET_WIDTH 26 // row = 26 tiles .. better in json
+#define TILESET_HEIGHT 24 // col = 24 tiles
 #define TILE_WIDTH 16
 #define TILE_HEIGHT 16
+#define MAX_WIDTH 640
+#define MAX_HEIGHT 480
+
 #define ROW_MASK 0x0F
 #define COL_MASK 0xF0
 #define COL_SHIFT 4
