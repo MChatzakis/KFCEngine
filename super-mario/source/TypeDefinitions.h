@@ -33,4 +33,5 @@ struct RGBA : public RGB { RGBValue a; };
 typedef RGB Palette[256];
 
 typedef void* Bitmap;
+typedef unsigned char* PixelMemory;
 
