@@ -1,17 +1,23 @@
 #include "../TypeDefinitions.h"
 #include <cstdio>
+#include <string>
+#include <fstream>
 
 byte MakeIndex(byte row, byte col)
 {
 	return (col << COL_SHIFT) | row;
+	//episis de mas kanei to byte san type
+	//return row * TILESET_WIDTH + col;
 }
 byte GetCol(byte index)
 {
 	return index >> COL_SHIFT;
+	//return index % TILESET_WIDTH;
 }
 byte GetRow(byte index)
 {
 	return index & ROW_MASK;
+	//return index / TILESET_WIDTH;
 }
 
 Dim TileX(byte index)
@@ -47,17 +53,19 @@ Dim TileX3(Index index) { return index >> TILEX_SHIFT; }
 Dim TileY3(Index index) { return index & TILEY_MASK; }
 
 
-void PutTile(Bitmap dest, Dim x, Dim y, Bitmap tiles, Index tile) {
+//Proswrina se sxolia giati den exoyme thn bitmapBlit
+/*void PutTile(Bitmap dest, Dim x, Dim y, Bitmap tiles, Index tile) {
 	BitmapBlit(
 		tiles, Rect{ TileX3(tile), TileY3(tile), TILE_WIDTH, TILE_HEIGHT },
 		dest, Point{ x, y }
 	);
-}
+}*/
 
 
 
 
-typedef Index TileMap[MAX_WIDTH][MAX_HEIGHT];
+//typedef Index TileMap[MAX_WIDTH][MAX_HEIGHT];
+typedef Index TileMap[TILEMAP_HEIGHT][TILEMAP_WIDTH];
 static TileMap map; // example of a global static map
 void SetTile(TileMap* m, Dim col, Dim row, Index index)
 {
@@ -75,22 +83,48 @@ Index GetTile(const TileMap* m, Dim col, Dim row)
 bool ReadBinMap(TileMap* m, FILE* fp)
 { // binary formatted read, like descent parsing
 }
-void WriteTextMap(const TileMap*, FILE* fp)
+*/
+void WriteTextMap(const TileMap* m, const char* filename)
 { // custom write in text format
-}*/
+	std::ofstream fp(filename);
+	if (!fp.is_open()) return;
+
+	for (Dim row = 0; row < TILEMAP_HEIGHT; row++) {
+		for (Dim column = 0; column < TILEMAP_WIDTH; column++) {
+			//read number as a string from fp
+			fp << (short)GetTile(m,column,row);
+			if (column != TILEMAP_WIDTH - 1)
+				fp << ",";
+		}
+		fp << "\n";
+	}
+	fp.close();
+}
 
 /*Nomizw oti afoy paei sto engine prepei na pairnei kai width, height san arguments*/
-bool ReadTextMap(TileMap* m, FILE* fp)
-{
-	if (fp == NULL) return false;
-
+bool ReadTextMap(TileMap* m, const char* filename) {
 	Index index;
-	for (Dim row = 0; row < MAX_HEIGHT; row++) {
-		for (Dim column = 0; column < MAX_WIDTH; column++) {
-			//read number from fp
-			fp >> index;
+	Dim row = 0, column = 0;
+	std::string line;
+	std::ifstream fp(filename);
+	if (!fp.is_open()) return false;
+
+	while (std::getline(fp, line)) {
+		char* values = strtok((char*)line.c_str(), ",");
+		while (values != NULL)
+		{
+			printf("%s ", values);
+			index = (Index)strtol(values, NULL, 0); //de nomizw na xanei info
 			SetTile(m, column, row, index);
+			column++;
+			values = strtok(NULL, ",");
 		}
+		row++;
+		//std::cout <<  "Columns: " << column << std::endl;
+		column = 0;
+		printf("\n");
 	}
+	//std::cout << "Rows: " << row << std::endl;
+	fp.close();
 	return true;
 }
