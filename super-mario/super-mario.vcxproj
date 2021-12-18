@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <Allegro_AddonImage>true</Allegro_AddonImage>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -145,7 +146,8 @@
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\engine\TileBitmap.h" />
+    <ClInclude Include="source\engine\Tilemap.h" />
+    <ClInclude Include="source\engine\ViewWindow.h" />
     <ClInclude Include="source\TypeDefinitions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

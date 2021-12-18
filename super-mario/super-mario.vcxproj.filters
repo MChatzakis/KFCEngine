@@ -23,10 +23,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\engine\TileBitmap.h">
+    <ClInclude Include="source\TypeDefinitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\TypeDefinitions.h">
+    <ClInclude Include="source\engine\Tilemap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\ViewWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
