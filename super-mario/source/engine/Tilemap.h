@@ -55,10 +55,26 @@ Dim TileX3(Index index) { return index >> TILEX_SHIFT; }
 
 Dim TileY3(Index index) { return index & TILEY_MASK; }
 
-void PutTile(Bitmap dest, Dim x, Dim y, Bitmap tiles, Index tile) {
+Index CustomMakeIndex(Dim row, Dim col)
+{
+	return (Index)row * TILESET_WIDTH + col;
+}
+
+Dim CustomGetCol(Index index)
+{
+	return index % TILESET_WIDTH;
+}
+
+Dim CustomGetRow(Index index)
+{
+	return index / TILESET_WIDTH;
+}
+
+void PutTile(Bitmap dest, Dim x, Dim y, Bitmap* tiles, Index tile) {
 	//BitmapBlit(tiles, Rect{ TileX3(tile), TileY3(tile), TILE_WIDTH, TILE_HEIGHT }, dest, Point{ x, y });
 	// POIO EINAI TO TARGET DEST GAMW TO SPITAKI?
-	al_draw_bitmap_region((ALLEGRO_BITMAP*)tiles, TileX3(tile), TileY3(tile), TILE_WIDTH, TILE_HEIGHT, x, y, 0);
+	//al_draw_bitmap_region((ALLEGRO_BITMAP*)tiles, TileX3(tile), TileY3(tile), TILE_WIDTH, TILE_HEIGHT, x, y, 0);
+	al_draw_bitmap_region((ALLEGRO_BITMAP*)tiles, CustomGetCol(tile) * TILE_WIDTH, CustomGetRow(tile) * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, x, y, 0);
 }
 
 void SetTile(TileMap* m, Dim col, Dim row, Index index)

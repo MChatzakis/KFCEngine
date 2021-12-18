@@ -9,7 +9,7 @@ void TileTerrainDisplay(TileMap* map, Bitmap dest, const Rect& viewWin, const Re
 		auto startCol = DIV_TILE_WIDTH(viewWin.x);
 		auto startRow = DIV_TILE_HEIGHT(viewWin.y);
 		auto endCol = DIV_TILE_WIDTH(viewWin.x + viewWin.w - 1);
-		auto endRow = DIV_TILE_HEIGHT(viewWin.y + viewWin.y - 1);
+		auto endRow = DIV_TILE_HEIGHT(viewWin.y + viewWin.h - 1);
 		dpyX = MOD_TILE_WIDTH(viewWin.x);
 		dpyY = MOD_TILE_WIDTH(viewWin.y);
 		viewPosCached.x = viewWin.x, viewPosCached.y = viewWin.y;

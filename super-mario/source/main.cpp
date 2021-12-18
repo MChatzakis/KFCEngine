@@ -24,7 +24,7 @@ void loadMap();
 
 int main() {
 	int SCREEN_WIDTH = 640;
-	int SCREEN_HEIGHT = 480;
+	int SCREEN_HEIGHT = 240; //480
 
 	if (!al_init()) {
 		std::cout << "Could not initialize Allegro!" << std::endl;
@@ -41,7 +41,7 @@ int main() {
 	al_install_keyboard();
 
 	// Create a new display that we can render the image to.
-	ALLEGRO_DISPLAY* display = al_create_display(640, 480);
+	ALLEGRO_DISPLAY* display = al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!display) {
 		std::cout << "Could not initialize Allegro!" << std::endl;
 		exit(-1);
@@ -97,6 +97,10 @@ int main() {
 
 void loadMap() {
 	//Instead of .. put your path
+	if (!ReadTextMap(&map, "resources/csv/level1-1_Sky.csv")) {
+		std::cout << "Failed to read map";
+		exit(-1);
+	}
 	if (!ReadTextMap(&map, "resources/csv/level1-1_background.csv")) {
 		std::cout << "Failed to read map";
 		exit(-1);
@@ -112,7 +116,8 @@ void loadMap() {
 		exit(-1);
 	}
 
-	printTileMap_DEBUG(&map);
+	//WriteTextMap(&map, "resources/csv/full-map.csv");
+	//printTileMap_DEBUG(&map);
 
 
 }
