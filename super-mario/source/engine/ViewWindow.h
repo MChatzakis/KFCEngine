@@ -15,7 +15,7 @@ void TileTerrainDisplay(TileMap* map, Bitmap dest, const Rect& viewWin, const Re
 		viewPosCached.x = viewWin.x, viewPosCached.y = viewWin.y;
 		for (Dim row = startRow; row <= endRow; ++row)
 			for (Dim col = startCol; col <= endCol; ++col)
-				PutTile(/*dpyBuffer*/ NULL, MUL_TILE_WIDTH(col - startCol), MUL_TILE_HEIGHT(row - startRow), tiles, GetTile(map, col, row));
+				PutTile(/*dpyBuffer*/ dest, MUL_TILE_WIDTH(col - startCol), MUL_TILE_HEIGHT(row - startRow), tiles, GetTile(map, col, row));
 	}
 }
 

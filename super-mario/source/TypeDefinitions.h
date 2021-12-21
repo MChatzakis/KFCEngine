@@ -56,6 +56,7 @@ typedef unsigned char* PixelMemory;
 
 typedef Index TileMap[TILEMAP_HEIGHT][TILEMAP_WIDTH];
 static TileMap map; // example of a global static map
+static TileMap map_sky;
 
 Bitmap dpyBuffer = nullptr;
 Point viewPosCached{ -1, -1 };
