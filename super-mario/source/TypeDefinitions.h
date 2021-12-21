@@ -7,9 +7,9 @@
 #define TILESET_HEIGHT 24 // col = 24 tiles
 #define TILE_WIDTH 16 //pixels
 #define TILE_HEIGHT 16
-#define MAX_WIDTH 640 //pixels or 40 tiles
-#define MAX_HEIGHT 480 //pixels or 30 tiles
-#define TILEMAP_WIDTH 228 //kati den kanoume kala edw
+//#define MAX_WIDTH 640 //pixels or 40 tiles
+//#define MAX_HEIGHT 480 //pixels or 30 tiles
+#define TILEMAP_WIDTH 228
 #define TILEMAP_HEIGHT 15
 
 #define ROW_MASK 0x0F

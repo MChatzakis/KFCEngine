@@ -1,0 +1,18 @@
+{
+  "map": {
+    "height": 15,
+    "width": 228
+  },
+  "screen": {
+    "height": 240,
+    "width": 640
+  },
+  "tile": {
+    "height": 16,
+    "width": 16
+  },
+  "tileset": {
+    "height": 26,
+    "width": 24
+  }
+}

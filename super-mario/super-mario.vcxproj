@@ -141,14 +141,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="resources\config\config.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\engine\Tilemap.h" />
     <ClInclude Include="source\engine\ViewWindow.h" />
     <ClInclude Include="source\TypeDefinitions.h" />
+    <ClInclude Include="source\utils\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

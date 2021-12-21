@@ -5,7 +5,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 
-#include <nlohmann/json.hpp>
+#include "utils/Utils.h"
 
 #include "engine/Tilemap.h"
 #include "engine/ViewWindow.h"
@@ -23,8 +23,18 @@
 void loadMap();
 
 int main() {
-	int SCREEN_WIDTH = 640;
-	int SCREEN_HEIGHT = 240; //480
+	int SCREEN_WIDTH = 0;
+	int SCREEN_HEIGHT = 0;
+
+	nlohmann::json config = readJSON("resources/config/config.json");
+	if (config != NULL) {
+		SCREEN_WIDTH = config["screen"]["width"];
+		SCREEN_HEIGHT = config["screen"]["height"];
+
+		std::cout << "Screen width = " << config["screen"]["width"] << ", height = " << config["screen"]["height"] << std::endl;
+		//config["screen"]["height"] = 480;
+		writeJSON(config, "resources/config/config.json", 2); //indent -> spaces
+	}
 
 	if (!al_init()) {
 		std::cout << "Could not initialize Allegro!" << std::endl;
