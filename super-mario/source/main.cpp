@@ -33,7 +33,7 @@ int main() {
 
 		std::cout << "Screen width = " << config["screen"]["width"] << ", height = " << config["screen"]["height"] << std::endl;
 		//config["screen"]["height"] = 480;
-		writeJSON(config, "resources/config/config.json", 2); //indent -> spaces
+		//writeJSON(config, "resources/config/config.json", 2); //indent -> spaces
 	}
 
 	if (!al_init()) {
