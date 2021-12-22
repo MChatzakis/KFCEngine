@@ -4,7 +4,7 @@
 #include "../TypeDefinitions.h"
 #include "./Tilemap.h"
 
-void TileTerrainDisplay(TileMap* map, Bitmap dest, const Rect& viewWin, const Rect& displayArea, Bitmap * tiles) {
+void TileTerrainDisplay(TileMap* map, Bitmap dest, const Rect& viewWin, const Rect& displayArea, Bitmap* tiles) {
 	if (viewPosCached.x != viewWin.x || viewPosCached.y != viewWin.y) {
 		auto startCol = DIV_TILE_WIDTH(viewWin.x);
 		auto startRow = DIV_TILE_HEIGHT(viewWin.y);
@@ -21,12 +21,12 @@ void TileTerrainDisplay(TileMap* map, Bitmap dest, const Rect& viewWin, const Re
 
 //!todo
 int GetMapPixelWidth(void) {
-	return 16;
+	return TILEMAP_WIDTH * TILE_WIDTH; //change on define
 }
 
 //!todo
 int GetMapPixelHeight(void) {
-	return 16;
+	return TILEMAP_HEIGHT * TILE_HEIGHT;
 }
 
 void Scroll(Rect* viewWin, int dx, int dy) {

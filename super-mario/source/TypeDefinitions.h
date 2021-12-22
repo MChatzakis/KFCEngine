@@ -26,7 +26,12 @@ typedef unsigned short Index; // [MSB X][LSB Y]
 #define TILEX_SHIFT 8
 #define TILEY_MASK 0x00FF
 
-struct Rect { int x, y, w, h; };
+struct Rect {
+	int x, y, w, h;
+	Rect(int _x, int _y, int _w, int _h) : x{ _x }, y{ _y }, w{ _w }, h{ _h } {};
+	Rect() { x = y = w = h = 0; };
+};
+
 struct Point { int x, y; };
 
 enum BitDepth { bits8 = 1, bits16, bits24, bits32 };

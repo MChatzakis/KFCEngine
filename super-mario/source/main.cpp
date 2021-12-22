@@ -13,28 +13,36 @@
 #include "./TypeDefinitions.h"
 /*
 1) Finalize the Map (+ Game over, Start, Round complete screens) => KONTO
-2) Make some function for JSON read => (FANOU, MANOS)
+2) Make some function for JSON read => (FANOU, MANOS) DONE
 3) Go through lectures 6,7,8,9 for display function and view window => OLOI
-4) Try to display tiles => FANOU
+4) Try to display tiles => FANOU DONE
 5) Input logic for view window => MANOS
 6) Find out what is going on with back buffer etc. => MANOS
 */
 
 void loadMap();
 
+/* Global Stuff */
+int SCREEN_WIDTH = 0;
+int SCREEN_HEIGHT = 0;
+
+/*ALLEGRO related*/
+ALLEGRO_DISPLAY* display;
+ALLEGRO_EVENT_QUEUE* queue;
+ALLEGRO_BITMAP* tileSet;
+
+
 int main() {
-	int SCREEN_WIDTH = 0;
-	int SCREEN_HEIGHT = 0;
-
+	
 	nlohmann::json config = readJSON("resources/config/config.json");
-	if (config != NULL) {
-		SCREEN_WIDTH = config["screen"]["width"];
-		SCREEN_HEIGHT = config["screen"]["height"];
-
-		std::cout << "Screen width = " << config["screen"]["width"] << ", height = " << config["screen"]["height"] << std::endl;
-		//config["screen"]["height"] = 480;
-		//writeJSON(config, "resources/config/config.json", 2); //indent -> spaces
+	if (config == NULL) {
+		std::cout << "Cannot open configuration file!" << std::endl;
+		exit(-1);
 	}
+	SCREEN_WIDTH = config["screen"]["width"];
+	SCREEN_HEIGHT = config["screen"]["height"];
+
+	//std::cout << "Screen width = " << config["screen"]["width"] << ", height = " << config["screen"]["height"] << std::endl;
 
 	if (!al_init()) {
 		std::cout << "Could not initialize Allegro!" << std::endl;
@@ -51,31 +59,27 @@ int main() {
 	al_install_keyboard();
 
 	// Create a new display that we can render the image to.
-	ALLEGRO_DISPLAY* display = al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT);
+	display = al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!display) {
 		std::cout << "Could not initialize Allegro!" << std::endl;
 		exit(-1);
 	}
 
-	al_set_window_title(display, "Window");
+	al_set_window_title(display, "Super Mario Bros");
 	al_set_window_position(display, 0, 0);
 
-	ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
+	queue = al_create_event_queue();
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_display_event_source(display));
 	al_register_event_source(queue, al_get_mouse_event_source());
 
-	ALLEGRO_BITMAP* tileSet = al_load_bitmap("resources/bitmaps/tileset.png");
+	tileSet = al_load_bitmap("resources/bitmaps/tileset.png");
 	if (!tileSet) {
 		std::cout << "Could not load the TileSet!" << std::endl;
 		exit(-1);
 	}
 
-	Rect* viewWin = new Rect();
-	viewWin->x = 0;
-	viewWin->y = 0;
-	viewWin->h = SCREEN_HEIGHT;
-	viewWin->w = SCREEN_WIDTH;
+	Rect* viewWin = new Rect(200, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	loadMap();
 
@@ -86,20 +90,41 @@ int main() {
 		al_wait_for_event(queue, &event);
 		//clean display/backbuffer i dont know
 		dpyBuffer = (ALLEGRO_BITMAP*)al_get_backbuffer(display);
+
 		ALLEGRO_BITMAP* sky = al_create_bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
 		ALLEGRO_BITMAP* terrain = al_create_sub_bitmap(sky, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 		al_set_target_bitmap(terrain);
-		TileTerrainDisplay(&map, NULL, *viewWin, Rect(), (Bitmap *)tileSet);
+		TileTerrainDisplay(&map, NULL, *viewWin, Rect(), (Bitmap*)tileSet);
 		al_set_target_bitmap(sky);
 		TileTerrainDisplay(&map_sky, NULL, *viewWin, Rect(), (Bitmap*)tileSet);
 		al_set_target_bitmap((ALLEGRO_BITMAP*)dpyBuffer);
+		
 		al_draw_bitmap(sky, 0, 0, 0);
 		al_flip_display();
-		
+
 		switch (event.type) {
 		case ALLEGRO_EVENT_KEY_DOWN:
-			onGoingGameLoop = 0;
-			std::cout << " ------------------------ Pressed a keyboard button!" << std::endl;
+			switch (event.keyboard.keycode) {
+			case ALLEGRO_KEY_ESCAPE:
+				onGoingGameLoop = 0;
+				std::cout << " ------------------------ Pressed Escape!" << std::endl;
+				break;
+			case ALLEGRO_KEY_RIGHT:
+				std::cout << "Before " << viewWin->x << std::endl;
+				ScrollWithBoundsCheck(viewWin, 1, 0);
+				std::cout << "After " << viewWin->x << std::endl;
+
+				std::cout << " ------------------------ Pressed Right arrow!" << std::endl;
+				break;
+			case ALLEGRO_KEY_LEFT:
+				ScrollWithBoundsCheck(viewWin, -1, 0);
+				std::cout << " ------------------------ Pressed Left Arrow!" << std::endl;
+				break;
+			case ALLEGRO_KEY_SPACE:
+				std::cout << " ------------------------ Pressed Space!" << std::endl;
+				break;
+			}
+
 			break;
 		case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
 			onGoingGameLoop = 0;
@@ -112,11 +137,11 @@ int main() {
 		al_destroy_bitmap(terrain);
 		al_destroy_bitmap(sky);
 	}
-	
+
 	al_destroy_display(display);
 	al_destroy_bitmap(tileSet);
 	al_destroy_event_queue(queue);
-	
+
 	return 0;
 }
 
