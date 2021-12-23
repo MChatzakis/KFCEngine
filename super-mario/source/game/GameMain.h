@@ -168,9 +168,20 @@ void CommitDestructions() {
 
 }
 
+bool isFinished() {
+	return false;
+}
 
 void setGameActions(app::Game game) {
 	game.SetRender(Render);
+	game.SetInput(Input);
+	game.SetProgressAnimations(ProgressAnimations);
+	game.SetAI(AI);
+	game.SetPhysics(Physics);
+	game.SetDestructions(CommitDestructions);
+	game.SetCollisionChecking(CollisionChecking);
+	game.SetUserCode(UserCode);
+	game.SetIsFinished(isFinished);
 }
 
 /*int main(){
@@ -184,9 +195,20 @@ void GameMain() {
 	
 	Initialise();
 	Load();
-
 	setGameActions(game);
 	game.MainLoop();
+	
+	//It is the same and it plays fine
+	/*while (!isFinished()) {
+		Render();
+		Input();
+		ProgressAnimations();
+		AI();
+		Physics();
+		CommitDestructions();
+		CollisionChecking();
+		UserCode();
+	}*/
 
 	Clear();
 

@@ -12,11 +12,27 @@ namespace app {
 	private:
 		Action render, anim, input, ai, physics, destruct, collisions, user;
 		Pred done;
-		void Invoke(const Action& f) { if (f) f(); }
+		void Invoke(const Action& f) {
+			if (f) {
+				std::cout << "called invoke" << std::endl;
+				f();
+			}
+		}
 	public:
 		Game() {};
+
+		//Setters
 		void SetRender(const Action& f) { render = f; }
-		// rest of setters are similary defined
+		void SetProgressAnimations(const Action& f) { anim = f; }
+		void SetInput(const Action& f) { input = f; }
+		void SetAI(const Action& f) { ai = f; }
+		void SetPhysics(const Action& f) { physics = f; }
+		void SetDestructions(const Action& f) { destruct = f; }
+		void SetCollisionChecking(const Action& f) { collisions = f; }
+		void SetUserCode(const Action& f) { user = f; }
+		void SetIsFinished(const Pred& f) { done = f; }
+		
+		//Invokes
 		void Render(void) { Invoke(render); }
 		void ProgressAnimations(void) { Invoke(anim); }
 		void Input(void) { Invoke(input); }
@@ -26,12 +42,13 @@ namespace app {
 		void CommitDestructions(void) { Invoke(destruct); }
 		void UserCode(void) { Invoke(user); }
 		bool IsFinished(void) const {
-			return 0;
-		}//!done(); }
+			if (done) {
+				return done();
+			}
+			return false;
+		}
 		void MainLoop(void);
 		void MainLoopIteration(void);
-
-		int isFinished();
 	};
 
 	class App {
@@ -57,10 +74,6 @@ namespace app {
 	};
 }
 
-int app::Game::isFinished() {
-	return 0; //todo
-}
-
 void app::Game::MainLoop(void) {
 	while (!IsFinished()) //todo
 		MainLoopIteration();
@@ -68,13 +81,13 @@ void app::Game::MainLoop(void) {
 
 void app::Game::MainLoopIteration(void) {
 	Render();
-	/*Input();
+	Input();
 	ProgressAnimations();
 	AI();
 	Physics();
 	CollisionChecking();
 	UserCode(); // hook for custom code at end
-	CommitDestructions();*/
+	CommitDestructions();
 }
 
 #endif _GAME_H_
