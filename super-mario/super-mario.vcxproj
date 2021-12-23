@@ -148,8 +148,11 @@
     <ClCompile Include="source\utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\engine\Game.h" />
+    <ClInclude Include="source\engine\Grid.h" />
     <ClInclude Include="source\engine\Tilemap.h" />
     <ClInclude Include="source\engine\ViewWindow.h" />
+    <ClInclude Include="source\game\GameMain.h" />
     <ClInclude Include="source\TypeDefinitions.h" />
     <ClInclude Include="source\utils\Utils.h" />
   </ItemGroup>

@@ -10,31 +10,35 @@
 #include "engine/Tilemap.h"
 #include "engine/ViewWindow.h"
 
+
 #include "./TypeDefinitions.h"
+
+#include "game/GameMain.h"
+
 /*
 1) Finalize the Map (+ Game over, Start, Round complete screens) => KONTO
 2) Make some function for JSON read => (FANOU, MANOS) DONE
 3) Go through lectures 6,7,8,9 for display function and view window => OLOI
 4) Try to display tiles => FANOU DONE
-5) Input logic for view window => MANOS
-6) Find out what is going on with back buffer etc. => MANOS
+5) Input logic for view window => MANOS DONE 
+6) Find out what is going on with back buffer etc. => MANOS DEN EXW IDEA GTXSM
 */
 
-void loadMap();
+//void loadMap();
 
 /* Global Stuff */
-int SCREEN_WIDTH = 0;
-int SCREEN_HEIGHT = 0;
+//int SCREEN_WIDTH = 0;
+//int SCREEN_HEIGHT = 0;
 
 /*ALLEGRO related*/
-ALLEGRO_DISPLAY* display;
-ALLEGRO_EVENT_QUEUE* queue;
-ALLEGRO_BITMAP* tileSet;
+//ALLEGRO_DISPLAY* display;
+//ALLEGRO_EVENT_QUEUE* queue;
+//ALLEGRO_BITMAP* tileSet;
 
 
 int main() {
 	
-	nlohmann::json config = readJSON("resources/config/config.json");
+	/*nlohmann::json config = readJSON("resources/config/config.json");
 	if (config == NULL) {
 		std::cout << "Cannot open configuration file!" << std::endl;
 		exit(-1);
@@ -79,7 +83,7 @@ int main() {
 		exit(-1);
 	}
 
-	Rect* viewWin = new Rect(200, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	Rect* viewWin = new Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	loadMap();
 
@@ -89,7 +93,6 @@ int main() {
 
 		al_wait_for_event(queue, &event);
 		//clean display/backbuffer i dont know
-		dpyBuffer = (ALLEGRO_BITMAP*)al_get_backbuffer(display);
 
 		ALLEGRO_BITMAP* sky = al_create_bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
 		ALLEGRO_BITMAP* terrain = al_create_sub_bitmap(sky, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -98,9 +101,16 @@ int main() {
 		al_set_target_bitmap(sky);
 		TileTerrainDisplay(&map_sky, NULL, *viewWin, Rect(), (Bitmap*)tileSet);
 		al_set_target_bitmap((ALLEGRO_BITMAP*)dpyBuffer);
-		
 		al_draw_bitmap(sky, 0, 0, 0);
-		al_flip_display();
+		//al_flip_display();
+
+		//dpyBuffer = (ALLEGRO_BITMAP *)al_get_backbuffer(display);
+		//ALLEGRO_BITMAP terrain = al_create_bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
+		//al_set_target_bitmap(terrain);
+		TileTerrainDisplay(&map, NULL, *viewWin, Rect(), (Bitmap *)tileSet);
+		//al_set_target_bitmap((ALLEGRO_BITMAP*)dpyBuffer);
+
+		//al_draw_bitmap(terrain, 0, 0, 0);
 
 		switch (event.type) {
 		case ALLEGRO_EVENT_KEY_DOWN:
@@ -111,13 +121,13 @@ int main() {
 				break;
 			case ALLEGRO_KEY_RIGHT:
 				std::cout << "Before " << viewWin->x << std::endl;
-				ScrollWithBoundsCheck(viewWin, 1, 0);
+				ScrollWithBoundsCheck(viewWin, 16, 0);
 				std::cout << "After " << viewWin->x << std::endl;
 
 				std::cout << " ------------------------ Pressed Right arrow!" << std::endl;
 				break;
 			case ALLEGRO_KEY_LEFT:
-				ScrollWithBoundsCheck(viewWin, -1, 0);
+				ScrollWithBoundsCheck(viewWin, -16, 0);
 				std::cout << " ------------------------ Pressed Left Arrow!" << std::endl;
 				break;
 			case ALLEGRO_KEY_SPACE:
@@ -134,20 +144,23 @@ int main() {
 
 		//Copies or updates the front and back buffers so that what has been drawn previously on the currently selected display becomes visible on screen. Pointers to the special back and front buffer bitmaps remain valid and retain their semantics as back and front buffers respectively, although their contents may have changed.
 		al_flip_display();
-		al_destroy_bitmap(terrain);
-		al_destroy_bitmap(sky);
+		//al_destroy_bitmap(terrain);
+		//al_destroy_bitmap(sky);
 	}
 
 	al_destroy_display(display);
 	al_destroy_bitmap(tileSet);
 	al_destroy_event_queue(queue);
+	
+	return 0;*/
 
-	return 0;
+
+	GameMain();
 }
 
 void loadMap() {
 	//Instead of .. put your path
-	if (!ReadTextMap(&map_sky, "resources/csv/level1-1_Sky.csv")) {
+	/*if (!ReadTextMap(&map_sky, "resources/csv/level1-1_Sky.csv")) {
 		std::cout << "Failed to read map";
 		exit(-1);
 	}
@@ -160,7 +173,7 @@ void loadMap() {
 		exit(-1);
 	}
 
-	if (!ReadTextMap(&map, "resources/csv/level1-1_flag.csv")) {
+	/*if (!ReadTextMap(&map, "resources/csv/level1-1_flag.csv")) {
 		std::cout << "Failed to read map";
 		exit(-1);
 	}
@@ -168,9 +181,9 @@ void loadMap() {
 	if (!ReadTextMap(&map, "resources/csv/level1-1_terain.csv")) {
 		std::cout << "Failed to read map";
 		exit(-1);
-	}
+	}*/
 
-	//WriteTextMap(&map, "resources/csv/full-map.csv");
+	//WriteTextMap(&map, "full-map.csv");
 	//printTileMap_DEBUG(&map);
 
 
