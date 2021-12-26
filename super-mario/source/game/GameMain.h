@@ -173,7 +173,7 @@ void CommitDestructions() {
 
 }
 
-bool isFinished() {
+bool isFinished() { //h Done? dhladh pote prepei na teleiwsei to paixnidi
 	return false;
 }
 
