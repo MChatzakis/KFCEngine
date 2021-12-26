@@ -67,4 +67,24 @@ Bitmap dpyBuffer = nullptr;
 Point viewPosCached{ -1, -1 };
 Dim dpyX = 0, dpyY = 0;
 
+typedef unsigned char* PixelMemory;
+
+using BitmapAccessFunctor = std::function<void(PixelMemory*)>;
+void BitmapAccessPixels(Bitmap bmp, const BitmapAccessFunctor& f) {
+	auto result = al_lock_bitmap((ALLEGRO_BITMAP *)bmp, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_READWRITE);
+	assert(result);
+	auto mem = al_buffer(bmp);
+	auto offset = BitmapGetLineOffset(bmp); 
+	for (auto y = al_get_bitmap_height((ALLEGRO_BITMAP*)bmp); y--; ) {
+		auto buff = mem;
+		for (auto x = al_get_bitmap_width((ALLEGRO_BITMAP*)bmp); x--; ) {
+			f(buff);
+			buff += GetDepth();
+		}
+		mem += offset;
+	}
+
+	al_unlock_bitmap((ALLEGRO_BITMAP*)bmp);
+}
+
 #endif

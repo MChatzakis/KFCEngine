@@ -10,7 +10,6 @@
 #include "engine/Tilemap.h"
 #include "engine/ViewWindow.h"
 
-
 #include "./TypeDefinitions.h"
 
 #include "game/GameMain.h"

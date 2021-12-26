@@ -2,6 +2,7 @@
 #define _GRID_H_
 
 #include <iostream>	
+#include <set>	
 
 #include "../TypeDefinitions.h"
 #include "./Tilemap.h"
@@ -54,18 +55,22 @@ void SetSolidGridTile(GridMap* m, Dim col, Dim row)
 {
 	SetGridTile(m, col, row, GRID_SOLID_TILE);
 }
+
 void SetEmptyGridTile(GridMap* m, Dim col, Dim row)
 {
 	SetGridTile(m, col, row, GRID_EMPTY_TILE);
 }
+
 void SetGridTileFlags(GridMap* m, Dim col, Dim row, GridIndex flags)
 {
 	SetGridTile(m, col, row, flags);
 }
+
 void SetGridTileTopSolidOnly(GridMap* m, Dim col, Dim row)
 {
 	SetGridTileFlags(m, row, col, GRID_TOP_SOLID_MASK);
 }
+
 bool CanPassGridTile(GridMap* m, Dim col, Dim row, GridIndex flags) // i.e. checks if flags set
 {
 	return GetGridTile(m, row, col) & flags != 0;
@@ -73,15 +78,13 @@ bool CanPassGridTile(GridMap* m, Dim col, Dim row, GridIndex flags) // i.e. chec
 
 #define MAX_PIXEL_WIDTH MUL_TILE_WIDTH(MAX_WIDTH)
 #define MAX_PIXEL_HEIGHT MUL_TILE_HEIGHT(MAX_HEIGHT)
-#define DIV_GRID_ELEMENT_WIDTH(i) ((i)>>2)
+#define DIV_GRID_ELEMENT_WIDTH(i) ((i)>>2) //CCC
 #define DIV_GRID_ELEMENT_HEIGHT(i) ((i)>>2)
 #define MUL_GRID_ELEMENT_WIDTH(i) ((i)<<2)
 #define MUL_GRID_ELEMENT_HEIGHT(i) ((i)<<2)
 
 void FilterGridMotion(GridMap* m, const Rect& r, int* dx, int* dy) {
-	assert(
-		abs(*dx) <= GRID_ELEMENT_WIDTH && abs(*dy) <= GRID_ELEMENT_HEIGHT
-	);
+	assert(abs(*dx) <= GRID_ELEMENT_WIDTH && abs(*dy) <= GRID_ELEMENT_HEIGHT);
 	// try horizontal move
 	if (*dx < 0)
 		FilterGridMotionLeft(m, r, dx);
@@ -116,6 +119,48 @@ void FilterGridMotionLeft(GridMap* m, const Rect& r, int* dx) {
 	}
 }
 
+void FilterGridMotionUp(GridMap* m, const Rect& r, int* dy) {
+	auto y2 = r.y + r.h - 1;
+	auto y2_next = y2 + *dy;
+	//auto y1_next = r.y + *dy;
+	if (y2_next >= MAX_PIXEL_HEIGHT)
+		*dy = (MAX_PIXEL_HEIGHT – 1) - y2;
+	else {
+		auto newRow = DIV_GRID_ELEMENT_HEIGHT(y2_next);
+		auto currRow = DIV_GRID_ELEMENT_HEIGHT(y2);
+		if (newRow != currRow) {
+			assert(newRow == currRow + 1); // we really move up
+			auto startCol = DIV_GRID_ELEMENT_WIDTH(r.x);
+			auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
+			for (auto col = startCol; col <= endCol; ++col)
+				if (!CanPassGridTile(m, newRow, col, GRID_TOP_SOLID_MASK)) {
+					*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - 1 - y2;
+					break;
+				}
+		}
+	}
+}
+
+void FilterGridMotionDown(GridMap* m, const Rect& r, int* dy) {
+	auto y1_next = r.y + *dy;
+	if (y1_next < 0)
+		*dy = -r.y;
+	else {
+		auto newRow = DIV_GRID_ELEMENT_HEIGHT(y1_next);
+		auto currRow = DIV_GRID_ELEMENT_HEIGHT(r.y);
+		if (newRow != currRow) {
+			assert(newRow == currRow - 1); // we really move up
+			auto startCol = DIV_GRID_ELEMENT_WIDTH(r.x);
+			auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
+			for (auto col = startCol; col <= endCol; ++col)
+				if (!CanPassGridTile(m, newRow, col, GRID_BOTTOM_SOLID_MASK)) {
+					*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - r.y;
+					break;
+				}
+		}
+	}
+}
+
 void FilterGridMotionRight(GridMap* m, const Rect& r, int* dx) {
 	auto x2 = r.x + r.w - 1;
 	auto x2_next = x2 + *dx;
@@ -130,14 +175,16 @@ void FilterGridMotionRight(GridMap* m, const Rect& r, int* dx) {
 			auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
 			for (auto row = startRow; row <= endRow; ++row)
 				if (!CanPassGridTile(m, newCol, row, GRID_LEFT_SOLID_MASK)) {
-					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) – 1) - x2;
+					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2;
 					break;
 				}
 		}
 	}
 }
 
-extern bool IsTileIndexAssumedEmpty(Index index);
+bool IsTileIndexAssumedEmpty(Index index) {
+	return (index == 0); //tosee again...
+}
 
 void ComputeTileGridBlocks1(const TileMap* map, GridIndex* grid) {
 	for (auto row = 0; row < MAX_HEIGHT; ++row)
@@ -161,8 +208,7 @@ public:
 	void Insert(Bitmap bmp, Index index) {
 		if (indices.find(index) == indices.end()) {
 			indices.insert(index);
-			BitmapAccessPixels(
-				bmp,
+			BitmapAccessPixels(bmp,
 				[this](PixelMemory mem)
 				{ colors.insert(GetPixel32(mem)); }
 			);
@@ -173,27 +219,22 @@ public:
 		return colors.find(c) != colors.end();
 	}
 };
+
 // keeps colors that are assumed to be empty
 static TileColorsHolder emptyTileColors;
+
 bool IsTileColorEmpty(Color c)
 {
 	return emptyTileColors.In(c);
 } // return false to disable
 
-
-void ComputeTileGridBlocks2(
-	const TileMap* map,
-	GridIndex* grid,
-	Bitmap tileSet,
-	Color transColor,
-	byte solidThreshold
-) {
-	auto tileElem = BitmapCreate(TILE_WIDTH, TILE_HEIGHT);
-	auto gridElem = BitmapCreate(GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT);
+void ComputeTileGridBlocks2(const TileMap* map, GridIndex* grid, Bitmap tileSet, Color transColor, byte solidThreshold) {
+	auto tileElem = al_create_bitmap(TILE_WIDTH, TILE_HEIGHT);
+	auto gridElem = al_create_bitmap(GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT);
 	for (auto row = 0; row < MAX_HEIGHT; ++row)
 		for (auto col = 0; col < MAX_WIDTH; ++col) {
 			auto index = GetTile(map, col, row);
-			PutTile(tileElem, 0, 0, tileSet, index);
+			PutTile(tileElem, 0, 0, &tileSet, index);
 			if (IsTileIndexAssumedEmpty(index)) {
 				emptyTileColors.Insert(tileElem, index); // assume tile colors to be empty
 				memset(grid, GRID_EMPTY_TILE, GRID_ELEMENTS_PER_TILE);
@@ -205,28 +246,22 @@ void ComputeTileGridBlocks2(
 					tileSet, transColor, solidThreshold
 				);
 		}
-	BitmapDestroy(tileElem);
-	BitmapDestroy(gridElem);
+	al_destroy_bitmap(tileElem);
+	al_destroy_bitmap(gridElem);
 }
 
-void ComputeGridBlock(
-	GridIndex*& grid,
-	Index index,
-	Bitmap tileElem,
-	Bitmap gridElem,
-	Bitmap tileSet,
-	Color transColor,
-	byte solidThreshold
-) {
+void ComputeGridBlock(GridIndex*& grid, Index index, Bitmap tileElem, Bitmap gridElem, Bitmap tileSet, Color transColor, byte solidThreshold) {
 	for (auto i = 0; i < GRID_ELEMENTS_PER_TILE; ++i) {
 		auto x = i % GRID_BLOCK_ROWS;
 		auto y = i / GRID_BLOCK_ROWS;
-		BitmapBlit(
+		/*BitmapBlit(
 			tileElem,
 			{ x * GRID_ELEMENT_WIDTH, y * GRID_ELEMENT_HEIGHT, GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT },
 			gridElem,
 			{ 0, 0 }
-		);
+		);*/
+		al_draw_bitmap_region((ALLEGRO_BITMAP*)tileElem, x * GRID_ELEMENT_WIDTH, y * GRID_ELEMENT_HEIGHT, GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT,/*gridElem*/ 0, 0, 0);
+
 		auto isEmpty = ComputeIsGridIndexEmpty(gridElem, transColor, solidThreshold);
 		*grid++ = isEmpty ? GRID_EMPTY_TILE : GRID_SOLID_TILE;
 	}
@@ -235,13 +270,11 @@ void ComputeGridBlock(
 Color GetPixel32(PixelMemory mem) {
 	RGBA c;
 	ReadPixelColor32(mem, &c, &c.a);
+
 	return MakeColor32(c.r, c.g, c.b, c.a);
 }
-bool ComputeIsGridIndexEmpty(
-	Bitmap gridElement,
-	Color transColor,
-	byte solidThreshold
-) {
+
+bool ComputeIsGridIndexEmpty(Bitmap gridElement, Color transColor, byte solidThreshold) {
 	auto n = 0;
 	BitmapAccessPixels(
 		gridElement,
@@ -256,37 +289,60 @@ bool ComputeIsGridIndexEmpty(
 
 #define GRID_BLOCK_SIZEOF \
 (GRID_ELEMENTS_PER_TILE * sizeof(GridIndex))
+
 GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
 	return grid + (rowTile * tileCols + colTile) * GRID_BLOCK_SIZEOF;
 }
+
 void SetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid, GridIndex flags) {
-	memset(
-		GetGridTileBlock(colTile, rowTile, tileCols, grid),
-		flags,
-		GRID_BLOCK_SIZEOF
-	);
+	memset(GetGridTileBlock(colTile, rowTile, tileCols, grid), flags, GRID_BLOCK_SIZEOF);
 }
+
 #define SetGridTileBlockEmpty(col, row, cols, grid) \
 SetGridTileBlock(col, row, cols, grid, GRID_EMPTY_TILE)
+
 #define SetGridTileBlockSolid(col, row, cols, grid) \
 SetGridTileBlock(col, row, cols, grid, GRID_SOLID_TILE)
 
 #define GRID_BLOCK_SIZEOF \
 (GRID_ELEMENTS_PER_TILE * sizeof(GridIndex))
+
 GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
 	return grid + (rowTile * tileCols + colTile) * GRID_BLOCK_SIZEOF;
 }
 
 void SetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid, GridIndex flags) {
-	memset(
-		GetGridTileBlock(colTile, rowTile, tileCols, grid),
-		flags,
-		GRID_BLOCK_SIZEOF
-	);
+	memset(GetGridTileBlock(colTile, rowTile, tileCols, grid), flags, GRID_BLOCK_SIZEOF);
 }
+
 #define SetGridTileBlockEmpty(col, row, cols, grid) \
 SetGridTileBlock(col, row, cols, grid, GRID_EMPTY_TILE)
+
 #define SetGridTileBlockSolid(col, row, cols, grid) \
 SetGridTileBlock(col, row, cols, grid, GRID_SOLID_TILE)
+
+// use this to render grid (toggle on / off), used only for development time testing -
+// a tile grid block is consecutive GRID_BLOCK_ROWS x GRID_BLOCK_COLUMNS block of grid indices
+template <typename Tfunc> void DisplayGrid(Bitmap dest, const Rect& viewWin, GridIndex* grid, Dim tileCols, const Tfunc& display_f) {
+	auto startCol = DIV_TILE_WIDTH(viewWin.x);
+	auto startRow = DIV_TILE_HEIGHT(viewWin.y);
+	auto endCol = DIV_TILE_WIDTH(viewWin.x + viewWin.w - 1);
+	auto endRow = DIV_TILE_HEIGHT(viewWin.y + viewWin.h - 1);
+	for (Dim rowTile = startRow; rowTile <= endRow; ++rowTile)
+		for (Dim colTile = startCol; colTile <= endCol; ++colTile) {
+			auto sx = MUL_TILE_WIDTH(colTile - startCol);
+			auto sy = MUL_TILE_HEIGHT(rowTile - startRow);
+			auto* gridBlock = GetGridTileBlock(rowTile, colTile, tileCols, grid);
+			for (auto rowElem = 0; rowElem < GRID_BLOCK_ROWS; ++rowElem)
+				for (auto colElem = 0; colElem < GRID_BLOCK_COLUMNS; ++colElem)
+					if (*gridBlock++ & GRID_SOLID_TILE) {
+						auto x = sx + MUL_GRID_ELEMENT_WIDTH(colElem);
+						auto y = sy + MUL_GRID_ELEMENT_HEIGHT(rowElem);
+						auto w = GRID_ELEMENT_WIDTH - 1;
+						auto h = GRID_ELEMENT_HEIGHT - 1;
+						display_f(dest, x, y, w, h);
+					}
+		}
+}
 
 #endif _GRID_H_

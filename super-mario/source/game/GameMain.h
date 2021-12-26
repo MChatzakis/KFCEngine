@@ -23,6 +23,7 @@ ALLEGRO_EVENT_QUEUE* queue;
 ALLEGRO_BITMAP* tileSet;
 
 Rect* viewWin;
+Game* game;
 
 void Initialise() {
 	nlohmann::json config = readJSON("resources/config/config.json");
@@ -63,6 +64,9 @@ void Initialise() {
 	al_register_event_source(queue, al_get_mouse_event_source());
 
 	viewWin = new Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	game = new Game();
+
+	
 }
 
 void Load() {
@@ -80,6 +84,7 @@ void Load() {
 		std::cout << "Failed to read map";
 		exit(-1);
 	}
+	
 	if (!ReadTextMap(&map, "resources/csv/level1-1_background.csv")) {
 		std::cout << "Failed to read map";
 		exit(-1);
@@ -172,44 +177,26 @@ bool isFinished() {
 	return false;
 }
 
-void setGameActions(app::Game game) {
-	game.SetRender(Render);
-	game.SetInput(Input);
-	game.SetProgressAnimations(ProgressAnimations);
-	game.SetAI(AI);
-	game.SetPhysics(Physics);
-	game.SetDestructions(CommitDestructions);
-	game.SetCollisionChecking(CollisionChecking);
-	game.SetUserCode(UserCode);
-	game.SetIsFinished(isFinished);
+void setGameActions() {
+	game->SetRender(Render);
+	game->SetInput(Input);
+	game->SetProgressAnimations(ProgressAnimations);
+	game->SetAI(AI);
+	game->SetPhysics(Physics);
+	game->SetDestructions(CommitDestructions);
+	game->SetCollisionChecking(CollisionChecking);
+	game->SetUserCode(UserCode);
+	game->SetIsFinished(isFinished);
 }
 
-/*int main(){
-	app::Game game;
-	setGameActions(game);
-	app::App::Main();
-}*/
+void Run() {
+	setGameActions();
+	game->MainLoop();
+}
 
 void GameMain() {
-	app::Game game = app::Game();
-	
 	Initialise();
 	Load();
-	setGameActions(game);
-	game.MainLoop();
-	
-	//It is the same and it plays fine
-	/*while (!isFinished()) {
-		Render();
-		Input();
-		ProgressAnimations();
-		AI();
-		Physics();
-		CommitDestructions();
-		CollisionChecking();
-		UserCode();
-	}*/
-
+	Run();
 	Clear();
-
 }
