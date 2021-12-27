@@ -177,46 +177,93 @@ void ReadPixelColor32(PixelMemory, RGB*, Alpha*);
 	Color Make mappings
 */
 Color Make8(RGBValue r, RGBValue g, RGBValue b) {
-	Color res;
-	RGBValue red = r & 0x07; // 3 bits -> 111
-	RGBValue green = g & 0x03; // 2 bits -> 11
-	RGBValue blue = b & 0x07; // 3 bits -> 111
-	res = (red << 5) + (green << 3) + blue;
-	return res;
+	Color red = (r & BitMask3Bits) << 5; // mask 3 bits -> 111
+	Color green = (g & BitMask2Bits) << 3; // mask 2 bits -> 11
+	Color blue = b & BitMask3Bits;
+	return red + green + blue;
 }//8 bits color, isws al_map / al_unmap_rgb
 
-Color Make16(RGBValue r, RGBValue g, RGBValue b); //16 bits color
+Color Make16(RGBValue r, RGBValue g, RGBValue b) {
+	Color red = r, green = g, blue = b; //gia na mh xasoyme plhroforia kata to shifting
+	red = (red & BitMask5Bits) << 11; // mask 5 bits -> 11111
+	green = (green & BitMask6Bits) << 5; // mask 6 bits -> 111111
+	blue = blue & BitMask5Bits;
+	return red + green + blue;
+}//16 bits color
 
-Color Make24(RGBValue r, RGBValue g, RGBValue b); //24 bits color
+Color Make24(RGBValue r, RGBValue g, RGBValue b) {
+	Color red = r, green = g, blue = b;
+	red = red << 16;
+	green = green << 8;
+	return red + green + blue;
+}//24 bits color
 
-Color Make32(RGBValue r, RGBValue g, RGBValue b, Alpha alpha = 0); //24 bits color and 8 bits alpha
+Color Make32(RGBValue r, RGBValue g, RGBValue b, Alpha alpha = 0) {
+	Color red = r, green = g, blue = b, a = alpha;
+	red << 24;
+	green << 16;
+	blue << 8;
+	return red + green + blue + a;
+}//24 bits color and 8 bits alpha
 
 
 /*
 	Shift bit mask mappings
 */
-unsigned GetRedShiftRGBA(void);
+//For pixel size 4 bytes
+unsigned GetRedShiftRGBA(void) {
+	return 24;
+}
 
-unsigned GetRedBitMaskRGBA(void);
+unsigned GetRedBitMaskRGBA(void) {
+	//return 0xFF000000; //11111111000000000000000000000000
+	return BitMask8Bits;
+}
 
-unsigned GetGreenShiftRGBA(void);
+unsigned GetGreenShiftRGBA(void) {
+	return 16;
+}
 
-unsigned GetGreenBitMaskRGBA(void);
+unsigned GetGreenBitMaskRGBA(void) {
+	return BitMask8Bits;
+}
 
-unsigned GetBlueShiftRGBA(void);
+unsigned GetBlueShiftRGBA(void) {
+	return 8;
+}
 
-unsigned GetBlueBitMaskRGBA(void);
+unsigned GetBlueBitMaskRGBA(void) {
+	return BitMask8Bits;
+}
 
-unsigned GetAlphaShiftRGBA(void);
+unsigned GetAlphaShiftRGBA(void) {
+	return 0;
+}
 
-unsigned GetAlphaBitMaskRGBA(void);
+unsigned GetAlphaBitMaskRGBA(void) {
+	return BitMask8Bits;
+}
 
 // firstly mask to isolate the RGB component, then shift to get value
 RGBValue GetRedRGBA(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
-	return (c & GetRedBitMaskRGBA()) >> GetRedShiftRGBA();
+	return (c >> GetRedShiftRGBA()) & GetRedBitMaskRGBA();
 }
 
+RGBValue GetGreenRGBA(PixelMemory pixel) {
+	Color c = *((Color*)pixel);
+	return (c >> GetGreenShiftRGBA()) & GetGreenBitMaskRGBA();
+}
+
+RGBValue GetBlueRGBA(PixelMemory pixel) {
+	Color c = *((Color*)pixel);
+	return (c >> GetBlueShiftRGBA()) & GetBlueBitMaskRGBA();
+}
+
+Alpha GetAlphaRGBA(PixelMemory pixel) {
+	Color c = *((Color*)pixel);
+	return (c >> GetAlphaShiftRGBA()) & GetAlphaBitMaskRGBA();
+}
 
 /*
 	Put Pixel mappings

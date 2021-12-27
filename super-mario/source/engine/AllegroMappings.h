@@ -8,6 +8,11 @@
 
 #include "../TypeDefinitions.h"
 
+#define BitMask2Bits 0x03 //11
+#define BitMask3Bits 0x07 //111 ktlp..
+#define BitMask5Bits 0x1f
+#define BitMask6Bits 0x3f
+#define BitMask8Bits 0xFF
 /*
 TODOs:
 1) Continue Completing the Allegro Mappings file
@@ -18,7 +23,7 @@ TODOs:
 /*
 	Pallete init mappings
 */
-void SetPalette(RGB* palette); //set colors
+void SetPalette(RGB* palette); //set colors //todo
 
 /*
 	Bitmap function mappings
@@ -82,25 +87,41 @@ void ReadPixelColor32(PixelMemory, RGB*, Alpha*); //todo
 	Color Make mappings
 */
 Color Make8(RGBValue r, RGBValue g, RGBValue b);
-Color Make16(RGBValue r, RGBValue g, RGBValue b); //16 bits color //todo
-Color Make24(RGBValue r, RGBValue g, RGBValue b); //24 bits color //todo
-Color Make32(RGBValue r, RGBValue g, RGBValue b, Alpha alpha = 0); //24 bits color and 8 bits alpha //todo
+Color Make16(RGBValue r, RGBValue g, RGBValue b);
+Color Make24(RGBValue r, RGBValue g, RGBValue b);
+Color Make32(RGBValue r, RGBValue g, RGBValue b, Alpha alpha = 0);
 
 
 /*
 	Shift bit mask mappings
 */
-unsigned GetRedShiftRGBA(void);  //todo
-unsigned GetRedBitMaskRGBA(void); //todo
-unsigned GetGreenShiftRGBA(void); //todo
-unsigned GetGreenBitMaskRGBA(void); //todo
-unsigned GetBlueShiftRGBA(void); //todo
-unsigned GetBlueBitMaskRGBA(void); //todo
-unsigned GetAlphaShiftRGBA(void); //todo
-unsigned GetAlphaBitMaskRGBA(void); //todo
-
-// firstly mask to isolate the RGB component, then shift to get value
+//RGBA -> 32 bits for colors and alpha
+unsigned GetRedShiftRGBA(void);
+unsigned GetRedBitMaskRGBA(void);
+unsigned GetGreenShiftRGBA(void);
+unsigned GetGreenBitMaskRGBA(void);
+unsigned GetBlueShiftRGBA(void);
+unsigned GetBlueBitMaskRGBA(void);
+unsigned GetAlphaShiftRGBA(void);
+unsigned GetAlphaBitMaskRGBA(void);
 RGBValue GetRedRGBA(PixelMemory pixel);
+RGBValue GetGreenRGBA(PixelMemory pixel);
+RGBValue GetBlueRGBA(PixelMemory pixel);
+Alpha GetAlphaRGBA(PixelMemory pixel);
+
+//RGB -> 24 bits or less for colors
+unsigned GetRedShiftRGB(BitDepth pixel_size); //todo
+unsigned GetRedBitMaskRGB(BitDepth pixel_size); //todo
+unsigned GetGreenShiftRGB(BitDepth pixel_size); //todo
+unsigned GetGreenBitMaskRGB(BitDepth pixel_size); //todo
+unsigned GetBlueShiftRGB(BitDepth pixel_size); //todo
+unsigned GetBlueBitMaskRGB(BitDepth pixel_size); //todo
+unsigned GetAlphaShiftRGB(BitDepth pixel_size); //todo
+unsigned GetAlphaBitMaskRGB(BitDepth pixel_size); //todo
+RGBValue GetRedRGB(PixelMemory pixel, BitDepth pixel_size); //todo
+RGBValue GetGreenRGB(PixelMemory pixel, BitDepth pixel_size); //todo
+RGBValue GetBlueRGB(PixelMemory pixel, BitDepth pixel_size); //todo
+Alpha GetAlphaRGB(PixelMemory pixel, BitDepth pixel_size); //todo
 
 /*
 	Put Pixel mappings
