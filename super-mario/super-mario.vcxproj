@@ -144,12 +144,17 @@
     <None Include="resources\config\config.json" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\engine\AllegroMappings.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\engine\AllegroMappings.h" />
     <ClInclude Include="source\engine\Game.h" />
     <ClInclude Include="source\engine\Grid.h" />
+    <ClInclude Include="source\engine\GridLayer.h" />
+    <ClInclude Include="source\engine\TileActions.h" />
+    <ClInclude Include="source\engine\TileLayer.h" />
     <ClInclude Include="source\engine\Tilemap.h" />
     <ClInclude Include="source\engine\ViewWindow.h" />
     <ClInclude Include="source\game\GameMain.h" />
