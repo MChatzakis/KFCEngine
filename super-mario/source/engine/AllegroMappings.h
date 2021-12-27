@@ -77,10 +77,10 @@ void WritePixelColor32(PixelMemory, const RGB&, Alpha a); //todo
 /*
 	Read Pixel color mappings
 */
-void ReadPixelColor8(PixelMemory, RGBValue*); //read pixel color  //todo
-void ReadPixelColor16(PixelMemory, RGB*); //todo
-void ReadPixelColor24(PixelMemory, RGB*); //todo
-void ReadPixelColor32(PixelMemory, RGB*, Alpha*); //todo
+void ReadPixelColor8(PixelMemory, RGBValue*); //read pixel color
+void ReadPixelColor16(PixelMemory, RGB*);
+void ReadPixelColor24(PixelMemory, RGB*);
+void ReadPixelColor32(PixelMemory, RGB*, Alpha*);
 
 
 /*
@@ -109,24 +109,43 @@ RGBValue GetGreenRGBA(PixelMemory pixel);
 RGBValue GetBlueRGBA(PixelMemory pixel);
 Alpha GetAlphaRGBA(PixelMemory pixel);
 
-//RGB -> 24 bits or less for colors
-unsigned GetRedShiftRGB(BitDepth pixel_size); //todo
-unsigned GetRedBitMaskRGB(BitDepth pixel_size); //todo
-unsigned GetGreenShiftRGB(BitDepth pixel_size); //todo
-unsigned GetGreenBitMaskRGB(BitDepth pixel_size); //todo
-unsigned GetBlueShiftRGB(BitDepth pixel_size); //todo
-unsigned GetBlueBitMaskRGB(BitDepth pixel_size); //todo
-unsigned GetAlphaShiftRGB(BitDepth pixel_size); //todo
-unsigned GetAlphaBitMaskRGB(BitDepth pixel_size); //todo
-RGBValue GetRedRGB(PixelMemory pixel, BitDepth pixel_size); //todo
-RGBValue GetGreenRGB(PixelMemory pixel, BitDepth pixel_size); //todo
-RGBValue GetBlueRGB(PixelMemory pixel, BitDepth pixel_size); //todo
-Alpha GetAlphaRGB(PixelMemory pixel, BitDepth pixel_size); //todo
+//RGB -> 24 bits for colors
+unsigned GetRedShiftRGB24(void);
+unsigned GetRedBitMaskRGB24(void);
+unsigned GetGreenShiftRGB24(void);
+unsigned GetGreenBitMaskRGB24(void);
+unsigned GetBlueShiftRGB24(void);
+unsigned GetBlueBitMaskRGB24(void);
+RGBValue GetRedRGB24(PixelMemory pixel);
+RGBValue GetGreenRGB24(PixelMemory pixel);
+RGBValue GetBlueRGB24(PixelMemory pixel);
+
+//RGB -> 16 bits for colors
+unsigned GetRedShiftRGB16(void);
+unsigned GetRedBitMaskRGB16(void);
+unsigned GetGreenShiftRGB16(void);
+unsigned GetGreenBitMaskRGB16(void);
+unsigned GetBlueShiftRGB16(void);
+unsigned GetBlueBitMaskRGB16(void);
+RGBValue GetRedRGB16(PixelMemory pixel);
+RGBValue GetGreenRGB16(PixelMemory pixel);
+RGBValue GetBlueRGB16(PixelMemory pixel);
+
+//RGB -> 8 bits for colors
+unsigned GetRedShiftRGB8(void);
+unsigned GetRedBitMaskRGB8(void);
+unsigned GetGreenShiftRGB8(void);
+unsigned GetGreenBitMaskRGB8(void);
+unsigned GetBlueShiftRGB8(void);
+unsigned GetBlueBitMaskRGB8(void);
+RGBValue GetRedRGB8(PixelMemory pixel);
+RGBValue GetGreenRGB8(PixelMemory pixel);
+RGBValue GetBlueRGB8(PixelMemory pixel);
 
 /*
 	Put Pixel mappings
 */
-void PutPixel8(Bitmap b, Dim x, Dim y, Color c);  //todo
+void PutPixel8(Bitmap b, Dim x, Dim y, Color c); //ta alla giati einai static?
 
 // function table approach 
 static void PutPixel16(Bitmap b, Dim x, Dim y, Color c); //todo
