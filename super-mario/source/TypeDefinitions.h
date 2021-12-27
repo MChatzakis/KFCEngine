@@ -41,7 +41,8 @@ enum BitDepth { bits8 = 1, bits16, bits24, bits32 };
 struct Res {
 	Dim rw, rh;
 	BitDepth depth;
-	Res() {}
+	Res(Dim _w, Dim _h, BitDepth _depth) : rw{ _w }, rh{ _h }, depth{_depth}{};
+	Res() { rw = rh = 0; depth = bits32; };
 };
 
 Res res;
@@ -69,6 +70,10 @@ Dim GetResHeight(void) {
 /*BitDepth GetDepth(void) {
 	return res.depth;
 }*/
+
+BitDepth GetDepth(void) {
+	return bits32;
+}
 
 typedef unsigned int Color;
 typedef unsigned char RGBValue;
@@ -99,8 +104,16 @@ Dim dpyX = 0, dpyY = 0;
 
 typedef unsigned char* PixelMemory;
 //...............................................
-void SetPalette(RGB* palette); //set colors with the 4 below functions
-Color Make8(RGBValue r, RGBValue g, RGBValue b); //8 bits color, isws al_map / al_unmap_rgb
+void SetPalette(RGB* palette); //set colors
+
+Color Make8(RGBValue r, RGBValue g, RGBValue b) {
+	Color res;
+	RGBValue red = r & 0x07; // 3 bits -> 111
+	RGBValue green = g & 0x03; // 2 bits -> 11
+	RGBValue blue = b & 0x07; // 3 bits -> 111
+	res = (red << 5) + (green << 3) + blue;
+	return res;
+}//8 bits color, isws al_map / al_unmap_rgb
 Color Make16(RGBValue r, RGBValue g, RGBValue b); //16 bits color
 Color Make24(RGBValue r, RGBValue g, RGBValue b); //24 bits color
 Color Make32(RGBValue r, RGBValue g, RGBValue b, Alpha alpha = 0); //24 bits color and 8 bits alpha
@@ -182,23 +195,9 @@ void ReadPixelColor24(PixelMemory, RGB*);
 void ReadPixelColor32(PixelMemory, RGB*, Alpha*);
 //Lecture 6 mexri kai selida 25
 
-BitDepth pixelDepth = bits32;
-
-
-BitDepth GetDepth(void) {
-	return pixelDepth;
-}
-
 int BitmapGetLineOffset(Bitmap bmp) {
 	return GetDepth() * al_get_bitmap_width((ALLEGRO_BITMAP*)bmp);
 }
-
-
-void SetDepth(BitDepth pDepth) {
-	pixelDepth = pDepth;
-}
-
-
 
 //................................................
 using BitmapAccessFunctor = std::function<void(PixelMemory*)>;
