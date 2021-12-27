@@ -76,6 +76,10 @@ void Load() {
 		exit(-1);
 	}
 
+	//BitmapLock(tileSet);
+	BitmapGetMemory(tileSet);
+	BitmapUnlock(tileSet);
+
 	/*if (!ReadTextMap(&map_sky, "resources/csv/level1-1_Sky.csv")) {
 		std::cout << "Failed to read map";
 		exit(-1);
