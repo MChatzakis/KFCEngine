@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <functional>
+#include <chrono>
 
 #include <allegro5/allegro.h>
 
@@ -19,6 +20,9 @@ TODOs:
 2) Implement all unimplented methods on {Tile,Grid .. }Layer class
 3) See what is goind on with the map
 */
+
+//extern int SCREEN_WIDTH;
+//extern int SCREEN_HEIGHT;
 
 /*
 	Pallete init mappings
@@ -148,9 +152,10 @@ RGBValue GetBlueRGB8(PixelMemory pixel);
 void PutPixel8(Bitmap b, Dim x, Dim y, Color c); //ta alla giati einai static?
 
 // function table approach 
-static void PutPixel16(Bitmap b, Dim x, Dim y, Color c); //todo
-static void PutPixel24(Bitmap b, Dim x, Dim y, Color c); //todo
-static void PutPixel32(Bitmap b, Dim x, Dim y, Color c); //todo
+void PutPixel16(Bitmap b, Dim x, Dim y, Color c); //todo
+void PutPixel24(Bitmap b, Dim x, Dim y, Color c); //todo
+void PutPixel32(Bitmap b, Dim x, Dim y, Color c); //todo
+
 
 typedef void (*PutPixelFunc)(Bitmap b, Dim x, Dim y, Color c); //todo
 
@@ -164,7 +169,7 @@ void InstallPutPixel(void); // upon initialisation
 /*
 	Sync mappings
 */
-void Render(Bitmap target); // do game rendering to target  //todo
+/*void Render(Bitmap target); // do game rendering to target  //todo
 void Vsync(void); // gfx lib function  //todo
 void Flush(void);
 void Flush2(void);
@@ -172,6 +177,6 @@ void Flush2(void);
 unsigned char frequencyTime; // e.g 14 msecs  75 Hz
 unsigned int timeToNextRendering = 0xffffffff;
 
-extern uint64_t CurrTime(void); // timer in msecs  //todo
+extern uint64_t CurrTime(void); // timer in msecs  //todo*/
 
 #endif _ALLEGROMAPPINGS_H_

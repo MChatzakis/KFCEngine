@@ -6,4 +6,4 @@
 nlohmann::json readJSON(const std::string filename);
 void writeJSON(nlohmann::json j, const std::string filename, unsigned short indent);
 
-#endif
+#endif _UTILS_H_

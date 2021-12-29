@@ -154,7 +154,7 @@ int main() {
 	return 0;*/
 
 	std::cout << "Game starts" << std::endl;
-	GameMain();
+	//meMain();
 }
 
 void loadMap() {

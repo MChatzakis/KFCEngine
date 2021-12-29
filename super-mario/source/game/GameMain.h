@@ -10,6 +10,7 @@
 #include "../engine/Tilemap.h"
 #include "../engine/ViewWindow.h"
 #include "../engine/Game.h"
+#include "../engine/AllegroMappings.h"
 
 #include "../TypeDefinitions.h"
 

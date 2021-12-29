@@ -1,3 +1,6 @@
+#ifndef _ALLEGROMAPPINGS_CPP_
+#define _ALLEGROMAPPINGS_CPP_
+
 #include "./AllegroMappings.h"
 
 /*
@@ -39,8 +42,8 @@ void BitmapDestroy(Bitmap bmp) {
 	al_destroy_bitmap((ALLEGRO_BITMAP*)bmp);
 }
 
-Bitmap BitmapGetScreen(ALLEGRO_DISPLAY* display) { //changed the argument
-	return al_get_backbuffer(display);
+Bitmap BitmapGetScreen() { //changed the argument
+	return al_get_target_bitmap();
 }
 
 Dim BitmapGetWidth(Bitmap bmp) {
@@ -80,19 +83,53 @@ int BitmapGetLineOffset(Bitmap bmp) {
 	return GetDepth() * al_get_bitmap_width((ALLEGRO_BITMAP*)bmp);
 }
 
-Bitmap GetBackBuffer(void); //todo
 
-Color GetBackgroundColor(void); //todo
+Bitmap GetBackBuffer() {
+	return al_get_backbuffer(nullptr);
+}
 
-Rect& GetScreenRect(void); //todo
+Color GetBackgroundColor(void) {
+	return 0;
+} //todo
 
-void SetColorKey(Color c);
 
-Color GetColorKey(void);
 
-Dim MaskedBlit(Bitmap src, const Rect& from, Bitmap dest, const Point& to);
+Rect& GetScreenRect(void) {
+	return *(new Rect(0, 0, 0, 0));
+} //todo
 
-void BitmapBlitTinted(Bitmap src, const Rect& from, Bitmap dest, const Point& to, Color modulation);
+
+Color COLOR_KEY;
+void SetColorKey(Color c) {
+	COLOR_KEY = c;
+}
+
+Color GetColorKey(void) {
+	return COLOR_KEY;
+}
+
+Dim MaskedBlit(Bitmap src, const Rect& from, Bitmap dest, const Point& to) {
+	ALLEGRO_COLOR mask;
+
+	/*proswrina*/
+	mask.r = 0;
+	mask.g = 0;
+	mask.b = 0;
+
+	al_convert_mask_to_alpha((ALLEGRO_BITMAP*)src, mask);
+	BitmapBlit(src, from, dest, to);
+
+	return 0;
+}
+
+void BitmapBlitTinted(Bitmap src, const Rect& from, Bitmap dest, const Point& to, Color modulation) {
+	ALLEGRO_COLOR color = al_map_rgba_f(1, 0, 0, 1); //todo modulation
+	ALLEGRO_BITMAP* currTarget = al_get_target_bitmap();
+
+	al_set_target_bitmap((ALLEGRO_BITMAP*)dest);
+	al_draw_tinted_bitmap_region((ALLEGRO_BITMAP*)src, color, from.x, from.y, from.w, from.h, to.x, to.y, 0);
+	al_set_target_bitmap(currTarget);
+}
 
 // emulate transparent blending
 void BitmapBlitTransparent(Bitmap src, const Rect& from, Bitmap dest, const Point& to, RGBValue alpha) {
@@ -138,27 +175,27 @@ void TintPixelColor32(PixelMemory pixel, float f) {
 
 void BitmapInvertPixels32(Bitmap bmp)
 {
-	BitmapAccessPixels(bmp, &InvertPixelColor32);
+	//BitmapAccessPixels(bmp, &InvertPixelColor32);
 }
 
 void BitmapTintPixels32(Bitmap bmp, float f) {
-	BitmapAccessPixels(
+	/*BitmapAccessPixels(
 		bmp,
 		[f](PixelMemory pixel) { TintPixelColor32(pixel, f); }
-	);
+	);*/
 }
 
 
 /*
 	Write Pixel color mappings
 */
-void WritePixelColor8(PixelMemory, RGBValue); //draw pixel with color
+void WritePixelColor8(PixelMemory, RGBValue) {} //draw pixel with color
 
-void WritePixelColor16(PixelMemory, const RGB&);
+void WritePixelColor16(PixelMemory, const RGB&) {}
 
-void WritePixelColor24(PixelMemory, const RGB&);
+void WritePixelColor24(PixelMemory, const RGB&) {}
 
-void WritePixelColor32(PixelMemory, const RGB&, Alpha a);
+void WritePixelColor32(PixelMemory, const RGB&, Alpha a) {}
 
 
 /*
@@ -217,7 +254,7 @@ Color Make24(RGBValue r, RGBValue g, RGBValue b) {
 	return red + green + blue;
 }//24 bits color
 
-Color Make32(RGBValue r, RGBValue g, RGBValue b, Alpha alpha = 0) {
+Color Make32(RGBValue r, RGBValue g, RGBValue b, Alpha alpha) {
 	Color red = r, green = g, blue = b, a = alpha;
 	red = (red & GetRedBitMaskRGBA()) << GetRedShiftRGBA();
 	green = (green & GetGreenBitMaskRGBA()) << GetGreenShiftRGBA();
@@ -289,29 +326,37 @@ Alpha GetAlphaRGBA(PixelMemory pixel) {
 unsigned GetRedShiftRGB24(void) {
 	return 16;
 }
+
 unsigned GetRedBitMaskRGB24(void) {
 	return BitMask8Bits;
 }
+
 unsigned GetGreenShiftRGB24(void) {
 	return 8;
 }
+
 unsigned GetGreenBitMaskRGB24(void) {
 	return BitMask8Bits;
 }
+
 unsigned GetBlueShiftRGB24(void) {
 	return 0;
 }
+
 unsigned GetBlueBitMaskRGB24(void) {
 	return BitMask8Bits;
 }
+
 RGBValue GetRedRGB24(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetRedShiftRGB24()) & GetRedBitMaskRGB24();
 }
+
 RGBValue GetGreenRGB24(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetGreenShiftRGB24()) & GetGreenBitMaskRGB24();
 }
+
 RGBValue GetBlueRGB24(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetBlueShiftRGB24()) & GetBlueBitMaskRGB24();
@@ -321,29 +366,37 @@ RGBValue GetBlueRGB24(PixelMemory pixel) {
 unsigned GetRedShiftRGB16(void) {
 	return 11;
 }
+
 unsigned GetRedBitMaskRGB16(void) {
 	return BitMask5Bits;
 }
+
 unsigned GetGreenShiftRGB16(void) {
 	return 5;
 }
+
 unsigned GetGreenBitMaskRGB16(void) {
 	return BitMask6Bits;
 }
+
 unsigned GetBlueShiftRGB16(void) {
 	return 0;
 }
+
 unsigned GetBlueBitMaskRGB16(void) {
 	return BitMask5Bits;
 }
+
 RGBValue GetRedRGB16(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetRedShiftRGB16()) & GetRedBitMaskRGB16();
 }
+
 RGBValue GetGreenRGB16(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetGreenShiftRGB16()) & GetGreenBitMaskRGB16();
 }
+
 RGBValue GetBlueRGB16(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetBlueShiftRGB16()) & GetBlueBitMaskRGB16();
@@ -353,29 +406,37 @@ RGBValue GetBlueRGB16(PixelMemory pixel) {
 unsigned GetRedShiftRGB8(void) {
 	return 5;
 }
+
 unsigned GetRedBitMaskRGB8(void) {
 	return BitMask3Bits;
 }
+
 unsigned GetGreenShiftRGB8(void) {
 	return 3;
 }
+
 unsigned GetGreenBitMaskRGB8(void) {
 	return BitMask2Bits;
 }
+
 unsigned GetBlueShiftRGB8(void) {
 	return 0;
 }
+
 unsigned GetBlueBitMaskRGB8(void) {
 	return BitMask3Bits;
 }
+
 RGBValue GetRedRGB8(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetRedShiftRGB8()) & GetRedBitMaskRGB8();
 }
+
 RGBValue GetGreenRGB8(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetGreenShiftRGB8()) & GetGreenBitMaskRGB8();
 }
+
 RGBValue GetBlueRGB8(PixelMemory pixel) {
 	Color c = *((Color*)pixel);
 	return (c >> GetBlueShiftRGB8()) & GetBlueBitMaskRGB8();
@@ -396,26 +457,32 @@ void PutPixel8(Bitmap b, Dim x, Dim y, Color c) {
 }
 
 // function table approach
-static void PutPixel16(Bitmap b, Dim x, Dim y, Color c);
+ void PutPixel16(Bitmap b, Dim x, Dim y, Color c) {
 
-static void PutPixel24(Bitmap b, Dim x, Dim y, Color c);
+}
 
-static void PutPixel32(Bitmap b, Dim x, Dim y, Color c);
+ void PutPixel24(Bitmap b, Dim x, Dim y, Color c) {
+
+}
+
+ void PutPixel32(Bitmap b, Dim x, Dim y, Color c) {
+
+}
 
 typedef void (*PutPixelFunc)(Bitmap b, Dim x, Dim y, Color c);
 
-static PutPixelFunc putPixelFuncs[] = {
-PutPixel8, PutPixel16, PutPixel24, PutPixel32
-};
+//static PutPixelFunc putPixelFuncs[] = {
+//PutPixel8, PutPixel16, PutPixel24, PutPixel32
+//};
 
-static PutPixelFunc currPutPixel;
+//static PutPixelFunc currPutPixel;
 
-extern void PutPixel(Bitmap b, Dim x, Dim y, Color c)
+void PutPixel(Bitmap b, Dim x, Dim y, Color c)
 {
 	(*currPutPixel)(b, x, y, c);
 }
 
-extern void InstallPutPixel(void) // upon initialisation
+void InstallPutPixel(void) // upon initialisation
 {
 	currPutPixel = putPixelFuncs[GetDepth() - 1];
 }
@@ -424,24 +491,27 @@ extern void InstallPutPixel(void) // upon initialisation
 /*
 	Sync mappings
 */
-extern void Render(Bitmap target); // do game rendering to target
-extern void Vsync(void); // gfx lib function
+/*extern void Render(Bitmap target);
 
+// do game rendering to target
+void Vsync(void) {
+	// gfx lib function
+	//al_wait_for_vsync()
+	al_flip_display();
+}
 void Flush(void) {
 	BitmapClear(GetBackBuffer(), GetBackgroundColor()); // optional
-	Render(GetBackBuffer);
+	Render(GetBackBuffer());
 	Vsync();
-	BitmapBlit(
-		GetBackBuffer(),
-		GetScreenRect(),
-		BitmapGetScreen(),
-		Point{ 0,0 }
-	);
+	BitmapBlit(GetBackBuffer(), GetScreenRect(), BitmapGetScreen(), Point{ 0,0 });
 }
 
-unsigned char frequencyTime; // e.g 14 msecs  75 Hz
-unsigned int timeToNextRendering = 0xffffffff;
-extern uint64_t CurrTime(void); // timer in msecs
+//unsigned char frequencyTime; // e.g 14 msecs  75 Hz
+//unsigned int timeToNextRendering = 0xffffffff;
+uint64_t CurrTime(void) {
+	uint64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	return now;
+} // timer in msecs
 
 void Flush2(void) {
 	if (timeToNextRendering >= CurrTime()) {
@@ -452,3 +522,7 @@ void Flush2(void) {
 		timeToNextRendering = CurrTime() + (frequencyTime - t);
 	}
 }
+*/
+
+
+#endif _ALLEGROMAPPINGS_CPP_
