@@ -27,14 +27,8 @@
     <ClCompile Include="source\utils\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\engine\AllegroMappings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\TypeDefinitions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\engine\Tilemap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -62,7 +56,7 @@
     <ClInclude Include="source\engine\TileActions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\engine\AllegroMappings.h">
+    <ClInclude Include="source\engine\General.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

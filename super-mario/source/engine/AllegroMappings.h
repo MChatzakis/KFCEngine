@@ -54,7 +54,7 @@ void BitmapBlitTransparent(Bitmap src, const Rect& from, Bitmap dest, const Poin
 bool BitmapLock(Bitmap bmp);
 int BitmapGetLineOffset(Bitmap bmp);
 
-
+//---------------------------------
 /*
 	Bitmap Access pixels mappings
 */
