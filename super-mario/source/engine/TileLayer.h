@@ -79,7 +79,7 @@ public:
 		return index / TILESET_WIDTH;
 	}
 
-	static void PutTile(Bitmap dest, Dim x, Dim y, Bitmap* tiles, Index tile) {
+	static void PutTile(Bitmap dest, Dim x, Dim y, Bitmap tiles, Index tile) {
 		//BitmapBlit(tiles, Rect{ TileX3(tile), TileY3(tile), TILE_WIDTH, TILE_HEIGHT }, dest, Point{ x, y });
 		// POIO EINAI TO TARGET DEST GAMW TO SPITAKI?
 		//al_draw_bitmap_region((ALLEGRO_BITMAP*)tiles, TileX3(tile) * TILE_WIDTH, TileY3(tile), TILE_WIDTH * TILE_HEIGHT, TILE_HEIGHT, x, y, 0);
@@ -174,7 +174,7 @@ public:
 //This class has all the functions related to scrolloing and view window. Made for grouping. Everything is static.
 class ScrollUtilities {
 public:
-	static void TileTerrainDisplay(TileMap* map, Bitmap dest, const Rect& viewWin, /*const Rect& displayArea,*/ Bitmap* tiles) {
+	static void TileTerrainDisplay(TileMap* map, Bitmap dest, const Rect& viewWin, /*const Rect& displayArea,*/ Bitmap tiles) {
 		if (viewPosCached.x != viewWin.x || viewPosCached.y != viewWin.y) {
 			auto startCol = DIV_TILE_WIDTH(viewWin.x);
 			auto startRow = DIV_TILE_HEIGHT(viewWin.y);
@@ -296,7 +296,7 @@ public:
 
 		//ScrollUtilities::TileTerrainDisplay(&map, dest, viewWin, &tileSet); //display
 		//ScrollUtilities::TileTerrainDisplay(&map, NULL, viewWin, &tileSet);
-		ScrollUtilities::TileTerrainDisplay(&map, NULL, viewWin, &tileSet);
+		ScrollUtilities::TileTerrainDisplay(&map, NULL, viewWin, tileSet);
 
 
 		//flip will be called in game loop.
@@ -362,10 +362,11 @@ public:
 	}
 
 	//As _rows and _cols is a define, I removed them from here.
-	TileLayer(/*Dim _rows, Dim _cols,*/Bitmap _tileSet) {
+	TileLayer(/*Dim _rows, Dim _cols,*/const Bitmap& _tileSet, const Rect& _viewWin) {
 		//totalRows = _rows;
 		//totalColumns = _cols;
 		tileSet = _tileSet;
+		viewWin = _viewWin;
 		//std::cout << tileSet << std::endl;
 		//std::cout << _tileSet << std::endl;
 		Allocate();

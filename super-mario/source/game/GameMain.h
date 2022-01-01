@@ -16,7 +16,7 @@ int SCREEN_WIDTH = 0;
 int SCREEN_HEIGHT = 0;
 
 /*ALLEGRO related*/
-ALLEGRO_BITMAP* tileSet;
+Bitmap tileSet;
 ALLEGRO_DISPLAY* display;
 ALLEGRO_EVENT_QUEUE* queue;
 
@@ -76,13 +76,13 @@ void Initialise() {
 
 void Load() {
 
-	tileSet = al_load_bitmap(TILESET_PATH);
+	tileSet = (Bitmap)al_load_bitmap(TILESET_PATH);
 	if (!tileSet) {
 		std::cout << "Could not load the TileSet!" << std::endl;
 		exit(-1);
 	}
 
-	tileLayer = new TileLayer(tileSet);
+	tileLayer = new TileLayer(tileSet, *viewWin);
 
 	if (!tileLayer->ReadText(SKY_PATH)) {
 		std::cout << "Failed to read Sky Map";
@@ -109,7 +109,7 @@ void Load() {
 
 void Clear() {
 	al_destroy_display(display);
-	al_destroy_bitmap(tileSet);
+	al_destroy_bitmap((ALLEGRO_BITMAP*)tileSet);
 	al_destroy_event_queue(queue);
 }
 
