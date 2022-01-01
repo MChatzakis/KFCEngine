@@ -7,11 +7,12 @@
 #include <functional>
 #include <chrono>
 
-#define TILESET_WIDTH 26
-#define TILE_WIDTH 16
+#define TILESET_WIDTH 26 // row = 26 tiles .. better in json
+#define TILESET_HEIGHT 24 // col = 24 tiles
+#define TILE_WIDTH 16 //pixels
 #define TILE_HEIGHT 16
-#define MAX_WIDTH 640
-#define MAX_HEIGHT 480
+#define MAX_WIDTH 640 //pixels or 40 tiles
+#define MAX_HEIGHT 480 //pixels or 30 tiles
 #define TILEMAP_WIDTH 228
 #define TILEMAP_HEIGHT 30
 

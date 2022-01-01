@@ -47,6 +47,7 @@ public:
 		}
 		return false;
 	}
+
 	void MainLoop(void);
 	void MainLoopIteration(void);
 };

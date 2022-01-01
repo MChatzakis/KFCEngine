@@ -4,8 +4,8 @@
 #include <iostream>	
 #include <set>	
 
-#include "../TypeDefinitions.h"
-#include "./Tilemap.h"
+//#include "../TypeDefinitions.h"
+//#include "./Tilemap.h"
 
 
 #define GRID_ELEMENT_WIDTH 4
