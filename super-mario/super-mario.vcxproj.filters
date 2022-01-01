@@ -71,5 +71,8 @@
     <ClInclude Include="source\engine\TileLayer.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="source\engine\TileUtilities.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

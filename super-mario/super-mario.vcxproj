@@ -154,6 +154,7 @@
     <ClInclude Include="source\engine\GridLayer.h" />
     <ClInclude Include="source\engine\TileActions.h" />
     <ClInclude Include="source\engine\TileLayer.h" />
+    <ClInclude Include="source\engine\TileUtilities.h" />
     <ClInclude Include="source\game\GameMain.h" />
     <ClInclude Include="source\utils\Utils.h" />
   </ItemGroup>

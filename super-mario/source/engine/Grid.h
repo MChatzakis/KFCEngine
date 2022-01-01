@@ -7,7 +7,7 @@
 //#include "../TypeDefinitions.h"
 //#include "./Tilemap.h"
 
-
+/*
 #define GRID_ELEMENT_WIDTH 4
 #define GRID_ELEMENT_HEIGHT 4
 
@@ -40,7 +40,7 @@ GridIndex GetGridTile(const GridMap* m, Dim col, Dim row)
 	return (*m)[row][col];
 }
 
-#define GRID_THIN_AIR_MASK 0x0000 // element is ignored
+/*#define GRID_THIN_AIR_MASK 0x0000 // element is ignored
 #define GRID_LEFT_SOLID_MASK 0x0001 // bit 0
 #define GRID_RIGHT_SOLID_MASK 0x0002 // bit 1
 #define GRID_TOP_SOLID_MASK 0x0004 // bit 2
@@ -49,9 +49,9 @@ GridIndex GetGridTile(const GridMap* m, Dim col, Dim row)
 #define GRID_FLOATING_MASK 0x0020 // bit 5, keep objects anywhere inside (gravity)
 #define GRID_EMPTY_TILE GRID_THIN_AIR_MASK
 #define GRID_SOLID_TILE \
-(GRID_LEFT_SOLID_MASK | GRID_RIGHT_SOLID_MASK | GRID_TOP_SOLID_MASK | GRID_BOTTOM_SOLID_MASK)
+(GRID_LEFT_SOLID_MASK | GRID_RIGHT_SOLID_MASK | GRID_TOP_SOLID_MASK | GRID_BOTTOM_SOLID_MASK)*/
 
-void SetSolidGridTile(GridMap* m, Dim col, Dim row)
+/*void SetSolidGridTile(GridMap* m, Dim col, Dim row)
 {
 	SetGridTile(m, col, row, GRID_SOLID_TILE);
 }
@@ -259,8 +259,8 @@ void ComputeGridBlock(GridIndex*& grid, Index index, Bitmap tileElem, Bitmap gri
 			{ x * GRID_ELEMENT_WIDTH, y * GRID_ELEMENT_HEIGHT, GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT },
 			gridElem,
 			{ 0, 0 }
-		);*/
-		al_draw_bitmap_region((ALLEGRO_BITMAP*)tileElem, x * GRID_ELEMENT_WIDTH, y * GRID_ELEMENT_HEIGHT, GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT,/*gridElem*/ 0, 0, 0);
+		);
+		al_draw_bitmap_region((ALLEGRO_BITMAP*)tileElem, x * GRID_ELEMENT_WIDTH, y * GRID_ELEMENT_HEIGHT, GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT,/*gridElem 0, 0, 0);
 
 		auto isEmpty = ComputeIsGridIndexEmpty(gridElem, transColor, solidThreshold);
 		*grid++ = isEmpty ? GRID_EMPTY_TILE : GRID_SOLID_TILE;
@@ -286,11 +286,28 @@ bool ComputeIsGridIndexEmpty(Bitmap gridElement, Color transColor, byte solidThr
 	);
 	return n <= solidThreshold;
 }
-
-#define GRID_BLOCK_SIZEOF \
+*/
+//#define GRID_BLOCK_SIZEOF \
 (GRID_ELEMENTS_PER_TILE * sizeof(GridIndex))
 
-GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
+/*GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
+	return grid + (rowTile * tileCols + colTile) * GRID_BLOCK_SIZEOF;
+}
+
+void SetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid, GridIndex flags) {
+	memset(GetGridTileBlock(colTile, rowTile, tileCols, grid), flags, GRID_BLOCK_SIZEOF);
+}*/
+
+/*#define SetGridTileBlockEmpty(col, row, cols, grid) \
+SetGridTileBlock(col, row, cols, grid, GRID_EMPTY_TILE)
+
+#define SetGridTileBlockSolid(col, row, cols, grid) \
+SetGridTileBlock(col, row, cols, grid, GRID_SOLID_TILE)
+
+#define GRID_BLOCK_SIZEOF \
+(GRID_ELEMENTS_PER_TILE * sizeof(GridIndex))*/
+
+/*GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
 	return grid + (rowTile * tileCols + colTile) * GRID_BLOCK_SIZEOF;
 }
 
@@ -302,24 +319,7 @@ void SetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid, G
 SetGridTileBlock(col, row, cols, grid, GRID_EMPTY_TILE)
 
 #define SetGridTileBlockSolid(col, row, cols, grid) \
-SetGridTileBlock(col, row, cols, grid, GRID_SOLID_TILE)
-
-#define GRID_BLOCK_SIZEOF \
-(GRID_ELEMENTS_PER_TILE * sizeof(GridIndex))
-
-GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
-	return grid + (rowTile * tileCols + colTile) * GRID_BLOCK_SIZEOF;
-}
-
-void SetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid, GridIndex flags) {
-	memset(GetGridTileBlock(colTile, rowTile, tileCols, grid), flags, GRID_BLOCK_SIZEOF);
-}
-
-#define SetGridTileBlockEmpty(col, row, cols, grid) \
-SetGridTileBlock(col, row, cols, grid, GRID_EMPTY_TILE)
-
-#define SetGridTileBlockSolid(col, row, cols, grid) \
-SetGridTileBlock(col, row, cols, grid, GRID_SOLID_TILE)
+SetGridTileBlock(col, row, cols, grid, GRID_SOLID_TILE)*/
 
 // use this to render grid (toggle on / off), used only for development time testing -
 // a tile grid block is consecutive GRID_BLOCK_ROWS x GRID_BLOCK_COLUMNS block of grid indices
