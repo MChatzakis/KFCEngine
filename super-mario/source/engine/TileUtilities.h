@@ -10,6 +10,9 @@
 
 #include "./General.h"
 
+#define TOTAL_EMPTY_INDICES  16
+int EMPTY_INDICES[TOTAL_EMPTY_INDICES] = { 10,11,12,61,62,63,87,88,89/*plants*/,344/*sky*/,472,473,474,498, 499, 500,/*clouds*/ };
+
 //This class has all the functions related to tilemap modifications. Made for grouping. Everything is static.
 class TileUtilities {
 public:

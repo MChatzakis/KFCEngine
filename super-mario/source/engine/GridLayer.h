@@ -67,6 +67,19 @@ SetGridTileBlock(col, row, cols, grid, GRID_EMPTY_TILE)
 #define SetGridTileBlockSolid(col, row, cols, grid) \
 SetGridTileBlock(col, row, cols, grid, GRID_SOLID_TILE)
 
+class GridUtilities;
+
+class TileColorsHolder final {
+private:
+	std::set<Index> indices;
+	std::set<Color> colors;
+public:
+	void Insert(Bitmap bmp, Index index);
+	bool In(Color c) const;
+};
+
+static TileColorsHolder emptyTileColors;
+
 class GridUtilities {
 public:
 	static void SetGridTile(GridMap* m, Dim col, Dim row, GridIndex index)
@@ -101,7 +114,7 @@ public:
 
 	static bool CanPassGridTile(GridMap* m, Dim col, Dim row, GridIndex flags) // i.e. checks if flags set
 	{
-		return GetGridTile(m, row, col) & flags != 0;
+		return GetGridTile(m, row, col) & (flags != 0);
 	}
 
 	static void FilterGridMotion(GridMap* m, const Rect& r, int* dx, int* dy) {
@@ -145,7 +158,7 @@ public:
 		auto y2_next = y2 + *dy;
 		//auto y1_next = r.y + *dy;
 		if (y2_next >= MAX_PIXEL_HEIGHT)
-			*dy = (MAX_PIXEL_HEIGHT – 1) - y2;
+			*dy = (MAX_PIXEL_HEIGHT - 1) - y2;
 		else {
 			auto newRow = DIV_GRID_ELEMENT_HEIGHT(y2_next);
 			auto currRow = DIV_GRID_ELEMENT_HEIGHT(y2);
@@ -186,7 +199,7 @@ public:
 		auto x2 = r.x + r.w - 1;
 		auto x2_next = x2 + *dx;
 		if (x2_next >= MAX_PIXEL_WIDTH)
-			*dx = (MAX_PIXEL_WIDTH – 1) - x2;
+			*dx = (MAX_PIXEL_WIDTH - 1) - x2;
 		else {
 			auto newCol = DIV_GRID_ELEMENT_WIDTH(x2_next);
 			auto currCol = DIV_GRID_ELEMENT_WIDTH(x2);
@@ -204,19 +217,19 @@ public:
 	}
 
 	static bool IsTileIndexAssumedEmpty(Index index) {
-		return (index == 0); //tosee again...
+		for (int i = 0; i < TOTAL_EMPTY_INDICES; i++) {
+			if (EMPTY_INDICES[i] == index) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	static void ComputeTileGridBlocks1(const TileMap* map, GridIndex* grid) {
 		for (auto row = 0; row < MAX_HEIGHT; ++row)
 			for (auto col = 0; col < MAX_WIDTH; ++col) {
-				memset(
-					grid,
-					IsTileIndexAssumedEmpty(TileUtilities::GetTile(map, col, row)) ?
-					GRID_EMPTY_TILE :
-					GRID_SOLID_TILE,
-					GRID_ELEMENTS_PER_TILE
-				);
+				memset(grid, IsTileIndexAssumedEmpty(TileUtilities::GetTile(map, col, row)) ? GRID_EMPTY_TILE : GRID_SOLID_TILE, GRID_ELEMENTS_PER_TILE);
 				grid += GRID_ELEMENTS_PER_TILE;
 			}
 	}
@@ -224,8 +237,10 @@ public:
 	static bool IsTileColorEmpty(Color c)
 	{
 		return emptyTileColors.In(c);
+		//return false;
 	} // return false to disable
 
+	//ti sto diaolo?
 	static void ComputeTileGridBlocks2(const TileMap* map, GridIndex* grid, Bitmap tileSet, Color transColor, byte solidThreshold) {
 		auto tileElem = al_create_bitmap(TILE_WIDTH, TILE_HEIGHT);
 		auto gridElem = al_create_bitmap(GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT);
@@ -248,17 +263,18 @@ public:
 		al_destroy_bitmap(gridElem);
 	}
 
+	//ti sto diaolo?
 	static void ComputeGridBlock(GridIndex*& grid, Index index, Bitmap tileElem, Bitmap gridElem, Bitmap tileSet, Color transColor, byte solidThreshold) {
 		for (auto i = 0; i < GRID_ELEMENTS_PER_TILE; ++i) {
 			auto x = i % GRID_BLOCK_ROWS;
 			auto y = i / GRID_BLOCK_ROWS;
-			/*BitmapBlit(
+			BitmapBlit(
 				tileElem,
 				{ x * GRID_ELEMENT_WIDTH, y * GRID_ELEMENT_HEIGHT, GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT },
 				gridElem,
 				{ 0, 0 }
-			);*/
-			al_draw_bitmap_region((ALLEGRO_BITMAP*)tileElem, x * GRID_ELEMENT_WIDTH, y * GRID_ELEMENT_HEIGHT, GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT,/*gridElem*/ 0, 0, 0);
+			);
+			//al_draw_bitmap_region((ALLEGRO_BITMAP*)tileElem, x * GRID_ELEMENT_WIDTH, y * GRID_ELEMENT_HEIGHT, GRID_ELEMENT_WIDTH, GRID_ELEMENT_HEIGHT,/*gridElem*/ 0, 0, 0);
 
 			auto isEmpty = ComputeIsGridIndexEmpty(gridElem, transColor, solidThreshold);
 			*grid++ = isEmpty ? GRID_EMPTY_TILE : GRID_SOLID_TILE;
@@ -269,15 +285,16 @@ public:
 		RGBA c;
 		ReadPixelColor32(mem, &c, &c.a);
 
-		return MakeColor32(c.r, c.g, c.b, c.a);
+		//return MakeColor32(c.r, c.g, c.b, c.a);
+		return Make32(c.r, c.g, c.b, c.a);
 	}
 
 	static bool ComputeIsGridIndexEmpty(Bitmap gridElement, Color transColor, byte solidThreshold) {
 		auto n = 0;
 		BitmapAccessPixels(
 			gridElement,
-			[transColor, &n](PixelMemory mem) {
-				auto c = GetPixel32(mem);
+			[transColor, &n](PixelMemory* mem) {
+				auto c = GetPixel32(*mem);
 				if (c != transColor && !IsTileColorEmpty(c))
 					++n;
 			}
@@ -293,13 +310,13 @@ public:
 		memset(GetGridTileBlock(colTile, rowTile, tileCols, grid), flags, GRID_BLOCK_SIZEOF);
 	}
 
-	static GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
+	/*static GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
 		return grid + (rowTile * tileCols + colTile) * GRID_BLOCK_SIZEOF;
 	}
 
 	static void SetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid, GridIndex flags) {
 		memset(GetGridTileBlock(colTile, rowTile, tileCols, grid), flags, GRID_BLOCK_SIZEOF);
-	}
+	}*/
 
 	// use this to render grid (toggle on / off), used only for development time testing -
 	// a tile grid block is consecutive GRID_BLOCK_ROWS x GRID_BLOCK_COLUMNS block of grid indices
@@ -326,29 +343,27 @@ public:
 	}
 };
 
-class TileColorsHolder final {
-private:
-	std::set<Index> indices;
-	std::set<Color> colors;
-public:
-	void Insert(Bitmap bmp, Index index) {
-		if (indices.find(index) == indices.end()) {
-			indices.insert(index);
-			BitmapAccessPixels(bmp,
-				[this](PixelMemory mem)
-				{ colors.insert(GetPixel32(mem)); }
-			);
-		}
+void TileColorsHolder::Insert(Bitmap bmp, Index index) {
+	if (indices.find(index) == indices.end()) {
+		indices.insert(index);
+		BitmapAccessPixels(bmp,
+			[this](PixelMemory* mem)
+			{ colors.insert(GridUtilities::GetPixel32(*mem)); }
+		);
 	}
-	bool In(Color c) const
-	{
-		return colors.find(c) != colors.end();
-	}
-};
+}
+bool TileColorsHolder::In(Color c) const
+{
+	return colors.find(c) != colors.end();
+}
 
-static TileColorsHolder emptyTileColors;
+/*
+1) Finish Unit Test 2. [aurio oloi]
+2) Finish GridLayer class [manos]
+3) Other screens and new map
+*/
 
-class GridLayer {
+/*class GridLayer {
 private:
 	GridIndex* grid = nullptr;
 	unsigned total = 0;
@@ -357,23 +372,23 @@ private:
 		grid = new GridIndex[total = totalRows * totalColumns];
 		memset(grid, GRID_EMPTY_TILE, total);
 	}
-	// TODO: adapt as needed and insert all rest motion control functions 
+	// TODO: adapt as needed and insert all rest motion control functions
 	// inside the private section
 	void FilterGridMotionDown(const Rect& r, int* dy) const;
 public:
 	void FilterGridMotion(const Rect& r, int* dx, int* dy) const;
-	
+
 	bool IsOnSolidGround(const Rect& r) const { // will need later for gravity
 		int dy = 1; // down 1 pixel
 		FilterGridMotionDown(r, &dy);
 		return dy == 0; // if true IS attached to solid ground
 	}
-	
+
 	GridIndex*& GetBuffer(void) { return grid; }
-	
+
 	const GridIndex*& GetBuffer(void) const { return grid; }
-	
+
 	GridLayer(unsigned rows, unsigned cols);
 };
-
+*/
 #endif

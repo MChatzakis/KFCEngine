@@ -11,6 +11,5 @@
 #include "./game/GameMain.h"
 
 int main() {
-	//std::cout << "Game starts" << std::endl;
 	GameMain();
 }
