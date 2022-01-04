@@ -359,24 +359,45 @@ bool TileColorsHolder::In(Color c) const
 
 /*
 1) Finish Unit Test 2. [aurio oloi]
-2) Finish GridLayer class [manos]
+2) Finish GridLayer class [manos] ok alla na to doume mazi me to compile error
 3) Other screens and new map
 */
 
-/*class GridLayer {
+class GridLayer {
 private:
-	GridIndex* grid = nullptr;
-	unsigned total = 0;
-	Dim totalRows = 0, totalColumns = 0;
+	//GridIndex* grid = nullptr;
+	GridMap grid;
+	Dim totalRows = GRID_MAX_WIDTH, totalColumns = GRID_MAX_HEIGHT; //chech again!
+	unsigned total = totalRows * totalColumns;
+
 	void Allocate(void) {
-		grid = new GridIndex[total = totalRows * totalColumns];
+		//grid = new GridIndex[total = totalRows * totalColumns];
 		memset(grid, GRID_EMPTY_TILE, total);
 	}
+
 	// TODO: adapt as needed and insert all rest motion control functions
 	// inside the private section
-	void FilterGridMotionDown(const Rect& r, int* dy) const;
+	void FilterGridMotionDown(const Rect& r, int* dy) const {
+		GridUtilities::FilterGridMotionDown(grid, r, dy); //tosee
+	}
+
+	void FilterGridMotionUp(const Rect& r, int* dy) const {
+		GridUtilities::FilterGridMotionUp(grid, r, dy);
+	}
+
+	void FilterGridMotionLeft(const Rect& r, int* dx) const {
+		GridUtilities::FilterGridMotionLeft(&grid, r, dx);
+	}
+
+	void FilterGridMotionRight(const Rect& r, int* dx) const {
+		GridUtilities::FilterGridMotionRight(&grid, r, dx);
+	}
+
+
 public:
-	void FilterGridMotion(const Rect& r, int* dx, int* dy) const;
+	void FilterGridMotion(const Rect& r, int* dx, int* dy) const {
+		GridUtilities::FilterGridMotion(&grid, r, dx, dy);
+	}
 
 	bool IsOnSolidGround(const Rect& r) const { // will need later for gravity
 		int dy = 1; // down 1 pixel
@@ -384,11 +405,17 @@ public:
 		return dy == 0; // if true IS attached to solid ground
 	}
 
-	GridIndex*& GetBuffer(void) { return grid; }
+	void * GetBuffer(void) { 
+		return grid; //compile error, to see
+	}
 
-	const GridIndex*& GetBuffer(void) const { return grid; }
+	const GridIndex*& GetBuffer(void) const { 
+		return (const GridIndex *&) grid; //compile error, to see
+	}
 
-	GridLayer(unsigned rows, unsigned cols);
+	GridLayer() {
+		Allocate();
+	}
 };
-*/
+
 #endif
