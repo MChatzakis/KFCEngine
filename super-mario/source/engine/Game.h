@@ -56,6 +56,7 @@ class App {
 protected:
 	Game game;
 public:
+	App(Game& _game) { game = _game; }
 	virtual void Initialise(void) = 0;
 	virtual void Load(void) = 0;
 	virtual void Run(void) { game.MainLoop(); }
@@ -65,6 +66,7 @@ public:
 	}
 	Game& GetGame(void) { return game; }
 	const Game& GetGame(void) const { return game; }
+	void SetGame(Game& _game) { game = _game; }
 	virtual void Clear(void) = 0;
 	void Main(void) {
 		Initialise();

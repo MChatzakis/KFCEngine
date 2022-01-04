@@ -378,25 +378,30 @@ private:
 	// TODO: adapt as needed and insert all rest motion control functions
 	// inside the private section
 	void FilterGridMotionDown(const Rect& r, int* dy) const {
-		GridUtilities::FilterGridMotionDown(grid, r, dy); //tosee
+		const GridMap* pGrid = &grid;
+		GridUtilities::FilterGridMotionDown((GridMap*)pGrid, r, dy); //tosee
 	}
 
 	void FilterGridMotionUp(const Rect& r, int* dy) const {
-		GridUtilities::FilterGridMotionUp(grid, r, dy);
+		const GridMap* pGrid = &grid;
+		GridUtilities::FilterGridMotionUp((GridMap*)pGrid, r, dy);
 	}
 
 	void FilterGridMotionLeft(const Rect& r, int* dx) const {
-		GridUtilities::FilterGridMotionLeft(&grid, r, dx);
+		const GridMap* pGrid = &grid;
+		GridUtilities::FilterGridMotionLeft((GridMap*)pGrid, r, dx);
 	}
 
 	void FilterGridMotionRight(const Rect& r, int* dx) const {
-		GridUtilities::FilterGridMotionRight(&grid, r, dx);
+		const GridMap* pGrid = &grid;
+		GridUtilities::FilterGridMotionRight((GridMap*)pGrid, r, dx);
 	}
 
 
 public:
 	void FilterGridMotion(const Rect& r, int* dx, int* dy) const {
-		GridUtilities::FilterGridMotion(&grid, r, dx, dy);
+		const GridMap* pGrid = &grid;
+		GridUtilities::FilterGridMotion((GridMap*) pGrid, r, dx, dy);
 	}
 
 	bool IsOnSolidGround(const Rect& r) const { // will need later for gravity
