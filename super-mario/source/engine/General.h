@@ -2,6 +2,7 @@
 #define _GENERAL_H_
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 
 #include <iostream>
 #include <functional>
@@ -11,10 +12,16 @@
 #define TILESET_HEIGHT 24 // col = 24 tiles
 #define TILE_WIDTH 16 //pixels
 #define TILE_HEIGHT 16
-#define MAX_WIDTH 640 //pixels or 40 tiles
-#define MAX_HEIGHT 480 //pixels or 30 tiles
+
+//#define MAX_WIDTH 640 //pixels or 40 tiles
+//#define MAX_HEIGHT 480 //pixels or 30 tiles
+
 #define TILEMAP_WIDTH 228
 #define TILEMAP_HEIGHT 30
+
+#define MAX_WIDTH TILEMAP_WIDTH
+#define MAX_HEIGHT TILEMAP_HEIGHT 
+
 
 #define ROW_MASK 0x0F
 #define COL_MASK 0xF0

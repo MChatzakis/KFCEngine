@@ -25,10 +25,16 @@
 #define GRID_MAX_HEIGHT (MAX_HEIGHT * GRID_BLOCK_ROWS)
 #define GRID_MAX_WIDTH (MAX_WIDTH * GRID_BLOCK_COLUMNS)
 
+#define GRID_MAP_HEIGHT (TILEMAP_HEIGHT * GRID_BLOCK_ROWS)
+#define GRID_MAP_WIDTH (TILEMAP_WIDTH * GRID_BLOCK_COLUMNS)
+
 using GridIndex = byte;
 
-typedef GridIndex GridMap[GRID_MAX_WIDTH][GRID_MAX_HEIGHT];
-
+typedef GridIndex GridMap[GRID_MAP_HEIGHT][GRID_MAP_WIDTH]; //a[5][10] [1,2,3,4,5,6,7,8,9,10] //reversed
+																	   //[]
+																	  // []
+																	  // []
+																	  // []
 #define GRID_THIN_AIR_MASK 0x0000 // element is ignored
 #define GRID_LEFT_SOLID_MASK 0x0001 // bit 0
 #define GRID_RIGHT_SOLID_MASK 0x0002 // bit 1
@@ -40,7 +46,7 @@ typedef GridIndex GridMap[GRID_MAX_WIDTH][GRID_MAX_HEIGHT];
 #define GRID_SOLID_TILE \
 (GRID_LEFT_SOLID_MASK | GRID_RIGHT_SOLID_MASK | GRID_TOP_SOLID_MASK | GRID_BOTTOM_SOLID_MASK)
 
-static GridMap grid;
+static GridMap grid = { 0 };
 
 #define MAX_PIXEL_WIDTH MUL_TILE_WIDTH(MAX_WIDTH)
 #define MAX_PIXEL_HEIGHT MUL_TILE_HEIGHT(MAX_HEIGHT)
@@ -217,19 +223,20 @@ public:
 	}
 
 	static bool IsTileIndexAssumedEmpty(Index index) {
-		for (int i = 0; i < TOTAL_EMPTY_INDICES; i++) {
+		/*for (int i = 0; i < TOTAL_EMPTY_INDICES; i++) {
 			if (EMPTY_INDICES[i] == index) {
 				return true;
 			}
-		}
+		}*/
 
-		return false;
+		return true;
 	}
 
 	static void ComputeTileGridBlocks1(const TileMap* map, GridIndex* grid) {
-		for (auto row = 0; row < MAX_HEIGHT; ++row)
-			for (auto col = 0; col < MAX_WIDTH; ++col) {
+		for (auto row = 0; row < TILEMAP_HEIGHT; ++row) //change
+			for (auto col = 0; col < TILEMAP_WIDTH; ++col) {
 				memset(grid, IsTileIndexAssumedEmpty(TileUtilities::GetTile(map, col, row)) ? GRID_EMPTY_TILE : GRID_SOLID_TILE, GRID_ELEMENTS_PER_TILE);
+				//memset()
 				grid += GRID_ELEMENTS_PER_TILE;
 			}
 	}
@@ -302,8 +309,11 @@ public:
 		return n <= solidThreshold;
 	}
 
+	//5*15 (0,14) (1,15) 
+
 	static GridIndex* GetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid) {
 		return grid + (rowTile * tileCols + colTile) * GRID_BLOCK_SIZEOF;
+
 	}
 
 	static void SetGridTileBlock(Dim colTile, Dim rowTile, Dim tileCols, GridIndex* grid, GridIndex flags) {
@@ -341,6 +351,32 @@ public:
 						}
 			}
 	}
+
+	static void DisplayGrid(Bitmap dest, const Rect& viewWin, GridIndex* grid, Dim tileCols) {
+		auto startCol = DIV_TILE_WIDTH(viewWin.x);
+		auto startRow = DIV_TILE_HEIGHT(viewWin.y);
+		auto endCol = DIV_TILE_WIDTH(viewWin.x + viewWin.w - 1);
+		auto endRow = DIV_TILE_HEIGHT(viewWin.y + viewWin.h - 1);
+		for (Dim rowTile = startRow; rowTile <= endRow; ++rowTile)
+			for (Dim colTile = startCol; colTile <= endCol; ++colTile) {
+				auto sx = MUL_TILE_WIDTH(colTile - startCol);
+				auto sy = MUL_TILE_HEIGHT(rowTile - startRow);
+				auto* gridBlock = GetGridTileBlock(colTile, rowTile, tileCols, grid);
+				for (auto rowElem = 0; rowElem < GRID_BLOCK_ROWS; ++rowElem)
+					for (auto colElem = 0; colElem < GRID_BLOCK_COLUMNS; ++colElem) {
+						//assert(gridBlock == nullptr);
+						std::cout << "------------------------------------------------------------------ " <<(int)*gridBlock << "\n";
+						if (*gridBlock++ & GRID_SOLID_TILE) {
+							auto x = sx + MUL_GRID_ELEMENT_WIDTH(colElem);
+							auto y = sy + MUL_GRID_ELEMENT_HEIGHT(rowElem);
+							auto w = GRID_ELEMENT_WIDTH - 1;
+							auto h = GRID_ELEMENT_HEIGHT - 1;
+
+							al_draw_rectangle(x, y, x + w, y + h, al_map_rgb(0, 0, 0), 1.0);
+						}
+					}
+			}
+	}
 };
 
 void TileColorsHolder::Insert(Bitmap bmp, Index index) {
@@ -367,7 +403,7 @@ class GridLayer {
 private:
 	//GridIndex* grid = nullptr;
 	GridMap grid;
-	Dim totalRows = GRID_MAX_WIDTH, totalColumns = GRID_MAX_HEIGHT; //chech again!
+	Dim totalRows = GRID_MAX_HEIGHT, totalColumns = GRID_MAX_WIDTH; //check again!
 	unsigned total = totalRows * totalColumns;
 
 	void Allocate(void) {
@@ -380,6 +416,7 @@ private:
 	void FilterGridMotionDown(const Rect& r, int* dy) const {
 		const GridMap* pGrid = &grid;
 		GridUtilities::FilterGridMotionDown((GridMap*)pGrid, r, dy); //tosee
+		//GridUtilities::FilterGridMotionDown(grid, r, dy); //tosee
 	}
 
 	void FilterGridMotionUp(const Rect& r, int* dy) const {
@@ -401,7 +438,7 @@ private:
 public:
 	void FilterGridMotion(const Rect& r, int* dx, int* dy) const {
 		const GridMap* pGrid = &grid;
-		GridUtilities::FilterGridMotion((GridMap*) pGrid, r, dx, dy);
+		GridUtilities::FilterGridMotion((GridMap*)pGrid, r, dx, dy);
 	}
 
 	bool IsOnSolidGround(const Rect& r) const { // will need later for gravity
@@ -410,12 +447,12 @@ public:
 		return dy == 0; // if true IS attached to solid ground
 	}
 
-	void * GetBuffer(void) { 
-		return grid; //compile error, to see
+	GridMap* GetBuffer(void) {
+		return &grid; //compile error, to see
 	}
 
-	const GridIndex*& GetBuffer(void) const { 
-		return (const GridIndex *&) grid; //compile error, to see
+	const GridMap& GetBuffer(void) const {
+		return grid; //compile error, to see
 	}
 
 	GridLayer() {

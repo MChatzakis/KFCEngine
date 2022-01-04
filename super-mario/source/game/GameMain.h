@@ -32,6 +32,9 @@ Rect* viewWin;
 Game* game;
 TileLayer* tileLayer;
 
+GridIndex* tmpGrid;
+
+
 void Initialise() {
 	nlohmann::json config = readJSON("resources/config/config.json");
 	if (config == NULL) {
@@ -49,6 +52,11 @@ void Initialise() {
 
 	if (!al_init_image_addon()) {
 		std::cout << "Could not initialize Allegro Image Addon!" << std::endl;
+		exit(-1);
+	}
+
+	if (!al_init_primitives_addon()) {
+		std::cout << "Could not initialize Allegro Primitives Addon!" << std::endl;
 		exit(-1);
 	}
 
@@ -122,14 +130,22 @@ void Clear() {
 	al_destroy_event_queue(queue);
 }
 
+void test_grid_render() {
+	GridUtilities::DisplayGrid(al_get_backbuffer(display), tileLayer->GetViewWindow(), tmpGrid, GRID_MAX_WIDTH);
+}
+
 void Render() {
 	//ScrollUtilities::TileTerrainDisplay((TileMap*)tileLayer->getTileMap(), NULL, *viewWin, (Bitmap*)tileSet);
 	tileLayer->Display(al_get_backbuffer(display), Rect());
+
+	//test_grid_render();
+	
 	al_flip_display();
 }
 
 ALLEGRO_KEYBOARD_STATE keyboard_state;
 ALLEGRO_MOUSE_STATE mouse_state;
+
 
 void Input() {
 
@@ -279,11 +295,34 @@ void setGameActions() {
 void Run() {
 	setGameActions();
 	game->MainLoop();
+
+}
+
+void test_grid() {
+	//TileMap *map = tileLayer->getTileMap();
+	int total = 0, totalRows = GRID_MAX_HEIGHT, totalColumns = GRID_MAX_WIDTH;
+	tmpGrid = new GridIndex[total = totalRows * totalColumns];
+	memset(tmpGrid, GRID_EMPTY_TILE, total);
+	GridUtilities::ComputeTileGridBlocks1(tileLayer->getTileMap() , tmpGrid); //a[10][10] -> *a -> a[0][10] || 
+
+	std::cout << totalRows
+	/*for (int i = 0; i < GRID_MAX_HEIGHT; i++) {
+		for (int j = 0; j < GRID_MAX_WIDTH; j++) {
+			std::cout << (int)*(tmpGrid + i * GRID_MAX_WIDTH + j) << ",";
+			/*if (*(tmpGrid + i * GRID_MAX_WIDTH + j) != GRID_EMPTY_TILE) {
+				std::cout << "gtxml!\n";
+				exit(-1);
+			}
+		}
+		//std::cout << "\n";
+	}*/
+
 }
 
 void GameMain() {
 	Initialise();
 	Load();
+	test_grid();
 	Run();
 	Clear();
 }

@@ -104,8 +104,8 @@ private:
 	}
 
 public:
-	void* getTileMap() {
-		return map;
+	TileMap* getTileMap() {
+		return &map;
 	}
 
 	void SetTile(Dim col, Dim row, Index index) {
