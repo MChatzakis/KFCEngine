@@ -131,14 +131,14 @@ void Clear() {
 }
 
 void test_grid_render() {
-	GridUtilities::DisplayGrid(al_get_backbuffer(display), tileLayer->GetViewWindow(), tmpGrid, GRID_MAX_WIDTH);
+	GridUtilities::DisplayGrid(al_get_backbuffer(display), tileLayer->GetViewWindow(), tmpGrid, TILEMAP_WIDTH);
 }
 
 void Render() {
 	//ScrollUtilities::TileTerrainDisplay((TileMap*)tileLayer->getTileMap(), NULL, *viewWin, (Bitmap*)tileSet);
 	tileLayer->Display(al_get_backbuffer(display), Rect());
 
-	//test_grid_render();
+	test_grid_render();
 	
 	al_flip_display();
 }
@@ -304,8 +304,6 @@ void test_grid() {
 	tmpGrid = new GridIndex[total = totalRows * totalColumns];
 	memset(tmpGrid, GRID_EMPTY_TILE, total);
 	GridUtilities::ComputeTileGridBlocks1(tileLayer->getTileMap() , tmpGrid); //a[10][10] -> *a -> a[0][10] || 
-
-	std::cout << totalRows
 	/*for (int i = 0; i < GRID_MAX_HEIGHT; i++) {
 		for (int j = 0; j < GRID_MAX_WIDTH; j++) {
 			std::cout << (int)*(tmpGrid + i * GRID_MAX_WIDTH + j) << ",";

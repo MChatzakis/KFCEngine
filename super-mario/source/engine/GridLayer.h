@@ -223,13 +223,12 @@ public:
 	}
 
 	static bool IsTileIndexAssumedEmpty(Index index) {
-		/*for (int i = 0; i < TOTAL_EMPTY_INDICES; i++) {
+		for (int i = 0; i < TOTAL_EMPTY_INDICES; i++) {
 			if (EMPTY_INDICES[i] == index) {
 				return true;
 			}
-		}*/
-
-		return true;
+		}
+		return false;
 	}
 
 	static void ComputeTileGridBlocks1(const TileMap* map, GridIndex* grid) {
@@ -339,14 +338,14 @@ public:
 			for (Dim colTile = startCol; colTile <= endCol; ++colTile) {
 				auto sx = MUL_TILE_WIDTH(colTile - startCol);
 				auto sy = MUL_TILE_HEIGHT(rowTile - startRow);
-				auto* gridBlock = GetGridTileBlock(rowTile, colTile, tileCols, grid);
+				auto* gridBlock = GetGridTileBlock(colTile, rowTile, tileCols, grid);
 				for (auto rowElem = 0; rowElem < GRID_BLOCK_ROWS; ++rowElem)
 					for (auto colElem = 0; colElem < GRID_BLOCK_COLUMNS; ++colElem)
 						if (*gridBlock++ & GRID_SOLID_TILE) {
 							auto x = sx + MUL_GRID_ELEMENT_WIDTH(colElem);
 							auto y = sy + MUL_GRID_ELEMENT_HEIGHT(rowElem);
-							auto w = GRID_ELEMENT_WIDTH - 1;
-							auto h = GRID_ELEMENT_HEIGHT - 1;
+							auto w = GRID_ELEMENT_WIDTH;
+							auto h = GRID_ELEMENT_HEIGHT;
 							display_f(dest, x, y, w, h);
 						}
 			}
@@ -365,12 +364,11 @@ public:
 				for (auto rowElem = 0; rowElem < GRID_BLOCK_ROWS; ++rowElem)
 					for (auto colElem = 0; colElem < GRID_BLOCK_COLUMNS; ++colElem) {
 						//assert(gridBlock == nullptr);
-						std::cout << "------------------------------------------------------------------ " <<(int)*gridBlock << "\n";
 						if (*gridBlock++ & GRID_SOLID_TILE) {
 							auto x = sx + MUL_GRID_ELEMENT_WIDTH(colElem);
 							auto y = sy + MUL_GRID_ELEMENT_HEIGHT(rowElem);
-							auto w = GRID_ELEMENT_WIDTH - 1;
-							auto h = GRID_ELEMENT_HEIGHT - 1;
+							auto w = GRID_ELEMENT_WIDTH;
+							auto h = GRID_ELEMENT_HEIGHT;
 
 							al_draw_rectangle(x, y, x + w, y + h, al_map_rgb(0, 0, 0), 1.0);
 						}
