@@ -120,7 +120,12 @@ public:
 
 	static bool CanPassGridTile(GridMap* m, Dim col, Dim row, GridIndex flags) // i.e. checks if flags set
 	{
-		return GetGridTile(m, row, col) & (flags != 0); //!!!
+		bool res = GetGridTile(m, col, row) & flags;
+		if (res)
+			std::cout << "You go on Solid tile " << "(" << row << "," << col << ")\n";
+			
+		return !res; //now it returns 1 on empty tiles
+		//return GetGridTile(m, row, col) & (flags != 0);
 	}
 
 	static void FilterGridMotion(GridMap* m, const Rect& r, int* dx, int* dy) {
@@ -140,19 +145,20 @@ public:
 	}
 
 	static void FilterGridMotionLeft(GridMap* m, const Rect& r, int* dx) {
-		auto x1_next = r.x + *dx;
+		auto x1 = r.x;
+		auto x1_next = x1 + *dx;
 		if (x1_next < 0)
-			*dx = -r.x;
+			*dx = *dx - x1_next; //goes full left
 		else {
 			auto newCol = DIV_GRID_ELEMENT_WIDTH(x1_next);
-			auto currCol = DIV_GRID_ELEMENT_WIDTH(r.x);
+			auto currCol = DIV_GRID_ELEMENT_WIDTH(x1);
 			if (newCol != currCol) {
 				assert(newCol + 1 == currCol); // we really move left
 				auto startRow = DIV_GRID_ELEMENT_HEIGHT(r.y);
 				auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
 				for (auto row = startRow; row <= endRow; ++row)
 					if (!CanPassGridTile(m, newCol, row, GRID_RIGHT_SOLID_MASK)) {
-						*dx = MUL_GRID_ELEMENT_WIDTH(currCol) - r.x;
+						*dx = MUL_GRID_ELEMENT_WIDTH(currCol) - r.x; //sigoura swsta ayta?
 						break;
 					}
 			}
@@ -160,21 +166,21 @@ public:
 	}
 
 	static void FilterGridMotionUp(GridMap* m, const Rect& r, int* dy) {
-		auto y2 = r.y + r.h - 1;
+		auto y2 = r.y;
 		auto y2_next = y2 + *dy;
 		//auto y1_next = r.y + *dy;
-		if (y2_next >= MAX_PIXEL_HEIGHT)
-			*dy = (MAX_PIXEL_HEIGHT - 1) - y2;
+		if (y2_next < 0)
+			*dy = *dy - y2_next; //goes full top
 		else {
 			auto newRow = DIV_GRID_ELEMENT_HEIGHT(y2_next);
 			auto currRow = DIV_GRID_ELEMENT_HEIGHT(y2);
 			if (newRow != currRow) {
-				assert(newRow == currRow + 1); // we really move up
+				assert(newRow == currRow - 1); // we really move up
 				auto startCol = DIV_GRID_ELEMENT_WIDTH(r.x);
 				auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
 				for (auto col = startCol; col <= endCol; ++col)
-					if (!CanPassGridTile(m, newRow, col, GRID_TOP_SOLID_MASK)) {
-						*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - 1 - y2;
+					if (!CanPassGridTile(m, col, newRow, GRID_BOTTOM_SOLID_MASK)) {
+						*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - 1 - y2; //sigoura swsta ayta?
 						break;
 					}
 			}
@@ -182,19 +188,20 @@ public:
 	}
 
 	static void FilterGridMotionDown(GridMap* m, const Rect& r, int* dy) {
-		auto y1_next = r.y + *dy;
-		if (y1_next < 0)
-			*dy = -r.y;
+		auto y1 = r.y + r.h - 1;
+		auto y1_next = y1 + *dy;
+		if (y1_next >= MAX_PIXEL_HEIGHT)
+			*dy = (MAX_PIXEL_HEIGHT - 1) - y1; //goes full down
 		else {
 			auto newRow = DIV_GRID_ELEMENT_HEIGHT(y1_next);
-			auto currRow = DIV_GRID_ELEMENT_HEIGHT(r.y);
+			auto currRow = DIV_GRID_ELEMENT_HEIGHT(y1);
 			if (newRow != currRow) {
-				assert(newRow == currRow - 1); // we really move up
+				assert(newRow == currRow + 1); // we really move down
 				auto startCol = DIV_GRID_ELEMENT_WIDTH(r.x);
 				auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
 				for (auto col = startCol; col <= endCol; ++col)
-					if (!CanPassGridTile(m, newRow, col, GRID_BOTTOM_SOLID_MASK)) {
-						*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - r.y;
+					if (!CanPassGridTile(m, col, newRow, GRID_TOP_SOLID_MASK)) {
+						*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - r.y; //sigoura swsta ayta?
 						break;
 					}
 			}
@@ -204,8 +211,10 @@ public:
 	static void FilterGridMotionRight(GridMap* m, const Rect& r, int* dx) {
 		auto x2 = r.x + r.w - 1;
 		auto x2_next = x2 + *dx;
-		if (x2_next >= MAX_PIXEL_WIDTH)
-			*dx = (MAX_PIXEL_WIDTH - 1) - x2;
+		if (x2_next >= MAX_PIXEL_WIDTH) {
+			*dx = (MAX_PIXEL_WIDTH - 1) - x2; //goes full right
+			std::cout << "kseperase to orio deksia\n";
+		}
 		else {
 			auto newCol = DIV_GRID_ELEMENT_WIDTH(x2_next);
 			auto currCol = DIV_GRID_ELEMENT_WIDTH(x2);
@@ -215,7 +224,8 @@ public:
 				auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
 				for (auto row = startRow; row <= endRow; ++row)
 					if (!CanPassGridTile(m, newCol, row, GRID_LEFT_SOLID_MASK)) {
-						*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2;
+						*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
+						std::cout << "synantise solid tile\n";
 						break;
 					}
 			}

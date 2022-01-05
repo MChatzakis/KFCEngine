@@ -207,39 +207,49 @@ void Input() {
 	/*GridInput Logic*/
 	int basisDx = 4;
 	int basisDy = 4;
-	int dx = basisDx;
-	int dy = basisDy;
+
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
-		dx = 0;
+		int dx = 0;
+		int dy = -basisDy;
+
+		std::cout << "Pressed W\n";
+
 		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
-		gridWin->x++;
-		gridWin->y += 0;
+		gridWin->x += dx;
+		gridWin->y += dy;
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_S)) {
-		dx = 0;
-		dy *= -1;
+		int dx = 0;
+		int dy = basisDy;
+
+		std::cout << "Pressed S\n";
 
 		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
-		gridWin->x += 0;
+		gridWin->x += dx;
 		gridWin->y += dy;
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_D)) {
-		dy = 0;
-		std::cout << "Before: (" << dx << ", " << dy << ")\n";
+		int dx = basisDx;
+		int dy = 0;
+
+		std::cout << "Pressed D\n";
+		//std::cout << "Before: (" << dx << ", " << dy << ")\n";
 		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
-		std::cout << "After: (" << dx << ", " << dy << ")\n";
+		//std::cout << "After: (" << dx << ", " << dy << ")\n";
 		gridWin->x += dx;
-		gridWin->y += 0;
+		gridWin->y += dy;
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
-		dx *= -1;
-		dy = 0;
+		int dx = -basisDx;
+		int dy = 0;
+
+		std::cout << "Pressed A\n";
 		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
 		gridWin->x += dx;
-		gridWin->y += 0;
+		gridWin->y += dy;
 	}
 
 }
