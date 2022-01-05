@@ -29,6 +29,8 @@ ALLEGRO_EVENT_QUEUE* queue;
 #define TERRAIN_PATH "resources/csv/level1-1_terain.csv"
 
 Rect* viewWin;
+Rect* gridWin;
+
 Game* game;
 TileLayer* tileLayer;
 
@@ -80,8 +82,9 @@ void Initialise() {
 	al_register_event_source(queue, al_get_mouse_event_source());
 
 	viewWin = new Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	gridWin = new Rect(10, 10, 20, 20);
+
 	game = new Game();
-	//tileLayer = new TileLayer();
 
 }
 
@@ -115,13 +118,6 @@ void Load() {
 		exit(-1);
 	}
 
-
-	//TileUtilities::printTileMap_DEBUG((TileMap *)tileLayer->getTileMap());
-
-	//TileUtilities::ReadTextMap(&map, SKY_PATH);
-	//TileUtilities::ReadTextMap(&map, BACKGROUND_PATH);
-	//TileUtilities::ReadTextMap(&map, TERRAIN_PATH);
-
 }
 
 void Clear() {
@@ -131,7 +127,8 @@ void Clear() {
 }
 
 void test_grid_render() {
-	GridUtilities::DisplayGrid(al_get_backbuffer(display), tileLayer->GetViewWindow(), tmpGrid, TILEMAP_WIDTH);
+	GridUtilities::DisplayGrid(al_get_backbuffer(display), tileLayer->GetViewWindow(), *grid, TILEMAP_WIDTH);
+	al_draw_filled_rectangle(gridWin->x, gridWin->y, gridWin->x + gridWin->w, gridWin->y + gridWin->h, al_map_rgb(255,0,0));
 }
 
 void Render() {
@@ -149,50 +146,7 @@ ALLEGRO_MOUSE_STATE mouse_state;
 
 void Input() {
 
-	/*switch (event.type) {
-	case ALLEGRO_EVENT_KEY_DOWN:
-		switch (event.keyboard.keycode) {
-		case ALLEGRO_KEY_ESCAPE:
-			std::cout << " ------------------------ Pressed Escape!" << std::endl;
-			break;
-		case ALLEGRO_KEY_RIGHT:
-
-			std::cout << "Before " << viewWin->x << std::endl;
-			ScrollUtilities::ScrollWithBoundsCheck(viewWin, 16, 0);
-			tileLayer->SetViewWindow(*viewWin);
-			std::cout << "After " << viewWin->x << std::endl;
-			std::cout << " ------------------------ Pressed Right arrow!" << std::endl;
-
-
-			break;
-		case ALLEGRO_KEY_LEFT:
-			ScrollUtilities::ScrollWithBoundsCheck(viewWin, -16, 0);
-			tileLayer->SetViewWindow(*viewWin);
-			std::cout << " ------------------------ Pressed Left Arrow!" << std::endl;
-			break;
-		case ALLEGRO_KEY_SPACE:
-			std::cout << " ------------------------ Pressed Space!" << std::endl;
-			break;
-		}
-		break;
-	case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-		ALLEGRO_MOUSE_STATE state;
-
-		al_get_mouse_state(&state);
-		if (state.buttons & 1) {
-			/* Primary (e.g. left) mouse button is held.
-			printf("Mouse position: (%d, %d) (dx = %d, dy = %d)\n", state.x, state.y, event.mouse.dx, event.mouse.dy);
-			ScrollUtilities::ScrollWithBoundsCheck(viewWin, event.mouse.dx, event.mouse.dy);
-			tileLayer->SetViewWindow(*viewWin);
-			std::cout << " ------------------------ Pressed Left Mouse!" << std::endl;
-		}
-		break;
-	case ALLEGRO_EVENT_MOUSE_AXES:
-		printf("Mouse position:(dx = %d, dy = %d)\n", event.mouse.dx, event.mouse.dy);
-		//ScrollUtilities::ScrollWithBoundsCheck(viewWin, event.mouse.dx, event.mouse.dy);
-		//tileLayer->SetViewWindow(*viewWin);
-		break;
-	}*/
+	
 	al_get_keyboard_state(&keyboard_state);
 	al_get_mouse_state(&mouse_state);
 
@@ -250,6 +204,44 @@ void Input() {
 		tileLayer->SetViewWindow(*viewWin);
 	}
 
+	/*GridInput Logic*/
+	int basisDx = 4;
+	int basisDy = 4;
+	int dx = basisDx;
+	int dy = basisDy;
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
+		dx = 0;
+		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
+		gridWin->x++;
+		gridWin->y += 0;
+	}
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_S)) {
+		dx = 0;
+		dy *= -1;
+
+		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
+		gridWin->x += 0;
+		gridWin->y += dy;
+	}
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_D)) {
+		dy = 0;
+		std::cout << "Before: (" << dx << ", " << dy << ")\n";
+		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
+		std::cout << "After: (" << dx << ", " << dy << ")\n";
+		gridWin->x += dx;
+		gridWin->y += 0;
+	}
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
+		dx *= -1;
+		dy = 0;
+		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
+		gridWin->x += dx;
+		gridWin->y += 0;
+	}
+
 }
 
 void ProgressAnimations() {
@@ -303,7 +295,7 @@ void test_grid() {
 	int total = 0, totalRows = GRID_MAX_HEIGHT, totalColumns = GRID_MAX_WIDTH;
 	tmpGrid = new GridIndex[total = totalRows * totalColumns];
 	memset(tmpGrid, GRID_EMPTY_TILE, total);
-	GridUtilities::ComputeTileGridBlocks1(tileLayer->getTileMap() , tmpGrid); //a[10][10] -> *a -> a[0][10] || 
+	GridUtilities::ComputeTileGridBlocks1(tileLayer->getTileMap() , *grid); //a[10][10] -> *a -> a[0][10] || 
 	/*for (int i = 0; i < GRID_MAX_HEIGHT; i++) {
 		for (int j = 0; j < GRID_MAX_WIDTH; j++) {
 			std::cout << (int)*(tmpGrid + i * GRID_MAX_WIDTH + j) << ",";
@@ -315,6 +307,7 @@ void test_grid() {
 		//std::cout << "\n";
 	}*/
 
+	//GridUtilities::ComputeTileGridBlocks2(tileLayer->getTileMap(), tmpGrid, tileSet, 0, 0);
 }
 
 void GameMain() {

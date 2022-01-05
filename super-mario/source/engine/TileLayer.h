@@ -132,18 +132,8 @@ public:
 	}
 
 	void Display(Bitmap dest, const Rect& displayArea) {
-
-		//dest should be the backbuffer -> dest = al_get_backfuffer(display) from GameMain.
-
-		//al_set_target_bitmap((ALLEGRO_BITMAP*)dest);
 		//al_clear_to_color(al_map_rgb(0, 0, 0)); //clear everything
-
-		//ScrollUtilities::TileTerrainDisplay(&map, dest, viewWin, &tileSet); //display
-		//ScrollUtilities::TileTerrainDisplay(&map, NULL, viewWin, &tileSet);
-		ScrollUtilities::TileTerrainDisplay(&map, NULL, viewWin, tileSet);
-
-
-		//flip will be called in game loop.
+		ScrollUtilities::TileTerrainDisplay(&map, dest, viewWin, tileSet);
 	}
 
 	Bitmap GetBitmap(void) const {

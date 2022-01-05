@@ -120,7 +120,7 @@ public:
 
 	static bool CanPassGridTile(GridMap* m, Dim col, Dim row, GridIndex flags) // i.e. checks if flags set
 	{
-		return GetGridTile(m, row, col) & (flags != 0);
+		return GetGridTile(m, row, col) & (flags != 0); //!!!
 	}
 
 	static void FilterGridMotion(GridMap* m, const Rect& r, int* dx, int* dy) {
