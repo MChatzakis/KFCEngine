@@ -226,6 +226,7 @@ public:
 				for (auto row = startRow; row <= endRow; ++row)
 					if (!CanPassGridTile(m, newCol, row, GRID_LEFT_SOLID_MASK)) {
 						*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
+						//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 0) - x2; //sigoura swsta ayta ?
 						std::cout << "synantise solid tile\n";
 						break;
 					}

@@ -65,7 +65,7 @@ void Initialise() {
 	//Allegro requires installing drivers for all input devices before they can be used.
 	al_install_mouse();
 	al_install_keyboard();
-
+	//SCREEN_WIDTH += 1000;
 	// Create a new display that we can render the image to.
 	display = al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!display) {
@@ -82,7 +82,7 @@ void Initialise() {
 	al_register_event_source(queue, al_get_mouse_event_source());
 
 	viewWin = new Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	gridWin = new Rect(10, 10, 20, 20);
+	gridWin = new Rect(0, 0, 20, 20);
 
 	game = new Game();
 
@@ -128,7 +128,8 @@ void Clear() {
 
 void test_grid_render() {
 	GridUtilities::DisplayGrid(al_get_backbuffer(display), tileLayer->GetViewWindow(), *grid, TILEMAP_WIDTH);
-	al_draw_filled_rectangle(gridWin->x, gridWin->y, gridWin->x + gridWin->w, gridWin->y + gridWin->h, al_map_rgb(255,0,0));
+	//al_draw_filled_rectangle(gridWin->x, gridWin->y, gridWin->x + gridWin->w, gridWin->y + gridWin->h, al_map_rgb(255,0,0));
+	al_draw_rectangle(-viewWin->x + gridWin->x, -viewWin->y + gridWin->y, -viewWin->x + gridWin->x + gridWin->w, -viewWin->y + gridWin->y + gridWin->h, al_map_rgb(255, 0, 0), 1.0);
 }
 
 void Render() {
@@ -136,7 +137,7 @@ void Render() {
 	tileLayer->Display(al_get_backbuffer(display), Rect());
 
 	test_grid_render();
-	
+
 	al_flip_display();
 }
 
@@ -146,21 +147,28 @@ ALLEGRO_MOUSE_STATE mouse_state;
 
 void Input() {
 
-	
+
 	al_get_keyboard_state(&keyboard_state);
 	al_get_mouse_state(&mouse_state);
 
 	int keyboard_offset = 8;
+	int bef_x = viewWin->x;
+	int bef_y = viewWin->y;
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_RIGHT)) {
+		
 		ScrollUtilities::ScrollWithBoundsCheck(viewWin, keyboard_offset, 0);
 		tileLayer->SetViewWindow(*viewWin);
+		//gridWin->x += viewWin->x - bef_x;
+		//gridWin->y += viewWin->y - bef_y;
 		std::cout << " ------------------------ Pressed Right arrow!" << std::endl;
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_LEFT)) {
 		ScrollUtilities::ScrollWithBoundsCheck(viewWin, -keyboard_offset, 0);
 		tileLayer->SetViewWindow(*viewWin);
+		//gridWin->x += viewWin->x - bef_x;
+		//gridWin->y += viewWin->y - bef_y;
 		std::cout << " ------------------------ Pressed Left arrow!" << std::endl;
 	}
 
@@ -189,7 +197,7 @@ void Input() {
 		if (mouse_state.x > SCREEN_WIDTH / 2) {
 			dx = 1;
 		}
-		else{
+		else {
 			dx = -1;
 		}
 
@@ -240,6 +248,11 @@ void Input() {
 		//std::cout << "After: (" << dx << ", " << dy << ")\n";
 		gridWin->x += dx;
 		gridWin->y += dy;
+
+		//viewWin->x += dx;
+		//tileLayer->SetViewWindow(*viewWin);
+
+
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
@@ -250,6 +263,9 @@ void Input() {
 		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
 		gridWin->x += dx;
 		gridWin->y += dy;
+
+		//viewWin->x += dx;
+		//tileLayer->SetViewWindow(*viewWin);
 	}
 
 }
@@ -305,7 +321,7 @@ void test_grid() {
 	int total = 0, totalRows = GRID_MAX_HEIGHT, totalColumns = GRID_MAX_WIDTH;
 	tmpGrid = new GridIndex[total = totalRows * totalColumns];
 	memset(tmpGrid, GRID_EMPTY_TILE, total);
-	GridUtilities::ComputeTileGridBlocks1(tileLayer->getTileMap() , *grid); //a[10][10] -> *a -> a[0][10] || 
+	GridUtilities::ComputeTileGridBlocks1(tileLayer->getTileMap(), *grid); //a[10][10] -> *a -> a[0][10] || 
 	/*for (int i = 0; i < GRID_MAX_HEIGHT; i++) {
 		for (int j = 0; j < GRID_MAX_WIDTH; j++) {
 			std::cout << (int)*(tmpGrid + i * GRID_MAX_WIDTH + j) << ",";
