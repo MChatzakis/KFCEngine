@@ -159,7 +159,7 @@ public:
 				auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
 				for (auto row = startRow; row <= endRow; ++row)
 					if (!CanPassGridTile(m, newCol, row, GRID_RIGHT_SOLID_MASK)) {
-						*dx = MUL_GRID_ELEMENT_WIDTH(currCol) - r.x; //sigoura swsta ayta?
+						*dx = MUL_GRID_ELEMENT_WIDTH(currCol) - x1;
 						break;
 					}
 			}
@@ -181,7 +181,7 @@ public:
 				auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
 				for (auto col = startCol; col <= endCol; ++col)
 					if (!CanPassGridTile(m, col, newRow, GRID_BOTTOM_SOLID_MASK)) {
-						*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - 1 - y2; //sigoura swsta ayta?
+						*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - y2; //sigoura swsta ayta? -1?
 						break;
 					}
 			}
@@ -202,7 +202,7 @@ public:
 				auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
 				for (auto col = startCol; col <= endCol; ++col)
 					if (!CanPassGridTile(m, col, newRow, GRID_TOP_SOLID_MASK)) {
-						*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - r.y; //sigoura swsta ayta?
+						*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - y1 - 1; //sigoura swsta ayta?
 						break;
 					}
 			}
