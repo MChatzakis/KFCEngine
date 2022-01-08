@@ -151,7 +151,7 @@ void Input() {
 	al_get_keyboard_state(&keyboard_state);
 	al_get_mouse_state(&mouse_state);
 
-	int keyboard_offset = 8;
+	int keyboard_offset = 4;
 	int bef_x = viewWin->x;
 	int bef_y = viewWin->y;
 
@@ -180,8 +180,8 @@ void Input() {
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_END)) {
 		//ScrollUtilities::ScrollWithBoundsCheck(viewWin, -keyboard_offset, 0);
-		viewWin->x = TILEMAP_WIDTH * TILE_WIDTH - viewWin->w;
-		viewWin->y = TILEMAP_HEIGHT * TILE_HEIGHT - viewWin->h;
+		viewWin->x = MAX_PIXEL_WIDTH - viewWin->w;
+		viewWin->y = MAX_PIXEL_HEIGHT - viewWin->h;
 
 		tileLayer->SetViewWindow(*viewWin);
 	}
@@ -333,7 +333,7 @@ void test_grid() {
 		//std::cout << "\n";
 	}*/
 
-	//GridUtilities::ComputeTileGridBlocks2(tileLayer->getTileMap(), tmpGrid, tileSet, 0, 0);
+	//GridUtilities::ComputeTileGridBlocks2(tileLayer->getTileMap(), tmpGrid, tileSet, 0, 1);
 }
 
 void GameMain() {

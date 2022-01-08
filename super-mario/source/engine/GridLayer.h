@@ -265,7 +265,7 @@ public:
 		for (auto row = 0; row < MAX_HEIGHT; ++row)
 			for (auto col = 0; col < MAX_WIDTH; ++col) {
 				auto index = TileUtilities::GetTile(map, col, row);
-				TileUtilities::PutTile(tileElem, 0, 0, &tileSet, index);
+				TileUtilities::PutTile(tileElem, 0, 0, tileSet, index);
 				if (IsTileIndexAssumedEmpty(index)) {
 					emptyTileColors.Insert(tileElem, index); // assume tile colors to be empty
 					memset(grid, GRID_EMPTY_TILE, GRID_ELEMENTS_PER_TILE);

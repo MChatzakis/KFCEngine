@@ -421,9 +421,9 @@ void BitmapBlitTransparent(Bitmap src, const Rect& from, Bitmap dest, const Poin
 */
 using BitmapAccessFunctor = std::function<void(PixelMemory*)>;
 void BitmapAccessPixels(Bitmap bmp, const BitmapAccessFunctor& f) {
-	auto result = BitmapLock(bmp);
-	assert(result);
-	auto mem = BitmapGetMemory(bmp);
+	//auto result = BitmapLock(bmp);
+	//assert(result);
+	auto mem = BitmapGetMemory(bmp); //doesnt need bitmap lock
 	auto offset = BitmapGetLineOffset(bmp);
 	for (auto y = BitmapGetHeight(bmp); y--; ) {
 		auto buff = mem;
@@ -498,19 +498,19 @@ void ReadPixelColor8(PixelMemory pixel, RGBValue* color) {
 void ReadPixelColor16(PixelMemory pixel, RGB* color) {
 	color->r = GetRedRGB16(pixel);
 	color->g = GetGreenRGB16(pixel);
-	color->b = GetGreenRGB16(pixel);
+	color->b = GetBlueRGB16(pixel);
 }
 
 void ReadPixelColor24(PixelMemory pixel, RGB* color) {
 	color->r = GetRedRGB24(pixel);
 	color->g = GetGreenRGB24(pixel);
-	color->b = GetGreenRGB24(pixel);
+	color->b = GetBlueRGB24(pixel);
 }
 
 void ReadPixelColor32(PixelMemory pixel, RGB* color, Alpha* alpha) {
 	color->r = GetRedRGBA(pixel);
 	color->g = GetGreenRGBA(pixel);
-	color->b = GetGreenRGBA(pixel);
+	color->b = GetBlueRGBA(pixel);
 	*alpha = GetAlphaRGBA(pixel);
 }
 
@@ -591,7 +591,7 @@ unsigned GetAlphaBitMaskRGBA(void) {
 
 // firstly mask to isolate the RGB component, then shift to get value
 RGBValue GetRedRGBA(PixelMemory pixel) {
-	Color c = *((Color*)pixel);
+	Color c = *((Color*)pixel); //exoun mperdeytei ta pixelmemory kai pixelmemory*
 	return (c >> GetRedShiftRGBA()) & GetRedBitMaskRGBA();
 }
 
