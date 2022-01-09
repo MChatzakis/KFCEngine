@@ -428,7 +428,8 @@ void BitmapAccessPixels(Bitmap bmp, const BitmapAccessFunctor& f) {
 	for (auto y = BitmapGetHeight(bmp); y--; ) {
 		auto buff = mem;
 		for (auto x = BitmapGetWidth(bmp); x--; ) {
-			f((PixelMemory*)buff);
+			//f((PixelMemory*)buff);
+			f(&buff);
 			buff += GetDepth();
 		}
 		mem += offset;

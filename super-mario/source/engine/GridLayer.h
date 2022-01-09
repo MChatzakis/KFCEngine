@@ -121,7 +121,7 @@ public:
 	static bool CanPassGridTile(GridMap* m, Dim col, Dim row, GridIndex flags) // i.e. checks if flags set
 	{
 		bool res = (bool)(*GetGridTileBlock(col/4, row/4, TILEMAP_WIDTH, **m) & flags);
-		//bool res = GetGridTile(m, col, row) & flags;
+		//res = GetGridTile(m, col, row) & flags;
 		if (res)
 			std::cout << "You go on Solid tile " << "(" << row << "," << col << ")\n";
 			
@@ -313,6 +313,7 @@ public:
 			gridElement,
 			[transColor, &n](PixelMemory* mem) {
 				auto c = GetPixel32(*mem);
+				//std::cout << "Color inside func " << c << "\n";
 				if (c != transColor && !IsTileColorEmpty(c))
 					++n;
 			}
