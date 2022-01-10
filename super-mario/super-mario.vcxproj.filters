@@ -50,9 +50,6 @@
     <ClInclude Include="source\engine\Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\engine\GridLayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\engine\TileActions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,6 +69,9 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="source\engine\TileUtilities.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\GridLayer.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>

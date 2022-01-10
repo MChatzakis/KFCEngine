@@ -32,14 +32,11 @@ ALLEGRO_EVENT_QUEUE* queue;
 ALLEGRO_KEYBOARD_STATE keyboard_state;
 ALLEGRO_MOUSE_STATE mouse_state;
 
-
-
 Rect* viewWin;
 Rect* gridWin;
 
 Game* game;
 TileLayer* tileLayer;
-
 GridIndex* tmpGrid;
 Bitmap tileSet;
 
