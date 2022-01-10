@@ -30,11 +30,8 @@
 
 using GridIndex = byte;
 
-typedef GridIndex GridMap[GRID_MAP_HEIGHT][GRID_MAP_WIDTH]; //a[5][10] [1,2,3,4,5,6,7,8,9,10] //reversed
-																	   //[]
-																	  // []
-																	  // []
-																	  // []
+typedef GridIndex GridMap[GRID_MAP_HEIGHT][GRID_MAP_WIDTH];
+
 #define GRID_THIN_AIR_MASK 0x0000 // element is ignored
 #define GRID_LEFT_SOLID_MASK 0x0001 // bit 0
 #define GRID_RIGHT_SOLID_MASK 0x0002 // bit 1

@@ -85,7 +85,7 @@ public:
 //This class represents the whole layer of the tiles
 class TileLayer {
 private:
-	//GridLayer* grid = nullptr;
+	GridLayer* grid = nullptr;
 	TileMap map;
 
 	//Dim totalRows = 0, totalColumns = 0;

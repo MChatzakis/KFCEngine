@@ -13,10 +13,18 @@
 
 #include "../engine/GridLayer.h"
 
+#define TILESET_PATH "resources/bitmaps/tileset.png"
+#define SKY_PATH "resources/csv/level1-1_Sky.csv"
+#define FLAG_PATH "resources/csv/level1-1_flag.csv"
+#define BACKGROUND_PATH "resources/csv/level1-1_background.csv"
+#define TERRAIN_PATH "resources/csv/level1-1_terain.csv"
+
 /* Global Stuff */
 int SCREEN_WIDTH = 0;
 int SCREEN_HEIGHT = 0;
 
+int SHOW_GRID_DEBUG = 0;
+int TOGGLE_FILLED_RECT = 0;
 
 /*ALLEGRO related*/
 ALLEGRO_DISPLAY* display;
@@ -25,11 +33,6 @@ ALLEGRO_KEYBOARD_STATE keyboard_state;
 ALLEGRO_MOUSE_STATE mouse_state;
 
 
-#define TILESET_PATH "resources/bitmaps/tileset.png"
-#define SKY_PATH "resources/csv/level1-1_Sky.csv"
-#define FLAG_PATH "resources/csv/level1-1_flag.csv"
-#define BACKGROUND_PATH "resources/csv/level1-1_background.csv"
-#define TERRAIN_PATH "resources/csv/level1-1_terain.csv"
 
 Rect* viewWin;
 Rect* gridWin;
@@ -39,11 +42,6 @@ TileLayer* tileLayer;
 
 GridIndex* tmpGrid;
 Bitmap tileSet;
-
-int SHOW_GRID_DEBUG = 0;
-int TOGGLE_FILLED_RECT = 0;
-
-
 
 void Initialise() {
 	nlohmann::json config = readJSON("resources/config/config.json");
@@ -327,7 +325,6 @@ void Run() {
 	game->MainLoop();
 
 }
-
 
 void GameMain() {
 	Initialise();
