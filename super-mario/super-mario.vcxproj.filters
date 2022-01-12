@@ -31,6 +31,27 @@
     <Filter Include="Source Files\Utils">
       <UniqueIdentifier>{f8bd618e-55a1-4277-b4bb-636107d7438d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Layers">
+      <UniqueIdentifier>{21ebeea3-8123-4eca-b05c-f223aeaf9e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Game">
+      <UniqueIdentifier>{8c7883bd-8332-4361-9bee-282663b1d22a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Animation">
+      <UniqueIdentifier>{674d4860-738c-47d7-b888-a70f30a8c1f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Animation\Animations">
+      <UniqueIdentifier>{b001aca6-1085-47a5-b386-9ae509342a28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Animation\Animators">
+      <UniqueIdentifier>{0fdf7ea8-251d-4b94-983e-16117cb2d664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Sprites">
+      <UniqueIdentifier>{22da6e24-f2b8-4692-9447-64b7d2779613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Physics">
+      <UniqueIdentifier>{06844de3-795b-410f-b4e1-1fda742842b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -47,32 +68,92 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\engine\Grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\engine\TileActions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\utils\Utils.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="source\game\GameMain.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="source\engine\Game.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="source\engine\General.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="source\engine\Animation.h">
+      <Filter>Header Files\Engine\Animation\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\MovingAnimation.h">
+      <Filter>Header Files\Engine\Animation\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\TileActions.h">
+      <Filter>Header Files\Engine\Layers</Filter>
+    </ClInclude>
     <ClInclude Include="source\engine\TileLayer.h">
-      <Filter>Header Files\Engine</Filter>
+      <Filter>Header Files\Engine\Layers</Filter>
     </ClInclude>
     <ClInclude Include="source\engine\TileUtilities.h">
-      <Filter>Header Files\Engine</Filter>
+      <Filter>Header Files\Engine\Layers</Filter>
     </ClInclude>
     <ClInclude Include="source\engine\GridLayer.h">
+      <Filter>Header Files\Engine\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\Game.h">
+      <Filter>Header Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\FrameRangeAnimation.h">
+      <Filter>Header Files\Engine\Animation\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\KeyFrameAnimations.h">
+      <Filter>Header Files\Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\FrameListAnimation.h">
+      <Filter>Header Files\Engine\Animation\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\MovingPathAnimation.h">
+      <Filter>Header Files\Engine\Animation\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\ScrollAnimation.h">
+      <Filter>Header Files\Engine\Animation\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\Animator.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\MovingAnimator.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\FrameRangeAnimator.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\AnimatorManager.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\DestructionManager.h">
+      <Filter>Header Files\Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\Timing.h">
       <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\TickAnimation.h">
+      <Filter>Header Files\Engine\Animation\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\TickAnimator.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\Sprite.h">
+      <Filter>Header Files\Engine\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\MotionQuantizer.h">
+      <Filter>Header Files\Engine\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\Clipper.h">
+      <Filter>Header Files\Engine\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\GravityHandler.h">
+      <Filter>Header Files\Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\CollisionChecker.h">
+      <Filter>Header Files\Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\SpriteManager.h">
+      <Filter>Header Files\Engine\Sprites</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

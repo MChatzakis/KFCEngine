@@ -1,0 +1,4 @@
+#ifndef _BOUNDINGBOX_H_
+#define _BOUNDINGBOX_H_
+
+#endif _BOUNDINGBOX_H_

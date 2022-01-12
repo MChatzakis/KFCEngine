@@ -13,7 +13,7 @@
 #include "./General.h"
 #include "./TileUtilities.h"
 
-//#include "./GridLayer.h"
+#include "./GridLayer.h"
 
 //This class has all the functions related to scrolloing and view window. Made for grouping. Everything is static.
 class ScrollUtilities {
@@ -101,6 +101,7 @@ private:
 	void Allocate(void) {
 		//map = new Index[totalRows * totalColumns];
 		dpyBuffer = BitmapCreate(GetResWidth() + 2 * TILE_WIDTH, GetResHeight() + 2 * TILE_HEIGHT);
+		grid = new GridLayer();
 	}
 
 public:

@@ -410,7 +410,8 @@ bool TileColorsHolder::In(Color c) const
 class GridLayer {
 private:
 	//GridIndex* grid = nullptr;
-	GridMap grid;
+	//GridMap grid;
+	GridMap grid = { 0 };
 	Dim totalRows = GRID_MAX_HEIGHT, totalColumns = GRID_MAX_WIDTH; //check again!
 	unsigned total = totalRows * totalColumns;
 

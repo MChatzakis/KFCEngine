@@ -149,13 +149,33 @@
     <ClCompile Include="source\utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\engine\Animation.h" />
+    <ClInclude Include="source\engine\Animator.h" />
+    <ClInclude Include="source\engine\AnimatorManager.h" />
+    <ClInclude Include="source\engine\Clipper.h" />
+    <ClInclude Include="source\engine\CollisionChecker.h" />
+    <ClInclude Include="source\engine\DestructionManager.h" />
+    <ClInclude Include="source\engine\FrameListAnimation.h" />
+    <ClInclude Include="source\engine\FrameRangeAnimation.h" />
+    <ClInclude Include="source\engine\FrameRangeAnimator.h" />
     <ClInclude Include="source\engine\Game.h" />
     <ClInclude Include="source\engine\General.h" />
-    <ClInclude Include="source\engine\Grid.h" />
+    <ClInclude Include="source\engine\GravityHandler.h" />
     <ClInclude Include="source\engine\GridLayer.h" />
+    <ClInclude Include="source\engine\KeyFrameAnimations.h" />
+    <ClInclude Include="source\engine\MotionQuantizer.h" />
+    <ClInclude Include="source\engine\MovingAnimation.h" />
+    <ClInclude Include="source\engine\MovingAnimator.h" />
+    <ClInclude Include="source\engine\MovingPathAnimation.h" />
+    <ClInclude Include="source\engine\ScrollAnimation.h" />
+    <ClInclude Include="source\engine\Sprite.h" />
+    <ClInclude Include="source\engine\SpriteManager.h" />
+    <ClInclude Include="source\engine\TickAnimation.h" />
+    <ClInclude Include="source\engine\TickAnimator.h" />
     <ClInclude Include="source\engine\TileActions.h" />
     <ClInclude Include="source\engine\TileLayer.h" />
     <ClInclude Include="source\engine\TileUtilities.h" />
+    <ClInclude Include="source\engine\Timing.h" />
     <ClInclude Include="source\game\GameMain.h" />
     <ClInclude Include="source\utils\Utils.h" />
   </ItemGroup>
