@@ -146,7 +146,6 @@ private:
 	}
 };
 
-
 class BitmapLoader {
 private:
 	using Bitmaps = std::map<std::string, Bitmap>;

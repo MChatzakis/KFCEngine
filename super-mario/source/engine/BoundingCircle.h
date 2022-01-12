@@ -1,4 +1,6 @@
-#ifndef _BOUNDINGBOX_H_
-#define _BOUNDINGBOX_H_
+#ifndef _BOUNDINGCIRCLE_H_
+#define _BOUNDINGCIRCLE_H_
 
-#endif _BOUNDINGBOX_H_
+
+
+#endif _BOUNDINGCIRCLE_H_

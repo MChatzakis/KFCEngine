@@ -52,6 +52,9 @@
     <Filter Include="Header Files\Engine\Physics">
       <UniqueIdentifier>{06844de3-795b-410f-b4e1-1fda742842b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\BoundingAreas">
+      <UniqueIdentifier>{481f766d-9496-4054-b52a-a724c4a050f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -154,6 +157,18 @@
     </ClInclude>
     <ClInclude Include="source\engine\SpriteManager.h">
       <Filter>Header Files\Engine\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\BoundingArea.h">
+      <Filter>Header Files\Engine\BoundingAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\BoundingBox.h">
+      <Filter>Header Files\Engine\BoundingAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\BoundingCircle.h">
+      <Filter>Header Files\Engine\BoundingAreas</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\BoundingPolygon.h">
+      <Filter>Header Files\Engine\BoundingAreas</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

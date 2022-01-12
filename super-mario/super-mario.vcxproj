@@ -152,6 +152,10 @@
     <ClInclude Include="source\engine\Animation.h" />
     <ClInclude Include="source\engine\Animator.h" />
     <ClInclude Include="source\engine\AnimatorManager.h" />
+    <ClInclude Include="source\engine\BoundingArea.h" />
+    <ClInclude Include="source\engine\BoundingBox.h" />
+    <ClInclude Include="source\engine\BoundingCircle.h" />
+    <ClInclude Include="source\engine\BoundingPolygon.h" />
     <ClInclude Include="source\engine\Clipper.h" />
     <ClInclude Include="source\engine\CollisionChecker.h" />
     <ClInclude Include="source\engine\DestructionManager.h" />
