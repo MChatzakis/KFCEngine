@@ -170,5 +170,11 @@
     <ClInclude Include="source\engine\BoundingPolygon.h">
       <Filter>Header Files\Engine\BoundingAreas</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\GameFunctions.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\GridComputation.h">
+      <Filter>Header Files\Engine\Layers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

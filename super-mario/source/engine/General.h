@@ -16,7 +16,7 @@
 //#define MAX_WIDTH 640 //pixels or 40 tiles
 //#define MAX_HEIGHT 480 //pixels or 30 tiles
 
-#define TILEMAP_WIDTH 228
+#define TILEMAP_WIDTH 252
 #define TILEMAP_HEIGHT 30
 
 #define MAX_WIDTH TILEMAP_WIDTH

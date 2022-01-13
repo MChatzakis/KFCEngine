@@ -10,14 +10,16 @@
 #include "../engine/General.h"
 #include "../engine/Game.h"
 #include "../engine/TileLayer.h"
-
 #include "../engine/GridLayer.h"
+#include "../engine/GridComputation.h"
 
 #define TILESET_PATH "resources/bitmaps/tileset.png"
 #define SKY_PATH "resources/csv/level1-1_Sky.csv"
 #define FLAG_PATH "resources/csv/level1-1_flag.csv"
 #define BACKGROUND_PATH "resources/csv/level1-1_background.csv"
 #define TERRAIN_PATH "resources/csv/level1-1_terain.csv"
+
+#define SCROLLABLE_TILE_COL 212
 
 /* Global Stuff */
 int SCREEN_WIDTH = 0;
@@ -36,7 +38,7 @@ Rect* viewWin;
 Rect* gridWin;
 
 Game* game;
-TileLayer* tileLayer;
+TileLayer* gameMap;
 GridIndex* tmpGrid;
 Bitmap tileSet;
 
@@ -87,41 +89,42 @@ void Initialise() {
 
 	viewWin = new Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	gridWin = new Rect(0, 0, 20, 20);
-
 	game = new Game();
 }
 
 void Load() {
 
 	tileSet = (Bitmap)al_load_bitmap(TILESET_PATH);
+
 	if (!tileSet) {
 		std::cout << "Could not load the TileSet!" << std::endl;
 		exit(-1);
 	}
 
-	tileLayer = new TileLayer(tileSet, *viewWin);
+	gameMap = new TileLayer(TILEMAP_HEIGHT, TILEMAP_WIDTH, tileSet, Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 
-	if (!tileLayer->ReadText(SKY_PATH)) {
+	if (!gameMap->ReadText(SKY_PATH)) {
 		std::cout << "Failed to read Sky Map";
 		exit(-1);
 	}
 
-	if (!tileLayer->ReadText(BACKGROUND_PATH)) {
+	if (!gameMap->ReadText(BACKGROUND_PATH)) {
 		std::cout << "Failed to read Background Map";
 		exit(-1);
 	}
 
-	if (!tileLayer->ReadText(FLAG_PATH)) {
+	if (!gameMap->ReadText(FLAG_PATH)) {
 		std::cout << "Failed to read Flag Map";
 		exit(-1);
 	}
 
-	if (!tileLayer->ReadText(TERRAIN_PATH)) {
+	if (!gameMap->ReadText(TERRAIN_PATH)) {
 		std::cout << "Failed to read Terrain Map";
 		exit(-1);
 	}
 
-	GridUtilities::ComputeTileGridBlocks1(tileLayer->getTileMap(), *grid);
+	//GridUtilities::ComputeTileGridBlocks1(tileLayer->getTileMap(), *grid);
+	GridComputation::ComputeTileGridBlocks1(gameMap);
 }
 
 void Clear() {
@@ -131,23 +134,23 @@ void Clear() {
 }
 
 void GridDisplay() {
-	GridUtilities::DisplayGrid(al_get_backbuffer(display), tileLayer->GetViewWindow(), *grid, TILEMAP_WIDTH);
-	if (TOGGLE_FILLED_RECT) {
+	//GridUtilities::DisplayGrid(al_get_backbuffer(display), gameMap->GetViewWindow(), *grid, TILEMAP_WIDTH);
+	GridComputation::DisplayGrid(al_get_backbuffer(display), gameMap->GetViewWindow(), gameMap->GetGrid()->GetBuffer(), gameMap->GetTotalColumns());
+	/*if (TOGGLE_FILLED_RECT) {
 		al_draw_filled_rectangle(-viewWin->x + gridWin->x, -viewWin->y + gridWin->y, -viewWin->x + gridWin->x + gridWin->w, -viewWin->y + gridWin->y + gridWin->h, al_map_rgb(255, 0, 0));
 	}
 	else {
 		al_draw_rectangle(-viewWin->x + gridWin->x, -viewWin->y + gridWin->y, -viewWin->x + gridWin->x + gridWin->w, -viewWin->y + gridWin->y + gridWin->h, al_map_rgb(255, 0, 0), 1.0);
-	}
+	}*/
 
 }
 
 void Render() {
-	tileLayer->Display(al_get_backbuffer(display), Rect());
+	gameMap->Display(al_get_backbuffer(display));
 
 	if (SHOW_GRID_DEBUG) {
 		GridDisplay();
 	}
-
 
 	al_flip_display();
 }
@@ -167,26 +170,32 @@ void Input() {
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_RIGHT)) {
 
-		ScrollUtilities::ScrollWithBoundsCheck(viewWin, keyboard_offset, 0);
-		tileLayer->SetViewWindow(*viewWin);
-		std::cout << " ------------------------ Pressed Right arrow!" << std::endl;
+		//ScrollUtilities::ScrollWithBoundsCheck(viewWin, keyboard_offset, 0);
+		//tileLayer->SetViewWindow(*viewWin);
+		if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
+
+			gameMap->ScrollWithBoundsCheck(keyboard_offset, 0);
+		}
+		//std::cout << " ------------------------ Pressed Right arrow!" << std::endl;
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_LEFT)) {
-		ScrollUtilities::ScrollWithBoundsCheck(viewWin, -keyboard_offset, 0);
-		tileLayer->SetViewWindow(*viewWin);
+		//ScrollUtilities::ScrollWithBoundsCheck(viewWin, -keyboard_offset, 0);
+		//tileLayer->SetViewWindow(*viewWin);
+		gameMap->ScrollWithBoundsCheck(-keyboard_offset, 0);
 		std::cout << " ------------------------ Pressed Left arrow!" << std::endl;
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_HOME)) {
-		viewWin->x = viewWin->y = 0;
-		tileLayer->SetViewWindow(*viewWin);
+		//viewWin->x = viewWin->y = 0;
+		gameMap->SetViewWindow(Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_END)) {
-		viewWin->x = MAX_PIXEL_WIDTH - viewWin->w;
+		/*viewWin->x = MAX_PIXEL_WIDTH - viewWin->w;
 		viewWin->y = MAX_PIXEL_HEIGHT - viewWin->h;
-		tileLayer->SetViewWindow(*viewWin);
+		tileLayer->SetViewWindow(*viewWin);*/
+		gameMap->SetViewWindow(Rect(MAX_PIXEL_WIDTH - viewWin->w, MAX_PIXEL_HEIGHT - viewWin->h, SCREEN_WIDTH, SCREEN_HEIGHT));
 	}
 
 	if (al_mouse_button_down(&mouse_state, 1)) { //1 is left click
@@ -211,8 +220,9 @@ void Input() {
 			dy = -1;
 		}
 
-		ScrollUtilities::ScrollWithBoundsCheck(viewWin, dx, dy);
-		tileLayer->SetViewWindow(*viewWin);
+		//ScrollUtilities::ScrollWithBoundsCheck(viewWin, dx, dy);
+		//tileLayer->SetViewWindow(*viewWin);
+		gameMap->ScrollWithBoundsCheck(dx, dy);
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {

@@ -165,6 +165,7 @@
     <ClInclude Include="source\engine\Game.h" />
     <ClInclude Include="source\engine\General.h" />
     <ClInclude Include="source\engine\GravityHandler.h" />
+    <ClInclude Include="source\engine\GridComputation.h" />
     <ClInclude Include="source\engine\GridLayer.h" />
     <ClInclude Include="source\engine\KeyFrameAnimations.h" />
     <ClInclude Include="source\engine\MotionQuantizer.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="source\engine\TileLayer.h" />
     <ClInclude Include="source\engine\TileUtilities.h" />
     <ClInclude Include="source\engine\Timing.h" />
+    <ClInclude Include="source\game\GameFunctions.h" />
     <ClInclude Include="source\game\GameMain.h" />
     <ClInclude Include="source\utils\Utils.h" />
   </ItemGroup>
