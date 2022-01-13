@@ -10,7 +10,7 @@
 	
 	Game -> Manos lec 5
 	Sprites -> Manos lec 12
-	Layers -> Manos lec 7 8 9 
+	Layers -> Manos lec 7 8 9
 	B.Areas -> Manos lec 6
 	
 	Physics -> Konto lec 12

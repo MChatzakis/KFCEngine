@@ -11,71 +11,72 @@ public:
 private:
 	Action render, anim, input, ai, physics, destruct, collisions, user;
 	Pred done;
-	void Invoke(const Action& f) {
-		if (!f) {
-			std::cout << "Invoke: Could not map a function." << std::endl;
-			exit(-1);
-		}
-		f();
-	}
+
+	void Invoke(const Action& f);
 public:
-	Game() {};
+	Game();
 
 	//Setters
-	void SetRender(const Action& f) { render = f; }
-	void SetProgressAnimations(const Action& f) { anim = f; }
-	void SetInput(const Action& f) { input = f; }
-	void SetAI(const Action& f) { ai = f; }
-	void SetPhysics(const Action& f) { physics = f; }
-	void SetDestructions(const Action& f) { destruct = f; }
-	void SetCollisionChecking(const Action& f) { collisions = f; }
-	void SetUserCode(const Action& f) { user = f; }
-	void SetIsFinished(const Pred& f) { done = f; }
+	void SetRender(const Action& f);
+	void SetProgressAnimations(const Action& f);
+	void SetInput(const Action& f);
+	void SetAI(const Action& f);
+	void SetPhysics(const Action& f);
+	void SetDestructions(const Action& f);
+	void SetCollisionChecking(const Action& f);
+	void SetUserCode(const Action& f);
+	void SetIsFinished(const Pred& f);
 
 	//Invokes
-	void Render(void) { Invoke(render); }
-	void ProgressAnimations(void) { Invoke(anim); }
-	void Input(void) { Invoke(input); }
-	void AI(void) { Invoke(ai); }
-	void Physics(void) { Invoke(physics); }
-	void CollisionChecking(void) { Invoke(collisions); }
-	void CommitDestructions(void) { Invoke(destruct); }
-	void UserCode(void) { Invoke(user); }
-	bool IsFinished(void) const {
-		if (done) {
-			return done();
-		}
-		return false;
-	}
+	void Render(void);
+	void ProgressAnimations(void);
+	void Input(void);
+	void AI(void);
+	void Physics(void);
+	void CollisionChecking(void);
+	void CommitDestructions(void);
+	void UserCode(void);
+	bool IsFinished(void) const;
 
 	void MainLoop(void);
 	void MainLoopIteration(void);
 };
 
-class App {
-protected:
-	Game game;
-public:
-	App(Game& _game) { game = _game; }
-	virtual void Initialise(void) = 0;
-	virtual void Load(void) = 0;
-	virtual void Run(void) { game.MainLoop(); }
-	virtual void RunIteration(void)
-	{
-		game.MainLoopIteration();
+void Game::Invoke(const Action& f) {
+	if (!f) {
+		std::cout << "Invoke: Could not map a function." << std::endl;
+		exit(-1);
 	}
-	Game& GetGame(void) { return game; }
-	const Game& GetGame(void) const { return game; }
-	void SetGame(Game& _game) { game = _game; }
-	virtual void Clear(void) = 0;
-	void Main(void) {
-		Initialise();
-		Load();
-		Run();
-		Clear();
-	}
-};
+	f();
+}
 
+Game::Game() {};
+
+void  Game::SetRender(const Action& f) { render = f; }
+void  Game::SetProgressAnimations(const Action& f) { anim = f; }
+void  Game::SetInput(const Action& f) { input = f; }
+void  Game::SetAI(const Action& f) { ai = f; }
+void  Game::SetPhysics(const Action& f) { physics = f; }
+void  Game::SetDestructions(const Action& f) { destruct = f; }
+void  Game::SetCollisionChecking(const Action& f) { collisions = f; }
+void  Game::SetUserCode(const Action& f) { user = f; }
+void  Game::SetIsFinished(const Pred& f) { done = f; }
+
+//Invokes
+void Game::Render(void) { Invoke(render); }
+void Game::ProgressAnimations(void) { Invoke(anim); }
+void Game::Input(void) { Invoke(input); }
+void Game::AI(void) { Invoke(ai); }
+void Game::Physics(void) { Invoke(physics); }
+void Game::CollisionChecking(void) { Invoke(collisions); }
+void Game::CommitDestructions(void) { Invoke(destruct); }
+void Game::UserCode(void) { Invoke(user); }
+bool Game::IsFinished(void) const {
+	if (done) {
+		return done();
+	}
+	return false;
+}
 
 void Game::MainLoop(void) {
 	while (!IsFinished()) //todo

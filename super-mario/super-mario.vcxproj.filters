@@ -55,11 +55,62 @@
     <Filter Include="Header Files\Engine\BoundingAreas">
       <UniqueIdentifier>{481f766d-9496-4054-b52a-a724c4a050f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Layers">
+      <UniqueIdentifier>{7b448f27-54d0-4e1a-afc9-ab31a48f44e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Game">
+      <UniqueIdentifier>{9eec12c6-976a-43ee-acc7-e9119b11a67d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Physics">
+      <UniqueIdentifier>{ebdb878e-509b-4a89-8314-04fc3926430e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Sprites">
+      <UniqueIdentifier>{387e3708-4157-4977-8f2d-d7a3ff0209e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\BoundingAreas">
+      <UniqueIdentifier>{6e967fe1-5f8c-408d-8d95-4f16a7c620af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Animation">
+      <UniqueIdentifier>{224dc13d-8cbb-450a-8900-c18e64efec2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Animation\Animations">
+      <UniqueIdentifier>{dd1d0c7c-526b-499d-a095-af2d557cdffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Animation\Animators">
+      <UniqueIdentifier>{0aa5141d-b9c6-4c9d-9ff7-eef608d61b01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\csv">
+      <UniqueIdentifier>{71b3133b-c065-4f9b-a548-656884219713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\sounds">
+      <UniqueIdentifier>{356c7309-2e85-487a-840b-3b34337405fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\bitmap">
+      <UniqueIdentifier>{cd757fac-8a54-45d5-82bc-3231a1dfba58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\config">
+      <UniqueIdentifier>{83bdc6b1-7fad-42f6-8cd5-ac07f4879913}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="resources\config\config.json">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\csv\level1-1_background.csv">
+      <Filter>Resource Files\csv</Filter>
+    </None>
+    <None Include="resources\csv\level1-1_flag.csv">
+      <Filter>Resource Files\csv</Filter>
+    </None>
+    <None Include="resources\csv\level1-1_Sky.csv">
+      <Filter>Resource Files\csv</Filter>
+    </None>
+    <None Include="resources\csv\level1-1_terain.csv">
+      <Filter>Resource Files\csv</Filter>
+    </None>
+    <None Include="resources\csv\OLDlevel1-1_terain.csv">
+      <Filter>Resource Files\csv</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +119,105 @@
     </ClCompile>
     <ClCompile Include="source\utils\Utils.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\TileLayer.cpp">
+      <Filter>Source Files\Engine\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\TileActions.cpp">
+      <Filter>Source Files\Engine\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\TileUtilities.cpp">
+      <Filter>Source Files\Engine\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\GridLayer.cpp">
+      <Filter>Source Files\Engine\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\GridComputation.cpp">
+      <Filter>Source Files\Engine\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\App.cpp">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\Game.cpp">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\CollisionChecker.cpp">
+      <Filter>Source Files\Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\GravityHandler.cpp">
+      <Filter>Source Files\Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\Sprite.cpp">
+      <Filter>Source Files\Engine\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\Clipper.cpp">
+      <Filter>Source Files\Engine\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\MotionQuantizer.cpp">
+      <Filter>Source Files\Engine\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\SpriteManager.cpp">
+      <Filter>Source Files\Engine\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\BoundingArea.cpp">
+      <Filter>Source Files\Engine\BoundingAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\BoundingBox.cpp">
+      <Filter>Source Files\Engine\BoundingAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\BoundingPolygon.cpp">
+      <Filter>Source Files\Engine\BoundingAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\BoundingCircle.cpp">
+      <Filter>Source Files\Engine\BoundingAreas</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\General.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\Timing.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\DestructionManager.cpp">
+      <Filter>Source Files\Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\KeyFrameAnimations.cpp">
+      <Filter>Source Files\Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\Animator.cpp">
+      <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\AnimatorManager.cpp">
+      <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\FrameRangeAnimator.cpp">
+      <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\MovingAnimator.cpp">
+      <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\TickAnimator.cpp">
+      <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\Animation.cpp">
+      <Filter>Source Files\Engine\Animation\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\FrameListAnimation.cpp">
+      <Filter>Source Files\Engine\Animation\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\MovingAnimation.cpp">
+      <Filter>Source Files\Engine\Animation\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\FrameRangeAnimation.cpp">
+      <Filter>Source Files\Engine\Animation\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\MovingPathAnimation.cpp">
+      <Filter>Source Files\Engine\Animation\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\TickAnimation.cpp">
+      <Filter>Source Files\Engine\Animation\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\ScrollAnimation.cpp">
+      <Filter>Source Files\Engine\Animation\Animations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,5 +326,84 @@
     <ClInclude Include="source\engine\GridComputation.h">
       <Filter>Header Files\Engine\Layers</Filter>
     </ClInclude>
+    <ClInclude Include="source\engine\App.h">
+      <Filter>Header Files\Engine\Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\bitmaps\tileset.png">
+      <Filter>Resource Files\bitmap</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resources\sounds\smb_1-up.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_bowserfalls.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_bowserfire.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_breakblock.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_bump.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_coin.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_fireball.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_fireworks.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_flagpole.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_gameover.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_jump-small.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_jump-super.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_kick.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_mariodie.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_pause.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_pipe.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_powerup.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_powerup_appears.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_stage_clear.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_stomp.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_vine.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_warning.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="resources\sounds\smb_world_clear.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
   </ItemGroup>
 </Project>

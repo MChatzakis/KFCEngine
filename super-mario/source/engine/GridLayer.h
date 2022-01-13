@@ -241,7 +241,7 @@ public:
 		return false;
 	}
 
-	
+
 	static void ComputeTileGridBlocks1(const TileMap* map, GridIndex* grid) {
 		for (auto row = 0; row < TILEMAP_HEIGHT; ++row) //change
 			for (auto col = 0; col < TILEMAP_WIDTH; ++col) {
@@ -406,204 +406,258 @@ private:
 	Dim totalRows = 0, totalColumns = 0;
 
 	//ok
-	void Allocate(void) {
-		grid = new GridIndex[total = totalRows * totalColumns];
-		memset(grid, GRID_EMPTY_TILE, total);
-	}
+	void Allocate(void);
 
 	//ok
-	void FilterGridMotionLeft(const Rect& r, int* dx) {
-		auto x1 = r.x;
-		auto x1_next = x1 + *dx;
-		if (x1_next < 0)
-			*dx = *dx - x1_next; //goes full left
-		else {
-			auto newCol = DIV_GRID_ELEMENT_WIDTH(x1_next);
-			auto currCol = DIV_GRID_ELEMENT_WIDTH(x1);
-			if (newCol != currCol) {
-				assert(newCol + 1 == currCol); // we really move left
-				auto startRow = DIV_GRID_ELEMENT_HEIGHT(r.y);
-				auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
-				for (auto row = startRow; row <= endRow; ++row)
-					if (!CanPassGridTile(newCol, row, GRID_RIGHT_SOLID_MASK)) {
-						*dx = MUL_GRID_ELEMENT_WIDTH(currCol) - x1;
-						break;
-					}
-			}
-		}
-	}
+	void FilterGridMotionLeft(const Rect& r, int* dx);
 
 	//ok
-	void FilterGridMotionUp(const Rect& r, int* dy) {
-		auto y2 = r.y;
-		auto y2_next = y2 + *dy;
-		//auto y1_next = r.y + *dy;
-		if (y2_next < 0)
-			*dy = *dy - y2_next; //goes full top
-		else {
-			auto newRow = DIV_GRID_ELEMENT_HEIGHT(y2_next);
-			auto currRow = DIV_GRID_ELEMENT_HEIGHT(y2);
-			if (newRow != currRow) {
-				assert(newRow == currRow - 1); // we really move up
-				auto startCol = DIV_GRID_ELEMENT_WIDTH(r.x);
-				auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
-				for (auto col = startCol; col <= endCol; ++col)
-					if (!CanPassGridTile(col, newRow, GRID_BOTTOM_SOLID_MASK)) {
-						*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - y2; //sigoura swsta ayta? -1?
-						break;
-					}
-			}
-		}
-	}
+	void FilterGridMotionUp(const Rect& r, int* dy);
 
 	//ok
-	void FilterGridMotionDown(const Rect& r, int* dy) {
-		auto y1 = r.y + r.h - 1;
-		auto y1_next = y1 + *dy;
-		if (y1_next >= MAX_PIXEL_HEIGHT)
-			*dy = (MAX_PIXEL_HEIGHT - 1) - y1; //goes full down
-		else {
-			auto newRow = DIV_GRID_ELEMENT_HEIGHT(y1_next);
-			auto currRow = DIV_GRID_ELEMENT_HEIGHT(y1);
-			if (newRow != currRow) {
-				assert(newRow == currRow + 1); // we really move down
-				auto startCol = DIV_GRID_ELEMENT_WIDTH(r.x);
-				auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
-				for (auto col = startCol; col <= endCol; ++col)
-					if (!CanPassGridTile(col, newRow, GRID_TOP_SOLID_MASK)) {
-						*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - y1 - 1; //sigoura swsta ayta?
-						break;
-					}
-			}
-		}
-	}
+	void FilterGridMotionDown(const Rect& r, int* dy);
 
 	//ok
-	void FilterGridMotionRight(const Rect& r, int* dx) {
-		auto x2 = r.x + r.w - 1;
-		auto x2_next = x2 + *dx;
-		if (x2_next >= MAX_PIXEL_WIDTH) {
-			*dx = (MAX_PIXEL_WIDTH - 1) - x2; //goes full right
-			std::cout << "kseperase to orio deksia\n";
-		}
-		else {
-			auto newCol = DIV_GRID_ELEMENT_WIDTH(x2_next);
-			auto currCol = DIV_GRID_ELEMENT_WIDTH(x2);
-			if (newCol != currCol) {
-				assert(newCol - 1 == currCol); // we really move right
-				auto startRow = DIV_GRID_ELEMENT_HEIGHT(r.y);
-				auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
-				for (auto row = startRow; row <= endRow; ++row)
-					if (!CanPassGridTile(newCol, row, GRID_LEFT_SOLID_MASK)) {
-						*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
-						//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 0) - x2; //sigoura swsta ayta ?
-						std::cout << "synantise solid tile\n";
-						break;
-					}
-			}
-		}
-	}
+	void FilterGridMotionRight(const Rect& r, int* dx);
 
 public:
 	//ok
-	void SetGridTile(Dim col, Dim row, GridIndex index)
-	{
-		grid[row * totalColumns + col] = index;
-	}
+	void SetGridTile(Dim col, Dim row, GridIndex index);
 
 	//ok
-	GridIndex GetGridTile(Dim col, Dim row)
-	{
-		return grid[row * totalColumns + col];
-	}
+	GridIndex GetGridTile(Dim col, Dim row);
 
 	//ok
-	void SetSolidGridTile(Dim col, Dim row)
-	{
-		SetGridTile(col, row, GRID_SOLID_TILE);
-	}
+	void SetSolidGridTile(Dim col, Dim row);
 
 	//ok
-	void SetEmptyGridTile(Dim col, Dim row)
-	{
-		SetGridTile(col, row, GRID_EMPTY_TILE);
-	}
+	void SetEmptyGridTile(Dim col, Dim row);
 
 	//ok
-	void SetGridTileFlags(Dim col, Dim row, GridIndex flags)
-	{
-		SetGridTile(col, row, flags);
-	}
+	void SetGridTileFlags(Dim col, Dim row, GridIndex flags);
 
 	//ok
-	void SetGridTileTopSolidOnly(Dim col, Dim row)
-	{
-		SetGridTileFlags(row, col, GRID_TOP_SOLID_MASK);
-	}
+	void SetGridTileTopSolidOnly(Dim col, Dim row);
 
 	//ok
-	bool CanPassGridTile(Dim col, Dim row, GridIndex flags) // i.e. checks if flags set
-	{
-		//bool res = (bool)(*GetGridTileBlock(col / 4, row / 4, TILEMAP_WIDTH) & flags);
-		return !GetGridTile(col, row) & flags;
-		/*if (res)
-			std::cout << "You go on Solid tile " << "(" << row << "," << col << ")\n";
-
-		return !res; //now it returns 1 on empty tiles
-		//return GetGridTile(m, row, col) & (flags != 0);*/
-	}
+	bool CanPassGridTile(Dim col, Dim row, GridIndex flags);
 
 	//ok
-	void FilterGridMotion(const Rect& r, int* dx, int* dy) {
-		assert(abs(*dx) <= GRID_ELEMENT_WIDTH && abs(*dy) <= GRID_ELEMENT_HEIGHT);
-		// try horizontal move
-		if (*dx < 0)
-			FilterGridMotionLeft(r, dx);
-		else
-			if (*dx > 0)
-				FilterGridMotionRight(r, dx);
-		// try vertical move
-		if (*dy < 0)
-			FilterGridMotionUp(r, dy);
-		else
-			if (*dy > 0)
-				FilterGridMotionDown(r, dy);
-	}
+	void FilterGridMotion(const Rect& r, int* dx, int* dy);
 
 	//ok
-	bool IsOnSolidGround(const Rect& r) { // will need later for gravity
-		int dy = 1; // down 1 pixel
-		FilterGridMotionDown(r, &dy);
-		return dy == 0; // if true IS attached to solid ground
-	}
+	bool IsOnSolidGround(const Rect& r);
 
 	//ok
-	GridIndex* GetBuffer(void) {
-		return grid;
-	}
+	GridIndex* GetBuffer(void);
 
 	//ok
-	bool IsTileIndexAssumedEmpty(Index index) {
-		for (int i = 0; i < TOTAL_EMPTY_INDICES; i++) {
-			if (EMPTY_INDICES[i] == index) {
-				return true;
-			}
-		}
-		return false;
-	}
+	bool IsTileIndexAssumedEmpty(Index index);
 
 	//ok
-	const GridIndex*& GetBuffer(void) const {
-		return (const GridIndex*&)grid; //compile error, to see
-	}
+	const GridIndex*& GetBuffer(void) const;
 
 	//ok
-	GridLayer(unsigned rows, unsigned cols) {
-		totalRows = rows;
-		totalColumns = cols;
-		Allocate();
-	}
-
+	GridLayer(unsigned rows, unsigned cols);
 };
+
+//ok
+void GridLayer::Allocate(void) {
+	grid = new GridIndex[total = totalRows * totalColumns];
+	memset(grid, GRID_EMPTY_TILE, total);
+}
+
+//ok
+void  GridLayer::FilterGridMotionLeft(const Rect& r, int* dx) {
+	auto x1 = r.x;
+	auto x1_next = x1 + *dx;
+	if (x1_next < 0)
+		*dx = *dx - x1_next; //goes full left
+	else {
+		auto newCol = DIV_GRID_ELEMENT_WIDTH(x1_next);
+		auto currCol = DIV_GRID_ELEMENT_WIDTH(x1);
+		if (newCol != currCol) {
+			assert(newCol + 1 == currCol); // we really move left
+			auto startRow = DIV_GRID_ELEMENT_HEIGHT(r.y);
+			auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
+			for (auto row = startRow; row <= endRow; ++row)
+				if (!CanPassGridTile(newCol, row, GRID_RIGHT_SOLID_MASK)) {
+					*dx = MUL_GRID_ELEMENT_WIDTH(currCol) - x1;
+					break;
+				}
+		}
+	}
+}
+
+//ok
+void  GridLayer::FilterGridMotionUp(const Rect& r, int* dy) {
+	auto y2 = r.y;
+	auto y2_next = y2 + *dy;
+	//auto y1_next = r.y + *dy;
+	if (y2_next < 0)
+		*dy = *dy - y2_next; //goes full top
+	else {
+		auto newRow = DIV_GRID_ELEMENT_HEIGHT(y2_next);
+		auto currRow = DIV_GRID_ELEMENT_HEIGHT(y2);
+		if (newRow != currRow) {
+			assert(newRow == currRow - 1); // we really move up
+			auto startCol = DIV_GRID_ELEMENT_WIDTH(r.x);
+			auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
+			for (auto col = startCol; col <= endCol; ++col)
+				if (!CanPassGridTile(col, newRow, GRID_BOTTOM_SOLID_MASK)) {
+					*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - y2; //sigoura swsta ayta? -1?
+					break;
+				}
+		}
+	}
+}
+
+//ok
+void  GridLayer::FilterGridMotionDown(const Rect& r, int* dy) {
+	auto y1 = r.y + r.h - 1;
+	auto y1_next = y1 + *dy;
+	if (y1_next >= MAX_PIXEL_HEIGHT)
+		*dy = (MAX_PIXEL_HEIGHT - 1) - y1; //goes full down
+	else {
+		auto newRow = DIV_GRID_ELEMENT_HEIGHT(y1_next);
+		auto currRow = DIV_GRID_ELEMENT_HEIGHT(y1);
+		if (newRow != currRow) {
+			assert(newRow == currRow + 1); // we really move down
+			auto startCol = DIV_GRID_ELEMENT_WIDTH(r.x);
+			auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
+			for (auto col = startCol; col <= endCol; ++col)
+				if (!CanPassGridTile(col, newRow, GRID_TOP_SOLID_MASK)) {
+					*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - y1 - 1; //sigoura swsta ayta?
+					break;
+				}
+		}
+	}
+}
+
+//ok
+void  GridLayer::FilterGridMotionRight(const Rect& r, int* dx) {
+	auto x2 = r.x + r.w - 1;
+	auto x2_next = x2 + *dx;
+	if (x2_next >= MAX_PIXEL_WIDTH) {
+		*dx = (MAX_PIXEL_WIDTH - 1) - x2; //goes full right
+		std::cout << "kseperase to orio deksia\n";
+	}
+	else {
+		auto newCol = DIV_GRID_ELEMENT_WIDTH(x2_next);
+		auto currCol = DIV_GRID_ELEMENT_WIDTH(x2);
+		if (newCol != currCol) {
+			assert(newCol - 1 == currCol); // we really move right
+			auto startRow = DIV_GRID_ELEMENT_HEIGHT(r.y);
+			auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
+			for (auto row = startRow; row <= endRow; ++row)
+				if (!CanPassGridTile(newCol, row, GRID_LEFT_SOLID_MASK)) {
+					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
+					//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 0) - x2; //sigoura swsta ayta ?
+					std::cout << "synantise solid tile\n";
+					break;
+				}
+		}
+	}
+}
+
+//ok
+void  GridLayer::SetGridTile(Dim col, Dim row, GridIndex index)
+{
+	grid[row * totalColumns + col] = index;
+}
+
+//ok
+GridIndex  GridLayer::GetGridTile(Dim col, Dim row)
+{
+	return grid[row * totalColumns + col];
+}
+
+//ok
+void  GridLayer::SetSolidGridTile(Dim col, Dim row)
+{
+	SetGridTile(col, row, GRID_SOLID_TILE);
+}
+
+//ok
+void  GridLayer::SetEmptyGridTile(Dim col, Dim row)
+{
+	SetGridTile(col, row, GRID_EMPTY_TILE);
+}
+
+//ok
+void  GridLayer::SetGridTileFlags(Dim col, Dim row, GridIndex flags)
+{
+	SetGridTile(col, row, flags);
+}
+
+//ok
+void  GridLayer::SetGridTileTopSolidOnly(Dim col, Dim row)
+{
+	SetGridTileFlags(row, col, GRID_TOP_SOLID_MASK);
+}
+
+//ok
+bool  GridLayer::CanPassGridTile(Dim col, Dim row, GridIndex flags) // i.e. checks if flags set
+{
+	//bool res = (bool)(*GetGridTileBlock(col / 4, row / 4, TILEMAP_WIDTH) & flags);
+	return !GetGridTile(col, row) & flags;
+	/*if (res)
+		std::cout << "You go on Solid tile " << "(" << row << "," << col << ")\n";
+
+	return !res; //now it returns 1 on empty tiles
+	//return GetGridTile(m, row, col) & (flags != 0);*/
+}
+
+//ok
+void  GridLayer::FilterGridMotion(const Rect& r, int* dx, int* dy) {
+	assert(abs(*dx) <= GRID_ELEMENT_WIDTH && abs(*dy) <= GRID_ELEMENT_HEIGHT);
+	// try horizontal move
+	if (*dx < 0)
+		FilterGridMotionLeft(r, dx);
+	else
+		if (*dx > 0)
+			FilterGridMotionRight(r, dx);
+	// try vertical move
+	if (*dy < 0)
+		FilterGridMotionUp(r, dy);
+	else
+		if (*dy > 0)
+			FilterGridMotionDown(r, dy);
+}
+
+//ok
+bool  GridLayer::IsOnSolidGround(const Rect& r) { // will need later for gravity
+	int dy = 1; // down 1 pixel
+	FilterGridMotionDown(r, &dy);
+	return dy == 0; // if true IS attached to solid ground
+}
+
+//ok
+GridIndex* GridLayer::GetBuffer(void) {
+	return grid;
+}
+
+//ok
+bool  GridLayer::IsTileIndexAssumedEmpty(Index index) {
+	for (int i = 0; i < TOTAL_EMPTY_INDICES; i++) {
+		if (EMPTY_INDICES[i] == index) {
+			return true;
+		}
+	}
+	return false;
+}
+
+//ok
+const GridIndex*& GridLayer::GetBuffer(void) const {
+	return (const GridIndex*&)grid; //compile error, to see
+}
+
+//ok
+GridLayer::GridLayer(unsigned rows, unsigned cols) {
+	totalRows = rows;
+	totalColumns = cols;
+	Allocate();
+}
+
 
 #endif _GRIDLAYER_H_

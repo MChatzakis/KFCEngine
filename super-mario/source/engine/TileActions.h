@@ -14,6 +14,7 @@ class TileLayer;
 class TileActions {
 public:
 	using Action = std::function<void(Dim col, Dim row)>;
+	
 	// (row,col)->unique tile number (in terrain map)
 	using Enumerator = std::function<unsigned(Dim col, Dim row)>;
 private:
@@ -27,29 +28,13 @@ private:
 	static TileActions singleton;
 
 public:
-	template <typename Tfunc> void SetEnumerator(const Tfunc& f) {
-		enumerator = f;
-	}
-	template <typename Tfunc>void Install(const std::string& tag, const Tfunc& f) {
-		actions[tag] = f;
-	}
+	template <typename Tfunc> void SetEnumerator(const Tfunc& f);
+	template <typename Tfunc>void Install(const std::string& tag, const Tfunc& f);
 
-	void SetTag(Dim col, Dim row, const std::string& tag) {
-		tags[tag].insert(enumerator(col, row));
-	}
+	void SetTag(Dim col, Dim row, const std::string& tag);
+	void Trigger(Dim col, Dim row);
 
-	void Trigger(Dim col, Dim row) {
-		auto pos = enumerator(col, row);
-		for (auto& i : tags)
-			if (i.second.find(pos) != i.second.end()) {
-				auto j = actions.find(i.first);
-				if (j != actions.end())
-					j->second(col, row);
-				return;
-			}
-	}
-
-	static auto GetSingleton(void) -> TileActions& {
+	static auto GetSingleton(void)->TileActions& {
 		return singleton;
 	}
 
@@ -61,7 +46,7 @@ public:
 class TrigerScrollUtilities {
 
 public:
-	static void FilterGridMotionLeft(GridMap* m, const Rect& r, int* dx, std::list<Point>* crossedTiles) {
+	/*static void FilterGridMotionLeft(GridMap* m, const Rect& r, int* dx, std::list<Point>* crossedTiles) {
 
 		auto x1 = r.x;
 		auto x1_next = x1 + *dx;
@@ -78,7 +63,7 @@ public:
 					if (!CanPassGridTile(m, newCol, row, GRID_RIGHT_SOLID_MASK)) {
 						*dx = MUL_GRID_ELEMENT_WIDTH(currCol) - x1;
 						break;
-					}*/
+					}
 				std::list<Point> l;
 				for (auto row = startRow; row <= endRow; ++row)
 					if (!GridUtilities::CanPassGridTile(m, newCol, row, GRID_RIGHT_SOLID_MASK)) {
@@ -95,8 +80,8 @@ public:
 
 	}
 
-	//todo
-	static void FilterGridMotionUp(GridMap* m, const Rect& r, int* dy, std::list<Point>* crossedTiles) {
+	//todo 
+	/*static void FilterGridMotionUp(GridMap* m, const Rect& r, int* dy, std::list<Point>* crossedTiles) {
 		auto y2 = r.y;
 		auto y2_next = y2 + *dy;
 		//auto y1_next = r.y + *dy;
@@ -185,10 +170,36 @@ public:
 
 		for (auto& i : crossedTiles)
 			TileActions::GetSingleton().Trigger(i.x, i.y);
-	}
+	}*/
 
 };
 
+/* TileActions */
+template <typename Tfunc> void TileActions::SetEnumerator(const Tfunc& f) {
+	enumerator = f;
+}
+
+template <typename Tfunc>void TileActions::Install(const std::string& tag, const Tfunc& f) {
+	actions[tag] = f;
+}
+
+void TileActions::SetTag(Dim col, Dim row, const std::string& tag) {
+	tags[tag].insert(enumerator(col, row));
+}
+
+void TileActions::Trigger(Dim col, Dim row) {
+	auto pos = enumerator(col, row);
+	for (auto& i : tags)
+		if (i.second.find(pos) != i.second.end()) {
+			auto j = actions.find(i.first);
+			if (j != actions.end())
+				j->second(col, row);
+			return;
+		}
+}
+
+
+/* TrigerScrollUtilities */
 
 
 #endif _TILEACTIONS_H_

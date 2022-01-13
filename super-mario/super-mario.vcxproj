@@ -143,8 +143,46 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="resources\config\config.json" />
+    <None Include="resources\csv\level1-1_background.csv" />
+    <None Include="resources\csv\level1-1_flag.csv" />
+    <None Include="resources\csv\level1-1_Sky.csv" />
+    <None Include="resources\csv\level1-1_terain.csv" />
+    <None Include="resources\csv\OLDlevel1-1_terain.csv" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\engine\Animation.cpp" />
+    <ClCompile Include="source\engine\Animator.cpp" />
+    <ClCompile Include="source\engine\AnimatorManager.cpp" />
+    <ClCompile Include="source\engine\BoundingArea.cpp" />
+    <ClCompile Include="source\engine\BoundingBox.cpp" />
+    <ClCompile Include="source\engine\BoundingCircle.cpp" />
+    <ClCompile Include="source\engine\BoundingPolygon.cpp" />
+    <ClCompile Include="source\engine\Clipper.cpp" />
+    <ClCompile Include="source\engine\CollisionChecker.cpp" />
+    <ClCompile Include="source\engine\DestructionManager.cpp" />
+    <ClCompile Include="source\engine\FrameListAnimation.cpp" />
+    <ClCompile Include="source\engine\FrameRangeAnimation.cpp" />
+    <ClCompile Include="source\engine\FrameRangeAnimator.cpp" />
+    <ClCompile Include="source\engine\Game.cpp" />
+    <ClCompile Include="source\engine\General.cpp" />
+    <ClCompile Include="source\engine\GravityHandler.cpp" />
+    <ClCompile Include="source\engine\GridComputation.cpp" />
+    <ClCompile Include="source\engine\GridLayer.cpp" />
+    <ClCompile Include="source\engine\App.cpp" />
+    <ClCompile Include="source\engine\KeyFrameAnimations.cpp" />
+    <ClCompile Include="source\engine\MotionQuantizer.cpp" />
+    <ClCompile Include="source\engine\MovingAnimation.cpp" />
+    <ClCompile Include="source\engine\MovingAnimator.cpp" />
+    <ClCompile Include="source\engine\MovingPathAnimation.cpp" />
+    <ClCompile Include="source\engine\ScrollAnimation.cpp" />
+    <ClCompile Include="source\engine\Sprite.cpp" />
+    <ClCompile Include="source\engine\SpriteManager.cpp" />
+    <ClCompile Include="source\engine\TickAnimation.cpp" />
+    <ClCompile Include="source\engine\TickAnimator.cpp" />
+    <ClCompile Include="source\engine\TileActions.cpp" />
+    <ClCompile Include="source\engine\TileLayer.cpp" />
+    <ClCompile Include="source\engine\TileUtilities.cpp" />
+    <ClCompile Include="source\engine\Timing.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\utils\Utils.cpp" />
   </ItemGroup>
@@ -152,6 +190,7 @@
     <ClInclude Include="source\engine\Animation.h" />
     <ClInclude Include="source\engine\Animator.h" />
     <ClInclude Include="source\engine\AnimatorManager.h" />
+    <ClInclude Include="source\engine\App.h" />
     <ClInclude Include="source\engine\BoundingArea.h" />
     <ClInclude Include="source\engine\BoundingBox.h" />
     <ClInclude Include="source\engine\BoundingCircle.h" />
@@ -184,6 +223,34 @@
     <ClInclude Include="source\game\GameFunctions.h" />
     <ClInclude Include="source\game\GameMain.h" />
     <ClInclude Include="source\utils\Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\bitmaps\tileset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resources\sounds\smb_1-up.wav" />
+    <Media Include="resources\sounds\smb_bowserfalls.wav" />
+    <Media Include="resources\sounds\smb_bowserfire.wav" />
+    <Media Include="resources\sounds\smb_breakblock.wav" />
+    <Media Include="resources\sounds\smb_bump.wav" />
+    <Media Include="resources\sounds\smb_coin.wav" />
+    <Media Include="resources\sounds\smb_fireball.wav" />
+    <Media Include="resources\sounds\smb_fireworks.wav" />
+    <Media Include="resources\sounds\smb_flagpole.wav" />
+    <Media Include="resources\sounds\smb_gameover.wav" />
+    <Media Include="resources\sounds\smb_jump-small.wav" />
+    <Media Include="resources\sounds\smb_jump-super.wav" />
+    <Media Include="resources\sounds\smb_kick.wav" />
+    <Media Include="resources\sounds\smb_mariodie.wav" />
+    <Media Include="resources\sounds\smb_pause.wav" />
+    <Media Include="resources\sounds\smb_pipe.wav" />
+    <Media Include="resources\sounds\smb_powerup.wav" />
+    <Media Include="resources\sounds\smb_powerup_appears.wav" />
+    <Media Include="resources\sounds\smb_stage_clear.wav" />
+    <Media Include="resources\sounds\smb_stomp.wav" />
+    <Media Include="resources\sounds\smb_vine.wav" />
+    <Media Include="resources\sounds\smb_warning.wav" />
+    <Media Include="resources\sounds\smb_world_clear.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
