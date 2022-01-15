@@ -168,18 +168,26 @@ void BitmapInvertPixels32(Bitmap bmp);
 void BitmapTintPixels32(Bitmap bmp, float f);
 
 /*
+	Convert Color to ALLEGRO_COLOR
+*/
+
+ALLEGRO_COLOR ColorToAllegroColor(Color c);
+
+/*
 	Write Pixel color mappings
 */
-void WritePixelColor8(PixelMemory, RGBValue); //draw pixel with color //todo
-void WritePixelColor16(PixelMemory, const RGB&); //todo
-void WritePixelColor24(PixelMemory, const RGB&); //todo
-void WritePixelColor32(PixelMemory, const RGB&, Alpha a); //todo
+void WritePixelColor8(PixelMemory, RGBValue); //draw pixel with color
+void WritePixelColor8(PixelMemory, const RGB&);
+void WritePixelColor16(PixelMemory, const RGB&);
+void WritePixelColor24(PixelMemory, const RGB&);
+void WritePixelColor32(PixelMemory, const RGB&, Alpha a);
 
 
 /*
 	Read Pixel color mappings
 */
 void ReadPixelColor8(PixelMemory, RGBValue*); //read pixel color
+void ReadPixelColor8(PixelMemory, RGB*);
 void ReadPixelColor16(PixelMemory, RGB*);
 void ReadPixelColor24(PixelMemory, RGB*);
 void ReadPixelColor32(PixelMemory, RGB*, Alpha*);
@@ -263,8 +271,8 @@ void InstallPutPixel(void); // upon initialisation
 /*
 	Sync mappings
 */
+void Vsync(void); // gfx lib function
 /*void Render(Bitmap target); // do game rendering to target  //todo
-void Vsync(void); // gfx lib function  //todo
 void Flush(void);
 void Flush2(void);
 
@@ -306,11 +314,10 @@ Bitmap BitmapClear(Bitmap bmp, Color c) {
 	ALLEGRO_BITMAP* currTarget = al_get_target_bitmap();
 	al_set_target_bitmap((ALLEGRO_BITMAP*)bmp);
 
-	int r = (c >> 16) & 0xFF; //na to kanoume function
-	int g = (c >> 8) & 0xFF;
-	int b = (c >> 0) & 0xFF;
+	ALLEGRO_COLOR color = ColorToAllegroColor(c);
 
-	al_clear_to_color(al_map_rgb(r, g, b));
+	al_clear_to_color(color);
+	//al_clear_to_color(al_map_rgb(color.r, color.g, color.b));
 	al_set_target_bitmap(currTarget);
 
 	return bmp;
@@ -374,7 +381,7 @@ Rect& GetScreenRect(Dim w, Dim h) {
 	return *(new Rect(0, 0, w, h));
 }
 
-Color COLOR_KEY;
+Color COLOR_KEY = 0;
 void SetColorKey(Color c) {
 	COLOR_KEY = c;
 }
@@ -385,16 +392,9 @@ Color GetColorKey(void) {
 
 Dim MaskedBlit(Bitmap src, const Rect& from, Bitmap dest, const Point& to) {
 	ALLEGRO_COLOR mask;
-	Color c = GetColorKey();
-
-	int r = (c >> 16) & 0xFF; //na to kanoume function
-	int g = (c >> 8) & 0xFF;
-	int b = (c >> 0) & 0xFF;
-
-	/*proswrina*/
-	mask.r = r;
-	mask.g = g;
-	mask.b = b;
+	Color c = GetColorKey(); //must be set first
+	
+	mask = ColorToAllegroColor(c);
 
 	al_convert_mask_to_alpha((ALLEGRO_BITMAP*)src, mask);
 	BitmapBlit(src, from, dest, to);
@@ -467,24 +467,45 @@ void BitmapTintPixels32(Bitmap bmp, float f) {
 	);*/
 }
 
+/*
+	Convert Color to ALLEGRO_COLOR
+*/
+ALLEGRO_COLOR ColorToAllegroColor(Color c) { //or allegro color*?
+	ALLEGRO_COLOR al_color;
+	RGB color;
+	Alpha a;
+	PixelMemory pixel = (PixelMemory)&c;
+
+	ReadPixelColor32(pixel, &color, &a);
+	al_color.r = color.r;
+	al_color.g = color.g;
+	al_color.b = color.b;
+	al_color.a = a;
+
+	return al_color;
+}
 
 /*
 	Write Pixel color mappings
 */
-void WritePixelColor8(PixelMemory, RGBValue) {
-	assert(0);
-} //draw pixel with color
-
-void WritePixelColor16(PixelMemory, const RGB&) {
-	assert(0);
+void WritePixelColor8(PixelMemory pixel, RGBValue color) {
+	*pixel = color;
 }
 
-void WritePixelColor24(PixelMemory, const RGB&) {
-	assert(0);
+void WritePixelColor8(PixelMemory pixel, const RGB& color) { //why reference
+	*pixel = Make8(color.r, color.g, color.b);
 }
 
-void WritePixelColor32(PixelMemory, const RGB&, Alpha a) {
-	assert(0);
+void WritePixelColor16(PixelMemory pixel, const RGB& color) {
+	*pixel = Make16(color.r, color.g, color.b); //possible loss of information because color is uint but *pixel is uchar
+}
+
+void WritePixelColor24(PixelMemory pixel, const RGB& color) {
+	*pixel = Make24(color.r, color.g, color.b);
+}
+
+void WritePixelColor32(PixelMemory pixel, const RGB& color, Alpha a) {
+	*pixel = Make32(color.r, color.g, color.b, a);
 }
 
 
@@ -494,6 +515,12 @@ void WritePixelColor32(PixelMemory, const RGB&, Alpha a) {
 //egw tha tou evaza idio signature me tis apo katw
 void ReadPixelColor8(PixelMemory pixel, RGBValue* color) {
 	*color = *pixel;
+}
+
+void ReadPixelColor8(PixelMemory pixel, RGB* color) {
+	color->r = GetRedRGB8(pixel);
+	color->g = GetGreenRGB8(pixel);
+	color->b = GetBlueRGB8(pixel);
 }
 
 void ReadPixelColor16(PixelMemory pixel, RGB* color) {
@@ -770,6 +797,10 @@ void InstallPutPixel(void) // upon initialisation
 /*
 	Sync mappings
 */
+void Vsync(void) {
+	al_flip_display();
+}
+
 /*extern void Render(Bitmap target);
 
 // do game rendering to target

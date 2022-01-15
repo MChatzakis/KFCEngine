@@ -219,6 +219,15 @@
     <ClCompile Include="source\engine\ScrollAnimation.cpp">
       <Filter>Source Files\Engine\Animation\Animations</Filter>
     </ClCompile>
+    <ClCompile Include="source\engine\BitmapLoader.cpp">
+      <Filter>Source Files\Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\AnimationFilm.cpp">
+      <Filter>Source Files\Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\AnimationFilmHolder.cpp">
+      <Filter>Source Files\Engine\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\utils\Utils.h">
@@ -328,6 +337,15 @@
     </ClInclude>
     <ClInclude Include="source\engine\App.h">
       <Filter>Header Files\Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\BitmapLoader.h">
+      <Filter>Header Files\Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\AnimationFilmHolder.h">
+      <Filter>Header Files\Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\AnimationFilm.h">
+      <Filter>Header Files\Engine\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

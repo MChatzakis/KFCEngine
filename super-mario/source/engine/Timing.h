@@ -1,7 +1,7 @@
 #ifndef _TIMING_H_
 #define _TIMING_H_
 
-#define CurrTime() SystemClock::Get().milli_secs() //ti malakies kanw?...
+#define CurrTime() SystemClock::Get().milli_secs() //returns the current time in milliseconds
 
 #include <chrono>
 class SystemClock final {

@@ -6,7 +6,7 @@
 /*
 	Create cpp files of the packages:
 
-	Animation -> Fanou lecture 10-11
+	Animation -> Fanou lecture 11
 	
 	[DONE] Game -> Manos lec 5 
 	[DONE] Sprites -> Manos lec 12

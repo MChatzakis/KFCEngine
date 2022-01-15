@@ -151,8 +151,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\Animation.cpp" />
+    <ClCompile Include="source\engine\AnimationFilm.cpp" />
+    <ClCompile Include="source\engine\AnimationFilmHolder.cpp" />
     <ClCompile Include="source\engine\Animator.cpp" />
     <ClCompile Include="source\engine\AnimatorManager.cpp" />
+    <ClCompile Include="source\engine\BitmapLoader.cpp" />
     <ClCompile Include="source\engine\BoundingArea.cpp" />
     <ClCompile Include="source\engine\BoundingBox.cpp" />
     <ClCompile Include="source\engine\BoundingCircle.cpp" />
@@ -188,9 +191,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\engine\Animation.h" />
+    <ClInclude Include="source\engine\AnimationFilm.h" />
+    <ClInclude Include="source\engine\AnimationFilmHolder.h" />
     <ClInclude Include="source\engine\Animator.h" />
     <ClInclude Include="source\engine\AnimatorManager.h" />
     <ClInclude Include="source\engine\App.h" />
+    <ClInclude Include="source\engine\BitmapLoader.h" />
     <ClInclude Include="source\engine\BoundingArea.h" />
     <ClInclude Include="source\engine\BoundingBox.h" />
     <ClInclude Include="source\engine\BoundingCircle.h" />
