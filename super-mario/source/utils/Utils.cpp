@@ -22,3 +22,11 @@ void writeJSON(nlohmann::json j, const std::string filename, unsigned short inde
 	}
 	ofp << std::setw(indent) << j << std::endl;
 }
+
+bool getAnimationFilmData(const std::string filename, std::list<AnimationFilm::Data>& data) {
+	return false;
+}
+
+int getAnimationFilmData(int startPos, const std::string& filename, std::string& idOutput, std::string& pathOutput, std::vector<Rect>& rectsOutput) {
+	return 0;
+}
