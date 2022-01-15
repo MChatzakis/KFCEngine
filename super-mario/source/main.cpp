@@ -8,17 +8,20 @@
 
 	Animation -> Fanou lecture 10-11
 	
-	Game -> Manos lec 5
-	Sprites -> Manos lec 12
-	Layers -> Manos lec 7 8 9
-	B.Areas -> Manos lec 6
+	[DONE] Game -> Manos lec 5 
+	[DONE] Sprites -> Manos lec 12
+	[DONE] Layers -> Manos lec 7 8 9
+	[DONE] B.Areas -> Manos lec 6 (todo implement unimpl)
 	
 	Physics -> Konto lec 12
 	General.h -> Konto lec5-6 
 	Timing.h -> Konto 11
 
-	Saturday:
+	Sunday:
 		- Fix non-implemented methods from the engine packages
+		- Complete engine till Monday
+
+	Monday:
 		- Begin with the game (UT 3)
 */
 

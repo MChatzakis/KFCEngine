@@ -18,22 +18,33 @@ private:
 public:
 	void Add(Sprite* s); // insert by ascending zorder
 	void Remove(Sprite* s);
-	auto GetDisplayList(void) -> const SpriteList&
-	{
-		return dpyList;
-	}
-	auto GetTypeList(const std::string& typeId) -> const SpriteList&
-	{
-		return types[typeId];
-	}
-	static auto GetSingleton(void) -> SpriteManager&
-	{
-		return singleton;
-	}
-	static auto GetSingletonConst(void) -> const SpriteManager&
-	{
-		return singleton;
-	}
+
+	auto GetDisplayList(void) -> const SpriteList&;
+	auto GetTypeList(const std::string& typeId) -> const SpriteList&;
+	static auto GetSingleton(void)->SpriteManager&;
+	static auto GetSingletonConst(void) -> const SpriteManager&;
 };
+
+
+auto SpriteManager::GetDisplayList(void) -> const SpriteList&
+{
+	return dpyList;
+}
+
+auto SpriteManager::GetTypeList(const std::string& typeId) -> const SpriteList&
+{
+	return types[typeId];
+}
+
+auto SpriteManager::GetSingleton(void) -> SpriteManager&
+{
+	return singleton;
+}
+
+ auto SpriteManager::GetSingletonConst(void) -> const SpriteManager&
+{
+	return singleton;
+}
+
 
 #endif _SPRITEMANAGER_H_

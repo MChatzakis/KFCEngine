@@ -7,11 +7,9 @@
 
 #include "./General.h"
 
-//maybe put in utils?
 template <typename Tnum>int number_sign(Tnum x) {
 	return x > 0 ? 1 : x < 0 ? -1 : 0;
 }
-
 
 class MotionQuantizer {
 public:
@@ -22,15 +20,12 @@ protected:
 	bool used = false;
 public:
 	MotionQuantizer& SetUsed(bool val);
-	MotionQuantizer& SetRange(int h, int v)
-	{
-		horizMax = h, vertMax = v; used = true; return *this;
-	}
-	MotionQuantizer& SetMover(const Mover& f)
-	{
-		mover = f; return *this;
-	}
+
+	MotionQuantizer& SetRange(int h, int v);
+	MotionQuantizer& SetMover(const Mover& f);
+
 	void Move(const Rect& r, int* dx, int* dy);
+
 	MotionQuantizer(void) = default;
 	MotionQuantizer(const MotionQuantizer&) = default;
 };
@@ -54,6 +49,16 @@ void MotionQuantizer::Move(const Rect& r, int* dx, int* dy) {
 			else
 				*dy -= dyFinal;
 		} while (*dx || *dy);
+}
+
+MotionQuantizer& MotionQuantizer::SetRange(int h, int v)
+{
+	horizMax = h, vertMax = v; used = true; return *this;
+}
+
+MotionQuantizer& MotionQuantizer::SetMover(const Mover& f)
+{
+	mover = f; return *this;
 }
 
 #endif _MOTIONQUANTIZER_H_
