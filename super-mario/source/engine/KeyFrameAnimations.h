@@ -13,6 +13,7 @@
 //CLASS WITH FIELDS: frame_delay, keyFrames, framePositions and function void Animate(void) ?
 Bitmap keyFrames[TOTAL_KEY_FRAMES];
 Point framePositions[TOTAL_KEY_FRAMES];
+
 void Animate(void) {
 	uint64_t t = 0;
 	for (auto i = 0; i < TOTAL_KEY_FRAMES; )
@@ -20,13 +21,8 @@ void Animate(void) {
 			t = CurrTime() + FRAME_DELAY;
 			auto b = keyFrames[i];
 			Vsync();
-			BitmapClear(BitmapGetScreen(), BLACK_COLOR);
-			MaskedBlit(
-				b,
-				{ 0, 0, BitmapGetWidth(b), BitmapGetHeight(b) },
-				BitmapGetScreen(),
-				framePositions[i++]
-			);
+			BitmapClear(BitmapGetScreen(), BLACK_COLOR); //!
+			MaskedBlit(b, { 0, 0, BitmapGetWidth(b), BitmapGetHeight(b) }, BitmapGetScreen(), framePositions[i++]);
 		}
 }
 

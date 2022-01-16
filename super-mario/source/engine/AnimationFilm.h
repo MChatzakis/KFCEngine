@@ -6,8 +6,9 @@
 
 class AnimationFilm {
 	std::vector<Rect> boxes; //we must give these values from a json (precise space of the frame)
-	Bitmap bitmap = nullptr;
 	std::string id;
+
+	Bitmap bitmap = nullptr;
 public:
 	struct Data
 	{
@@ -29,7 +30,8 @@ public:
 	}
 
 	const Rect& GetFrameBox(byte frameNo) const {
-		assert(boxes.size() > frameNo); return boxes[frameNo];
+		assert(boxes.size() > frameNo); 
+		return boxes[frameNo];
 	}
 
 	void DisplayFrame(Bitmap dest, const Point& at, byte frameNo) const {
@@ -37,7 +39,8 @@ public:
 	}
 
 	void SetBitmap(Bitmap b) {
-		assert(!bitmap); bitmap = b;
+		assert(!bitmap); 
+		bitmap = b;
 	}
 
 	void Append(const Rect& r) {
