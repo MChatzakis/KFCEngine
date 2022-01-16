@@ -375,4 +375,4 @@ void TileLayer::Allocate(void) {
 }
 
 
-#endif
+#endif _TILELAYER_H_

@@ -1,3 +1,6 @@
+#ifndef _GAMEMAIN_H_
+#define _GAMEMAIN_H_
+
 #include <iostream>
 #include <string>
 
@@ -363,3 +366,5 @@ void test_grid() {
 	//std::cout << "Test Col" << testCol << "\n";
 	//GridUtilities::ComputeTileGridBlocks2(tileLayer->getTileMap(), *grid, tileSet, 0, 0); //rgb(99, 173, 255)
 }
+
+#endif _GAMEMAIN_H_

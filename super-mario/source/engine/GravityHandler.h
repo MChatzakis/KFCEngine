@@ -33,24 +33,24 @@ public:
 };
 
 template <typename T>
-void SetOnStartFalling(const OnSolidGroundPred &f)
+void GravityHandler::SetOnStartFalling(const OnSolidGroundPred &f)
 {
 	onStartFalling = f;
 }
 
 template <typename T>
-void SetOnStopFalling(const T &f)
+void GravityHandler::SetOnStopFalling(const T &f)
 {
 	onStopFalling = f;
 }
 
 template <typename T>
-void SetOnSolidGround(const T &f)
+void GravityHandler::SetOnSolidGround(const T &f)
 {
 	onSolidGround = f;
 }
 
-void Reset(void) { isFalling = false; }
+void GravityHandler::Reset(void) { isFalling = false; }
 
 void GravityHandler::Check(const Rect &r)
 {

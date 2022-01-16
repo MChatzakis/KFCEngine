@@ -18,39 +18,23 @@ public:
 		std::vector<Rect> rects;
 	};
 
-	byte GetTotalFrames(void) const {
-		return boxes.size();
-	}
+	byte GetTotalFrames(void) const;
 
-	Bitmap GetBitmap(void) const {
-		return bitmap;
-	}
+	Bitmap GetBitmap(void) const;
 
-	auto GetId(void) const -> const std::string& {
-		return id;
-	}
+	auto GetId(void) const -> const std::string&;
 
-	const Rect& GetFrameBox(byte frameNo) const {
-		assert(boxes.size() > frameNo); 
-		return boxes[frameNo];
-	}
+	const Rect& GetFrameBox(byte frameNo) const;
 
-	void DisplayFrame(Bitmap dest, const Point& at, byte frameNo) const {
-		MaskedBlit(bitmap, GetFrameBox(frameNo), dest, at);
-	}
+	void DisplayFrame(Bitmap dest, const Point& at, byte frameNo) const;
 
-	void SetBitmap(Bitmap b) {
-		assert(!bitmap); 
-		bitmap = b;
-	}
+	void SetBitmap(Bitmap b);
 
-	void Append(const Rect& r) {
-		boxes.push_back(r);
-	}
+	void Append(const Rect& r);
 
-	AnimationFilm(const std::string& _id) : id(_id) {}
+	AnimationFilm(const std::string& _id);
 
-	AnimationFilm(Bitmap _bitmap, const std::vector<Rect>& _boxes, const std::string& _id) : bitmap(_bitmap), boxes(_boxes), id(_id) {}
+	AnimationFilm(Bitmap _bitmap, const std::vector<Rect>& _boxes, const std::string& _id);
 
 };
 
