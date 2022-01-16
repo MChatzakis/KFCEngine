@@ -30,14 +30,14 @@ protected:
 	void Finish(bool isForced = false);
 public:
 	void Stop(void);
-	bool HasFinished(void) const { return state != ANIMATOR_RUNNING; }
+	bool HasFinished(void) const;
 	
 	virtual void TimeShift(timestamp_t offset);
 	virtual void Progress(timestamp_t currTime) = 0;
 	
-	template <typename Tfunc> void SetOnFinish(const Tfunc& f) { onFinish = f; }
-	template <typename Tfunc> void SetOnStart(const Tfunc& f) { onStart = f; }
-	template <typename Tfunc> void SetOnAction(const Tfunc& f) { onAction = f; }
+	template <typename Tfunc> void SetOnFinish(const Tfunc& f);
+	template <typename Tfunc> void SetOnStart(const Tfunc& f);
+	template <typename Tfunc> void SetOnAction(const Tfunc& f);
 
 	Animator(void);
 	Animator(const Animator&) = delete;
@@ -46,27 +46,48 @@ public:
 
 };
 
-void Animator::Finish(bool isForced) {
+bool
+Animator::HasFinished(void) const { return state != ANIMATOR_RUNNING; }
+
+void
+Animator::Finish(bool isForced) {
 	if (!HasFinished()) {
 		state = isForced ? ANIMATOR_STOPPED : ANIMATOR_FINISHED;
 		NotifyStopped();
 	}
 }
-void Animator::Stop(void)
+
+void
+Animator::Stop(void)
 {
 	Finish(true);
 }
-void Animator::NotifyStopped(void) {
+
+void
+Animator::NotifyStopped(void) {
 	if (onFinish)
 		(onFinish)(this);
 }
-void Animator::NotifyAction(const Animation& anim) {
+
+void
+Animator::NotifyAction(const Animation& anim) {
 	if (onAction)
 		(onAction)(this, anim);
 }
-void Animator::TimeShift(timestamp_t offset)
+
+void
+Animator::TimeShift(timestamp_t offset)
 {
 	lastTime += offset;
 }
+
+template <typename Tfunc> void
+Animator::SetOnFinish(const Tfunc& f) { onFinish = f; }
+
+template <typename Tfunc> void
+Animator::SetOnStart(const Tfunc& f) { onStart = f; }
+
+template <typename Tfunc> void
+Animator::SetOnAction(const Tfunc& f) { onAction = f; }
 
 #endif _ANIMATOR_H_

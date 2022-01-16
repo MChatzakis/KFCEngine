@@ -14,21 +14,27 @@ protected:
 	unsigned currRep = 0; // animation state
 public:
 	void Progress(timestamp_t currTime);
-	auto GetAnim(void) const -> const MovingAnimation&
-	{
-		return *anim;
-	}
-	void Start(MovingAnimation* a, timestamp_t t) {
-		anim = a;
-		lastTime = t;
-		state = ANIMATOR_RUNNING;
-		currRep = 0; //?
-		NotifyStarted();
-	}
+	auto GetAnim(void) const -> const MovingAnimation&;
+	void Start(MovingAnimation* a, timestamp_t t);
 	MovingAnimator(void) = default;
 };
 
-void MovingAnimator::Progress(timestamp_t currTime) {
+auto
+MovingAnimator::GetAnim(void) const -> const MovingAnimation&
+{
+	return *anim;
+}
+void
+MovingAnimator::Start(MovingAnimation* a, timestamp_t t) {
+	anim = a;
+	lastTime = t;
+	state = ANIMATOR_RUNNING;
+	currRep = 0; //?
+	NotifyStarted();
+}
+
+void
+MovingAnimator::Progress(timestamp_t currTime) {
 	while (currTime > lastTime && (currTime - lastTime) >= anim->GetDelay()) {
 		lastTime += anim->GetDelay();
 		NotifyAction(*anim);

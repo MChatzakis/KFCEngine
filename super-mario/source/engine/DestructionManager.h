@@ -14,28 +14,7 @@ public:
 	void Commit(void);
 	static auto Get(void) -> DestructionManager& { return singleton; }
 };
-class LatelyDestroyable {
-protected:
-	friend class DestructionManager;
-	bool alive = true;
-	bool dying = false;
-	virtual ~LatelyDestroyable() { assert(dying); }
-	void Delete(void);
-public:
-	bool IsAlive(void) const { return alive; }
-	void Destroy(void) {
-		if (alive) {
-			alive = false;
-			DestructionManager::Get().Register(this);
-		}
-	}
-	LatelyDestroyable(void) = default;
-};
 
-void LatelyDestroyable::Delete(void)
-{
-	assert(!dying); dying = true; delete this;
-}
 void DestructionManager::Register(LatelyDestroyable* d) {
 	assert(!d->IsAlive());
 	dead.push_back(d);
@@ -44,6 +23,36 @@ void DestructionManager::Commit(void) {
 	for (auto* d : dead)
 		d->Delete();
 	dead.clear();
+}
+
+class LatelyDestroyable {
+protected:
+	friend class DestructionManager;
+	bool alive = true;
+	bool dying = false;
+	virtual ~LatelyDestroyable() { assert(dying); }
+	void Delete(void);
+public:
+	bool IsAlive(void) const;
+	void Destroy(void);
+	LatelyDestroyable(void) = default;
+};
+
+bool
+LatelyDestroyable::IsAlive(void) const { return alive; }
+
+void
+LatelyDestroyable::Destroy(void) {
+	if (alive) {
+		alive = false;
+		DestructionManager::Get().Register(this);
+	}
+}
+
+void
+LatelyDestroyable::Delete(void)
+{
+	assert(!dying); dying = true; delete this;
 }
 // may adopt this for animators in case we wish to Destroy() in callbacks
 // and do not bother to have deleted pointers being used
