@@ -1,9 +1,10 @@
-#ifndef _ANIMATIONFILMHOLDER_H
-#define _ANIMATIONFILMHOLDER_H
+#ifndef _ANIMATIONFILMHOLDER_H_
+#define _ANIMATIONFILMHOLDER_H_
 
 #include "./General.h"
 #include "./BitmapLoader.h"
 #include "./AnimationFilm.h"
+
 #include <vector>
 #include <map>
 #include <list>
@@ -76,4 +77,4 @@ void AnimationFilmHolder::Load(const std::string& text, const Parser& parser) {
 	}
 }
 
-#endif _ANIMATIONFILMHOLDER_H
+#endif _ANIMATIONFILMHOLDER_H_

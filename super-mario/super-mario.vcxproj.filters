@@ -355,6 +355,9 @@
     <Image Include="resources\bitmaps\characters.gif">
       <Filter>Resource Files\bitmap</Filter>
     </Image>
+    <Image Include="resources\bitmaps\characters2.gif">
+      <Filter>Resource Files\bitmap</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="resources\sounds\smb_1-up.wav">

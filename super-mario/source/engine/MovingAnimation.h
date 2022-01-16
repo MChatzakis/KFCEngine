@@ -24,11 +24,9 @@ public:
 	MovingAnimation(const std::string& _id, unsigned _reps, int _dx, int _dy, unsigned _delay);
 };
 
-int
-MovingAnimation::GetDx(void) const { return dx; }
+int MovingAnimation::GetDx(void) const { return dx; }
 
-MovingAnimation::Me&
-MovingAnimation::SetDx(int v) { dx = v; return *this; }
+MovingAnimation::Me& MovingAnimation::SetDx(int v) { dx = v; return *this; }
 
 int
 MovingAnimation::GetDy(void) const { return dy; }

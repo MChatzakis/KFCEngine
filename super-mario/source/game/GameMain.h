@@ -43,6 +43,7 @@ TileLayer* gameMap;
 GridIndex* tmpGrid;
 Bitmap tileSet;
 
+
 void Initialise() {
 	nlohmann::json config = readJSON("resources/config/config.json");
 	if (config == NULL) {

@@ -232,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\bitmaps\characters.gif" />
+    <Image Include="resources\bitmaps\characters2.gif" />
     <Image Include="resources\bitmaps\tileset.png" />
   </ItemGroup>
   <ItemGroup>

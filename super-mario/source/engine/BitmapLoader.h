@@ -1,5 +1,5 @@
-#ifndef _BITMAPLOADER_H
-#define _BITMAPLOADER_H
+#ifndef _BITMAPLOADER_H_
+#define _BITMAPLOADER_H_
 
 #include <iostream>
 #include <map>
@@ -41,4 +41,4 @@ Bitmap BitmapLoader::Load(const std::string& path) {
 	return b;
 }
 
-#endif _BITMAPLOADER_H
+#endif _BITMAPLOADER_H_
