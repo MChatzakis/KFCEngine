@@ -14,7 +14,6 @@ public:
 	Me& SetEndFrame(unsigned v);
 	Animation* Clone(void) const override;
 	FrameRangeAnimation(const std::string& _id,unsigned s, unsigned e,unsigned r, int dx, int dy, int d);
-
 };
 
 unsigned
