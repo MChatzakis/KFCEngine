@@ -37,4 +37,5 @@ uint64_t GetSystemTime(void) {
 	return SystemClock::Get().milli_secs();
 }
 
+
 #endif _TIMING_H_
