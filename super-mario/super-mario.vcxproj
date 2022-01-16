@@ -231,6 +231,7 @@
     <ClInclude Include="source\utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\bitmaps\characters.gif" />
     <Image Include="resources\bitmaps\tileset.png" />
   </ItemGroup>
   <ItemGroup>
