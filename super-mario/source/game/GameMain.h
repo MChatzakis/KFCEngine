@@ -7,6 +7,7 @@
 #include "./VariableInitializer.h"
 
 #include "./MapLoader.h"
+#include "./AnimationLoader.h"
 
 #include "./GameFunctions.h"
 
@@ -28,7 +29,6 @@ void Clear() {
 void Run() {
 	setGameActions();
 	game->MainLoop();
-
 }
 
 void GameMain() {
