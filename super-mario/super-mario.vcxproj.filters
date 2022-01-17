@@ -109,12 +109,12 @@
     <Filter Include="Header Files\Game\GameLogic\Managers">
       <UniqueIdentifier>{0ada311f-5521-404d-9f52-f163655529c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\characters">
+      <UniqueIdentifier>{f4efde85-0fd7-4acd-9169-311ce147f255}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="resources\config\config.json">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="resources\csv\level1-1_background.csv">
       <Filter>Resource Files\csv</Filter>
     </None>
@@ -129,6 +129,12 @@
     </None>
     <None Include="resources\csv\OLDlevel1-1_terain.csv">
       <Filter>Resource Files\csv</Filter>
+    </None>
+    <None Include="resources\config\config.json">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="resources\characters\mario.json">
+      <Filter>Resource Files\characters</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
