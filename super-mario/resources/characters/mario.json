@@ -1,0 +1,53 @@
+
+{
+  "path" : "resources/bitmaps/characters.gif",
+
+  "smallMario.idleRight": {
+    "frames" : [{"x": 277, "y": 44, "w": 12, "h": 16}]
+  },
+
+  "smallMario.idleLeft": {
+    "frames" : [{"x": 224, "y": 44, "w": 12, "h": 16}]
+  },
+
+  "smallMario.walkRight": {
+    "frames" : [{"x": 292, "y": 45, "w": 12, "h": 15},
+               {"x": 307, "y": 44, "w": 11, "h": 16},
+               {"x": 321, "y": 44, "w": 15, "h": 16}]
+  },
+
+  "smallMario.walkLeft": {
+    "frames" : [{"x": 209, "y": 45, "w": 12, "h": 15},
+               {"x": 195, "y": 44, "w": 11, "h": 16},
+               {"x": 177, "y": 44, "w": 15, "h": 16}]
+  },
+
+  "smallMario.jumpRight": {
+    "frames" : [{"x": 355, "y": 44, "w": 16, "h": 16}]
+  },
+
+  "smallMario.jumpLeft": {
+    "frames" : [{"x": 142, "y": 44, "w": 16, "h": 16}]
+  },
+
+  "smallMario.slideRight": {
+    "frames" : [{"x": 389, "y": 44, "w": 13, "h": 16}]
+  },
+
+  "smallMario.slideLeft": {
+    "frames" : [{"x": 111, "y": 44, "w": 13, "h": 16}]
+  },
+
+  "smallMario.holdFlagRight": {
+    "frames" : [{"x": 374, "y": 45, "w": 12, "h": 15}]
+  },
+
+  "smallMario.HoldFlagLeft": {
+    "frames" : [{"x": 127, "y": 45, "w": 12, "h": 15}]
+  },
+
+  "smallMario.death": {
+    "frames" : [{"x": 13, "y": 46, "w": 14, "h": 14}]
+  }
+
+}
