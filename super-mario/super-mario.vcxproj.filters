@@ -91,11 +91,23 @@
     <Filter Include="Resource Files\config">
       <UniqueIdentifier>{83bdc6b1-7fad-42f6-8cd5-ac07f4879913}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Game\characters">
+    <Filter Include="Header Files\Game\Initializers">
+      <UniqueIdentifier>{fda6672d-2a9e-4fe9-b20a-1482b76f0af6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Characters">
       <UniqueIdentifier>{1b854764-c9cb-4947-982f-5d88665b0ff8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Game\loaders">
+    <Filter Include="Header Files\Game\Loaders">
       <UniqueIdentifier>{ad499ccc-a65b-47f1-b116-4e7fff145253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Application">
+      <UniqueIdentifier>{0a3b8d35-909b-4b84-aeeb-f3373ad0b7f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameLogic">
+      <UniqueIdentifier>{a17fefdf-851c-457d-bb3a-0e66bdc698b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameLogic\Managers">
+      <UniqueIdentifier>{0ada311f-5521-404d-9f52-f163655529c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -239,9 +251,6 @@
     <ClInclude Include="source\utils\Utils.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="source\game\GameMain.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
     <ClInclude Include="source\engine\General.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -335,9 +344,6 @@
     <ClInclude Include="source\engine\BoundingPolygon.h">
       <Filter>Header Files\Engine\BoundingAreas</Filter>
     </ClInclude>
-    <ClInclude Include="source\game\GameFunctions.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
     <ClInclude Include="source\engine\GridComputation.h">
       <Filter>Header Files\Engine\Layers</Filter>
     </ClInclude>
@@ -354,10 +360,52 @@
       <Filter>Header Files\Engine\Animation</Filter>
     </ClInclude>
     <ClInclude Include="source\game\Mario.h">
-      <Filter>Header Files\Game\characters</Filter>
+      <Filter>Header Files\Game\Characters</Filter>
     </ClInclude>
     <ClInclude Include="source\game\AnimationLoader.h">
-      <Filter>Header Files\Game\loaders</Filter>
+      <Filter>Header Files\Game\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\AllegroInitializer.h">
+      <Filter>Header Files\Game\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\VariableInitializer.h">
+      <Filter>Header Files\Game\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\MapLoader.h">
+      <Filter>Header Files\Game\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\GameVars.h">
+      <Filter>Header Files\Game\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\GameMain.h">
+      <Filter>Header Files\Game\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\GameFunctions.h">
+      <Filter>Header Files\Game\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\RenderingManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\UserCodeManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\PhysicsManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\DestructionManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\CollisionManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\AnimationManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\AIManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\InputManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

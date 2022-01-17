@@ -226,10 +226,22 @@
     <ClInclude Include="source\engine\TileLayer.h" />
     <ClInclude Include="source\engine\TileUtilities.h" />
     <ClInclude Include="source\engine\Timing.h" />
+    <ClInclude Include="source\game\AIManager.h" />
+    <ClInclude Include="source\game\AllegroInitializer.h" />
     <ClInclude Include="source\game\AnimationLoader.h" />
+    <ClInclude Include="source\game\AnimationManager.h" />
+    <ClInclude Include="source\game\CollisionManager.h" />
+    <ClInclude Include="source\game\DestructionManager.h" />
     <ClInclude Include="source\game\GameFunctions.h" />
     <ClInclude Include="source\game\GameMain.h" />
+    <ClInclude Include="source\game\GameVars.h" />
+    <ClInclude Include="source\game\InputManager.h" />
+    <ClInclude Include="source\game\MapLoader.h" />
     <ClInclude Include="source\game\Mario.h" />
+    <ClInclude Include="source\game\PhysicsManager.h" />
+    <ClInclude Include="source\game\RenderingManager.h" />
+    <ClInclude Include="source\game\UserCodeManager.h" />
+    <ClInclude Include="source\game\VariableInitializer.h" />
     <ClInclude Include="source\utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
