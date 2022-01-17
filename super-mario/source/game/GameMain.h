@@ -17,6 +17,9 @@
 #include "../engine/GridComputation.h"
 #include "../engine/TileActions.h"
 
+#include "./game/AnimationLoader.h"
+
+
 #define TILESET_PATH "resources/bitmaps/tileset.png"
 #define SKY_PATH "resources/csv/level1-1_Sky.csv"
 #define FLAG_PATH "resources/csv/level1-1_flag.csv"
@@ -341,6 +344,7 @@ void Run() {
 void GameMain() {
 	Initialise();
 	Load();
+	AnimationLoader::loadAnimations();
 	Run();
 	Clear();
 }

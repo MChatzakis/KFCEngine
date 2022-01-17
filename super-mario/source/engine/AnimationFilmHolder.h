@@ -19,12 +19,18 @@ private:
 	Films films;
 	BitmapLoader bitmaps; // only for loading of film bitmaps
 	static AnimationFilmHolder holder; // singleton
-
+	
 public: //giati htan private ayta?
 	AnimationFilmHolder(void) {}
 	~AnimationFilmHolder() { CleanUp(); }
 
 	static auto Get(void) -> const AnimationFilmHolder& { return holder; } //na paei cpp?
+	//AnimationFilmHolder& Get(void) { return holder; }
+	static AnimationFilmHolder& GetSingleton()
+	{
+		return holder;
+	}
+
 
 	void Load(const std::string& text, const EntryParser& entryParser);
 	void Load(const std::string& text, const Parser& parser);
@@ -32,6 +38,7 @@ public: //giati htan private ayta?
 	//continued..
 	void CleanUp(void);
 	auto GetFilm(const std::string& id) -> const AnimationFilm* const;
+
 };
 
 void AnimationFilmHolder::CleanUp(void) {
@@ -77,4 +84,5 @@ void AnimationFilmHolder::Load(const std::string& text, const Parser& parser) {
 	}
 }
 
+AnimationFilmHolder AnimationFilmHolder::holder; // singleton
 #endif _ANIMATIONFILMHOLDER_H_

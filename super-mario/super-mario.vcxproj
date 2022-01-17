@@ -226,8 +226,10 @@
     <ClInclude Include="source\engine\TileLayer.h" />
     <ClInclude Include="source\engine\TileUtilities.h" />
     <ClInclude Include="source\engine\Timing.h" />
+    <ClInclude Include="source\game\AnimationLoader.h" />
     <ClInclude Include="source\game\GameFunctions.h" />
     <ClInclude Include="source\game\GameMain.h" />
+    <ClInclude Include="source\game\Mario.h" />
     <ClInclude Include="source\utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>

@@ -91,6 +91,12 @@
     <Filter Include="Resource Files\config">
       <UniqueIdentifier>{83bdc6b1-7fad-42f6-8cd5-ac07f4879913}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\characters">
+      <UniqueIdentifier>{1b854764-c9cb-4947-982f-5d88665b0ff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\loaders">
+      <UniqueIdentifier>{ad499ccc-a65b-47f1-b116-4e7fff145253}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -346,6 +352,12 @@
     </ClInclude>
     <ClInclude Include="source\engine\AnimationFilm.h">
       <Filter>Header Files\Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\Mario.h">
+      <Filter>Header Files\Game\characters</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\AnimationLoader.h">
+      <Filter>Header Files\Game\loaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
