@@ -22,54 +22,21 @@ protected:
 	OnStopFalling onStopFalling;
 
 public:
+	/*
 	template <typename T>
 	void SetOnStartFalling(const OnSolidGroundPred &f);
 	template <typename T>
 	void SetOnStopFalling(const T &f);
 	template <typename T>
 	void SetOnSolidGround(const T &f);
+	*/
+
+	void SetOnStartFalling(const OnStartFalling& f);
+	void SetOnStopFalling(const OnStopFalling& f);
+	void SetOnSolidGround(const OnSolidGroundPred& f);
 	void Reset(void);
 	void Check(const Rect &r);
 };
 
-template <typename T>
-void GravityHandler::SetOnStartFalling(const OnSolidGroundPred &f)
-{
-	onStartFalling = f;
-}
-
-template <typename T>
-void GravityHandler::SetOnStopFalling(const T &f)
-{
-	onStopFalling = f;
-}
-
-template <typename T>
-void GravityHandler::SetOnSolidGround(const T &f)
-{
-	onSolidGround = f;
-}
-
-void GravityHandler::Reset(void) { isFalling = false; }
-
-void GravityHandler::Check(const Rect &r)
-{
-	if (gravityAddicted)
-	{
-		if (onSolidGround(r))
-		{
-			if (isFalling)
-			{
-				isFalling = false;
-				onStopFalling();
-			}
-		}
-		else if (!isFalling)
-		{
-			isFalling = true;
-			onStartFalling();
-		}
-	}
-}
 
 #endif _GRAVITYHANDLER_H_

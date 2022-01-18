@@ -189,9 +189,6 @@
     <ClCompile Include="source\engine\SpriteManager.cpp">
       <Filter>Source Files\Engine\Sprites</Filter>
     </ClCompile>
-    <ClCompile Include="source\engine\BoundingArea.cpp">
-      <Filter>Source Files\Engine\BoundingAreas</Filter>
-    </ClCompile>
     <ClCompile Include="source\engine\BoundingBox.cpp">
       <Filter>Source Files\Engine\BoundingAreas</Filter>
     </ClCompile>

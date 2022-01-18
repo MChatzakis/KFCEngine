@@ -7,7 +7,7 @@ class App {
 protected:
 	Game game;
 public:
-	App(Game& _game) { game = _game; }
+	App(Game& _game);
 	virtual void Initialise(void) = 0;
 	virtual void Load(void) = 0;
 	virtual void Run(void) { game.MainLoop(); }
@@ -15,16 +15,11 @@ public:
 	{
 		game.MainLoopIteration();
 	}
-	Game& GetGame(void) { return game; }
-	const Game& GetGame(void) const { return game; }
-	void SetGame(Game& _game) { game = _game; }
+	Game& GetGame(void);
+	const Game& GetGame(void) const;
+	void SetGame(Game& _game);
 	virtual void Clear(void) = 0;
-	void Main(void) {
-		Initialise();
-		Load();
-		Run();
-		Clear();
-	}
+	void Main(void);
 };
 
 

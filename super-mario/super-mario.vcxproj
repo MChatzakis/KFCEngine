@@ -159,7 +159,6 @@
     <ClCompile Include="source\engine\Animator.cpp" />
     <ClCompile Include="source\engine\AnimatorManager.cpp" />
     <ClCompile Include="source\engine\BitmapLoader.cpp" />
-    <ClCompile Include="source\engine\BoundingArea.cpp" />
     <ClCompile Include="source\engine\BoundingBox.cpp" />
     <ClCompile Include="source\engine\BoundingCircle.cpp" />
     <ClCompile Include="source\engine\BoundingPolygon.cpp" />

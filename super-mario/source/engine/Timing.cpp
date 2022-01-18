@@ -1,5 +1,7 @@
-/*
 #include "Timing.h"
+
+SystemClock SystemClock::singleton;
+
 uint64_t SystemClock::milli_secs(void) const {
 	return std::chrono::duration_cast<std::chrono::milliseconds>
 		(clock.now().time_since_epoch()).count();
@@ -23,4 +25,3 @@ auto SystemClock::Get(void) -> SystemClock&
 {
 	return singleton;
 }
-*/

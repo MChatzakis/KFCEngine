@@ -14,10 +14,11 @@
 	5) Sounds [Fanou]
 		- Fix a class to load all sounds
 		- Sounds.play("coin") -> sound (map<string,sounds>)
-	6) Split .h code to cpp [opoios exei orexi (fanou)]
+	6) Split .h code to cpp [opoios exei orexi (fanou)] -> Engine Done except BoundingArea
 	7) Add FPS calculation code [opoios exei orexi (manos)] -lec 5 6 7?
 	8) Pass stis dialexeis mipws exoyme ksexasei kati
 	9) Code for view window transitions based on mario
+	10) Implement Sprite::CollisionCheck, CollisionChecker::In
 */
 
 int main() {
