@@ -220,6 +220,7 @@
     <ClInclude Include="source\engine\MovingAnimator.h" />
     <ClInclude Include="source\engine\MovingPathAnimation.h" />
     <ClInclude Include="source\engine\ScrollAnimation.h" />
+    <ClInclude Include="source\engine\SoundsManager.h" />
     <ClInclude Include="source\engine\Sprite.h" />
     <ClInclude Include="source\engine\SpriteManager.h" />
     <ClInclude Include="source\engine\TickAnimation.h" />

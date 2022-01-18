@@ -112,6 +112,9 @@
     <Filter Include="Resource Files\characters">
       <UniqueIdentifier>{f4efde85-0fd7-4acd-9169-311ce147f255}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Sounds">
+      <UniqueIdentifier>{e6aff907-bac9-4a15-9252-21b2ccaa4c1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -415,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="source\game\InputManager.h">
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\SoundsManager.h">
+      <Filter>Header Files\Engine\Sounds</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
