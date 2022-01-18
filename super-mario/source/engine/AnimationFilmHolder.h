@@ -31,7 +31,6 @@ public: //giati htan private ayta?
 		return holder;
 	}
 
-
 	void Load(const std::string& text, const EntryParser& entryParser);
 	void Load(const std::string& text, const Parser& parser);
 
@@ -39,6 +38,7 @@ public: //giati htan private ayta?
 	void CleanUp(void);
 	auto GetFilm(const std::string& id) -> const AnimationFilm* const;
 
+	void printAnimationMap();
 };
 
 void AnimationFilmHolder::CleanUp(void) {
@@ -77,10 +77,19 @@ void AnimationFilmHolder::Load(const std::string& text, const Parser& parser) {
 	auto result = parser(output, text);
 	assert(result);
 	
+	//std::cout <<"Outputsize: " <<output..size() << "\n";
+
 	for (auto& entry : output) {
 		assert(!GetFilm(entry.id));
-
+		//std::cout << "Rectssize: " << entry.rects.size() << "\n";
 		films[entry.id] = new AnimationFilm(bitmaps.Load(entry.path), entry.rects, entry.id);
+	}
+}
+
+void AnimationFilmHolder::printAnimationMap() {
+	for (std::map<std::string, AnimationFilm*>::const_iterator it = films.begin(); it != films.end(); ++it)	{
+		//std::cout << it->first << " " << it->second.first << " " << it->second.second << "\n";
+		std::cout << "{ " << it->first << "->" << it->second->toString() << "}\n";
 	}
 }
 

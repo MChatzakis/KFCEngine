@@ -7,6 +7,7 @@
 #include <iostream>
 #include <functional>
 #include <chrono>
+#include <string>
 
 #define TILESET_WIDTH 26 // row = 26 tiles .. better in json
 #define TILESET_HEIGHT 24 // col = 24 tiles
@@ -21,7 +22,6 @@
 
 #define MAX_WIDTH TILEMAP_WIDTH
 #define MAX_HEIGHT TILEMAP_HEIGHT 
-
 
 #define ROW_MASK 0x0F
 #define COL_MASK 0xF0
@@ -39,6 +39,12 @@ struct Rect {
 	int x, y, w, h;
 	Rect(int _x, int _y, int _w, int _h) : x{ _x }, y{ _y }, w{ _w }, h{ _h } {};
 	Rect() { x = y = w = h = 0; };
+
+	std::string toString() {
+		return "[" + std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(w) + "," + std::to_string(h) + "]";
+	}
+
+
 };
 
 struct Point {
@@ -119,7 +125,7 @@ Bitmap BitmapCreate(Dim w, Dim h);
 Bitmap BitmapCopy(Bitmap bmp);
 Bitmap BitmapClear(Bitmap bmp, Color c);
 Bitmap BitmapGetScreen();
-Bitmap GetBackBuffer(ALLEGRO_DISPLAY *disp);
+Bitmap GetBackBuffer(ALLEGRO_DISPLAY* disp);
 Dim BitmapGetWidth(Bitmap bmp);
 Dim BitmapGetHeight(Bitmap bmp);
 Dim MaskedBlit(Bitmap src, const Rect& from, Bitmap dest, const Point& to);
@@ -131,7 +137,7 @@ void BitmapDestroy(Bitmap bmp);
 void BitmapBlit(Bitmap src, const Rect& from, Bitmap dest, const Point& to);
 void BitmapUnlock(Bitmap bmp);
 void SetColorKey(Color c);
-void BitmapBlitTinted(Bitmap src, const Rect& from, Bitmap dest, const Point& to, Color modulation); 
+void BitmapBlitTinted(Bitmap src, const Rect& from, Bitmap dest, const Point& to, Color modulation);
 void BitmapBlitTransparent(Bitmap src, const Rect& from, Bitmap dest, const Point& to, RGBValue alpha);
 bool BitmapLock(Bitmap bmp);
 int BitmapGetLineOffset(Bitmap bmp);
@@ -272,6 +278,6 @@ extern uint64_t CurrTime(void); // timer in msecs  //todo*/
 */
 
 
-
+bool operator==(const Rect& l, const Rect& r);
 
 #endif _GENERAL_H_

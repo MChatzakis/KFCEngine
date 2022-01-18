@@ -37,7 +37,7 @@ Bitmap BitmapLoader::Load(const std::string& path) {
 	if (!b) {
 		//std::cout << path.c_str() << "lala\n";
 		bitmaps[path] = b = BitmapLoad(path.c_str());
-		std::cout << al_load_bitmap(path.c_str()) << "lala\n";
+		//std::cout << al_load_bitmap(path.c_str()) << "lala\n";
 		assert(b);
 	}
 	return b;

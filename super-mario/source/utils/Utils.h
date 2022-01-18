@@ -44,7 +44,7 @@ bool getAnimationFilmDataParser(std::list<AnimationFilm::Data>& output, const st
 	}
 
 	std::string path = jsonFile["path"];
-	std::cout << path <<"\n";
+	std::cout << path << "\n";
 
 	nlohmann::json animations = jsonFile["animations"];
 	for (nlohmann::json::iterator it = animations.begin(); it != animations.end(); ++it) {
@@ -52,13 +52,14 @@ bool getAnimationFilmDataParser(std::list<AnimationFilm::Data>& output, const st
 
 		std::string id = object["id"];
 		nlohmann::json frameArray = object["frames"];
-		
+
 		AnimationFilm::Data animData;
 		animData.id = id;
 		animData.path = path;
 		for (nlohmann::json::iterator ft = frameArray.begin(); ft != frameArray.end(); ++ft) {
-			nlohmann::json jsonRect = *it;
-			//animData.rects.push_back(Rect(jsonRect["x"], jsonRect["y"], jsonRect["w"], jsonRect["h"]));
+			nlohmann::json jsonRect = *ft;
+			animData.rects.push_back(Rect(jsonRect["x"], jsonRect["y"], jsonRect["w"], jsonRect["h"]));
+			//std::string x = jsonRect["x"], y = jsonRect["y"], w = jsonRect["w"], h = jsonRect["h"];
 			//animData.rects.push_back(Rect(0,0,0,0));
 		}
 

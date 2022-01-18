@@ -8,7 +8,6 @@
 class AnimationFilm {
 	std::vector<Rect> boxes; //we must give these values from a json (precise space of the frame)
 	std::string id;
-
 	Bitmap bitmap = nullptr;
 public:
 	struct Data
@@ -36,6 +35,7 @@ public:
 
 	AnimationFilm(Bitmap _bitmap, const std::vector<Rect>& _boxes, const std::string& _id);
 
+	std::string toString();
 };
 
 #endif _ANIMATIONFILM_H

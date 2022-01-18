@@ -1,0 +1,36 @@
+{
+  "path": "resources/bitmaps/characters.png",
+
+  "animations": [
+    {
+      "id": "goomba.walk",
+      "frames": [
+        {
+          "x": 296,
+          "y": 189,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 315,
+          "y": 189,
+          "w": 16,
+          "h": 16
+        }
+      ]
+    },
+
+    {
+      "id": "goomba.death",
+      "frames": [
+        {
+          "x": 279,
+          "y": 197,
+          "w": 16,
+          "h": 8
+        }
+      ]
+    }
+
+  ]
+}

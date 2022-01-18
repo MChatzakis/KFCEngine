@@ -12,12 +12,13 @@
 #include "./GameFunctions.h"
 
 void Initialise() {
-	initializeVariables();
-	initializeAllegro();
+	VariableInitializer::initializeVariables();
+	AllegroInitializer::initializeAllegro();
 }
 
 void Load() {
-	loadMap();
+	MapLoader::loadMap();
+	AnimationLoader::loadAnimations();
 }
 
 void Clear() {
@@ -34,7 +35,6 @@ void Run() {
 void GameMain() {
 	Initialise();
 	Load();
-	//AnimationLoader::loadAnimations();
 	Run();
 	Clear();
 }

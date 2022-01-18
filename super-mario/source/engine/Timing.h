@@ -39,4 +39,6 @@ auto SystemClock::Get(void) -> SystemClock&
 	return singleton;
 }
 
+SystemClock SystemClock::singleton;
+
 #endif _TIMING_H_

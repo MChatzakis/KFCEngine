@@ -23,7 +23,12 @@
 #define BACKGROUND_PATH "resources/csv/level1-1_background.csv"
 #define TERRAIN_PATH "resources/csv/level1-1_terain.csv"
 
+#define MARIO_ANIMATIONS_PATH "resources/characters/mario.json"
+#define KOOPA_ANIMATIONS_PATH "resources/characters/koopa.json"
+#define GOOMBA_ANIMATIONS_PATH "resources/characters/goomba.json"
+
 #define SCROLLABLE_TILE_COL 212
+
 
 /* Global Stuff */
 int SCREEN_WIDTH = 0;
@@ -45,5 +50,8 @@ Game* game;
 TileLayer* gameMap;
 GridIndex* tmpGrid;
 Bitmap tileSet;
+
+//class Mario;
+//Mario* mario;
 
 #endif _GAMEVARS_H_

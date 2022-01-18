@@ -1,64 +1,209 @@
 {
-	"path" : "resources/bitmaps/characters.gif",
+	"path": "resources/bitmaps/characters.png",
 
-	"animations" : [
-		{ 
-			"id" : "smallMario.idleRight",
-			"frames" : [{"x": 277, "y": 44, "w": 12, "h": 16}]
+	"animations": [
+		{
+			"id": "mario.idleRight",
+			"frames": [
+				{
+					"x": 277,
+					"y": 44,
+					"w": 12,
+					"h": 16
+				}
+			]
 		},
 
 		{
-			"id" : "smallMario.idleLeft",
-			"frames" : [{"x": 224, "y": 44, "w": 12, "h": 16}]
+			"id": "mario.idleLeft",
+			"frames": [
+				{
+					"x": 224,
+					"y": 44,
+					"w": 12,
+					"h": 16
+				}
+			]
 		},
 
 		{
-			"id" : "smallMario.walkRight",
-			"frames" : [{"x": 292, "y": 45, "w": 12, "h": 15},
-					   {"x": 307, "y": 44, "w": 11, "h": 16},
-					   {"x": 321, "y": 44, "w": 15, "h": 16}]
-		 },
-
-		{
-			"id" : "smallMario.walkLeft",
-			"frames" : [{"x": 209, "y": 45, "w": 12, "h": 15},
-					   {"x": 195, "y": 44, "w": 11, "h": 16},
-					   {"x": 177, "y": 44, "w": 15, "h": 16}]
+			"id": "mario.walkRight",
+			"frames": [
+				{
+					"x": 292,
+					"y": 45,
+					"w": 12,
+					"h": 15
+				},
+				{
+					"x": 307,
+					"y": 44,
+					"w": 11,
+					"h": 16
+				},
+				{
+					"x": 321,
+					"y": 44,
+					"w": 15,
+					"h": 16
+				}
+			]
 		},
 
 		{
-			"id" : "smallMario.jumpRight",
-			"frames" : [{"x": 355, "y": 44, "w": 16, "h": 16}]
+			"id": "mario.walkLeft",
+			"frames": [
+				{
+					"x": 209,
+					"y": 45,
+					"w": 12,
+					"h": 15
+				},
+				{
+					"x": 195,
+					"y": 44,
+					"w": 11,
+					"h": 16
+				},
+				{
+					"x": 177,
+					"y": 44,
+					"w": 15,
+					"h": 16
+				}
+			]
 		},
 
 		{
-			"id" : "smallMario.jumpLeft",
-			"frames" : [{"x": 142, "y": 44, "w": 16, "h": 16}]
+			"id": "mario.jumpRight",
+			"frames": [
+				{
+					"x": 355,
+					"y": 44,
+					"w": 16,
+					"h": 16
+				}
+			]
 		},
 
 		{
-			"id" : "smallMario.slideRight",
-			"frames" : [{"x": 389, "y": 44, "w": 13, "h": 16}]
+			"id": "mario.jumpLeft",
+			"frames": [
+				{
+					"x": 142,
+					"y": 44,
+					"w": 16,
+					"h": 16
+				}
+			]
 		},
 
 		{
-			"id" : "smallMario.slideLeft",
-			"frames" : [{"x": 111, "y": 44, "w": 13, "h": 16}]
+			"id": "mario.stopWalkingRight",
+			"frames": [
+				{
+					"x": 339,
+					"y": 44,
+					"w": 13,
+					"h": 16
+				}
+			]
 		},
 
 		{
-			"id" : "smallMario.holdFlagRight",
-			"frames" : [{"x": 374, "y": 45, "w": 12, "h": 15}]
+			"id": "mario.stopWalkingLeft",
+			"frames": [
+				{
+					"x": 193,
+					"y": 44,
+					"w": 13,
+					"h": 16
+				}
+			]
 		},
 
 		{
-			"id" : "smallMario.HoldFlagLeft",
-			"frames" : [{"x": 127, "y": 45, "w": 12, "h": 15}]
+			"id": "mario.unknownRight",
+			"frames": [
+				{
+					"x": 389,
+					"y": 44,
+					"w": 13,
+					"h": 16
+				}
+			]
 		},
 
-		{ 
-			"id" : "smallMario.death",
-			"frames" : [{"x": 13, "y": 46, "w": 14, "h": 14}]
+		{
+			"id": "mario.unknownLeft",
+			"frames": [
+				{
+					"x": 111,
+					"y": 44,
+					"w": 13,
+					"h": 16
+				}
+			]
+		},
+
+		{
+			"id": "mario.holdFlagRight",
+			"frames": [
+				{
+					"x": 374,
+					"y": 45,
+					"w": 12,
+					"h": 15
+				}
+			]
+		},
+
+		{
+			"id": "mario.HoldFlagLeft",
+			"frames": [
+				{
+					"x": 127,
+					"y": 45,
+					"w": 12,
+					"h": 15
+				}
+			]
+		},
+
+		{
+			"id": "mario.turningSuperRight",
+			"frames": [
+				{
+					"x": 258,
+					"y": 36,
+					"w": 16,
+					"h": 24
+				}
+			]
+		},
+
+		{
+			"id": "mario.turningSuperLeft",
+			"frames": [
+				{
+					"x": 239,
+					"y": 36,
+					"w": 16,
+					"h": 24
+				}
+			]
+		},
+
+		{
+			"id": "mario.death",
+			"frames": [
+				{
+					"x": 13,
+					"y": 46,
+					"w": 14,
+					"h": 14
+				}
+			]
 		}
 	]
 }

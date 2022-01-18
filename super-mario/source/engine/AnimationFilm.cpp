@@ -33,3 +33,13 @@ void AnimationFilm::Append(const Rect& r) {
 AnimationFilm::AnimationFilm(const std::string& _id) : id(_id) {}
 
 AnimationFilm::AnimationFilm(Bitmap _bitmap, const std::vector<Rect>& _boxes, const std::string& _id) : bitmap(_bitmap), boxes(_boxes), id(_id) {}
+
+std::string AnimationFilm::toString() {
+	std::string output = "[ " + id + "," ;
+	for (int i = 0; i < boxes.size(); i++) {
+		output += boxes[i].toString() + " ";
+	}
+	output += "," + std::to_string((int)bitmap);
+	output += "]";
+	return output;
+}

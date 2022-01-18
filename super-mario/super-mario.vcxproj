@@ -142,6 +142,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="resources\characters\goomba.json" />
+    <None Include="resources\characters\koopa.json" />
     <None Include="resources\characters\mario.json" />
     <None Include="resources\config\config.json" />
     <None Include="resources\csv\level1-1_background.csv" />

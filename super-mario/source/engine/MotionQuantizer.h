@@ -61,4 +61,9 @@ MotionQuantizer& MotionQuantizer::SetMover(const Mover& f)
 	mover = f; return *this;
 }
 
+MotionQuantizer& MotionQuantizer::SetUsed(bool val) {
+	used = val;
+	return *this;
+}
+
 #endif _MOTIONQUANTIZER_H_

@@ -1,0 +1,72 @@
+{
+  "path": "resources/bitmaps/characters.png",
+
+  "animations": [
+    {
+      "id": "greenKoopa.walkRight",
+      "frames": [
+        {
+          "x": 296,
+          "y": 209,
+          "w": 16,
+          "h": 23
+        },
+        {
+          "x": 315,
+          "y": 208,
+          "w": 16,
+          "h": 24
+        }
+      ]
+    },
+
+    {
+      "id": "greenKoopa.walkLeft",
+      "frames": [
+        {
+          "x": 201,
+          "y": 209,
+          "w": 16,
+          "h": 23
+        },
+        {
+          "x": 182,
+          "y": 208,
+          "w": 16,
+          "h": 24
+        }
+      ]
+    },
+
+    {
+      "id": "greenKoopa.shell",
+      "frames": [
+        {
+          "x": 144,
+          "y": 218,
+          "w": 16,
+          "h": 14
+        },
+        {
+          "x": 163,
+          "y": 217,
+          "w": 16,
+          "h": 15
+        }
+      ]
+    },
+
+    {
+      "id": "greenKoopa.death",
+      "frames": [
+        {
+          "x": 354,
+          "y": 219,
+          "w": 14,
+          "h": 8
+        }
+      ]
+    }
+
+  ]
+}

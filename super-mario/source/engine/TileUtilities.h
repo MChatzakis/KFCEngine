@@ -87,8 +87,11 @@ public:
 		//BitmapBlit(tiles, Rect{ TileX3(tile), TileY3(tile), TILE_WIDTH, TILE_HEIGHT }, dest, Point{ x, y });
 		// POIO EINAI TO TARGET DEST GAMW TO SPITAKI?
 		//al_draw_bitmap_region((ALLEGRO_BITMAP*)tiles, TileX3(tile) * TILE_WIDTH, TileY3(tile), TILE_WIDTH * TILE_HEIGHT, TILE_HEIGHT, x, y, 0);
-		al_set_target_bitmap((ALLEGRO_BITMAP *)dest);
-		al_draw_bitmap_region((ALLEGRO_BITMAP*)tiles, CustomGetCol(tile) * TILE_WIDTH, CustomGetRow(tile) * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, x, y, 0);
+		
+		//al_set_target_bitmap((ALLEGRO_BITMAP*)dest);
+		//al_draw_bitmap_region((ALLEGRO_BITMAP*)tiles, CustomGetCol(tile) * TILE_WIDTH, CustomGetRow(tile) * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, x, y, 0);
+
+		BitmapBlit(tiles, Rect(CustomGetCol(tile) * TILE_WIDTH, CustomGetRow(tile) * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT), dest, Point(x, y));
 	}
 
 	static void SetTile(TileMap* m, Dim col, Dim row, Index index)

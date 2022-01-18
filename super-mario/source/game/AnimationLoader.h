@@ -13,9 +13,11 @@ class AnimationLoader {
 
 public:
 	static void loadAnimations() {
-		//using Parser = std::function<bool(std::list<AnimationFilm::Data>& output, const std::string& input)>;
-		AnimationFilmHolder::GetSingleton().Load("../resources/characters/mario.json", (const AnimationFilmHolder::Parser &) getAnimationFilmDataParser);
-		//AnimationFilmHolder::GetSingleton().Load("resources/characters/mario.json", (const AnimationFilmHolder::EntryParser &) getAnimationFilmDataEntryParser);
+		AnimationFilmHolder::GetSingleton().Load(MARIO_ANIMATIONS_PATH, (const AnimationFilmHolder::Parser &) getAnimationFilmDataParser);
+		AnimationFilmHolder::GetSingleton().Load(KOOPA_ANIMATIONS_PATH, (const AnimationFilmHolder::Parser &) getAnimationFilmDataParser);
+		AnimationFilmHolder::GetSingleton().Load(GOOMBA_ANIMATIONS_PATH, (const AnimationFilmHolder::Parser &) getAnimationFilmDataParser);
+		
+		AnimationFilmHolder::GetSingleton().printAnimationMap();
 	}
 
 };

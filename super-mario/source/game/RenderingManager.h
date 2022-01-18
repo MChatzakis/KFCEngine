@@ -2,6 +2,7 @@
 #define _RENDERINGMANAGER_H_
 
 #include "./GameVars.h"
+#include "./Mario.h"
 
 void GridDisplay() {
 	//GridUtilities::DisplayGrid(al_get_backbuffer(display), gameMap->GetViewWindow(), *grid, TILEMAP_WIDTH);
@@ -16,7 +17,10 @@ void GridDisplay() {
 }
 
 void Render() {
+	
 	gameMap->Display(al_get_backbuffer(display));
+	Mario *mario = new Mario();
+	//mario->move();
 
 	if (SHOW_GRID_DEBUG) {
 		GridDisplay();
