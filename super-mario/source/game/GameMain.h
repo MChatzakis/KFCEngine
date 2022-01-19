@@ -9,6 +9,8 @@
 #include "./MapLoader.h"
 #include "./AnimationLoader.h"
 
+#include "./SoundPlayer.h"
+
 #include "./GameFunctions.h"
 
 void Initialise() {
@@ -19,8 +21,7 @@ void Initialise() {
 void Load() {
 	MapLoader::loadMap();
 	AnimationLoader::loadAnimations();
-	SoundsManager::GetSingleton().LoadSounds("resources/Sounds/sounds-config.json", getSoundsDataParser);
-	SoundsManager::GetSingleton().PrintSoundsList();
+	SoundPlayer::loadSounds();
 }
 
 void Clear() {
@@ -31,7 +32,6 @@ void Clear() {
 
 void Run() {
 	setGameActions();
-	SoundsManager::GetSingleton().PlaySound("main_sound");
 	game->MainLoop();
 }
 

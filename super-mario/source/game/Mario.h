@@ -14,10 +14,8 @@
 #define MARIO_JUMP_LEFT_ID "mario.jumpLeft"
 #define MARIO_STOP_WALKING_RIGHT_ID "mario.stopWalkingRight"
 #define MARIO_STOP_WALKING_LEFT_ID "mario.stopWalkingLeft"
-#define MARIO_UNKOWN_RIGHT_ID "mario.unknownRight"
-#define MARIO_UNKOWN_LEFT_ID "mario.unknownLeft"
 #define MARIO_HOLD_FLAG_RIGHT_ID "mario.holdFlagRight"
-#define MARIO_HOLD_FLAG_LEFT_ID "mario.HoldFlagLeft"
+#define MARIO_HOLD_FLAG_LEFT_ID "mario.holdFlagLeft"
 #define MARIO_TURNING_SUPER_RIGHT_ID "mario.turningSuperRight"
 #define MARIO_TURNING_LEFT_RIGHT_ID "mario.turningSuperLeft"
 #define MARIO_DEATH_ID "mario.death"
@@ -51,5 +49,8 @@ public:
 };
 
 Mario Mario::mario;
+void Mario::initializeSprites() {
+
+}
 
 #endif _MARIO_H_

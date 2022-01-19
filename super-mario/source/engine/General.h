@@ -10,6 +10,8 @@
 #include <functional>
 #include <chrono>
 #include <string>
+#include <cmath>
+#include <math.h>       /* sqrt */
 
 #define TILESET_WIDTH 26 // row = 26 tiles .. better in json
 #define TILESET_HEIGHT 24 // col = 24 tiles
@@ -53,6 +55,11 @@ struct Point {
 	int x, y;
 	Point(int _x, int _y) : x{ _x }, y{ _y }{};
 	Point() { x = y = 0; };
+	Point(const Point& p) : x(p.x), y(p.y) {}
+
+	static double pointDistance(Point p1, Point p2) {
+		return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+	}
 };
 
 enum BitDepth { bits8 = 1, bits16, bits24, bits32 };

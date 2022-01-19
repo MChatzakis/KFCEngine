@@ -251,6 +251,7 @@
     <ClInclude Include="source\game\Mario.h" />
     <ClInclude Include="source\game\PhysicsManager.h" />
     <ClInclude Include="source\game\RenderingManager.h" />
+    <ClInclude Include="source\game\SoundPlayer.h" />
     <ClInclude Include="source\game\UserCodeManager.h" />
     <ClInclude Include="source\game\VariableInitializer.h" />
     <ClInclude Include="source\utils\Utils.h" />

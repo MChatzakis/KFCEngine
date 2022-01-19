@@ -118,6 +118,9 @@
     <Filter Include="Source Files\Engine\Sounds">
       <UniqueIdentifier>{1bc83e74-6cb5-4c79-bb0b-53b39c54f631}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Sound">
+      <UniqueIdentifier>{35ead6e8-0a4c-49d0-aadd-51445b8af8b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -436,6 +439,9 @@
     </ClInclude>
     <ClInclude Include="source\game\Goomba.h">
       <Filter>Header Files\Game\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\SoundPlayer.h">
+      <Filter>Header Files\Game\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

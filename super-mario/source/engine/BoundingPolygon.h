@@ -4,18 +4,19 @@
 #include <iostream>
 #include <list>
 
+#include "./General.h"
 #include "./BoundingArea.h"
 
 
 class BoundingPolygon : public BoundingArea {
 public:
-	struct Point {
+	/*struct Point {
 		unsigned x, y;
 		Point(void) : x(0), y(0) {}
 		Point(unsigned _x, unsigned _y) : x(_x), y(_y) {}
 		Point(const Point& p) : x(p.x), y(p.y) {}
-	};
-	typedef std::list<Point>Polygon;
+	};*/
+	typedef std::list<Point> Polygon;
 
 protected:
 	Polygon points;

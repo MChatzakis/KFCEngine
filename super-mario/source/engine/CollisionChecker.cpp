@@ -23,10 +23,10 @@ auto CollisionChecker::Find(Sprite* s1, Sprite* s2) -> std::list<Entry>::iterato
 		entries.begin(),
 		entries.end(),
 		[s1, s2](const Entry& e)
-	{
-		return std::get<0>(e) == s1 && std::get<1>(e) == s2 ||
-			std::get<0>(e) == s2 && std::get<1>(e) == s1;
-	});
+		{
+			return std::get<0>(e) == s1 && std::get<1>(e) == s2 ||
+				std::get<0>(e) == s2 && std::get<1>(e) == s1;
+		});
 }
 
 void CollisionChecker::Cancel(Sprite* s1, Sprite* s2)
