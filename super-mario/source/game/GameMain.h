@@ -19,6 +19,8 @@ void Initialise() {
 void Load() {
 	MapLoader::loadMap();
 	AnimationLoader::loadAnimations();
+	SoundsManager::GetSingleton().LoadSounds("resources/Sounds/sounds-config.json", getSoundsDataParser);
+	SoundsManager::GetSingleton().PrintSoundsList();
 }
 
 void Clear() {
@@ -29,6 +31,7 @@ void Clear() {
 
 void Run() {
 	setGameActions();
+	SoundsManager::GetSingleton().PlaySound("main_sound");
 	game->MainLoop();
 }
 

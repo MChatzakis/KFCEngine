@@ -1,0 +1,26 @@
+{
+  "main_sound": {
+    "id": "main_sound",
+    "path": "resources/Sounds/Super-Mario-Bros-medley2.wav"
+  },
+  "sounds": [
+    {
+      "id": "warning",
+      "path": "resources/Sounds/smb_warning.wav"
+    },
+    {
+      "id": "mario_die",
+      "path": "resources/Sounds/smb_mariodie.wav"
+    },
+    {
+      "id": "small_mario_jump",
+      "path": "resources/Sounds/smb_jump-small.wav"
+    }
+  ],
+  "gain" :  1.0,
+  "pan": 0.0,
+  "speed": 1.0
+
+
+
+}

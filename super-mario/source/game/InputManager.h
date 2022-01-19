@@ -78,6 +78,7 @@ void Input() {
 		int dy = -basisDy;
 
 		std::cout << "Pressed W\n";
+		SoundsManager::GetSingleton().PlaySound("small_mario_jump");
 
 		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
 		gridWin->x += dx;

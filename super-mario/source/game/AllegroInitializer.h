@@ -2,6 +2,8 @@
 #define _ALLEGROINITIALIZER_H_
 
 #include "./GameVars.h"
+#include "allegro5/allegro_audio.h"
+#include "allegro5/allegro_acodec.h"
 
 class AllegroInitializer {
 public:
@@ -21,9 +23,28 @@ public:
 			exit(-1);
 		}
 
+		if (!al_install_audio()) { //the order of these three is important
+			std::cout << "Could not install Allegro Audio!" << std::endl;
+			exit(-1);
+		}
+
+		if(!al_init_acodec_addon()) {
+			std::cout << "Could not initialize Allegro Audio Codec Addon!" << std::endl;
+			exit(-1);
+		}
+
+		al_reserve_samples(2); //can play 2 sounds at the same time
+
 		//Allegro requires installing drivers for all input devices before they can be used.
-		al_install_mouse();
-		al_install_keyboard();
+		if (!al_install_mouse()) {
+			std::cout << "Could not install Allegro Mouse!" << std::endl;
+			exit(-1);
+		}
+
+		if (!al_install_keyboard()) {
+			std::cout << "Could not install Allegro Keyboard!" << std::endl;
+			exit(-1);
+		}
 
 		// Create a new display that we can render the image to.
 		display = al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT);

@@ -115,6 +115,9 @@
     <Filter Include="Header Files\Engine\Sounds">
       <UniqueIdentifier>{e6aff907-bac9-4a15-9252-21b2ccaa4c1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Sounds">
+      <UniqueIdentifier>{1bc83e74-6cb5-4c79-bb0b-53b39c54f631}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -144,6 +147,9 @@
     </None>
     <None Include="resources\characters\koopa.json">
       <Filter>Resource Files\characters</Filter>
+    </None>
+    <None Include="resources\Sounds\sounds-config.json">
+      <Filter>Resource Files\sounds</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +263,9 @@
     </ClCompile>
     <ClCompile Include="source\engine\AnimationFilmHolder.cpp">
       <Filter>Source Files\Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\SoundsManager.cpp">
+      <Filter>Source Files\Engine\Sounds</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -74,9 +74,13 @@
     <LinkIncremental>true</LinkIncremental>
     <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -151,6 +155,7 @@
     <None Include="resources\csv\level1-1_Sky.csv" />
     <None Include="resources\csv\level1-1_terain.csv" />
     <None Include="resources\csv\OLDlevel1-1_terain.csv" />
+    <None Include="resources\Sounds\sounds-config.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\Animation.cpp" />
@@ -180,6 +185,7 @@
     <ClCompile Include="source\engine\MovingAnimator.cpp" />
     <ClCompile Include="source\engine\MovingPathAnimation.cpp" />
     <ClCompile Include="source\engine\ScrollAnimation.cpp" />
+    <ClCompile Include="source\engine\SoundsManager.cpp" />
     <ClCompile Include="source\engine\Sprite.cpp" />
     <ClCompile Include="source\engine\SpriteManager.cpp" />
     <ClCompile Include="source\engine\TickAnimation.cpp" />
