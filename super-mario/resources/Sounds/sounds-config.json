@@ -1,7 +1,7 @@
 {
   "main_sound": {
     "id": "main_sound",
-    "path": "resources/Sounds/Super-Mario-Bros-medley.wav"
+    "path": "resources/Sounds/Super-Mario-Bros-main-theme.mp3"
   },
   "sounds": [
     {
