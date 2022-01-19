@@ -1,20 +1,100 @@
 {
   "main_sound": {
     "id": "main_sound",
-    "path": "resources/Sounds/Super-Mario-Bros-medley2.wav"
+    "path": "resources/Sounds/Super-Mario-Bros-medley.wav"
   },
   "sounds": [
     {
-      "id": "warning",
-      "path": "resources/Sounds/smb_warning.wav"
+      "id": "1_up",
+      "path": "resources/Sounds/smb_1-up.wav"
+    },
+    {
+      "id": "bowserfalls",
+      "path": "resources/Sounds/smb_bowserfalls.wav"
+    },
+    {
+      "id": "bowserfire",
+      "path": "resources/Sounds/smb_bowserfire.wav"
+    },
+    {
+      "id": "breakblock",
+      "path": "resources/Sounds/smb_breakblock.wav"
+    },
+    {
+      "id": "bump",
+      "path": "resources/Sounds/smb_bump.wav"
+    },
+    {
+      "id": "coin",
+      "path": "resources/Sounds/smb_coin.wav"
+    },
+    {
+      "id": "fireball",
+      "path": "resources/Sounds/smb_fireball.wav"
+    },
+    {
+      "id": "fireworks",
+      "path": "resources/Sounds/smb_fireworks.wav"
+    },
+    {
+      "id": "flagpole",
+      "path": "resources/Sounds/smb_flagpole.wav"
+    },
+    {
+      "id": "gameover",
+      "path": "resources/Sounds/smb_gameover.wav"
+    },
+    {
+      "id": "small_mario_jump",
+      "path": "resources/Sounds/smb_jump-small.wav"
+    },
+    {
+      "id": "super_mario_jump",
+      "path": "resources/Sounds/smb_jump-super.wav"
+    },
+    {
+      "id": "kick",
+      "path": "resources/Sounds/smb_kick.wav"
     },
     {
       "id": "mario_die",
       "path": "resources/Sounds/smb_mariodie.wav"
     },
     {
-      "id": "small_mario_jump",
-      "path": "resources/Sounds/smb_jump-small.wav"
+      "id": "pause",
+      "path": "resources/Sounds/smb_pause.wav"
+    },
+    {
+      "id": "pipe",
+      "path": "resources/Sounds/smb_pipe.wav"
+    },
+    {
+      "id": "powerup",
+      "path": "resources/Sounds/smb_powerup.wav"
+    },
+    {
+      "id": "powerup_appears",
+      "path": "resources/Sounds/smb_powerup_appears.wav"
+    },
+    {
+      "id": "stage_clear",
+      "path": "resources/Sounds/smb_stage_clear.wav"
+    },
+    {
+      "id": "stomp",
+      "path": "resources/Sounds/smb_stomp.wav"
+    },
+    {
+      "id": "vine",
+      "path": "resources/Sounds/smb_vine.wav"
+    },
+    {
+      "id": "world_clear",
+      "path": "resources/Sounds/smb_world_clear.wav"
+    },
+    {
+      "id": "warning",
+      "path": "resources/Sounds/smb_warning.wav"
     }
   ],
   "gain" :  1.0,

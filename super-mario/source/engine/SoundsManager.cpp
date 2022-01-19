@@ -15,7 +15,7 @@ std::string Sound::toString() {
 	if (loop == ALLEGRO_PLAYMODE_ONCE) {
 		loop_str = "Always";
 	}*/
-	return "{Id: " + id + ",Sample: " + std::to_string((int)sample) + ",Sample Path: " + sample_path + ",Playmode: " + std::to_string((int)loop) + ",Speed: " + std::to_string(speed) + ",Gain: " + std::to_string(gain) + ",Pan: " + std::to_string(pan) + "}\n";
+	return "{Id: " + id + ",Sample: " + std::to_string((int)sample) + ",Sample Path: " + sample_path + ",Playmode: " + std::to_string((int)loop) + ",Speed: " + std::to_string(speed) + ",Gain: " + std::to_string(gain) + ",Pan: " + std::to_string(pan) + "}";
 }
 
 //Sounds Manager
