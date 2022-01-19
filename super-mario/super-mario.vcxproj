@@ -238,7 +238,9 @@
     <ClInclude Include="source\game\GameFunctions.h" />
     <ClInclude Include="source\game\GameMain.h" />
     <ClInclude Include="source\game\GameVars.h" />
+    <ClInclude Include="source\game\Goomba.h" />
     <ClInclude Include="source\game\InputManager.h" />
+    <ClInclude Include="source\game\Koopa.h" />
     <ClInclude Include="source\game\MapLoader.h" />
     <ClInclude Include="source\game\Mario.h" />
     <ClInclude Include="source\game\PhysicsManager.h" />

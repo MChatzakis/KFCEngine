@@ -422,6 +422,12 @@
     <ClInclude Include="source\engine\SoundsManager.h">
       <Filter>Header Files\Engine\Sounds</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\Koopa.h">
+      <Filter>Header Files\Game\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\Goomba.h">
+      <Filter>Header Files\Game\Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\bitmaps\tileset.png">
