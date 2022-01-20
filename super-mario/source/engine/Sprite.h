@@ -41,47 +41,26 @@ protected:
 
 public:
 	template <typename Tfunc> void SetMover(const Tfunc& f);
-
 	const Rect GetBox(void) const;
-
 	void MoveOLD(int dx, int dy);
-
 	void SetPos(int _x, int _y);
-
 	void SetZorder(unsigned z);
-
 	unsigned GetZorder(void);
-
 	void SetFrame(byte i);
-
 	byte GetFrame(void) const;
-
 	void SetBoundingArea(const BoundingArea& area);
-
 	void SetBoundingArea(BoundingArea* area);
-
 	auto GetBoundingArea(void) const -> const BoundingArea*;
-
 	auto GetTypeId(void) -> const std::string&;
-
 	void SetVisibility(bool v);
-
 	bool IsVisible(void) const;
-
 	bool CollisionCheck(const Sprite* s) const;
-
 	void Display(Bitmap dest, const Rect& dpyArea, const Clipper& clipper) const;
-
 	Sprite(int _x, int _y, AnimationFilm* film, const std::string& _typeId = "");
-
 	GravityHandler& GetGravityHandler(void);
-
 	Sprite& SetHasDirectMotion(bool v);
-
 	bool GetHasDirectMotion(void) const;
-
 	Sprite& Move(int dx, int dy);
-
 	void Display(Bitmap dest);
 };
 

@@ -124,6 +124,30 @@
     <Filter Include="Header Files\Game\Items">
       <UniqueIdentifier>{df328905-04ef-428d-85a1-f1cc66ad8a3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Application">
+      <UniqueIdentifier>{32bb7502-c361-48b6-b3ad-ba8bbd80bc9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Characters">
+      <UniqueIdentifier>{8f0000cd-2437-461b-b63c-e4aa5a43f3ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameLogic">
+      <UniqueIdentifier>{8c06b006-12e6-4dbc-8366-bf237b870f5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Initializers">
+      <UniqueIdentifier>{bf99440d-2ed4-46c5-b363-a12246b3af8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Items">
+      <UniqueIdentifier>{9caba206-0a58-4dde-ba50-e040c7efde41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Sound">
+      <UniqueIdentifier>{3482db9d-f3f7-4db0-b3ee-02fd6d084fce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Loaders">
+      <UniqueIdentifier>{f8cc35ba-9b13-43fd-ba0c-4be4bde113aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameLogic\Managers">
+      <UniqueIdentifier>{4d0761f7-a0cd-4270-afb7-ec847b886f69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

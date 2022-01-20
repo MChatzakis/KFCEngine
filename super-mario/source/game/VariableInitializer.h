@@ -17,8 +17,8 @@ public:
 		SCREEN_HEIGHT = config["screen"]["height"];
 
 
-		viewWin = new Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-		gridWin = new Rect(0, 0, 20, 20);
+		//viewWin = new Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		//gridWin = new Rect(0, 0, 20, 20);
 		game = new Game();
 		//mario = new Mario();
 	}

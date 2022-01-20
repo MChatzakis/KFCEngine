@@ -280,13 +280,12 @@ unsigned int timeToNextRendering = 0xffffffff;
 extern uint64_t CurrTime(void); // timer in msecs  //todo*/
 
 
+bool operator==(const Rect& l, const Rect& r);
+
 /*
 	***********************************************************************************************
 												BODIES
 	***********************************************************************************************
 */
-
-
-bool operator==(const Rect& l, const Rect& r);
 
 #endif _GENERAL_H_

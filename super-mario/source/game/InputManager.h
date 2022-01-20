@@ -3,56 +3,31 @@
 
 #include "./GameVars.h"
 
-void Input() {
-
-	al_get_keyboard_state(&keyboard_state);
-	al_get_mouse_state(&mouse_state);
+void viewWindowScrolling_DEBUG() {
 
 	int keyboard_offset = 4;
-	int bef_x = viewWin->x;
-	int bef_y = viewWin->y;
-
-	/*GridInput Logic*/
-	int basisDx = 4;
-	int basisDy = 4;
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_RIGHT)) {
-
-		//ScrollUtilities::ScrollWithBoundsCheck(viewWin, keyboard_offset, 0);
-		//tileLayer->SetViewWindow(*viewWin);
 		if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
-
 			gameMap->ScrollWithBoundsCheck(keyboard_offset, 0);
 		}
-		//std::cout << " ------------------------ Pressed Right arrow!" << std::endl;
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_LEFT)) {
-		//ScrollUtilities::ScrollWithBoundsCheck(viewWin, -keyboard_offset, 0);
-		//tileLayer->SetViewWindow(*viewWin);
 		gameMap->ScrollWithBoundsCheck(-keyboard_offset, 0);
-		std::cout << " ------------------------ Pressed Left arrow!" << std::endl;
+		//std::cout << " ------------------------ Pressed Left arrow!" << std::endl;
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_HOME)) {
-		//viewWin->x = viewWin->y = 0;
 		gameMap->SetViewWindow(Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_END)) {
-		/*viewWin->x = MAX_PIXEL_WIDTH - viewWin->w;
-		viewWin->y = MAX_PIXEL_HEIGHT - viewWin->h;
-		tileLayer->SetViewWindow(*viewWin);*/
-		gameMap->SetViewWindow(Rect(MAX_PIXEL_WIDTH - viewWin->w, MAX_PIXEL_HEIGHT - viewWin->h, SCREEN_WIDTH, SCREEN_HEIGHT));
+		gameMap->SetViewWindow(Rect(MAX_PIXEL_WIDTH - gameMap->GetViewWindow().w, MAX_PIXEL_HEIGHT - gameMap->GetViewWindow().h, SCREEN_WIDTH, SCREEN_HEIGHT));
 	}
 
 	if (al_mouse_button_down(&mouse_state, 1)) { //1 is left click
-		//std::cout << " ------------------------ Pressed Left mouse!" << std::endl;
-
 		int dx = 0, dy = 0;
-
-		//std::cout << "(" << dx << "," << dy << ")" << std::endl;
-
 		/* We did not understand dx,dy meaning in instructions :P */
 		if (mouse_state.x > SCREEN_WIDTH / 2) {
 			dx = 1;
@@ -68,10 +43,15 @@ void Input() {
 			dy = -1;
 		}
 
-		//ScrollUtilities::ScrollWithBoundsCheck(viewWin, dx, dy);
-		//tileLayer->SetViewWindow(*viewWin);
 		gameMap->ScrollWithBoundsCheck(dx, dy);
 	}
+}
+
+
+void movingRectScroll_DEBUG() {
+
+	/*int basisDx = 4;
+	int basisDy = 4;
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
 		int dx = 0;
@@ -116,8 +96,12 @@ void Input() {
 		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
 		gridWin->x += dx;
 		gridWin->y += dy;
-	}
+	}*/
 
+}
+
+
+void debugShortcuts() {
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_1) && al_key_down(&keyboard_state, ALLEGRO_KEY_LCTRL)) {
 		SHOW_GRID_DEBUG = 1;
 	}
@@ -134,6 +118,18 @@ void Input() {
 		TOGGLE_FILLED_RECT = 1;
 	}
 
+}
+
+
+void Input() {
+
+	al_get_keyboard_state(&keyboard_state);
+	al_get_mouse_state(&mouse_state);
+
+	viewWindowScrolling_DEBUG();
+	movingRectScroll_DEBUG();
+
+	debugShortcuts();
 }
 
 
