@@ -194,6 +194,17 @@
     <ClCompile Include="source\engine\TileLayer.cpp" />
     <ClCompile Include="source\engine\TileUtilities.cpp" />
     <ClCompile Include="source\engine\Timing.cpp" />
+    <ClCompile Include="source\game\AllegroInitializer.cpp" />
+    <ClCompile Include="source\game\AnimationHolder.cpp" />
+    <ClCompile Include="source\game\GameFunction.cpp" />
+    <ClCompile Include="source\game\GameMain.cpp" />
+    <ClCompile Include="source\game\Goomba.cpp" />
+    <ClCompile Include="source\game\Koopa.cpp" />
+    <ClCompile Include="source\game\MapLoader.cpp" />
+    <ClCompile Include="source\game\Mario.cpp" />
+    <ClCompile Include="source\game\SoundPlayer.cpp" />
+    <ClCompile Include="source\game\SuperMario.cpp" />
+    <ClCompile Include="source\game\VariableInitializer.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\utils\Utils.cpp" />
   </ItemGroup>
@@ -241,6 +252,7 @@
     <ClInclude Include="source\game\AnimationManager.h" />
     <ClInclude Include="source\game\CollisionManager.h" />
     <ClInclude Include="source\game\DestructionManager.h" />
+    <ClInclude Include="source\game\GameCharacters.h" />
     <ClInclude Include="source\game\GameFunctions.h" />
     <ClInclude Include="source\game\GameMain.h" />
     <ClInclude Include="source\game\GameVars.h" />
@@ -252,6 +264,7 @@
     <ClInclude Include="source\game\PhysicsManager.h" />
     <ClInclude Include="source\game\RenderingManager.h" />
     <ClInclude Include="source\game\SoundPlayer.h" />
+    <ClInclude Include="source\game\SuperMario.h" />
     <ClInclude Include="source\game\UserCodeManager.h" />
     <ClInclude Include="source\game\VariableInitializer.h" />
     <ClInclude Include="source\utils\Utils.h" />

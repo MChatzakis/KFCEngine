@@ -297,6 +297,39 @@
     <ClCompile Include="source\engine\SoundsManager.cpp">
       <Filter>Source Files\Engine\Sounds</Filter>
     </ClCompile>
+    <ClCompile Include="source\game\SoundPlayer.cpp">
+      <Filter>Source Files\Game\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\AnimationHolder.cpp">
+      <Filter>Source Files\Game\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\MapLoader.cpp">
+      <Filter>Source Files\Game\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\AllegroInitializer.cpp">
+      <Filter>Source Files\Game\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\VariableInitializer.cpp">
+      <Filter>Source Files\Game\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\GameMain.cpp">
+      <Filter>Source Files\Game\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\Mario.cpp">
+      <Filter>Source Files\Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\SuperMario.cpp">
+      <Filter>Source Files\Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\Koopa.cpp">
+      <Filter>Source Files\Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\Goomba.cpp">
+      <Filter>Source Files\Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\GameFunction.cpp">
+      <Filter>Source Files\Game\GameLogic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\utils\Utils.h">
@@ -469,6 +502,12 @@
     </ClInclude>
     <ClInclude Include="source\game\SoundPlayer.h">
       <Filter>Header Files\Game\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\SuperMario.h">
+      <Filter>Header Files\Game\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\GameCharacters.h">
+      <Filter>Header Files\Game\GameLogic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
