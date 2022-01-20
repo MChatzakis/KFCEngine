@@ -1,4 +1,4 @@
-/*#include "./KeyFrameAnimations.h"
+#include "./KeyFrameAnimations.h"
 
 void Animate(void) {
 	uint64_t t = 0;
@@ -21,4 +21,4 @@ void Animate(const AnimationFilm& film, const Point& at) {
 			BitmapClear(BitmapGetScreen(), BLACK_COLOR);
 			film.DisplayFrame(BitmapGetScreen(), at, i++);
 		}
-}*/
+}

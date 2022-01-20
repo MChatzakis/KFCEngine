@@ -2,6 +2,8 @@
 #define _BOUNDINGCIRCLE_H_
 
 #include "./BoundingArea.h"
+#include "./BoundingPolygon.h"
+#include "./BoundingBox.h"
 
 class BoundingCircle : public BoundingArea {
 protected:

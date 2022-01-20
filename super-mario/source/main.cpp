@@ -16,7 +16,7 @@
 	7) Add FPS calculation code [opoios exei orexi (manos)] -lec 5 6 7?
 	8) Pass stis dialexeis mipws exoyme ksexasei kati
 	9) Code for view window transitions based on mario 2.
-	10) Implement Sprite::CollisionCheck, CollisionChecker::In 3.
+	10) Implement Sprite::CollisionCheck, CollisionChecker::In, BoundingCircle::Intersects(Polygon), BoundingCircle::Intersects(Box) 3.
 */
 
 int main() {

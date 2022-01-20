@@ -1,5 +1,4 @@
 #include "./BoundingCircle.h"
-#include "./BoundingBox.h"
 #include "./General.h"
 
 #include <math.h>
@@ -18,7 +17,7 @@ bool BoundingCircle::In(unsigned _x, unsigned _y) const {
 	return pow(x - _x, 2) + pow(y - _y, 2) <= pow(r, 2);
 }
 
-bool BoundingCircle::Intersects(const BoundingBox& box) const {
+bool BoundingCircle::Intersects(const BoundingBox& box) const { //todo
 	if (Point::pointDistance(Point(x, y), box.GetCenterPoint()) > r + box.GetDiagonal() / 2) {
 		return false;
 	}
@@ -29,11 +28,11 @@ bool BoundingCircle::Intersects(const BoundingBox& box) const {
 	return true;
 }
 
-bool BoundingCircle::Intersects(const BoundingPolygon& poly) const {
+bool BoundingCircle::Intersects(const BoundingPolygon& poly) const { //todo
 	assert(0);
 	return false;
 }
 
 bool BoundingCircle::Intersects(const BoundingCircle& circle) const {
-	return  Point::pointDistance(Point(x, y), Point(circle.x, circle.y)) < ((double)r + (double)circle.r);
+	return  Point::pointDistance(Point(x, y), Point(circle.x, circle.y)) < ((double)r + (double)circle.r); //what about <=?
 }

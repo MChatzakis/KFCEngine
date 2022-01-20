@@ -6,6 +6,8 @@
 
 #include "./General.h"
 #include "./BoundingArea.h"
+#include "./BoundingCircle.h"
+#include "./BoundingBox.h"
 
 
 class BoundingPolygon : public BoundingArea {

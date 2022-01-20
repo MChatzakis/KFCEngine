@@ -22,7 +22,9 @@ bool BoundingBox::Intersects(const BoundingPolygon& poly) const {
 	BoundingPolygon::Polygon points;
 
 	points.push_back(/*BoundingPolygon::*/Point(x1, y1));
+	points.push_back(/*BoundingPolygon::*/Point(x1, y2));
 	points.push_back(/*BoundingPolygon::*/Point(x2, y2));
+	points.push_back(/*BoundingPolygon::*/Point(x2, y1)); //convert box to polygon
 
 	BoundingPolygon selfPoly(points);
 
@@ -30,5 +32,5 @@ bool BoundingBox::Intersects(const BoundingPolygon& poly) const {
 }
 
 bool BoundingBox::In(unsigned x, unsigned y) const {
-	return x1 <= x && x <= x2 && y1 <= y && y <= y1;
+	return x1 <= x && x <= x2 && y1 <= y && y <= y2;
 }

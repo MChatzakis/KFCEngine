@@ -57,9 +57,21 @@ struct Point {
 	Point() { x = y = 0; };
 	Point(const Point& p) : x(p.x), y(p.y) {}
 
-	static double pointDistance(Point p1, Point p2) {
-		return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
-	}
+	static double pointDistance(Point p1, Point p2);
+
+	// Given three collinear points p, q, r, the function checks if point q lies on line segment 'pr' -> Geeks4Geeks
+	static bool onSegment(Point p, Point q, Point r);
+
+	// To find orientation of ordered triplet (p, q, r).
+	// The function returns following values
+	// 0 --> p, q and r are collinear
+	// 1 --> Clockwise
+	// 2 --> Counterclockwise
+	static int orientation(Point p, Point q, Point r);
+
+	// The function that returns true if line segment 'p1q1'
+	// and 'p2q2' intersect.
+	static bool doIntersect(Point p1, Point q1, Point p2, Point q2);
 };
 
 enum BitDepth { bits8 = 1, bits16, bits24, bits32 };
