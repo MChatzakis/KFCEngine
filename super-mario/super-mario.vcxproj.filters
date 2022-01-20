@@ -121,6 +121,9 @@
     <Filter Include="Header Files\Game\Sound">
       <UniqueIdentifier>{35ead6e8-0a4c-49d0-aadd-51445b8af8b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Items">
+      <UniqueIdentifier>{df328905-04ef-428d-85a1-f1cc66ad8a3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
