@@ -38,11 +38,10 @@ void CollisionChecker::Check(void) const
 {
 	for (auto& e : entries)
 		if (std::get<0>(e)->CollisionCheck(std::get<1>(e)))
-			if (std::get<0>(e)->CollisionCheck(std::get<1>(e)))
-				return; //IT WAS NOT RETURN HERE
+			std::get<2>(e)(std::get<0>(e), std::get<1>(e));
 }
 
-bool CollisionChecker::In(Sprite* s1, Sprite* s2) { //na th doume
+bool CollisionChecker::In(Sprite* s1, Sprite* s2) {
 	std::list<Entry>::iterator it = Find(s1, s2);
 	if (it != entries.end()) {
 		return true;

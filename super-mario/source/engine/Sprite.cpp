@@ -136,6 +136,6 @@ Sprite& Sprite::Move(int dx, int dy) {
 }
 //sprite->SetHasDirectMotion(true).Move(dx, dy).SetHasDirectMotion(false);
 
-bool Sprite::CollisionCheck(const Sprite* s) const { //to implement
-	return false;
+bool Sprite::CollisionCheck(const Sprite* s) const {
+	return this->boundingArea->Intersects(*(s->boundingArea));
 }
