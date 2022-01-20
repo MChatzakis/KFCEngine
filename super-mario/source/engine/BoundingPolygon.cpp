@@ -64,7 +64,6 @@ bool BoundingPolygon::In(unsigned x, unsigned y) const {
 	int count = 0;
 	Polygon::const_iterator startPoint = points.begin();
 	Polygon::const_iterator nextPoint = points.begin();
-	//std::advance(nextPoint, 1);
 	++nextPoint;
 	for (Polygon::const_iterator point = points.begin(); point != points.end(); ++point) {
 		if (nextPoint == points.end()) {
@@ -79,11 +78,12 @@ bool BoundingPolygon::In(unsigned x, unsigned y) const {
 			// then check if it lies on segment. If it lies, return true,
 			// otherwise false
 			if (caller.orientation(*point, p, *nextPoint) == 0)
-				return caller.onSegment(*point, p, *nextPoint);
+				if (caller.onSegment(*point, p, *nextPoint))
+					return true;
+				//return caller.onSegment(*point, p, *nextPoint);
 
 			count++;
 		}
-		//std::advance(nextPoint, 1);
 		++nextPoint;
 	}
 

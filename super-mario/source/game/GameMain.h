@@ -12,8 +12,21 @@
 #include "./SoundPlayer.h"
 
 #include "./GameFunctions.h"
+//#include "../engine/BoundingPolygon.h"
 
 void Initialise() {
+	/* //Remove after testing
+	BoundingPolygon::Polygon points;
+	points.push_back(Point(0, 0));
+	points.push_back(Point(20, 0));
+	points.push_back(Point(20, 10));
+	points.push_back(Point(10, 10));
+	points.push_back(Point(5, 15));
+	points.push_back(Point(0, 15));
+	BoundingPolygon poly = BoundingPolygon(points);
+	std::cout << poly.In(5, 10) << std::endl;
+	*/
+
 	VariableInitializer::initializeVariables();
 	AllegroInitializer::initializeAllegro();
 }
@@ -22,6 +35,7 @@ void Load() {
 	MapLoader::loadMap();
 	AnimationLoader::loadAnimations();
 	SoundPlayer::loadSounds();
+	//SoundPlayer::playSound("main_sound");
 }
 
 void Clear() {
