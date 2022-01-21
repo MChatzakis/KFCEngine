@@ -6,8 +6,9 @@ void GridComputation::ComputeTileGridBlocks1(TileLayer* layer) {
 	GridIndex* grid = gridLayer->GetBuffer();
 	for (auto row = 0; row < layer->GetTotalRows(); ++row) //change
 		for (auto col = 0; col < layer->GetTotalColumns(); ++col) {
-			memset(grid, gridLayer->IsTileIndexAssumedEmpty(layer->GetTile(col, row)) ? GRID_EMPTY_TILE : GRID_SOLID_TILE, GRID_ELEMENTS_PER_TILE);
-			grid += GRID_ELEMENTS_PER_TILE;
+			SetGridTileBlock(col, row, layer->GetTotalColumns(), grid, gridLayer->IsTileIndexAssumedEmpty(layer->GetTile(col, row)) ? GRID_EMPTY_TILE : GRID_SOLID_TILE);
+			//memset(grid, gridLayer->IsTileIndexAssumedEmpty(layer->GetTile(col, row)) ? GRID_EMPTY_TILE : GRID_SOLID_TILE, GRID_ELEMENTS_PER_TILE);
+			//grid += GRID_ELEMENTS_PER_TILE;
 		}
 }
 

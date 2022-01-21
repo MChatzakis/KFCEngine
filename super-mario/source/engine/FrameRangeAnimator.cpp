@@ -46,7 +46,7 @@ FrameRangeAnimator::Progress(timestamp_t currTime) {
 
 void FrameRange_Action(Sprite* sprite, Animator* animator, const FrameRangeAnimation& anim) {
 	auto* frameRangeAnimator = (FrameRangeAnimator*)animator;
-	if (frameRangeAnimator->GetCurrFrame() != anim.GetStartFrame() ||frameRangeAnimator->GetCurrRep())
+	if (frameRangeAnimator->GetCurrFrame() != anim.GetStartFrame() || frameRangeAnimator->GetCurrRep())
 		sprite->Move(anim.GetDx(), anim.GetDy());
 	sprite->SetFrame(frameRangeAnimator->GetCurrFrame());
 }

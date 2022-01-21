@@ -29,8 +29,8 @@ class Mario {
 private:
 	Sprite* sprite_idleRight = nullptr;
 	Sprite* sprite_idleLeft = nullptr;
-	Sprite* sprite_walkingRight = nullptr;
 	Sprite* sprite_walkingLeft = nullptr;
+	Sprite* sprite_walkingRight = nullptr;
 
 	FrameRangeAnimator* animator_walkingRight = nullptr;
 
@@ -62,6 +62,19 @@ void Mario::initializeSprites() {
 
 	sprite_walkingRight = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_RIGHT_ID), MARIO_WALK_RIGHT_ID);
 	sprite_walkingRight->SetMover(MakeSpriteGridLayerMover(gameMap->GetGrid(), sprite_walkingRight));
+	/*sprite_walkingRight->GetQuantizer().SetMover(
+		[this](const Rect& r, int* dx, int* dy) {
+			GridUtilities::FilterGridMotion(r, dx, dy);
+		}
+	);*/
+	/*sprite_walkingRight->GetQuantizer().SetMover(
+		[this](const Rect& r, int* dx, int* dy) {
+		this->GetSingleton().sprite_walkingRight->SetPos(r.x + *dx, r.y + *dy);
+			//r.x += *dx;
+			//r.y += *dy;
+			
+		}
+	);*/
 	
 	sprite_walkingLeft = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_LEFT_ID), MARIO_WALK_LEFT_ID);
 
@@ -84,8 +97,7 @@ void Mario::initializeAnimators() {
 
 	animator_walkingRight->SetOnFinish(
 		[this](Animator* animator) {
-			//FrameRange_Action(this->sprite_walkingRight, animator, (const FrameRangeAnimation&)anim);
-			animator->Stop();
+			AnimatorManager::GetSingleton().MarkAsSuspended(animator_walkingRight);
 		}
 	);
 
@@ -99,7 +111,7 @@ void Mario::initialize() {
 
 
 void Mario::runRight() {
-	animator_walkingRight->Start(new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 100, 3, 0, 70), CurrTime());
+	animator_walkingRight->Start(new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 3, 3, 0, 70), CurrTime());
 	AnimatorManager::GetSingleton().MarkAsRunning(animator_walkingRight);
 	//animator_walkingRight->setAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 1, 3, 0, 15);
 }

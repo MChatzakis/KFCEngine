@@ -62,6 +62,7 @@ public:
 	bool GetHasDirectMotion(void) const;
 	Sprite& Move(int dx, int dy);
 	void Display(Bitmap dest);
+	MotionQuantizer& GetQuantizer();
 };
 
 const Clipper MakeTileLayerClipper(TileLayer* layer);

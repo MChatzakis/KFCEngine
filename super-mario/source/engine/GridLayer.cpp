@@ -317,7 +317,8 @@ template <typename Tfunc>  void GridUtilities::DisplayGrid(Bitmap dest, const Re
 //GRID LAYER
 //ok
 void GridLayer::Allocate(void) {
-	grid = new GridIndex[total = totalRows * totalColumns];
+	auto total = totalRows * totalColumns;
+	grid = new GridIndex[total];
 	memset(grid, GRID_EMPTY_TILE, total);
 }
 
@@ -423,7 +424,7 @@ void  GridLayer::SetGridTile(Dim col, Dim row, GridIndex index)
 //ok
 GridIndex  GridLayer::GetGridTile(Dim col, Dim row)
 {
-	return grid[row * totalColumns + col];
+	return grid[row * totalColumns + col ]; //GRID_BLOCK_COLUMNS
 }
 
 //ok
@@ -453,12 +454,15 @@ void  GridLayer::SetGridTileTopSolidOnly(Dim col, Dim row)
 //ok
 bool  GridLayer::CanPassGridTile(Dim col, Dim row, GridIndex flags) // i.e. checks if flags set
 {
-	//bool res = (bool)(*GetGridTileBlock(col / 4, row / 4, TILEMAP_WIDTH) & flags);
-	return !GetGridTile(col, row) & flags;
-	/*if (res)
-		std::cout << "You go on Solid tile " << "(" << row << "," << col << ")\n";
+	//return !(GetGridTile(col, row) & flags);
+	auto colTile = col / GRID_ELEMENT_WIDTH;
+	auto rowTile = row / GRID_ELEMENT_HEIGHT;
+	auto tileCols = this->GetTotalColumns() / GRID_ELEMENT_WIDTH;
+	return !(*(GridUtilities::GetGridTileBlock(colTile, rowTile, tileCols, this->GetBuffer())) & flags);
+	//if (res)
+		//std::cout << "You go on Solid tile " << "(" << row << "," << col << ")\n";
 
-	return !res; //now it returns 1 on empty tiles
+	//return !res; //now it returns 1 on empty tiles
 	//return GetGridTile(m, row, col) & (flags != 0);*/
 }
 
@@ -511,4 +515,12 @@ GridLayer::GridLayer(unsigned rows, unsigned cols) {
 	totalRows = rows;
 	totalColumns = cols;
 	Allocate();
+}
+
+Dim GridLayer::GetTotalRows() {
+	return totalRows;
+}
+
+Dim GridLayer::GetTotalColumns() {
+	return totalColumns;
 }

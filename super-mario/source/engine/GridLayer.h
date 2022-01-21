@@ -159,6 +159,10 @@ private:
 	void FilterGridMotionRight(const Rect& r, int* dx);
 
 public:
+	Dim GetTotalRows();
+
+	Dim GetTotalColumns();
+
 	//ok
 	void SetGridTile(Dim col, Dim row, GridIndex index);
 
@@ -197,6 +201,7 @@ public:
 
 	//ok
 	GridLayer(unsigned rows, unsigned cols);
+
 };
 
 

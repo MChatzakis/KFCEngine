@@ -26,9 +26,9 @@ void Sprite::Display(Bitmap dest, const Rect& dpyArea, const Clipper& clipper) c
 void Sprite::Display(Bitmap dest) {
 	//Rect clippedFrame{ frameBox.x ,frameBox.y , frameBox.w,frameBox.h };
 	Bitmap src = currFilm->GetBitmap();
-	std::cout << "FrameBox : " << frameBox.toString() << "\n";
-	std::cout << "(x,y) : (" << x << "," << y << ")\n";
-	std::cout << "Src :" << (int)src << "\n";
+	//std::cout << "FrameBox : " << frameBox.toString() << "\n";
+	//std::cout << "(x,y) : (" << x << "," << y << ")\n";
+	//std::cout << "Src :" << (int)src << "\n";
 	//BitmapBlit(src, Rect(100,100,100,100), dest, Point(x, y));
 	//MaskedBlit(currFilm->GetBitmap(), frameBox, dest, Point(x,y));
 	BitmapBlit(src, frameBox, dest, Point(x, y));
@@ -41,6 +41,7 @@ const Sprite::Mover MakeSpriteGridLayerMover(GridLayer* gridLayer, Sprite* sprit
 		gridLayer->FilterGridMotion(r, dx, dy);
 		if (*dx || *dy)
 			sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
+			//sprite->Move(*dx, *dy);
 	};
 };
 
@@ -117,7 +118,7 @@ GravityHandler& Sprite::GetGravityHandler(void)
 }
 
 Sprite& Sprite::SetHasDirectMotion(bool v) {
-	directMotion = true;
+	directMotion = v;
 	return *this;
 }
 
@@ -130,7 +131,7 @@ Sprite& Sprite::Move(int dx, int dy) {
 		x += dx, y += dy;
 	else {
 		quantizer.Move(GetBox(), &dx, &dy);
-		gravity.Check(GetBox());
+		//gravity.Check(GetBox());
 	}
 	return *this;
 }
@@ -138,4 +139,8 @@ Sprite& Sprite::Move(int dx, int dy) {
 
 bool Sprite::CollisionCheck(const Sprite* s) const {
 	return this->boundingArea->Intersects(*(s->boundingArea));
+}
+
+MotionQuantizer& Sprite::GetQuantizer() {
+	return quantizer;
 }
