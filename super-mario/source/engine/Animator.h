@@ -35,11 +35,11 @@ public:
 	virtual void TimeShift(timestamp_t offset);
 	virtual void Progress(timestamp_t currTime) = 0;
 	
-	template <typename Tfunc> void SetOnFinish(const Tfunc& f);
-	template <typename Tfunc> void SetOnStart(const Tfunc& f);
-	template <typename Tfunc> void SetOnAction(const Tfunc& f);
+	/*template <typename Tfunc> */void SetOnFinish(const OnFinish& f);
+	/*template <typename Tfunc> */void SetOnStart(const OnStart& f);
+	/*template <typename Tfunc> */void SetOnAction(const OnAction& f);
 
-	Animator(void);
+	Animator(void) = default;
 	Animator(const Animator&) = delete;
 	Animator(Animator&&) = delete;
 	virtual ~Animator() {}

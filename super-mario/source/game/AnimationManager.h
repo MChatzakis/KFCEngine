@@ -1,8 +1,12 @@
 #ifndef _ANIMATIONMANAGER_H_
 #define _ANIMATIONMANAGER_H_
 
-void ProgressAnimations() {
+#include "../engine/AnimatorManager.h"
+#include "../engine/Timing.h"
 
+
+void ProgressAnimations() {
+	AnimatorManager::GetSingleton().Progress(CurrTime());
 }
 
 

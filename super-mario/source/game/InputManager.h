@@ -2,6 +2,7 @@
 #define _INPUTMANAGER_H_
 
 #include "./GameVars.h"
+#include "./Mario.h"
 
 void viewWindowScrolling_DEBUG() {
 
@@ -130,6 +131,14 @@ void Input() {
 	movingRectScroll_DEBUG();
 
 	debugShortcuts();
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_D)) {
+		/*if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
+			gameMap->ScrollWithBoundsCheck(3, 0);
+		}*/
+		Mario::GetSingleton().runRight();
+	}
+
 }
 
 

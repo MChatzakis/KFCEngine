@@ -44,7 +44,7 @@ const Sprite::Mover MakeSpriteGridLayerMover(GridLayer* gridLayer, Sprite* sprit
 	};
 };
 
-template <typename Tfunc> void  Sprite::SetMover(const Tfunc& f) {
+/*template <typename Tfunc>*/ void  Sprite::SetMover(const Mover& f) {
 	quantizer.SetMover(mover = f);
 }
 

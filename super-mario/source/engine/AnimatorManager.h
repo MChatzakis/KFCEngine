@@ -1,5 +1,5 @@
-#ifndef _ANIMATIONMANAGER_H_
-#define _ANIMATIONMANAGER_H_
+#ifndef _ANIMATORNMANAGER_H_
+#define _ANIMATORNMANAGER_H_
 
 #include <iostream>
 #include <set>
@@ -24,4 +24,5 @@ public:
 	static auto GetSingletonConst(void) -> const AnimatorManager& { return singleton; }
 };
 
-#endif _ANIMATIONMANAGER_H_
+
+#endif _ANIMATORNMANAGER_H_

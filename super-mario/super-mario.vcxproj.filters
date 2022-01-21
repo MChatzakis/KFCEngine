@@ -473,9 +473,6 @@
     <ClInclude Include="source\game\UserCodeManager.h">
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="source\game\PhysicsManager.h">
-      <Filter>Header Files\Game\GameLogic\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="source\game\DestructionManager.h">
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
@@ -508,6 +505,9 @@
     </ClInclude>
     <ClInclude Include="source\game\GameCharacters.h">
       <Filter>Header Files\Game\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\PhysicsManager.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

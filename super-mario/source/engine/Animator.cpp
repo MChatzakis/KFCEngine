@@ -41,11 +41,12 @@ Animator::TimeShift(timestamp_t offset)
 	lastTime += offset;
 }
 
-template <typename Tfunc> void
-Animator::SetOnFinish(const Tfunc& f) { onFinish = f; }
+/*template <typename Tfunc> */void
+Animator::SetOnFinish(const OnFinish& f) { onFinish = f; }
 
-template <typename Tfunc> void
-Animator::SetOnStart(const Tfunc& f) { onStart = f; }
+/*template <typename Tfunc> */void
+Animator::SetOnStart(const OnStart& f) { onStart = f; }
 
-template <typename Tfunc> void
-Animator::SetOnAction(const Tfunc& f) { onAction = f; }
+/*template <typename Tfunc> */void Animator::SetOnAction(const OnAction& f) {
+	onAction = f;
+}

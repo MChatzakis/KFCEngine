@@ -12,6 +12,7 @@
 #include "./SoundPlayer.h"
 
 #include "./GameFunctions.h"
+#include "./GameCharacters.h"
 //#include "../engine/BoundingPolygon.h"
 
 void Initialise() {
@@ -35,6 +36,8 @@ void Load() {
 	MapLoader::loadMap();
 	AnimationLoader::loadAnimations();
 	SoundPlayer::loadSounds();
+	
+	Mario::GetSingleton().initialize();
 	//SoundPlayer::playSound("main_sound");
 }
 

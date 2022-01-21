@@ -32,7 +32,8 @@ MotionQuantizer& MotionQuantizer::SetRange(int h, int v)
 
 MotionQuantizer& MotionQuantizer::SetMover(const Mover& f)
 {
-	mover = f; return *this;
+	mover = f;
+	return *this;
 }
 
 MotionQuantizer& MotionQuantizer::SetUsed(bool val) {

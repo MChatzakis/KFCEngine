@@ -40,7 +40,7 @@ protected:
 	GravityHandler gravity;
 
 public:
-	template <typename Tfunc> void SetMover(const Tfunc& f);
+	/*template <typename Tfunc>*/ void SetMover(const Mover& f);
 	const Rect GetBox(void) const;
 	void MoveOLD(int dx, int dy);
 	void SetPos(int _x, int _y);
@@ -67,5 +67,7 @@ public:
 const Clipper MakeTileLayerClipper(TileLayer* layer);
 
 void PrepareSpriteGravityHandler(GridLayer* gridLayer, Sprite* sprite);
+
+const Sprite::Mover MakeSpriteGridLayerMover(GridLayer* gridLayer, Sprite* sprite);
 
 #endif _SPRITE_H_

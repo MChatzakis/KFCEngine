@@ -17,10 +17,11 @@ void GridDisplay() {
 }
 
 void Render() {
-	
+	al_clear_to_color(al_map_rgb(0, 0, 0));
 	gameMap->Display(al_get_backbuffer(display));
-	Mario *mario = new Mario();
+	//Mario *mario = new Mario();
 	//mario->move();
+	Mario::GetSingleton().displayMarioWalkingRight_DEBUG(al_get_backbuffer(display));
 
 	if (SHOW_GRID_DEBUG) {
 		GridDisplay();
