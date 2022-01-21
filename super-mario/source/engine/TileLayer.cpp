@@ -117,8 +117,8 @@ void TileLayer::SetViewWindow(const Rect& r)
 void TileLayer::Display(Bitmap dest/*, const Rect& displayArea*/) {
 	//al_clear_to_color(al_map_rgb(0, 0, 0)); //clear everything
 	//ScrollUtilities::TileTerrainDisplay(*map, dest, viewWin, tileSet);
-	if (viewPosCached.x != viewWin.x || viewPosCached.y != viewWin.y) {
-	//if (true) {
+	//if (viewPosCached.x != viewWin.x || viewPosCached.y != viewWin.y) {
+	if (true) {
 		auto startCol = DIV_TILE_WIDTH(viewWin.x);
 		auto startRow = DIV_TILE_HEIGHT(viewWin.y);
 		auto endCol = DIV_TILE_WIDTH(viewWin.x + viewWin.w - 1);

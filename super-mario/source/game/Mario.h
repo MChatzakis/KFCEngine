@@ -99,7 +99,7 @@ void Mario::initialize() {
 
 
 void Mario::runRight() {
-	animator_walkingRight->Start(new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 100, 3, 0, 60), CurrTime());
+	animator_walkingRight->Start(new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 100, 3, 0, 70), CurrTime());
 	AnimatorManager::GetSingleton().MarkAsRunning(animator_walkingRight);
 	//animator_walkingRight->setAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 1, 3, 0, 15);
 }
