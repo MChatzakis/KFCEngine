@@ -48,7 +48,7 @@ ALLEGRO_MOUSE_STATE mouse_state;
 
 Game* game;
 TileLayer* gameMap;
-GridIndex* tmpGrid;
+//GridIndex* tmpGrid;
 Bitmap tileSet;
 
 //class Mario;
