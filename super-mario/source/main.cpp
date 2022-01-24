@@ -18,7 +18,7 @@
 8) TileUtilities/TileLayer -> Give empty indices as argument(we have engine)-> give to tileLayer constructior the indices 
 
 //Game
-1) CollisionChecker-> Add pairs of sprites //easy
+1) CollisionChecker-> Add pairs of sprites //easy 
 2) Sprites-> Create BoundingAreas //normal
 3) Gravity-> Add gravity (Add onStopFalling/OnStartFalling) //normal - hard -> [MANOS]
 4) Mario -> sprite, animators, functions //easy-normal
