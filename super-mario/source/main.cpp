@@ -10,24 +10,24 @@
 2) Animators Package -> Add animators for the rest of the animations //normal i guess
 3) LatelyDestroyable -> make animators and sprites lately destroyable subclasses
 						and add them to Destruction Manager list when they die //easy-normal
-4) BoundingAreas package-> Complete Circle-Box and Circle-Polygon intersect and test //hard
+4) BoundingAreas package-> Complete Circle-Box and Circle-Polygon intersect and test //hard ->Konto
 5) Clipper-> Show sprites via clipper which is already implemented (see Sprite::Display and lec 12)
 			 The only thing we may need is to give Mario/Sprites  position in pixels //easy
 6) DONE Animator -> Notify Function need a little extension (see lec 11), register/cancel on constructor/destructor //easy 
-7) Sprite-> Extend move to check if motionquantizer is used //very easy DONE
-8)  TileUtilities/TileLayer -> Give empty indices as argument(we have engine)
+7) [DONE] Sprite-> Extend move to check if motionquantizer is used //very easy DONE
+8) TileUtilities/TileLayer -> Give empty indices as argument(we have engine)-> give to tileLayer constructior the indices 
 
 //Game
 1) CollisionChecker-> Add pairs of sprites //easy
 2) Sprites-> Create BoundingAreas //normal
-3) Gravity-> Add gravity (Add onStopFalling/OnStartFalling) //normal - hard
+3) Gravity-> Add gravity (Add onStopFalling/OnStartFalling) //normal - hard -> [MANOS]
 4) Mario -> sprite, animators, functions //easy-normal
 5) Enemies -> same for troopas koopas kai loipes mlks
 6) Mario-> Scroll based on mario position //normal
 7) Game-> Complete Game Functions //easy but last step
 8) AI -> Movement //normal-hard?
-9) Mario-> Maybe moving path animation for Jump && Move (press w + d) //normal
-10)Clipper-> Give Clipper the View Window //super easy
+9) Mario-> Maybe moving path animation for Jump && Move (press w + d) //normal -> [MANOS]
+10) [DONE] Clipper-> Give Clipper the View Window //super easy 
 
 //ADVICES
 1) Animators-> Always initialize animators actions
