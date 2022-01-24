@@ -1,0 +1,22 @@
+{
+    "path": "resources/bitmaps/characters.png",
+    "animations": [
+        {
+            "id": "bluePiranhaPlant",
+            "frames": [
+                {
+                    "x": 334,
+                    "y": 183,
+                    "w": 16,
+                    "h": 22
+                },
+                {
+                    "x": 353,
+                    "y": 182,
+                    "w": 16,
+                    "h": 23
+                }
+            ]
+        }
+    ]
+}

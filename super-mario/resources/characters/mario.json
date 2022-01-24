@@ -1,6 +1,5 @@
 {
 	"path": "resources/bitmaps/characters.png",
-
 	"animations": [
 		{
 			"id": "mario.idleRight",
@@ -13,7 +12,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.idleLeft",
 			"frames": [
@@ -25,7 +23,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.walkRight",
 			"frames": [
@@ -49,7 +46,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.walkLeft",
 			"frames": [
@@ -73,7 +69,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.jumpRight",
 			"frames": [
@@ -85,7 +80,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.jumpLeft",
 			"frames": [
@@ -97,7 +91,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.stopWalkingRight",
 			"frames": [
@@ -109,7 +102,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.stopWalkingLeft",
 			"frames": [
@@ -121,31 +113,6 @@
 				}
 			]
 		},
-
-		{
-			"id": "mario.unknownRight",
-			"frames": [
-				{
-					"x": 389,
-					"y": 44,
-					"w": 13,
-					"h": 16
-				}
-			]
-		},
-
-		{
-			"id": "mario.unknownLeft",
-			"frames": [
-				{
-					"x": 111,
-					"y": 44,
-					"w": 13,
-					"h": 16
-				}
-			]
-		},
-
 		{
 			"id": "mario.holdFlagRight",
 			"frames": [
@@ -157,9 +124,8 @@
 				}
 			]
 		},
-
 		{
-			"id": "mario.HoldFlagLeft",
+			"id": "mario.holdFlagLeft",
 			"frames": [
 				{
 					"x": 127,
@@ -169,7 +135,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.turningSuperRight",
 			"frames": [
@@ -181,7 +146,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.turningSuperLeft",
 			"frames": [
@@ -193,7 +157,6 @@
 				}
 			]
 		},
-
 		{
 			"id": "mario.death",
 			"frames": [

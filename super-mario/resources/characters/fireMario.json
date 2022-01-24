@@ -1,0 +1,161 @@
+{
+    "path": "resources/bitmaps/characters.png",
+    "animations": [
+        {
+            "id": "fireMario.idleRight",
+            "frames": [
+                {
+                    "x": 258,
+                    "y": 125,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "fireMario.idleLeft",
+            "frames": [
+                {
+                    "x": 239,
+                    "y": 125,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "fireMario.walkRight",
+            "frames": [
+                {
+                    "x": 296,
+                    "y": 127,
+                    "w": 16,
+                    "h": 30
+                },
+                {
+                    "x": 315,
+                    "y": 126,
+                    "w": 14,
+                    "h": 31
+                },
+                {
+                    "x": 331,
+                    "y": 125,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "fireMario.walkLeft",
+            "frames": [
+                {
+                    "x": 201,
+                    "y": 127,
+                    "w": 16,
+                    "h": 30
+                },
+                {
+                    "x": 184,
+                    "y": 126,
+                    "w": 14,
+                    "h": 31
+                },
+                {
+                    "x": 166,
+                    "y": 125,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "fireMario.jumpRight",
+            "frames": [
+                {
+                    "x": 369,
+                    "y": 126,
+                    "w": 16,
+                    "h": 31
+                }
+            ]
+        },
+        {
+            "id": "fireMario.jumpLeft",
+            "frames": [
+                {
+                    "x": 128,
+                    "y": 126,
+                    "w": 16,
+                    "h": 31
+                }
+            ]
+        },
+        {
+            "id": "fireMario.stopWalkingRight",
+            "frames": [
+                {
+                    "x": 350,
+                    "y": 125,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "fireMario.stopWalkingLeft",
+            "frames": [
+                {
+                    "x": 147,
+                    "y": 125,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "fireMario.holdFlagRight",
+            "frames": [
+                {
+                    "x": 405,
+                    "y": 130,
+                    "w": 14,
+                    "h": 27
+                }
+            ]
+        },
+        {
+            "id": "fireMario.holdFlagLeft",
+            "frames": [
+                {
+                    "x": 94,
+                    "y": 130,
+                    "w": 14,
+                    "h": 27
+                }
+            ]
+        },
+        {
+            "id": "fireMario.crouchRight",
+            "frames": [
+                {
+                    "x": 277,
+                    "y": 135,
+                    "w": 16,
+                    "h": 22
+                }
+            ]
+        },
+        {
+            "id": "fireMario.crouchLeft",
+            "frames": [
+                {
+                    "x": 220,
+                    "y": 135,
+                    "w": 16,
+                    "h": 22
+                }
+            ]
+        }
+    ]
+}

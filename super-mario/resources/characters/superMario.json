@@ -1,0 +1,161 @@
+{
+    "path": "resources/bitmaps/characters.png",
+    "animations": [
+        {
+            "id": "superMario.idleRight",
+            "frames": [
+                {
+                    "x": 258,
+                    "y": 1,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "superMario.idleLeft",
+            "frames": [
+                {
+                    "x": 239,
+                    "y": 1,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "superMario.walkRight",
+            "frames": [
+                {
+                    "x": 296,
+                    "y": 3,
+                    "w": 16,
+                    "h": 30
+                },
+                {
+                    "x": 315,
+                    "y": 2,
+                    "w": 14,
+                    "h": 31
+                },
+                {
+                    "x": 331,
+                    "y": 1,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "superMario.walkLeft",
+            "frames": [
+                {
+                    "x": 201,
+                    "y": 3,
+                    "w": 16,
+                    "h": 30
+                },
+                {
+                    "x": 184,
+                    "y": 2,
+                    "w": 14,
+                    "h": 31
+                },
+                {
+                    "x": 166,
+                    "y": 1,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "superMario.jumpRight",
+            "frames": [
+                {
+                    "x": 369,
+                    "y": 2,
+                    "w": 16,
+                    "h": 31
+                }
+            ]
+        },
+        {
+            "id": "superMario.jumpLeft",
+            "frames": [
+                {
+                    "x": 128,
+                    "y": 2,
+                    "w": 16,
+                    "h": 31
+                }
+            ]
+        },
+        {
+            "id": "superMario.stopWalkingRight",
+            "frames": [
+                {
+                    "x": 350,
+                    "y": 1,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "superMario.stopWalkingLeft",
+            "frames": [
+                {
+                    "x": 147,
+                    "y": 1,
+                    "w": 16,
+                    "h": 32
+                }
+            ]
+        },
+        {
+            "id": "superMario.holdFlagRight",
+            "frames": [
+                {
+                    "x": 405,
+                    "y": 6,
+                    "w": 14,
+                    "h": 27
+                }
+            ]
+        },
+        {
+            "id": "superMario.holdFlagLeft",
+            "frames": [
+                {
+                    "x": 94,
+                    "y": 6,
+                    "w": 14,
+                    "h": 27
+                }
+            ]
+        },
+        {
+            "id": "superMario.crouchRight",
+            "frames": [
+                {
+                    "x": 277,
+                    "y": 11,
+                    "w": 16,
+                    "h": 22
+                }
+            ]
+        },
+        {
+            "id": "superMario.crouchLeft",
+            "frames": [
+                {
+                    "x": 220,
+                    "y": 11,
+                    "w": 16,
+                    "h": 22
+                }
+            ]
+        }
+    ]
+}
