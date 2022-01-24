@@ -16,6 +16,7 @@
 #include "../engine/GridLayer.h"
 #include "../engine/GridComputation.h"
 #include "../engine/TileActions.h"
+#include "../engine/Clipper.h"
 
 #define TILESET_PATH "resources/bitmaps/tileset.png"
 #define SKY_PATH "resources/csv/level1-1_Sky.csv"
@@ -47,7 +48,7 @@ ALLEGRO_MOUSE_STATE mouse_state;
 
 Game* game;
 TileLayer* gameMap;
-//GridIndex* tmpGrid;
+//const Clipper clipper;
 Bitmap tileSet;
 
 //class Mario;

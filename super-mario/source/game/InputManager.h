@@ -136,16 +136,21 @@ void Input() {
 		/*if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
 			gameMap->ScrollWithBoundsCheck(3, 0);
 		}*/
-		Mario::GetSingleton().runRight();
+		if (al_key_down(&keyboard_state, ALLEGRO_KEY_B)) {
+			Mario::GetSingleton().runRight();
+			std::cout << "RUN" << std::endl;
+		}
+		else
+			Mario::GetSingleton().walkRight();
 	}
-
-	
-
-	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
-		/*if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
-			gameMap->ScrollWithBoundsCheck(3, 0);
-		}*/
-		Mario::GetSingleton().runLeft();
+	else if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
+		if (al_key_down(&keyboard_state, ALLEGRO_KEY_B))
+			Mario::GetSingleton().runLeft();
+		else
+			Mario::GetSingleton().walkLeft();
+	}
+	else if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
+		Mario::GetSingleton().jump();
 	}
 
 

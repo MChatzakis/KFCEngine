@@ -103,6 +103,16 @@ auto Sprite::GetTypeId(void) -> const std::string& {
 	return typeId;
 }
 
+auto Sprite::GetStateId(void) -> const std::string&
+{
+	return stateId;
+}
+
+void Sprite::SetStateId(std::string _stateId)
+{
+	stateId = _stateId;
+}
+
 void Sprite::SetVisibility(bool v) {
 	isVisible = v;
 }
@@ -120,6 +130,11 @@ void Sprite::SetAnimationFilm(AnimationFilm* film) {
 	currFilm = film;
 	frameNo = currFilm->GetTotalFrames();
 	SetFrame(0);
+}
+
+AnimationFilm* Sprite::GetAnimationFilm()
+{
+	return currFilm;
 }
 
 void Sprite::ChangeAnimationFilm(AnimationFilm* film, const std::string& _typeId) {

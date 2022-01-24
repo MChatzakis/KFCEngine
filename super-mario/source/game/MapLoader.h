@@ -19,6 +19,7 @@ void MapLoader::loadMap() {
 	}
 
 	gameMap = new TileLayer(TILEMAP_HEIGHT, TILEMAP_WIDTH, tileSet, Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	//clipper = MakeTileLayerClipper(gameMap);
 
 	if (!gameMap->ReadText(SKY_PATH)) {
 		std::cout << "Failed to read Sky Map";

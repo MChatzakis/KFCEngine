@@ -35,22 +35,17 @@ enum MarioState {
 class Mario {
 
 private:
-	Sprite* sprite_idleRight = nullptr;
-	Sprite* sprite_idleLeft = nullptr;
-	Sprite* sprite_walkingLeft = nullptr;
-	Sprite* sprite_walkingRight = nullptr;
-
-
+	using AnimatorsList = std::map<std::string, Animator*>;
 
 	static Mario mario;
 
 	Sprite* currSprite = nullptr;
-
-	FrameRangeAnimator* animator_walkingRight = nullptr;
+	AnimatorsList animators;
+	/*FrameRangeAnimator* animator_walkingRight = nullptr;
 	FrameRangeAnimator* animator_walkingLeft = nullptr;
 
 	MovingAnimator* animator_jumpRight = nullptr;
-	MovingAnimator* animator_jumpLeft = nullptr;
+	MovingAnimator* animator_jumpLeft = nullptr;*/
 
 public:
 
@@ -68,81 +63,103 @@ public:
 
 	void runRight();
 	void runLeft();
+	void jumpLeft();
+	void jumpRight();
+	void jump();
+	void walkRight();
+	void walkLeft();
 
 	void displayMarioWalkingRight_DEBUG(Bitmap target);
 
 	void displayMario(Bitmap target);
 	void displayMario(Bitmap target, const Rect& rect, const Clipper& clip);
+	void Die();
+	Animator* GetAnimator(std::string id);
+	void AddAnimator(std::string id, Animator* animator);
+	void StopAnimators();
 };
 
 Mario Mario::mario;
 
+Animator* Mario::GetAnimator(std::string id) {
+	auto i = animators.find(id);
+	return i != animators.end() ? i->second : nullptr;
+}
+
+void Mario::AddAnimator(std::string id, Animator* animator) {
+	assert(!GetAnimator(id));
+	animators.insert({ id, animator });
+}
+
 void Mario::initializeSprites() {
-	sprite_idleRight = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
-	sprite_idleLeft = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
-
-	sprite_walkingRight = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_RIGHT_ID), MARIO_WALK_RIGHT_ID);
-	sprite_walkingRight->SetMover(MakeSpriteGridLayerMover(gameMap->GetGrid(), sprite_walkingRight));
-
 	currSprite = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
 	currSprite->SetMover(MakeSpriteGridLayerMover(gameMap->GetGrid(), currSprite));
-	/*sprite_walkingRight->GetQuantizer().SetMover(
-		[this](const Rect& r, int* dx, int* dy) {
-			GridUtilities::FilterGridMotion(r, dx, dy);
-		}
-	);*/
-	/*sprite_walkingRight->GetQuantizer().SetMover(
-		[this](const Rect& r, int* dx, int* dy) {
-		this->GetSingleton().sprite_walkingRight->SetPos(r.x + *dx, r.y + *dy);
-			//r.x += *dx;
-			//r.y += *dy;
 
-		}
-	);*/
-
-	sprite_walkingLeft = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_LEFT_ID), MARIO_WALK_LEFT_ID);
-
-	SpriteManager::GetSingleton().Add(sprite_idleRight);
-	SpriteManager::GetSingleton().Add(sprite_idleLeft);
-	SpriteManager::GetSingleton().Add(sprite_walkingRight);
-	SpriteManager::GetSingleton().Add(sprite_walkingLeft);
+	//SpriteManager::GetSingleton().Add(currSprite);
 }
 
 
 void Mario::initializeAnimators() {
-	animator_walkingRight = new FrameRangeAnimator();
-	animator_walkingLeft = new FrameRangeAnimator();
-	animator_jumpRight = new MovingAnimator();
-	animator_jumpLeft = new MovingAnimator();
+	FrameRangeAnimator* animator_walkingRight = new FrameRangeAnimator();
+	FrameRangeAnimator* animator_walkingLeft = new FrameRangeAnimator();
+	MovingAnimator* animator_jumpRight = new MovingAnimator();
+	MovingAnimator* animator_jumpLeft = new MovingAnimator();
 
+	//Set on action
+	
+	//Walking Right
 	animator_walkingRight->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
 			FrameRange_Action(this->currSprite, animator, (const FrameRangeAnimation&)anim);
 		}
 	);
 
-	animator_walkingRight->SetOnFinish(
-		[this](Animator* animator) {
-			//AnimatorManager::GetSingleton().MarkAsSuspended(animator_walkingRight);
-			currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
-		}
-	);
-
+	//Walking left
 	animator_walkingLeft->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
 			FrameRange_Action(this->currSprite, animator, (const FrameRangeAnimation&)anim);
 		}
 	);
 
-	animator_walkingLeft->SetOnFinish(
-		[this](Animator* animator) {
-			//AnimatorManager::GetSingleton().MarkAsSuspended(animator_walkingRight);
-			currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
+	//Jump right
+	animator_jumpRight->SetOnAction(
+		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const MovingAnimation*>(&anim));
+			Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
 		}
 	);
 
-	/*animator_walkingRight = new FrameRangeAnimator();
-	AnimatorManager::GetSingleton().Register(animator_walkingRight);*/
+	//Jump left
+	animator_jumpLeft->SetOnAction(
+		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const MovingAnimation*>(&anim));
+			Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
+		}
+	);
+
+	//Set on finish
+	const Animator::OnFinish idleRight =
+		[this](Animator* animator) {
+		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
+	};
+
+	const Animator::OnFinish idleLeft =
+		[this](Animator* animator) {
+		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
+	};
+
+	animator_walkingRight->SetOnFinish(idleRight);
+	animator_walkingLeft->SetOnFinish(idleLeft);
+	animator_jumpRight->SetOnFinish(idleRight);
+	animator_jumpLeft->SetOnFinish(idleLeft);
+
+	AddAnimator("walkRight", animator_walkingRight);
+	AddAnimator("walkLeft", animator_walkingLeft);
+	AddAnimator("jumpRight", animator_jumpRight);
+	AddAnimator("jumpLeft", animator_jumpLeft);
+
 
 }
 
@@ -152,24 +169,87 @@ void Mario::initialize() {
 	initializeAnimators();
 }
 
+void Mario::walkRight() {
+	if (currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && currSprite->GetStateId() == "WALKING_STATE")
+		return;
+
+	currSprite->SetStateId("WALKING_STATE");
+	FrameRangeAnimator* anim = ((FrameRangeAnimator*)GetAnimator("walkRight"));
+	StopAnimators();
+	FrameRangeAnimation* walkRight = new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 1, 2, 0, 40);
+	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_RIGHT_ID), MARIO_WALK_RIGHT_ID);
+	anim->Start(walkRight, CurrTime());
+}
+
+void Mario::walkLeft() {
+	if (currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID && currSprite->GetStateId() == "WALKING_STATE")
+		return;
+
+	currSprite->SetStateId("WALKING_STATE");
+	FrameRangeAnimator* anim = ((FrameRangeAnimator*)GetAnimator("walkLeft"));
+	StopAnimators();
+	FrameRangeAnimation* walkLeft = new FrameRangeAnimation(MARIO_WALK_LEFT_ID, 0, 2, 1, -2, 0, 40);
+	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_LEFT_ID), MARIO_WALK_LEFT_ID);
+	anim->Start(walkLeft, CurrTime());
+}
 
 void Mario::runRight() {
-	FrameRangeAnimation* walkRight = new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 4, 4, 0, 40);
+	if (currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && currSprite->GetStateId() == "RUNNING_STATE")
+		return;
+
+	currSprite->SetStateId("RUNNING_STATE");
+	FrameRangeAnimator* anim = ((FrameRangeAnimator*)GetAnimator("walkRight"));
+	StopAnimators();
+	FrameRangeAnimation* walkRight = new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 2, 4, 0, 40);
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_RIGHT_ID), MARIO_WALK_RIGHT_ID);
 	//currSprite = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_RIGHT_ID), MARIO_WALK_RIGHT_ID);
-	animator_walkingRight->Start(walkRight, CurrTime());
-	//AnimatorManager::GetSingleton().MarkAsRunning(animator_walkingRight);
+	anim->Start(walkRight, CurrTime());
 	//animator_walkingRight->setAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 1, 3, 0, 15);
 }
 
 void Mario::runLeft() {
-	FrameRangeAnimation* walkLeft = new FrameRangeAnimation(MARIO_WALK_LEFT_ID, 0, 2, 4, -4, 0, 40);
+	if (currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID && currSprite->GetStateId() == "RUNNING_STATE")
+		return;
+
+	currSprite->SetStateId("RUNNING_STATE");
+	FrameRangeAnimator* anim = ((FrameRangeAnimator*)GetAnimator("walkLeft"));
+	StopAnimators();
+	FrameRangeAnimation* walkLeft = new FrameRangeAnimation(MARIO_WALK_LEFT_ID, 0, 2, 2, -4, 0, 40);
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_LEFT_ID), MARIO_WALK_LEFT_ID);
-	animator_walkingLeft->Start(walkLeft, CurrTime());
+	anim->Start(walkLeft, CurrTime());
+}
+
+void Mario::jumpLeft() {
+	MovingAnimator* anim = ((MovingAnimator*)GetAnimator("jumpLeft"));
+	MovingAnimation* jumpLeft = new MovingAnimation(MARIO_JUMP_LEFT_ID, 8, 0, -4, 40);
+	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_JUMP_LEFT_ID), MARIO_JUMP_LEFT_ID);
+	anim->Start(jumpLeft, CurrTime());
+}
+
+void Mario::jumpRight() {
+	MovingAnimator* anim = ((MovingAnimator*)GetAnimator("jumpRight"));
+	MovingAnimation* jumpRight = new MovingAnimation(MARIO_JUMP_RIGHT_ID, 8, 0, -4, 40);
+	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_JUMP_RIGHT_ID), MARIO_JUMP_RIGHT_ID);
+	anim->Start(jumpRight, CurrTime());
+}
+
+void Mario::jump() {
+	std::string id = currSprite->GetAnimationFilm()->GetId();
+	if (currSprite->GetStateId() == "JUMP") // || !currSprite->isOnSolidGround()) kanonika
+		return;
+
+	currSprite->SetStateId("JUMP");
+	StopAnimators();
+	if (id == MARIO_IDLE_RIGHT_ID || id == MARIO_WALK_RIGHT_ID) {
+		jumpRight();
+	}
+	else if (id == MARIO_IDLE_LEFT_ID || id == MARIO_WALK_LEFT_ID) {
+		jumpLeft();
+	}
 }
 
 void Mario::displayMarioWalkingRight_DEBUG(Bitmap target) {
-	sprite_walkingRight->Display(target);
+	//sprite_walkingRight->Display(target);
 }
 
 void Mario::displayMario(Bitmap target) {
@@ -180,5 +260,20 @@ void Mario::displayMario(Bitmap target,const Rect& rect, const Clipper& clip) {
 	currSprite->Display(target, rect, clip);
 }
 
+void Mario::Die() {
+	for (auto const& x : animators)
+	{
+		x.second->Destroy();
+	}
+	currSprite->Destroy();
+}
+
+void Mario::StopAnimators() {
+	for (auto const& x : animators)
+	{
+		if(!x.second->HasFinished()) //if its running
+			x.second->Stop();
+	}
+}
 
 #endif _MARIO_H_

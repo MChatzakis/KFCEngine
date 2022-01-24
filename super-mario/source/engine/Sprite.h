@@ -12,11 +12,11 @@
 #include "./TileLayer.h"
 #include "./GridLayer.h"
 #include "./GravityHandler.h"
-//#include "./KeyFrameAnimations.h"
+#include "./DestructionManager.h"
 #include "./AnimationFilm.h"
 #include "./BoundingArea.h"
 
-class Sprite {
+class Sprite : public LatelyDestroyable {
 public:
 	using Mover = std::function<void(const Rect&, int* dx, int* dy)>;
 
@@ -52,6 +52,8 @@ public:
 	void SetBoundingArea(BoundingArea* area);
 	auto GetBoundingArea(void) const -> const BoundingArea*;
 	auto GetTypeId(void) -> const std::string&;
+	auto GetStateId(void) -> const std::string&;
+	void SetStateId(std::string);
 	void SetVisibility(bool v);
 	bool IsVisible(void) const;
 	bool CollisionCheck(const Sprite* s) const;
@@ -70,6 +72,7 @@ public:
 	MotionQuantizer& GetQuantizer();
 
 	void SetAnimationFilm(AnimationFilm* film);
+	AnimationFilm*  GetAnimationFilm();
 	void ChangeAnimationFilm(AnimationFilm* film, const std::string& _typeId);
 };
 

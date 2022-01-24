@@ -6,6 +6,7 @@
 
 #include "./Animator.h"
 #include "./MovingAnimation.h"
+#include "./Sprite.h"
 
 
 class MovingAnimator : public Animator {
@@ -19,5 +20,6 @@ public:
 	MovingAnimator(void) = default;
 };
 
+void Sprite_MoveAction(Sprite* sprite, const MovingAnimation& anim);
 
 #endif _MOVINGANIMATOR_H_
