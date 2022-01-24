@@ -15,6 +15,12 @@
 #include "./GameCharacters.h"
 //#include "../engine/BoundingPolygon.h"
 
+void Initialise();
+void Load();
+void Clear();
+void Run();
+void GameMain();
+
 void Initialise() {
 	/* //Remove after testing
 	BoundingPolygon::Polygon points;

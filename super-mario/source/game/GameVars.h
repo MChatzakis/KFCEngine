@@ -29,7 +29,6 @@
 
 #define SCROLLABLE_TILE_COL 212
 
-
 /* Global Stuff */
 int SCREEN_WIDTH = 0;
 int SCREEN_HEIGHT = 0;

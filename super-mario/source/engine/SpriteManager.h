@@ -7,6 +7,8 @@
 
 #include "./Sprite.h"
 
+
+
 class SpriteManager final {
 public:
 	using SpriteList = std::list<Sprite*>;

@@ -24,6 +24,13 @@
 #define MARIO_TURNING_LEFT_RIGHT_ID "mario.turningSuperLeft"
 #define MARIO_DEATH_ID "mario.death"
 
+enum MarioState {
+	MARIO_IDLE_RIGHT,
+	MARIO_IDLE_LEFT,
+	MARIO_RUNNING_RIGHT,
+	MARIO_RUNNING_LEFT
+};
+
 class Mario {
 
 private:
@@ -104,6 +111,7 @@ void Mario::initializeAnimators() {
 	AnimatorManager::GetSingleton().Register(animator_walkingRight);
 }
 
+
 void Mario::initialize() {
 	initializeSprites();
 	initializeAnimators();
@@ -115,6 +123,7 @@ void Mario::runRight() {
 	AnimatorManager::GetSingleton().MarkAsRunning(animator_walkingRight);
 	//animator_walkingRight->setAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 1, 3, 0, 15);
 }
+
 
 void Mario::displayMarioWalkingRight_DEBUG(Bitmap target) {
 	sprite_walkingRight->Display(target);
