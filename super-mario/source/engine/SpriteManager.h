@@ -7,8 +7,6 @@
 
 #include "./Sprite.h"
 
-
-
 class SpriteManager final {
 public:
 	using SpriteList = std::list<Sprite*>;
@@ -20,6 +18,11 @@ private:
 public:
 	void Add(Sprite* s); // insert by ascending zorder
 	void Remove(Sprite* s);
+
+	void SortSpriteList();
+
+	void CreateTypeList(std::string,std::list<Sprite*>);
+	void RemoveList(std::string);
 
 	auto GetDisplayList(void) -> const SpriteList&;
 	auto GetTypeList(const std::string& typeId) -> const SpriteList&;

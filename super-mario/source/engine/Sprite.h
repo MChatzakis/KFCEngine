@@ -55,14 +55,22 @@ public:
 	void SetVisibility(bool v);
 	bool IsVisible(void) const;
 	bool CollisionCheck(const Sprite* s) const;
+	
 	void Display(Bitmap dest, const Rect& dpyArea, const Clipper& clipper) const;
+	void Display(Bitmap dest);
+	
 	Sprite(int _x, int _y, AnimationFilm* film, const std::string& _typeId = "");
+
 	GravityHandler& GetGravityHandler(void);
 	Sprite& SetHasDirectMotion(bool v);
+	
 	bool GetHasDirectMotion(void) const;
+	
 	Sprite& Move(int dx, int dy);
-	void Display(Bitmap dest);
 	MotionQuantizer& GetQuantizer();
+
+	void SetAnimationFilm(AnimationFilm* film);
+	void ChangeAnimationFilm(AnimationFilm* film, const std::string& _typeId);
 };
 
 const Clipper MakeTileLayerClipper(TileLayer* layer);

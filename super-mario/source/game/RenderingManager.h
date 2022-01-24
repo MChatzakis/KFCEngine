@@ -3,6 +3,7 @@
 
 #include "./GameVars.h"
 #include "./Mario.h"
+#include "./engine/Sprite.h"
 
 void GridDisplay() {
 	//GridUtilities::DisplayGrid(al_get_backbuffer(display), gameMap->GetViewWindow(), *grid, TILEMAP_WIDTH);
@@ -21,7 +22,10 @@ void Render() {
 	gameMap->Display(al_get_backbuffer(display));
 	//Mario *mario = new Mario();
 	//mario->move();
-	Mario::GetSingleton().displayMarioWalkingRight_DEBUG(al_get_backbuffer(display));
+	//Mario::GetSingleton().displayMarioWalkingRight_DEBUG(al_get_backbuffer(display));
+	//Mario::GetSingleton().displayMario(al_get_backbuffer(display));
+	Mario::GetSingleton().displayMario(al_get_backbuffer(display), gameMap->GetViewWindow(), MakeTileLayerClipper(gameMap));
+
 
 	if (SHOW_GRID_DEBUG) {
 		GridDisplay();

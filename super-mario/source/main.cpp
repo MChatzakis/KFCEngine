@@ -4,17 +4,17 @@
 #include "./game/GameMain.h"
 
 /*
-	//TODO
+//TODO
 //Engine
-1) SpriteManager -> store sprites and extend add, remove to add/remove from typelist too //very easy
+1) DONE SpriteManager -> store sprites and extend add, remove to add/remove from typelist too //very easy
 2) Animators Package -> Add animators for the rest of the animations //normal i guess
 3) LatelyDestroyable -> make animators and sprites lately destroyable subclasses
 						and add them to Destruction Manager list when they die //easy-normal
 4) BoundingAreas package-> Complete Circle-Box and Circle-Polygon intersect and test //hard
 5) Clipper-> Show sprites via clipper which is already implemented (see Sprite::Display and lec 12)
 			 The only thing we may need is to give Mario/Sprites  position in pixels //easy
-6) Animator -> Notify Function need a little extension (see lec 11), register/cancel on constructor/destructor //easy
-7) Sprite-> Extend move to check if motionquantizer is used //very easy
+6) DONE Animator -> Notify Function need a little extension (see lec 11), register/cancel on constructor/destructor //easy 
+7) Sprite-> Extend move to check if motionquantizer is used //very easy DONE
 8)  TileUtilities/TileLayer -> Give empty indices as argument(we have engine)
 
 //Game
@@ -42,6 +42,10 @@ Progress=> Do animation
 Example: When sprite dies do Sprite.destroy() => Then DestructionManager does Commit() => Commit iterates list
 and does sprite.delete()
 5) Animations-> If game pauses, keep pause time and add it with TimeShift(offset) when the game resumes
+
+
+
+
 */
 
 int main() {

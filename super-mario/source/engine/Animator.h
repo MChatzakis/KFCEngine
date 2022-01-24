@@ -39,10 +39,12 @@ public:
 	/*template <typename Tfunc> */void SetOnStart(const OnStart& f);
 	/*template <typename Tfunc> */void SetOnAction(const OnAction& f);
 
-	Animator(void) = default;
+	Animator(void);
+
 	Animator(const Animator&) = delete;
 	Animator(Animator&&) = delete;
-	virtual ~Animator() {}
+
+	virtual ~Animator();
 
 };
 

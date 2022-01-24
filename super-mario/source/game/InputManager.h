@@ -139,6 +139,16 @@ void Input() {
 		Mario::GetSingleton().runRight();
 	}
 
+	
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
+		/*if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
+			gameMap->ScrollWithBoundsCheck(3, 0);
+		}*/
+		Mario::GetSingleton().runLeft();
+	}
+
+
 }
 
 

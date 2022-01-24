@@ -406,8 +406,8 @@ void  GridLayer::FilterGridMotionRight(const Rect& r, int* dx) {
 			auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
 			for (auto row = startRow; row <= endRow; ++row)
 				if (!CanPassGridTile(newCol, row, GRID_LEFT_SOLID_MASK)) {
-					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
-					//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 0) - x2; //sigoura swsta ayta ?
+					//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
+					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 2) - x2; //sigoura swsta ayta ?
 					std::cout << "synantise solid tile\n";
 					break;
 				}

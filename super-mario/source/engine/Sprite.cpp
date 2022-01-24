@@ -1,16 +1,17 @@
 #include "./Sprite.h"
+#include "./TileActions.h"
 
 const Clipper MakeTileLayerClipper(TileLayer* layer) {
 	return Clipper().SetView(
 		[layer](void)
-	{ return layer->GetViewWindow(); }
+		{ return layer->GetViewWindow(); }
 	);
 }
 
 void PrepareSpriteGravityHandler(GridLayer* gridLayer, Sprite* sprite) {
 	sprite->GetGravityHandler().SetOnSolidGround(
 		[gridLayer](const Rect& r)
-	{ return gridLayer->IsOnSolidGround(r); }
+		{ return gridLayer->IsOnSolidGround(r); }
 	);
 }
 
@@ -38,14 +39,17 @@ const Sprite::Mover MakeSpriteGridLayerMover(GridLayer* gridLayer, Sprite* sprit
 	return [gridLayer, sprite](const Rect& r, int* dx, int* dy) {
 		// the r is actually always the sprite->GetBox():
 		assert(r == sprite->GetBox());
+		std::cout << "dx before: " << *dx << "\n";
 		gridLayer->FilterGridMotion(r, dx, dy);
+		std::cout << "dx after: " << *dx << "\n";
+		//TriggerScrollUtilities::FilterGridMotion(gridLayer, r, dx, dy);
 		if (*dx || *dy)
 			sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
-			//sprite->Move(*dx, *dy);
+		//sprite->Move(*dx, *dy);
 	};
 };
 
-/*template <typename Tfunc>*/ void  Sprite::SetMover(const Mover& f) {
+/*template <typename Tfunc>*/ void Sprite::SetMover(const Mover& f) {
 	quantizer.SetMover(mover = f);
 }
 
@@ -112,6 +116,17 @@ Sprite::Sprite(int _x, int _y, AnimationFilm* film, const std::string& _typeId) 
 	SetFrame(0);
 }
 
+void Sprite::SetAnimationFilm(AnimationFilm* film) {
+	currFilm = film;
+	frameNo = currFilm->GetTotalFrames();
+	SetFrame(0);
+}
+
+void Sprite::ChangeAnimationFilm(AnimationFilm* film, const std::string& _typeId) {
+	typeId = _typeId;
+	SetAnimationFilm(film);
+}
+
 GravityHandler& Sprite::GetGravityHandler(void)
 {
 	return gravity;
@@ -135,6 +150,7 @@ Sprite& Sprite::Move(int dx, int dy) {
 	}
 	return *this;
 }
+
 //sprite->SetHasDirectMotion(true).Move(dx, dy).SetHasDirectMotion(false);
 
 bool Sprite::CollisionCheck(const Sprite* s) const {
