@@ -14,15 +14,7 @@ void PrepareSpriteGravityHandler(GridLayer* gridLayer, Sprite* sprite) {
 		{ return gridLayer->IsOnSolidGround(r); }
 	);
 
-	sprite->GetGravityHandler().SetOnStartFalling(
-		[]()
-		{ return; }
-	);
-
-	sprite->GetGravityHandler().SetOnStopFalling(
-		[]()
-		{ return; }
-	);
+	
 }
 
 void Sprite::Display(Bitmap dest, const Rect& dpyArea, const Clipper& clipper) const {
@@ -49,13 +41,12 @@ const Sprite::Mover MakeSpriteGridLayerMover(GridLayer* gridLayer, Sprite* sprit
 	return [gridLayer, sprite](const Rect& r, int* dx, int* dy) {
 		// the r is actually always the sprite->GetBox():
 		assert(r == sprite->GetBox());
-		std::cout << "dx before: " << *dx << "\n";
+		//std::cout << "dx before: " << *dx << "\n";
 		gridLayer->FilterGridMotion(r, dx, dy);
-		std::cout << "dx after: " << *dx << "\n";
+		//std::cout << "dx after: " << *dx << "\n";
 		//TriggerScrollUtilities::FilterGridMotion(gridLayer, r, dx, dy);
 		if (*dx || *dy)
 			sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
-		//sprite->Move(*dx, *dy);
 	};
 };
 

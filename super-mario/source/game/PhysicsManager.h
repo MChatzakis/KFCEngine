@@ -3,7 +3,13 @@
 
 #include "../engine/SpriteManager.h"
 
+#define SPRITE_FALLING (currSprite->GetStateId() == "falling_right" || currSprite->GetStateId() == "falling_left")
+#define SPRITE_JUMPING (currSprite->GetStateId() == "jumping_vertical_right" || currSprite->GetStateId() == "jumping_vertical_left")
+
+#define GRAVITY_FORCE 1
+
 void Gravity();
+void Physics();
 
 void Physics() {
 	Gravity();
@@ -13,9 +19,18 @@ void Physics() {
 void Gravity() {
 	std::list<Sprite*>activeSrpites = SpriteManager::GetSingleton().GetDisplayList();
 	for (auto currSprite : activeSrpites) {
-		if (currSprite->GetGravityHandler().GetGravityAddicted() && currSprite->GetGravityHandler().IsFalling() && currSprite->GetStateId() != "JUMP") {
+		if (!SPRITE_JUMPING && ((currSprite->GetGravityHandler().GetGravityAddicted() && currSprite->GetGravityHandler().IsFalling()))) {
 			//peftei
-			currSprite->Move(0, 1);
+
+			/*if (currSprite->GetTypeId() == "walking_right") {
+				currSprite->SetStateId("falling_right");
+			}
+			else {
+				currSprite->SetStateId("falling_left");
+			}*/
+
+
+			currSprite->Move(0, GRAVITY_FORCE);
 		}
 	}
 

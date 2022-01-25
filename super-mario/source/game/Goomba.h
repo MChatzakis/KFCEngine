@@ -1,6 +1,8 @@
 #ifndef _GOOMBA_H_
 #define _GOOMBA_H_
 
+#include "../engine/Sprite.h"
+
 #define GOOMBA_DEATH_ID "goomba.death"
 #define GOOMBA_WALK_ID "goomba.walk"
 
