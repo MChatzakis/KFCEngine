@@ -25,6 +25,12 @@
 #define MARIO_TURNING_LEFT_RIGHT_ID "mario.turningSuperLeft"
 #define MARIO_DEATH_ID "mario.death"
 
+#define MARIO_FALLING (currSprite->GetStateId() == "falling_right" || currSprite->GetStateId() == "falling_left")
+#define MARIO_JUMPING (currSprite->GetStateId() == "jumping_vertical_right" || currSprite->GetStateId() == "jumping_vertical_left")
+#define MARIO_WALKING (currSprite->GetStateId() == "walking_right" || currSprite->GetStateId() == "walking_left")
+#define MARIO_RUNNING (currSprite->GetStateId() == "running_right" || currSprite->GetStateId() == "running_left")
+#define MARIO_IDLE (currSprite->GetStateId() == "idle_right" || currSprite->GetStateId() == "idle_left")
+
 class Mario {
 
 private:
@@ -101,7 +107,8 @@ void Mario::AddAnimator(std::string id, Animator* animator) {
 void Mario::initializeSprites() {
 
 	currSprite = new Sprite(320, 180, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
-	currSprite->SetStateId("idle_right");
+	//currSprite->SetStateId("idle_right");
+	currSprite->SetStateId("falling_right");
 
 	currSprite->SetMover(MakeSpriteGridLayerMover(gameMap->GetGrid(), currSprite));
 
@@ -111,7 +118,7 @@ void Mario::initializeSprites() {
 		[this]()
 		{
 			std::cout << "gtxs\n";
-			//sprite->SetStateId("FALLING");
+			//this->currSprite->SetStateId("falling_right"); //lathos
 			//sprite->SetStateId("sdf");
 			//sprite->Move(0, -1);
 			return;
@@ -203,7 +210,7 @@ void Mario::initialize() {
 }
 
 void Mario::runRight() {
-	if (!(this->GetAnimator("running")->HasFinished()) && currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && currSprite->GetStateId() == "running_right")
+	if (MARIO_JUMPING || MARIO_FALLING || (!(this->GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && */ currSprite->GetStateId() == "running_right"))
 		return;
 
 	currSprite->SetStateId("running_right");
@@ -218,7 +225,7 @@ void Mario::runRight() {
 }
 
 void Mario::walkRight() {
-	if (!(this->GetAnimator("running")->HasFinished()) && currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && currSprite->GetStateId() == "walking_right")
+	if (MARIO_JUMPING || MARIO_FALLING || (!(this->GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && */ currSprite->GetStateId() == "walking_right"))
 		return;
 
 	currSprite->SetStateId("walking_right");
@@ -233,7 +240,7 @@ void Mario::walkRight() {
 }
 
 void Mario::walkLeft() {
-	if (!(this->GetAnimator("running")->HasFinished()) && currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID && currSprite->GetStateId() == "walking_left")
+	if (MARIO_JUMPING || MARIO_FALLING || (!(this->GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID &&*/ currSprite->GetStateId() == "walking_left"))
 		return;
 
 	currSprite->SetStateId("walking_left");
@@ -248,7 +255,7 @@ void Mario::walkLeft() {
 }
 
 void Mario::runLeft() {
-	if (!(this->GetAnimator("running")->HasFinished()) && currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID && currSprite->GetStateId() == "running_left")
+	if (MARIO_JUMPING || MARIO_FALLING || (!(this->GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID &&*/ currSprite->GetStateId() == "running_left"))
 		return;
 
 	currSprite->SetStateId("running_left");
@@ -285,17 +292,17 @@ void Mario::jumpRight() {
 }
 
 void Mario::jump() {
-	std::string id = currSprite->GetAnimationFilm()->GetId();
-
-	if (currSprite->GetStateId() == "jumping_vertical_right" || currSprite->GetStateId() == "jumping_vertical_left")//|| */currSprite->GetGravityHandler().IsFalling())
+	std::string spriteStateId = currSprite->GetStateId();
+	if (MARIO_JUMPING || MARIO_FALLING)//|| */currSprite->GetGravityHandler().IsFalling())
 		return;
 
+	//std::string id = currSprite->GetAnimationFilm()->GetId();
 	StopAnimators();
 	
-	if (id == MARIO_IDLE_RIGHT_ID || id == MARIO_WALK_RIGHT_ID) {
+	if (spriteStateId == "running_right" || spriteStateId == "walking_right" || spriteStateId == "idle_right") {
 		jumpRight();
 	}
-	else if (id == MARIO_IDLE_LEFT_ID || id == MARIO_WALK_LEFT_ID) {
+	else /*if (id == MARIO_IDLE_LEFT_ID || id == MARIO_WALK_LEFT_ID)*/ {
 		jumpLeft();
 	}
 }

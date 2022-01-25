@@ -5,6 +5,8 @@
 
 #define SPRITE_FALLING (currSprite->GetStateId() == "falling_right" || currSprite->GetStateId() == "falling_left")
 #define SPRITE_JUMPING (currSprite->GetStateId() == "jumping_vertical_right" || currSprite->GetStateId() == "jumping_vertical_left")
+//#define SPRITE_WALKING (currSprite->GetStateId() == "walking_right" || currSprite->GetStateId() == "walking_left")
+//#define SPRITE_RUNNING (currSprite->GetStateId() == "running_right" || currSprite->GetStateId() == "running_left")
 
 #define GRAVITY_FORCE 1
 
@@ -22,12 +24,13 @@ void Gravity() {
 		if (!SPRITE_JUMPING && ((currSprite->GetGravityHandler().GetGravityAddicted() && currSprite->GetGravityHandler().IsFalling()))) {
 			//peftei
 
-			/*if (currSprite->GetTypeId() == "walking_right") {
+			std::string id = currSprite->GetStateId();
+			if (id == "walking_right" || id == "running_right" || id == "idle_right") {
 				currSprite->SetStateId("falling_right");
 			}
-			else {
+			else if (id == "walking_left" || id == "running_left" || id == "idle_left") {
 				currSprite->SetStateId("falling_left");
-			}*/
+			}
 
 
 			currSprite->Move(0, GRAVITY_FORCE);
