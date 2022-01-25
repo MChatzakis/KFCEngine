@@ -393,6 +393,8 @@ void  GridLayer::FilterGridMotionDown(const Rect& r, int* dy) {
 void  GridLayer::FilterGridMotionRight(const Rect& r, int* dx) {
 	auto x2 = r.x + r.w - 1;
 	auto x2_next = x2 + *dx;
+	std::cout << "Rect-> x=" << r.x << ", y=" << r.y << ", w=" << r.w << ", h=" << r.h << std::endl;
+
 	if (x2_next >= MAX_PIXEL_WIDTH) {
 		*dx = (MAX_PIXEL_WIDTH - 1) - x2; //goes full right
 		std::cout << "kseperase to orio deksia\n";
@@ -406,8 +408,8 @@ void  GridLayer::FilterGridMotionRight(const Rect& r, int* dx) {
 			auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
 			for (auto row = startRow; row <= endRow; ++row)
 				if (!CanPassGridTile(newCol, row, GRID_LEFT_SOLID_MASK)) {
-					//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
-					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 2) - x2; //sigoura swsta ayta ?
+					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
+					//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 2) - x2; //sigoura swsta ayta ?
 					std::cout << "synantise solid tile\n";
 					break;
 				}

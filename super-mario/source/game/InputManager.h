@@ -138,7 +138,6 @@ void Input() {
 		}*/
 		if (al_key_down(&keyboard_state, ALLEGRO_KEY_B)) {
 			Mario::GetSingleton().runRight();
-			std::cout << "RUN" << std::endl;
 		}
 		else
 			Mario::GetSingleton().walkRight();
@@ -151,6 +150,9 @@ void Input() {
 	}
 	else if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
 		Mario::GetSingleton().jump();
+	}
+	else {
+		Mario::GetSingleton().backToIdle();
 	}
 
 	//Mario::GetSingleton().AlignViewWin(gameMap);
