@@ -42,9 +42,9 @@ void Load() {
 	MapLoader::loadMap();
 	AnimationLoader::loadAnimations();
 	SoundPlayer::loadSounds();
-	
-	Mario::GetSingleton().initialize();
-	//SoundPlayer::playSound("main_sound");
+	CharacterLoader::loadCharacters();
+
+	SoundPlayer::playSound("main_sound");
 }
 
 void Clear() {

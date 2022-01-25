@@ -3,6 +3,7 @@
 
 #include "./GameVars.h"
 #include "./Mario.h"
+#include "./Goomba.h"
 
 void viewWindowScrolling_DEBUG() {
 
@@ -136,6 +137,7 @@ void Input() {
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_D)) {
 		/*if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
 			gameMap->ScrollWithBoundsCheck(3, 0);
+
 		}*/
 		keypress = true;
 		if (al_key_down(&keyboard_state, ALLEGRO_KEY_B)) {
@@ -143,6 +145,8 @@ void Input() {
 		}
 		else
 			Mario::GetSingleton().walkRight();
+
+		
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
@@ -166,6 +170,10 @@ void Input() {
 
 	//Mario::GetSingleton().AlignViewWin(gameMap);
 
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_V)) {
+		GoombaHolder::GetSingleton().walkGoombas();
+	}
 }
 
 
