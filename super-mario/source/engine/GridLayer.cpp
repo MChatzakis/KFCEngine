@@ -80,7 +80,7 @@ bool TileColorsHolder::In(Color c) const
 	auto x1 = r.x;
 	auto x1_next = x1 + *dx;
 	if (x1_next < 0)
-		*dx = *dx - x1_next; //goes full left
+		*dx = -x1; //goes full left
 	else {
 		auto newCol = DIV_GRID_ELEMENT_WIDTH(x1_next);
 		auto currCol = DIV_GRID_ELEMENT_WIDTH(x1);
@@ -102,7 +102,7 @@ bool TileColorsHolder::In(Color c) const
 	auto y2_next = y2 + *dy;
 	//auto y1_next = r.y + *dy;
 	if (y2_next < 0)
-		*dy = *dy - y2_next; //goes full top
+		*dy = -y2; //goes full top
 	else {
 		auto newRow = DIV_GRID_ELEMENT_HEIGHT(y2_next);
 		auto currRow = DIV_GRID_ELEMENT_HEIGHT(y2);
@@ -112,7 +112,7 @@ bool TileColorsHolder::In(Color c) const
 			auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
 			for (auto col = startCol; col <= endCol; ++col)
 				if (!CanPassGridTile(m, col, newRow, GRID_BOTTOM_SOLID_MASK)) {
-					*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - y2; //sigoura swsta ayta? -1?
+					*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - y2;
 					break;
 				}
 		}
@@ -133,7 +133,7 @@ bool TileColorsHolder::In(Color c) const
 			auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
 			for (auto col = startCol; col <= endCol; ++col)
 				if (!CanPassGridTile(m, col, newRow, GRID_TOP_SOLID_MASK)) {
-					*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - y1 - 1; //sigoura swsta ayta?
+					*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - 1 - y1;
 					break;
 				}
 		}
@@ -156,8 +156,7 @@ bool TileColorsHolder::In(Color c) const
 			auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
 			for (auto row = startRow; row <= endRow; ++row)
 				if (!CanPassGridTile(m, newCol, row, GRID_LEFT_SOLID_MASK)) {
-					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
-					//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 0) - x2; //sigoura swsta ayta ?
+					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2;
 					std::cout << "synantise solid tile\n";
 					break;
 				}
