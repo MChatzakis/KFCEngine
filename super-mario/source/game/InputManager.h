@@ -153,6 +153,7 @@ void Input() {
 		Mario::GetSingleton().jump();
 	}
 
+	//Mario::GetSingleton().AlignViewWin(gameMap);
 
 }
 

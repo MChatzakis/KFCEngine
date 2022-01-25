@@ -77,6 +77,8 @@ public:
 	Animator* GetAnimator(std::string id);
 	void AddAnimator(std::string id, Animator* animator);
 	void StopAnimators();
+
+	void AlignViewWin(TileLayer* currLayer);
 };
 
 Mario Mario::mario;
@@ -98,7 +100,6 @@ void Mario::initializeSprites() {
 	//SpriteManager::GetSingleton().Add(currSprite);
 }
 
-
 void Mario::initializeAnimators() {
 	FrameRangeAnimator* animator_walkingRight = new FrameRangeAnimator();
 	FrameRangeAnimator* animator_walkingLeft = new FrameRangeAnimator();
@@ -106,7 +107,7 @@ void Mario::initializeAnimators() {
 	MovingAnimator* animator_jumpLeft = new MovingAnimator();
 
 	//Set on action
-	
+
 	//Walking Right
 	animator_walkingRight->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
@@ -162,7 +163,6 @@ void Mario::initializeAnimators() {
 
 
 }
-
 
 void Mario::initialize() {
 	initializeSprites();
@@ -256,7 +256,7 @@ void Mario::displayMario(Bitmap target) {
 	currSprite->Display(target);
 }
 
-void Mario::displayMario(Bitmap target,const Rect& rect, const Clipper& clip) {
+void Mario::displayMario(Bitmap target, const Rect& rect, const Clipper& clip) {
 	currSprite->Display(target, rect, clip);
 }
 
@@ -271,8 +271,24 @@ void Mario::Die() {
 void Mario::StopAnimators() {
 	for (auto const& x : animators)
 	{
-		if(!x.second->HasFinished()) //if its running
+		if (!x.second->HasFinished()) //if its running
 			x.second->Stop();
+	}
+}
+
+void Mario::AlignViewWin(TileLayer *currLayer) {
+	Rect viewWin = currLayer->GetViewWindow();
+	Point marioPos = currSprite->GetPosition();
+	int mario_x = marioPos.x;
+	int mario_y = marioPos.y;
+
+	int viewWinCenter = viewWin.x + viewWin.w / 2;
+
+	if (mario_x >= viewWinCenter) {
+		//viewWin.x += 1;
+		std::cout << "Mario Current CC: [" << mario_x << "," << mario_y << "]\n";
+		std::cout << "ViewWin Center (x): [" << viewWinCenter << "]\n";
+		currLayer->ScrollWithBoundsCheck(mario_x - viewWinCenter, 0);
 	}
 }
 

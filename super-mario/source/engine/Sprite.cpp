@@ -175,3 +175,7 @@ bool Sprite::CollisionCheck(const Sprite* s) const {
 MotionQuantizer& Sprite::GetQuantizer() {
 	return quantizer;
 }
+
+Point Sprite::GetPosition() {
+	return Point{ x,y };
+}

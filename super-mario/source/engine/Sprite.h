@@ -74,6 +74,8 @@ public:
 	void SetAnimationFilm(AnimationFilm* film);
 	AnimationFilm*  GetAnimationFilm();
 	void ChangeAnimationFilm(AnimationFilm* film, const std::string& _typeId);
+
+	Point GetPosition();
 };
 
 const Clipper MakeTileLayerClipper(TileLayer* layer);
