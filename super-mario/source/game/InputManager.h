@@ -131,29 +131,36 @@ void Input() {
 	movingRectScroll_DEBUG();
 
 	debugShortcuts();
+	bool keypress = false;
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_D)) {
 		/*if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
 			gameMap->ScrollWithBoundsCheck(3, 0);
 		}*/
+		keypress = true;
 		if (al_key_down(&keyboard_state, ALLEGRO_KEY_B)) {
 			Mario::GetSingleton().runRight();
 		}
 		else
 			Mario::GetSingleton().walkRight();
 	}
-	else if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
+		keypress = true;
 		if (al_key_down(&keyboard_state, ALLEGRO_KEY_B))
 			Mario::GetSingleton().runLeft();
 		else
 			Mario::GetSingleton().walkLeft();
 	}
-	else if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
 		//Mario::GetSingleton().GetCurrSprite()->GetGravityHandler().SetGravityAddicted(false);
+		keypress = true;
 		Mario::GetSingleton().jump();
 		//Mario::GetSingleton().GetCurrSprite()->GetGravityHandler().SetGravityAddicted(true);
 	}
-	else {
+
+	if(!keypress) {
 		Mario::GetSingleton().backToIdle();
 	}
 

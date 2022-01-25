@@ -80,17 +80,19 @@ public:
 Mario Mario::mario;
 
 void Mario::backToIdle() {
+	if (MARIO_IDLE) // MARIO_JUMPING || MARIO_FALLING || -> if we add that it jumps always in the same way
+		return;
+
 	std::string id = currSprite->GetAnimationFilm()->GetId();
+	StopAnimators(); //or in ifs for safety?
 
 	if (id == MARIO_WALK_RIGHT_ID) {
 		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
 		currSprite->SetStateId("idle_right");
-		StopAnimators();
 	}
 	else if (id == MARIO_WALK_LEFT_ID) {
 		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
 		currSprite->SetStateId("idle_left");
-		StopAnimators();
 	}
 }
 
