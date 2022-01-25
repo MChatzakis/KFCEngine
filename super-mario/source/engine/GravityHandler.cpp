@@ -40,6 +40,7 @@ void GravityHandler::Check(const Rect& r)
 {
 	if (gravityAddicted)
 	{
+		std::cout << "Mario is gravity addicted\n";
 		if (onSolidGround(r))
 		{
 			if (isFalling)
@@ -54,4 +55,16 @@ void GravityHandler::Check(const Rect& r)
 			onStartFalling();
 		}
 	}
+}
+
+void GravityHandler::SetGravityAddicted(bool g) {
+	gravityAddicted = g;
+}
+
+bool GravityHandler::GetGravityAddicted() {
+	return gravityAddicted;
+}
+
+bool GravityHandler::IsFalling() {
+	return isFalling;
 }

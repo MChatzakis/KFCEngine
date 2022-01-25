@@ -36,6 +36,13 @@ public:
 	void SetOnSolidGround(const OnSolidGroundPred& f);
 	void Reset(void);
 	void Check(const Rect &r);
+
+	void SetGravityAddicted(bool g);
+	bool GetGravityAddicted();
+
+	bool IsFalling();
+
+
 };
 
 

@@ -149,7 +149,9 @@ void Input() {
 			Mario::GetSingleton().walkLeft();
 	}
 	else if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
+		//Mario::GetSingleton().GetCurrSprite()->GetGravityHandler().SetGravityAddicted(false);
 		Mario::GetSingleton().jump();
+		//Mario::GetSingleton().GetCurrSprite()->GetGravityHandler().SetGravityAddicted(true);
 	}
 	else {
 		Mario::GetSingleton().backToIdle();

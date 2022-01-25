@@ -13,6 +13,16 @@ void PrepareSpriteGravityHandler(GridLayer* gridLayer, Sprite* sprite) {
 		[gridLayer](const Rect& r)
 		{ return gridLayer->IsOnSolidGround(r); }
 	);
+
+	sprite->GetGravityHandler().SetOnStartFalling(
+		[]()
+		{ return; }
+	);
+
+	sprite->GetGravityHandler().SetOnStopFalling(
+		[]()
+		{ return; }
+	);
 }
 
 void Sprite::Display(Bitmap dest, const Rect& dpyArea, const Clipper& clipper) const {
@@ -161,7 +171,7 @@ Sprite& Sprite::Move(int dx, int dy) {
 		x += dx, y += dy;
 	else {
 		quantizer.Move(GetBox(), &dx, &dy);
-		//gravity.Check(GetBox());
+		gravity.Check(GetBox());
 	}
 	return *this;
 }

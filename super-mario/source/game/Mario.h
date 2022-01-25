@@ -75,6 +75,7 @@ public:
 	void displayMario(Bitmap target);
 	void displayMario(Bitmap target, const Rect& rect, const Clipper& clip);
 	void Die();
+	
 	Animator* GetAnimator(std::string id);
 	void AddAnimator(std::string id, Animator* animator);
 	void StopAnimators();
@@ -91,6 +92,7 @@ void Mario::backToIdle() {
 		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
 		StopAnimators();
 	}
+
 	else if (id == MARIO_WALK_LEFT_ID) {
 		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
 		StopAnimators();
@@ -108,10 +110,12 @@ void Mario::AddAnimator(std::string id, Animator* animator) {
 }
 
 void Mario::initializeSprites() {
-	currSprite = new Sprite(10, 380, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
+	currSprite = new Sprite(10, 250, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
 	currSprite->SetMover(MakeSpriteGridLayerMover(gameMap->GetGrid(), currSprite));
-
-	//SpriteManager::GetSingleton().Add(currSprite);
+	PrepareSpriteGravityHandler(gameMap->GetGrid(), currSprite);
+	currSprite->GetGravityHandler().SetGravityAddicted(true);
+	currSprite->Move(1, 0);
+	SpriteManager::GetSingleton().Add(currSprite);
 }
 
 void Mario::initializeAnimators() {
@@ -249,8 +253,11 @@ void Mario::jumpRight() {
 
 void Mario::jump() {
 	std::string id = currSprite->GetAnimationFilm()->GetId();
-	if (currSprite->GetStateId() == "JUMP") // || !currSprite->isOnSolidGround()) kanonika
+	
+	if (currSprite->GetStateId() == "JUMP" )//|| */currSprite->GetGravityHandler().IsFalling())
 		return;
+
+	currSprite->GetGravityHandler().SetGravityAddicted(false);
 
 	currSprite->SetStateId("JUMP");
 	StopAnimators();
@@ -260,6 +267,8 @@ void Mario::jump() {
 	else if (id == MARIO_IDLE_LEFT_ID || id == MARIO_WALK_LEFT_ID) {
 		jumpLeft();
 	}
+
+	currSprite->GetGravityHandler().SetGravityAddicted(true);
 }
 
 void Mario::displayMarioWalkingRight_DEBUG(Bitmap target) {
