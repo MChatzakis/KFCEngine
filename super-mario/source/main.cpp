@@ -31,8 +31,26 @@ Example: When sprite dies do Sprite.destroy() => Then DestructionManager does Co
 and does sprite.delete()
 5) Animations-> If game pauses, keep pause time and add it with TimeShift(offset) when the game resumes
 
+--------------- CURRENT_TODO ---------------
 
-
+1. Implement Jump for mario [FANOU, +together]
+2. Add the rest of the animations for koopas goombas [MANOS]
+3. View Window Alignment [FANOU, +together]
+4. Implement MovingPath Animator [MANOS]
+5. Implement FlashAnimator [KONTO]
+6. Implement FrameList Animator [KONTO]
+7. Collisions [MANOS]
+8. Ta text tou mario panw panw (opt) -- opoios exei orexi
+9. Implement Pause -- opoios exei orexi
+10. Implement Item logic (coins, powerups)
+11. Finish bareas [KONTO]
+--
+12. Start implementing game features (mario death, win messages, death screen)
+13. Starting screen, death screen, win sreen, checkpoints
+14. Need to make fixes-cleanups 
+15. Split to CPPs ( :( ) 
+--
+16. Implement Scroll Animator
 
 */
 

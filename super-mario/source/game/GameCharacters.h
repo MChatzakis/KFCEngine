@@ -25,7 +25,7 @@ void CharacterLoader::loadGoombas() {
 }
 
 void CharacterLoader::loadKoopas() {
-	std::list<Point>kPos = { Point{ 550,200 } };
+	std::list<Point>kPos = { Point{ 550,200 }, Point{ 540,200 } };
 
 	KoopaHolder::GetSingleton().initialize(kPos);
 }

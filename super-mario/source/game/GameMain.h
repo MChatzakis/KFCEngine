@@ -24,6 +24,8 @@ void GameMain();
 void Initialise() {
 	VariableInitializer::initializeVariables();
 	AllegroInitializer::initializeAllegro();
+
+	//showStartingScreen(); //blocking
 }
 
 void Load() {
