@@ -509,6 +509,24 @@
     <ClInclude Include="source\game\PhysicsManager.h">
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\SpriteLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\MovingPathAnimator.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\FrameListAnimator.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\ScrollAnimator.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\FlashAnimation.h">
+      <Filter>Header Files\Engine\Animation\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\FlashAnimator.h">
+      <Filter>Header Files\Engine\Animation\Animators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\bitmaps\tileset.png">

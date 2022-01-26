@@ -223,7 +223,10 @@
     <ClInclude Include="source\engine\Clipper.h" />
     <ClInclude Include="source\engine\CollisionChecker.h" />
     <ClInclude Include="source\engine\DestructionManager.h" />
+    <ClInclude Include="source\engine\FlashAnimation.h" />
+    <ClInclude Include="source\engine\FlashAnimator.h" />
     <ClInclude Include="source\engine\FrameListAnimation.h" />
+    <ClInclude Include="source\engine\FrameListAnimator.h" />
     <ClInclude Include="source\engine\FrameRangeAnimation.h" />
     <ClInclude Include="source\engine\FrameRangeAnimator.h" />
     <ClInclude Include="source\engine\Game.h" />
@@ -236,7 +239,9 @@
     <ClInclude Include="source\engine\MovingAnimation.h" />
     <ClInclude Include="source\engine\MovingAnimator.h" />
     <ClInclude Include="source\engine\MovingPathAnimation.h" />
+    <ClInclude Include="source\engine\MovingPathAnimator.h" />
     <ClInclude Include="source\engine\ScrollAnimation.h" />
+    <ClInclude Include="source\engine\ScrollAnimator.h" />
     <ClInclude Include="source\engine\SoundsManager.h" />
     <ClInclude Include="source\engine\Sprite.h" />
     <ClInclude Include="source\engine\SpriteManager.h" />
