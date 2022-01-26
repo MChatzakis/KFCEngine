@@ -32,7 +32,6 @@ and does sprite.delete()
 5) Animations-> If game pauses, keep pause time and add it with TimeShift(offset) when the game resumes
 
 --------------- CURRENT_TODO ---------------
-
 1. Implement Jump for mario [FANOU, +together]
 2. Add the rest of the animations for koopas goombas [MANOS]
 3. View Window Alignment [FANOU, +together]
@@ -51,6 +50,7 @@ and does sprite.delete()
 15. Split to CPPs ( :( ) 
 --
 16. Implement Scroll Animator
+17. Enemy Positions, mario input, confs -> from json
 
 */
 
