@@ -326,7 +326,7 @@ void  GridLayer::FilterGridMotionLeft(const Rect& r, int* dx) {
 	auto x1 = r.x;
 	auto x1_next = x1 + *dx;
 	if (x1_next < 0)
-		*dx = *dx - x1_next; //goes full left
+		*dx = -x1; //goes full left
 	else {
 		auto newCol = DIV_GRID_ELEMENT_WIDTH(x1_next);
 		auto currCol = DIV_GRID_ELEMENT_WIDTH(x1);
@@ -347,9 +347,9 @@ void  GridLayer::FilterGridMotionLeft(const Rect& r, int* dx) {
 void  GridLayer::FilterGridMotionUp(const Rect& r, int* dy) {
 	auto y2 = r.y;
 	auto y2_next = y2 + *dy;
-	//auto y1_next = r.y + *dy;
+
 	if (y2_next < 0)
-		*dy = *dy - y2_next; //goes full top
+		*dy = -y2; //goes full top
 	else {
 		auto newRow = DIV_GRID_ELEMENT_HEIGHT(y2_next);
 		auto currRow = DIV_GRID_ELEMENT_HEIGHT(y2);
@@ -359,7 +359,7 @@ void  GridLayer::FilterGridMotionUp(const Rect& r, int* dy) {
 			auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
 			for (auto col = startCol; col <= endCol; ++col)
 				if (!CanPassGridTile(col, newRow, GRID_BOTTOM_SOLID_MASK)) {
-					*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - y2; //sigoura swsta ayta? -1?
+					*dy = MUL_GRID_ELEMENT_HEIGHT(currRow) - y2;
 					break;
 				}
 		}
@@ -381,7 +381,7 @@ void  GridLayer::FilterGridMotionDown(const Rect& r, int* dy) {
 			auto endCol = DIV_GRID_ELEMENT_WIDTH(r.x + r.w - 1);
 			for (auto col = startCol; col <= endCol; ++col)
 				if (!CanPassGridTile(col, newRow, GRID_TOP_SOLID_MASK)) {
-					*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - y1 - 1; //sigoura swsta ayta?
+					*dy = MUL_GRID_ELEMENT_HEIGHT(newRow) - 1 - y1;
 					break;
 				}
 		}
@@ -392,11 +392,9 @@ void  GridLayer::FilterGridMotionDown(const Rect& r, int* dy) {
 void  GridLayer::FilterGridMotionRight(const Rect& r, int* dx) {
 	auto x2 = r.x + r.w - 1;
 	auto x2_next = x2 + *dx;
-	std::cout << "Rect-> x=" << r.x << ", y=" << r.y << ", w=" << r.w << ", h=" << r.h << std::endl;
 
 	if (x2_next >= MAX_PIXEL_WIDTH) {
 		*dx = (MAX_PIXEL_WIDTH - 1) - x2; //goes full right
-		std::cout << "kseperase to orio deksia\n";
 	}
 	else {
 		auto newCol = DIV_GRID_ELEMENT_WIDTH(x2_next);
@@ -407,9 +405,7 @@ void  GridLayer::FilterGridMotionRight(const Rect& r, int* dx) {
 			auto endRow = DIV_GRID_ELEMENT_HEIGHT(r.y + r.h - 1);
 			for (auto row = startRow; row <= endRow; ++row)
 				if (!CanPassGridTile(newCol, row, GRID_LEFT_SOLID_MASK)) {
-					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2; //sigoura swsta ayta ?
-					//*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 2) - x2; //sigoura swsta ayta ?
-					std::cout << "synantise solid tile\n";
+					*dx = (MUL_GRID_ELEMENT_WIDTH(newCol) - 1) - x2;
 					break;
 				}
 		}
@@ -425,7 +421,7 @@ void  GridLayer::SetGridTile(Dim col, Dim row, GridIndex index)
 //ok
 GridIndex  GridLayer::GetGridTile(Dim col, Dim row)
 {
-	return grid[row * totalColumns + col ]; //GRID_BLOCK_COLUMNS
+	return grid[row * totalColumns + col ];
 }
 
 //ok

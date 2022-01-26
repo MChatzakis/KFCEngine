@@ -51,6 +51,8 @@ public:
 	static auto GetSingleton(void) -> Mario& { return mario; }
 	static auto GetSingletonConst(void) -> const Mario& { return mario; }
 
+	Sprite* GetCurrSprite();
+
 	void initializeAnimations();
 	void initializeSprites();
 	void initializeAnimators();
@@ -87,8 +89,12 @@ public:
 
 Mario Mario::mario;
 
+Sprite* Mario::GetCurrSprite() {
+	return currSprite;
+}
+
 void Mario::backToIdle() {
-	if (MARIO_IDLE || MARIO_FALLING || MARIO_JUMPING)/* || MARIO_FALLING || -> if we add that it jumps always in the same way*/
+	if (MARIO_IDLE || MARIO_FALLING) /* || MARIO_JUMPING) || MARIO_FALLING || -> if we add that it jumps always in the same way*/
 		return;
 
 	std::string id = currSprite->GetStateId();
