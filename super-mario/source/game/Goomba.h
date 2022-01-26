@@ -17,7 +17,6 @@
 #define GOOMBA_WALK_ID "goomba.walk"
 
 
-
 class Goomba {
 private:
 	int dx = 4;
@@ -28,6 +27,10 @@ private:
 
 	FrameRangeAnimator* goombaWalkAnimator = nullptr;
 	FrameRangeAnimation* goombaWalkAnimation = nullptr;
+
+	Animation* deathAnimation = nullptr; //todo
+	Animator* deathAnimator = nullptr; //todo
+
 
 	void createSprite(Point p) {
 		sprite = new Sprite(p.x, p.y, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GOOMBA_WALK_ID), GOOMBA_WALK_ID);
@@ -80,7 +83,7 @@ private:
 		sprite->GetGravityHandler().SetGravityAddicted(true);
 		sprite->Move(1, 0);
 
-		SpriteManager::GetSingleton().Add(sprite);
+		//SpriteManager::GetSingleton().Add(sprite);
 	}
 
 	void createGoombaWalkAnimations() {
@@ -90,7 +93,6 @@ private:
 			[this](Animator* animator, const Animation& anim) {
 				assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
 				FrameRange_Action(this->sprite, animator, (const FrameRangeAnimation&)anim);
-
 			}
 		);
 

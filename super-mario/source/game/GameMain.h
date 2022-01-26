@@ -43,7 +43,6 @@ void Load() {
 	AnimationLoader::loadAnimations();
 	SoundPlayer::loadSounds();
 	CharacterLoader::loadCharacters();
-
 	//SoundPlayer::playSound("main_sound");
 }
 
