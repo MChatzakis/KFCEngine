@@ -28,6 +28,7 @@ The engine and the game were developed by Manos Chatzakis, Nikos Fanourakis and 
 The whole project was developed Visual Studio. To run it, you need to import it in Visual Studio and install the following libraries:
 * Allegro 5: https://github.com/liballeg/allegro5
 * json: https://github.com/nlohmann/json
+
 Then, you can build the project normally.
 
 # References
