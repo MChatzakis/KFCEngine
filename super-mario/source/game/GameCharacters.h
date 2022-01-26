@@ -10,6 +10,7 @@ public:
 	static void loadMario();
 	static void loadGoombas();
 	static void loadKoopas();
+
 	static void loadCharacters();
 };
 
