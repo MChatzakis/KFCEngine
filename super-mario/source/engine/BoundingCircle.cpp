@@ -30,24 +30,23 @@ bool BoundingCircle::In(unsigned _x, unsigned _y) const {
 
 bool BoundingCircle::Intersects(const BoundingBox& box) const
 {
-	Point::Point p = box.GetCenterPoint();
+	Point p = box.GetCenterPoint();
 	int box_x = p.x;
 	int box_y = p.y;
-	int box_w = box.x2 - box.x1;
-	int box_h = box.y2 - box.y1;
-    int circleDistance_x = abs(this.x - box_x);
-    int circleDistance_y = abs(this.y - box_y);
+	double box_w = box.GetWidth();
+	double box_h = box.GetHeight();
+    double circleDistance_x = abs((double) this->x - box_x);
+    double circleDistance_y = abs((double) this->y - box_y);
 
-    if (circleDistance_x > (box_w/2 + this.r)) { return false; }
-    if (circleDistance_y > (box_h/2 + this.r)) { return false; }
+    if (circleDistance_x > (box_w/2 + this->r)) { return false; }
+    if (circleDistance_y > (box_h/2 + this->r)) { return false; }
 
     if (circleDistance_x <= (box_w/2)) { return true; } 
     if (circleDistance_y <= (box_h/2)) { return true; }
 
-    int cornerDistance_sq = pow((circleDistance_x - box_w/2),2) + 
-                         pow((circleDistance_y - box_h/2),2);
+    double cornerDistance_sq = pow((circleDistance_x - box_w/2),2) + pow((circleDistance_y - box_h/2),2);
 
-    return (cornerDistance_sq <= pow(this.r,2));
+    return (cornerDistance_sq <= pow(this->r,2));
 }
 
 bool BoundingCircle::Intersects(const BoundingPolygon& poly) const { //todo

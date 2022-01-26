@@ -13,7 +13,9 @@
 
 #include "./GameFunctions.h"
 #include "./GameCharacters.h"
-//#include "../engine/BoundingPolygon.h"
+
+#include "../engine/BoundingArea.h"
+#include "../engine/BoundingCircle.h"
 
 void Initialise();
 void Load();
@@ -22,6 +24,11 @@ void Run();
 void GameMain();
 
 void Initialise() {
+	/* //clean after testing
+	BoundingArea* circle = new BoundingCircle(10, 10, 5);
+	BoundingArea* box = new BoundingBox(13, 13, 15, 15);
+	std::cout << (int)circle->Intersects(*box) << std::endl;*/
+
 	VariableInitializer::initializeVariables();
 	AllegroInitializer::initializeAllegro();
 
