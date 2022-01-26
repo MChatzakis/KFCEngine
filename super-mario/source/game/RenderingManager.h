@@ -22,7 +22,8 @@ void Render() {
 	gameMap->Display(al_get_backbuffer(display));
 	
 	for (auto c : SpriteManager::GetSingleton().GetDisplayList()) {
-		c->Display(al_get_backbuffer(display));
+		//c->Display(al_get_backbuffer(display));
+		c->Display(al_get_backbuffer(display), gameMap->GetViewWindow(), clipper);//Rect(0,0, gameMap->GetViewWindow().w, gameMap->GetViewWindow().h)
 	}
 
 	if (SHOW_GRID_DEBUG) {

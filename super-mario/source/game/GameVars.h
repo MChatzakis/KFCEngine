@@ -48,7 +48,7 @@ ALLEGRO_MOUSE_STATE mouse_state;
 
 Game* game;
 TileLayer* gameMap;
-//const Clipper clipper;
+Clipper clipper;
 Bitmap tileSet;
 
 //class Mario;

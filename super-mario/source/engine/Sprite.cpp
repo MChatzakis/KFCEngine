@@ -22,7 +22,8 @@ void Sprite::Display(Bitmap dest, const Rect& dpyArea, const Clipper& clipper) c
 	Point dpyPos;
 	if (clipper.Clip(GetBox(), dpyArea, &dpyPos, &clippedBox)) {
 		Rect clippedFrame{ frameBox.x + clippedBox.x,frameBox.y + clippedBox.y,clippedBox.w,clippedBox.h };
-		MaskedBlit(currFilm->GetBitmap(), clippedFrame, dest, dpyPos);
+		//MaskedBlit(currFilm->GetBitmap(), clippedFrame, dest, dpyPos);
+		BitmapBlit(currFilm->GetBitmap(), clippedFrame, dest, dpyPos);
 	}
 }
 
