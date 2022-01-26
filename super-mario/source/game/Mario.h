@@ -88,7 +88,7 @@ public:
 Mario Mario::mario;
 
 void Mario::backToIdle() {
-	if (MARIO_IDLE || MARIO_FALLING) // MARIO_JUMPING || MARIO_FALLING || -> if we add that it jumps always in the same way
+	if (MARIO_IDLE || MARIO_FALLING || MARIO_JUMPING)/* || MARIO_FALLING || -> if we add that it jumps always in the same way*/
 		return;
 
 	std::string id = currSprite->GetStateId();
