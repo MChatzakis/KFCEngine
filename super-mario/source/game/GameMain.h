@@ -22,18 +22,6 @@ void Run();
 void GameMain();
 
 void Initialise() {
-	/* //Remove after testing
-	BoundingPolygon::Polygon points;
-	points.push_back(Point(0, 0));
-	points.push_back(Point(20, 0));
-	points.push_back(Point(20, 10));
-	points.push_back(Point(10, 10));
-	points.push_back(Point(5, 15));
-	points.push_back(Point(0, 15));
-	BoundingPolygon poly = BoundingPolygon(points);
-	std::cout << poly.In(5, 10) << std::endl;
-	*/
-
 	VariableInitializer::initializeVariables();
 	AllegroInitializer::initializeAllegro();
 }

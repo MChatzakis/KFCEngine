@@ -30,8 +30,6 @@ private:
 
 	FrameRangeAnimator* koopaWalkAnimator = nullptr; //ok
 	FrameRangeAnimation* koopaWalkAnimation = nullptr;
-	//FrameRangeAnimation* koopaWalkRightAnimation = nullptr; //ok 
-	//FrameRangeAnimation* koopaWalkLeftAnimation = nullptr; //ok
 
 	MovingAnimator* greenKoopaShellAnimator = nullptr;
 	MovingAnimation* greenKoopaShellAnimation = nullptr;
@@ -42,11 +40,11 @@ private:
 	void createSprite(Point p) {
 		if (direction > 0) {
 			sprite = new Sprite(p.x, p.y, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_RIGHT_ID), GREEN_KOOPA_WALK_RIGHT_ID);
-			sprite->SetStateId("falling_right");
+			//sprite->SetStateId("falling_right");
 		}
 		else {
 			sprite = new Sprite(p.x, p.y, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_LEFT_ID), GREEN_KOOPA_WALK_LEFT_ID);
-			sprite->SetStateId("falling_left");
+			//sprite->SetStateId("falling_left");
 		}
 
 		sprite->SetZorder(2);
@@ -58,7 +56,7 @@ private:
 				if (*dx || *dy)
 					this->sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
 				else {
-					//this->setDirection(-1 * this->getDirection());
+					this->setDirection(-1 * this->getDirection());
 				}
 			}
 		);
@@ -80,7 +78,7 @@ private:
 		);
 
 		sprite->GetGravityHandler().SetGravityAddicted(true);
-		sprite->Move(-1, 0);
+		//sprite->Move(-1, 0);
 
 		//SpriteManager::GetSingleton().Add(sprite);
 	}
@@ -151,12 +149,12 @@ public:
 		koopaWalkAnimation->SetDx(dx * direction);
 
 		if (direction > 0) {
-			sprite->SetStateId("running_right");
+			//sprite->SetStateId("running_right");
 			sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_RIGHT_ID), GREEN_KOOPA_WALK_RIGHT_ID);
 
 		}
 		else {
-			sprite->SetStateId("running_left");
+			//sprite->SetStateId("running_left");
 			sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_LEFT_ID), GREEN_KOOPA_WALK_LEFT_ID);
 
 		}
@@ -164,16 +162,18 @@ public:
 	}
 
 	void changeDirection() {
+
+		direction *= -1;
+
 		if (direction > 0) {
-			sprite->SetStateId("running_left");
-			sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_LEFT_ID), GREEN_KOOPA_WALK_LEFT_ID);
-		}
-		else {
-			sprite->SetStateId("running_right");
+			//sprite->SetStateId("running_right");
 			sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_RIGHT_ID), GREEN_KOOPA_WALK_RIGHT_ID);
 		}
+		else {
+			//sprite->SetStateId("running_left");
+			sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_LEFT_ID), GREEN_KOOPA_WALK_LEFT_ID);
+		}
 		
-		direction *= -1;
 		koopaWalkAnimation->SetDx(dx*direction);
 
 	}
@@ -217,7 +217,7 @@ public:
 		}
 
 		//add em in the map
-		SpriteManager::GetSingleton().CreateTypeList("goomba", koopasSprites);
+		SpriteManager::GetSingleton().CreateTypeList("koopa", koopasSprites);
 	}
 
 	void initialize(std::list<Point>point) {

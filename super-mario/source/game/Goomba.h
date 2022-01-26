@@ -35,7 +35,7 @@ private:
 	void createSprite(Point p) {
 		sprite = new Sprite(p.x, p.y, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GOOMBA_WALK_ID), GOOMBA_WALK_ID);
 
-		sprite->SetStateId("falling_right");
+		//sprite->SetStateId("falling");
 		sprite->SetZorder(1);
 		sprite->SetMover(MakeSpriteGridLayerMover(gameMap->GetGrid(), sprite));
 		sprite->SetMover(
@@ -81,7 +81,7 @@ private:
 		);
 
 		sprite->GetGravityHandler().SetGravityAddicted(true);
-		sprite->Move(1, 0);
+		//sprite->Move(1, 0);
 
 		//SpriteManager::GetSingleton().Add(sprite);
 	}
@@ -144,12 +144,12 @@ public:
 		direction = _dir;
 		goombaWalkAnimation->SetDx(dx * direction);
 
-		if (direction > 0) {
+		/*if (direction > 0) {
 			sprite->SetStateId("running_right");
 		}
 		else {
 			sprite->SetStateId("running_left");
-		}
+		}*/
 	}
 
 	void walk() {

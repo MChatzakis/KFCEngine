@@ -6,21 +6,15 @@
 /*
 //TODO
 //Engine
-1) SpriteManager -> store sprites
 2) Animators Package -> Add animators for the rest of the animations //normal i guess
-3) Check FilterMotion -> Fanou
 4) BoundingAreas package-> Complete Circle-Box and Circle-Polygon intersect and test //hard ->Konto
-5) TileUtilities/TileLayer -> Give empty indices as argument(we have engine)-> give to tileLayer constructior the indices -> Fanou
 
 //Game
 1) CollisionChecker-> Add pairs of sprites //easy 
 2) Sprites-> Create BoundingAreas //normal
-3) Gravity-> Add gravity (Add onStopFalling/OnStartFalling) //normal - hard -> [MANOS]
-4) Mario -> sprite, animators, functions //easy-normal -> OLOI
-5) Enemies -> same for troopas koopas kai loipes mlks
+4) Mario -> sprite, animators, functions //easy-normal -> OLOI on process
 6) Mario-> Scroll based on mario position //normal
 7) Game-> Complete Game Functions //easy but last step
-8) AI -> Movement //normal-hard?
 9) Mario-> New animation for Jump && Move (press w + d) //normal -> [MANOS]
 
 //ADVICES

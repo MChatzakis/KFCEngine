@@ -158,10 +158,9 @@ void Input() {
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
-		//Mario::GetSingleton().GetCurrSprite()->GetGravityHandler().SetGravityAddicted(false);
 		keypress = true;
-		Mario::GetSingleton().jump();
-		//Mario::GetSingleton().GetCurrSprite()->GetGravityHandler().SetGravityAddicted(true);
+		Mario::GetSingleton().jumpVertical();
+		//SoundPlayer::playSound("small_mario_jump"); //na paei inside jump?
 	}
 
 	if(!keypress) {
@@ -171,9 +170,9 @@ void Input() {
 	//Mario::GetSingleton().AlignViewWin(gameMap);
 
 
-	if (al_key_down(&keyboard_state, ALLEGRO_KEY_V)) {
+	/*if (al_key_down(&keyboard_state, ALLEGRO_KEY_V)) {
 		GoombaHolder::GetSingleton().walkGoombas();
-	}
+	}*/
 }
 
 
