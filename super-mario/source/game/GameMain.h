@@ -44,7 +44,7 @@ void Load() {
 	SoundPlayer::loadSounds();
 	CharacterLoader::loadCharacters();
 
-	SoundPlayer::playSound("main_sound");
+	//SoundPlayer::playSound("main_sound");
 }
 
 void Clear() {
