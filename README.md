@@ -18,7 +18,11 @@ Engine:
 
 To display the bitmaps, KFC Engine uses some basic functions of Allegro 5.
 
+# Super Mario Bros
+We implemented the classic Super Mario Bros game, created by Nintendo in 1985. The game using the KFC engine for every functionality, while it uses the classic sprites of the game. 
 
+
+# Development
 
 
 Sounds from https://themushroomkingdom.net/media/smb/wav
