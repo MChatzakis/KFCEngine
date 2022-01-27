@@ -189,7 +189,7 @@ bool TileLayer::CanScrollVert(float dy) {
 void TileLayer::FilterScrollDistance(int viewStartCoord, /* x or y*/int viewSize, /* w or h*/int* d, /* dx or dy*/ int maxMapSize /* w or h*/) {
 	auto val = *d + viewStartCoord;
 	if (val < 0)
-		*d = viewStartCoord; // cross low bound
+		*d = -viewStartCoord; // cross low bound
 	else
 		if (viewSize >= maxMapSize)// fits entirely
 			*d = 0;

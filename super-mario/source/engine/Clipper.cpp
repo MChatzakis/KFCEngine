@@ -18,8 +18,8 @@ bool Clipper::Clip(const Rect& r, const Rect& dpyArea, Point* dpyPos, Rect* clip
 	}
 	else {
 		// clippedBox is in ‘r’ coordinates, sub-rectangle of the input rectangle
-		clippedBox->x = r.x - visibleArea.x;
-		clippedBox->y = r.y - visibleArea.y;
+		clippedBox->x = visibleArea.x - r.x;
+		clippedBox->y = visibleArea.y - r.y;
 		clippedBox->w = visibleArea.w;
 		clippedBox->h = visibleArea.h;
 		dpyPos->x = dpyArea.x + (visibleArea.x - view().x);
