@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 
-
 #include "./Animation.h"
 
 struct PathEntry {

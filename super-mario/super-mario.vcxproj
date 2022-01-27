@@ -170,6 +170,7 @@
     <ClCompile Include="source\engine\Clipper.cpp" />
     <ClCompile Include="source\engine\CollisionChecker.cpp" />
     <ClCompile Include="source\engine\DestructionManager.cpp" />
+    <ClCompile Include="source\engine\FlashAnimator.cpp" />
     <ClCompile Include="source\engine\FrameListAnimation.cpp" />
     <ClCompile Include="source\engine\FrameRangeAnimation.cpp" />
     <ClCompile Include="source\engine\FrameRangeAnimator.cpp" />
@@ -184,7 +185,9 @@
     <ClCompile Include="source\engine\MovingAnimation.cpp" />
     <ClCompile Include="source\engine\MovingAnimator.cpp" />
     <ClCompile Include="source\engine\MovingPathAnimation.cpp" />
+    <ClCompile Include="source\engine\MovingPathAnimator.cpp" />
     <ClCompile Include="source\engine\ScrollAnimation.cpp" />
+    <ClCompile Include="source\engine\ScrollAnimator.cpp" />
     <ClCompile Include="source\engine\SoundsManager.cpp" />
     <ClCompile Include="source\engine\Sprite.cpp" />
     <ClCompile Include="source\engine\SpriteManager.cpp" />
@@ -269,7 +272,6 @@
     <ClInclude Include="source\game\PhysicsManager.h" />
     <ClInclude Include="source\game\RenderingManager.h" />
     <ClInclude Include="source\game\SoundPlayer.h" />
-    <ClInclude Include="source\game\SpriteLoader.h" />
     <ClInclude Include="source\game\SuperMario.h" />
     <ClInclude Include="source\game\UserCodeManager.h" />
     <ClInclude Include="source\game\VariableInitializer.h" />

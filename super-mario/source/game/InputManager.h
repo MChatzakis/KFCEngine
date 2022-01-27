@@ -46,6 +46,7 @@ void viewWindowScrolling_DEBUG() {
 		}
 
 		gameMap->ScrollWithBoundsCheck(dx, dy);
+		//gameMap->ScrollWithBoundsCheck(1, 0);
 	}
 }
 

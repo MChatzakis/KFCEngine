@@ -28,6 +28,6 @@ public:
 	LatelyDestroyable(void) = default;
 };
 
-
+//DestructionManager DestructionManager::singleton;
 #endif _DESTRUCTIONMANAGER_H_
 

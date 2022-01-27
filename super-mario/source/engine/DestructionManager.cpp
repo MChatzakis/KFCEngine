@@ -9,6 +9,7 @@ void DestructionManager::Register(LatelyDestroyable* d) {
 	assert(!d->IsAlive());
 	dead.push_back(d);
 }
+
 void DestructionManager::Commit(void) {
 	for (auto* d : dead)
 		d->Delete();
@@ -28,10 +29,11 @@ LatelyDestroyable::Destroy(void) {
 	}
 }
 
-void
-LatelyDestroyable::Delete(void)
+void LatelyDestroyable::Delete(void)
 {
-	assert(!dying); dying = true; delete this;
+	assert(!dying); 
+	dying = true; 
+	delete this;
 }
 // may adopt this for animators in case we wish to Destroy() in callbacks
 // and do not bother to have deleted pointers being used

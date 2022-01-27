@@ -45,16 +45,21 @@ public:
 	void MoveOLD(int dx, int dy);
 	void SetPos(int _x, int _y);
 	void SetZorder(unsigned z);
+
 	unsigned GetZorder(void);
 	void SetFrame(byte i);
 	byte GetFrame(void) const;
+	
 	void SetBoundingArea(const BoundingArea& area);
 	void SetBoundingArea(BoundingArea* area);
+	
 	auto GetBoundingArea(void) const -> const BoundingArea*;
 	auto GetTypeId(void) -> const std::string&;
 	auto GetStateId(void) -> const std::string&;
+	
 	void SetStateId(std::string);
 	void SetVisibility(bool v);
+	
 	bool IsVisible(void) const;
 	bool CollisionCheck(const Sprite* s) const;
 	

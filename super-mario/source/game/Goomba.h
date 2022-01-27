@@ -205,6 +205,11 @@ public:
 	std::list<Sprite*> getGoombasSprites() {
 		return goombasSprites;
 	}
+
+	void deleteGoombaSprite(Sprite *s) {
+		goombasSprites.remove(s);
+	}
+
 	std::list<Goomba*> getGoombas() {
 		return goombas;
 	}

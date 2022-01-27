@@ -330,6 +330,15 @@
     <ClCompile Include="source\game\GameFunction.cpp">
       <Filter>Source Files\Game\GameLogic</Filter>
     </ClCompile>
+    <ClCompile Include="source\engine\MovingPathAnimator.cpp">
+      <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\ScrollAnimator.cpp">
+      <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\FlashAnimator.cpp">
+      <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\utils\Utils.h">
@@ -508,9 +517,6 @@
     </ClInclude>
     <ClInclude Include="source\game\PhysicsManager.h">
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="source\game\SpriteLoader.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\engine\MovingPathAnimator.h">
       <Filter>Header Files\Engine\Animation\Animators</Filter>
