@@ -7,7 +7,7 @@
 
 void viewWindowScrolling_DEBUG() {
 
-	int keyboard_offset = 4;
+	int keyboard_offset = 16; //scroll offset should be always multiple of 16 ! (cant display half of a tile)
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_RIGHT)) {
 		if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
@@ -32,17 +32,17 @@ void viewWindowScrolling_DEBUG() {
 		int dx = 0, dy = 0;
 		/* We did not understand dx,dy meaning in instructions :P */
 		if (mouse_state.x > SCREEN_WIDTH / 2) {
-			dx = 1;
+			dx = 16;
 		}
 		else {
-			dx = -1;
+			dx = -16;
 		}
 
 		if (mouse_state.y > SCREEN_HEIGHT / 2) {
-			dy = 1;
+			dy = 16;
 		}
 		else {
-			dy = -1;
+			dy = -16;
 		}
 
 		gameMap->ScrollWithBoundsCheck(dx, dy);
@@ -167,7 +167,7 @@ void Input() {
 		Mario::GetSingleton().backToIdle();
 	}
 
-	//Mario::GetSingleton().AlignViewWin(gameMap);
+	Mario::GetSingleton().AlignViewWin(gameMap);
 
 
 	/*if (al_key_down(&keyboard_state, ALLEGRO_KEY_V)) {

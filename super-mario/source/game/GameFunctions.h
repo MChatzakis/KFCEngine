@@ -22,9 +22,9 @@ void setGameActions() {
 	game->SetProgressAnimations(ProgressAnimations);
 	game->SetAI(AI);
 	game->SetPhysics(Physics);
-	game->SetDestructions(CommitDestructions);
 	game->SetCollisionChecking(CollisionChecking);
 	game->SetUserCode(UserCode);
+	game->SetDestructions(CommitDestructions);
 	game->SetIsFinished(isFinished);
 }
 

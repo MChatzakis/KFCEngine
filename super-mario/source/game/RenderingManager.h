@@ -21,10 +21,9 @@ void Render() {
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 	gameMap->Display(al_get_backbuffer(display));
 	
+	Rect screen = Rect(0, 0, gameMap->GetViewWindow().w, gameMap->GetViewWindow().h);
 	for (auto c : SpriteManager::GetSingleton().GetDisplayList()) {
-		//c->Display(al_get_backbuffer(display));
-		c->Display(al_get_backbuffer(display), Rect(0, 0, gameMap->GetViewWindow().w, gameMap->GetViewWindow().h), clipper);
-		//c->Display(al_get_backbuffer(display), gameMap->GetViewWindow(), clipper);
+		c->Display(al_get_backbuffer(display), screen, clipper);
 	}
 
 	if (SHOW_GRID_DEBUG) {

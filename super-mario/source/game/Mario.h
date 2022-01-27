@@ -391,9 +391,9 @@ void Mario::AlignViewWin(TileLayer* currLayer) {
 
 	if (mario_x >= viewWinCenter) {
 		//viewWin.x += 1;
-		std::cout << "Mario Current CC: [" << mario_x << "," << mario_y << "]\n";
-		std::cout << "ViewWin Center (x): [" << viewWinCenter << "]\n";
-		currLayer->ScrollWithBoundsCheck(mario_x - viewWinCenter, 0);
+		//std::cout << "Mario Current CC: [" << mario_x << "," << mario_y << "]\n";
+		//std::cout << "ViewWin Center (x): [" << viewWinCenter << "]\n";
+		currLayer->ScrollWithBoundsCheck(16, 0);
 	}
 }
 
