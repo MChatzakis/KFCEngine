@@ -36,6 +36,7 @@ class Mario {
 private:
 	using AnimatorsList = std::map<std::string, Animator*>;
 	using AnimationsList = std::map<std::string, Animation*>;
+
 	static Mario mario;
 
 	Sprite* currSprite = nullptr;
@@ -75,6 +76,7 @@ public:
 
 	void displayMario(Bitmap target);
 	void displayMario(Bitmap target, const Rect& rect, const Clipper& clip);
+	
 	void Die();
 
 	Animator* GetAnimator(std::string id);
@@ -175,7 +177,6 @@ void Mario::initializeSprites() {
 	
 	SpriteManager::GetSingleton().Add(currSprite);
 }
-
 
 void Mario::initializeAnimations() {
 	AddAnimation("running_right", new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, 2, 1, 4, 0, 60));

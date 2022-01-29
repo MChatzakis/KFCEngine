@@ -193,18 +193,24 @@ class KoopaHolder {
 private:
 	static KoopaHolder holder;
 
-	std::list<Koopa*>koopas; //two lists corresponds to spritelist
-	std::list<Sprite*>koopasSprites;
+	/*std::list<Koopa*>koopas; //two lists corresponds to spritelist
+	std::list<Sprite*>koopasSprites;*/
+
+	std::map<Sprite*, Koopa*>Koopas;
 
 public:
 
-	void createKoopas(std::list<Point>point) {
+	void createKoopasMap(std::list<Point>point) {
 		for (auto p : point) {
-			koopas.push_back(new Koopa(1, -1, p));
+			Koopa* k = new Koopa(1, -1, p);
+			Sprite* s = k->getSprite();
+
+			Koopas[s] = k;
+			SpriteManager::GetSingleton().Add(s);
 		}
 	}
 
-	void createKoopaSprites() {
+	/*void createKoopaSprites() {
 
 		//keep em in a list
 		for (Koopa* g : koopas) {
@@ -218,33 +224,53 @@ public:
 
 		//add em in the map
 		SpriteManager::GetSingleton().CreateTypeList("koopa", koopasSprites);
-	}
+	}*/
 
 	void initialize(std::list<Point>point) {
-		createKoopas(point);
-		createKoopaSprites();
+		createKoopasMap(point);
 	}
 
 	static auto GetSingleton(void) -> KoopaHolder& { return holder; }
 	static auto GetSingletonConst(void) -> const KoopaHolder& { return holder; }
 
-	std::list<Sprite*> getKoopasSprites() {
+	/*std::list<Sprite*> getKoopasSprites() {
 		return koopasSprites;
 	}
 	std::list<Koopa*> getKoopas() {
 		return koopas;
+	}*/
+
+	void ErasePair(Sprite *s) {
+		Koopas.erase(s);
 	}
 
-	void setKoopasSprites(std::list<Sprite*>sprs) {
-		koopasSprites = std::list<Sprite*>(sprs);
-	}
-	void setKoopas(std::list<Koopa*>gs) {
-		koopas = std::list<Koopa*>(gs);
+	std::map<Sprite*, Koopa*>& GetKoopaMap() {
+		return Koopas;
 	}
 
-	void walkKoopas() {
-		for (auto g : koopas) {
-			g->walk();
+	void setKoopaMap(std::map<Sprite*, Koopa*>m) {
+		Koopas = std::map<Sprite*, Koopa*>(m);
+	}
+
+	std::list<Sprite*> GetKoopaSpritesList() {
+		std::list<Sprite*>l;
+		for (auto e : Koopas) {
+			l.push_back(e.first);
+		}
+		return l;
+	}
+
+	std::list<Koopa*> GetKoopaClassList() {
+		std::list<Koopa*>l;
+		for (auto e : Koopas) {
+			l.push_back(e.second);
+		}
+		return l;
+	}
+
+	void WalkKoopas() {
+		for (auto g : Koopas) {
+			g.second->walk();
 		}
 	}
 };

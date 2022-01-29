@@ -11,6 +11,7 @@ public:
 	static void loadGoombas();
 	static void loadKoopas();
 	static void loadCharacters();
+
 	static void createCollisionTuples();
 };
 
@@ -20,11 +21,11 @@ void CharacterLoader::loadMario() {
 
 void CharacterLoader::loadGoombas() {
 	std::list<Point>gPos = { Point{ 10,300 }, Point{ 500,300 } };
-	GoombaHolder::GetSingleton().initialize(gPos);
+	GoombaHolder::GetSingleton().Initialize(gPos);
 }
 
 void CharacterLoader::loadKoopas() {
-	std::list<Point>kPos = { Point{ 550,200 }, Point{ 540,200 } };
+	std::list<Point>kPos = { Point{ 550,200 } };
 	KoopaHolder::GetSingleton().initialize(kPos);
 }
 
@@ -32,44 +33,51 @@ void CharacterLoader::loadCharacters() {
 	loadKoopas();
 	loadGoombas();
 	loadMario();
+
 	createCollisionTuples();
 }
 
 bool isMarioAbove(Sprite* mario, Sprite* enemy) {
 	//an o patos(...) tou mario einai apo panw, tote ok
-	int marioY = mario->GetBox().y - mario->GetBox().h; //prosoxi sto meiwn
-	int enemyY = enemy->GetBox().y; //prosoxi sto meiwn
-	return marioY == enemyY;
+	int marioY = mario->GetBox().y + mario->GetBox().h / 2; //prosoxi sto meiwn
+	int enemyY = enemy->GetBox().y ; //prosoxi sto meiwn //give a look again
+	std::cout << "Mario Bottom Y: " << marioY << " Enemy Head Y: " << enemyY << "\n";
+	return marioY <= enemyY;
 }
 
 void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
-	std::cout << "Mario collided with a goomba!";
-
-	
-	//CollisionChecker::GetSingleton().Cancel(mario, goomba); //produces exception...
-	if (isMarioAbove(mario, goomba)) {
-		SpriteManager::GetSingleton().Remove(goomba);
-		goomba->Destroy();
+	if (!isMarioAbove(mario, goomba)) {
+		std::cout << "Mario killed by a goomba!";
+		//die mario
 	}
-
-	
-	
+	else {
+		std::cout << "Mario killed a goomba!";
+		SpriteManager::GetSingleton().Remove(goomba); //remove right away from the display list!
+		//GoombaHolder::GetSingleton().GetInstanceOf(goomba)->destroyAnimators();
+		goomba->Destroy(); //kill the fucking goomba!
+		//trigger mario jump
+	}
 }
 
 void marioKoopaCollision(Sprite* mario, Sprite* koopa) {
-	std::cout << "Mario collided with a koopa!";
-	SpriteManager::GetSingleton().Remove(koopa);
-	//koopa->Destroy();
+	
+	if (!isMarioAbove(mario, koopa)) {
+		//std::cout << "Mario killed by a koopa!";
+	}
+	else {
+		std::cout << "Mario killed a koopa!";
+		SpriteManager::GetSingleton().Remove(koopa); //remove right away from the display list!
+		koopa->Destroy(); //kill the fucking goomba!
+		//trigger mario jump
+	}
 }
 
-
-
 void CharacterLoader::createCollisionTuples() {
-	
+
 	Sprite* mario = Mario::GetSingleton().GetCurrSprite();
-	
-	std::list<Sprite*> goombas = GoombaHolder::GetSingleton().getGoombasSprites();
-	std::list<Sprite*> koopas = KoopaHolder::GetSingleton().getKoopasSprites();
+
+	std::list<Sprite*> goombas = GoombaHolder::GetSingleton().GetGoombaSpritesList();
+	std::list<Sprite*> koopas = KoopaHolder::GetSingleton().GetKoopaSpritesList();
 
 	/*Register the pairs of mario-goombas and mario-koopas*/
 	for (Sprite* g : goombas) {
@@ -79,9 +87,6 @@ void CharacterLoader::createCollisionTuples() {
 	for (Sprite* k : koopas) {
 		CollisionChecker::GetSingleton().Register(mario, k, marioKoopaCollision);
 	}
-
-	//CollisionChecker::GetSingleton().Cancel(mario, koopas.front());
-
 }
 
 

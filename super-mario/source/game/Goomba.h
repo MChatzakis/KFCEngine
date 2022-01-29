@@ -152,6 +152,18 @@ public:
 		}*/
 	}
 
+	void destroyAnimators() {
+		//if (!goombaWalkAnimator->HasFinished()) {
+		//goombaWalkAnimator->Stop();
+		//}
+
+		//if (!deathAnimator->HasFinished()) {
+		//deathAnimator->Stop();
+		//}
+		goombaWalkAnimator->Destroy();
+		deathAnimator->Destroy();
+	}
+
 	void walk() {
 
 		if ((!(goombaWalkAnimator->HasFinished())/* && currSprite->GetStateId() == "running_right")*/))
@@ -167,64 +179,68 @@ class GoombaHolder {
 private:
 	static GoombaHolder holder;
 
-	std::list<Goomba*>goombas; //two lists corresponds to spritelist
-	std::list<Sprite*>goombasSprites;
+	std::map<Sprite*, Goomba*>Goombas;
 
 public:
 
-	void createGoombas(std::list<Point>point) {
+	void CreateGoombaMap(std::list<Point>point) {
 		for (auto p : point) {
-			goombas.push_back(new Goomba(1, 1, p));
-		}
-	}
+			Goomba* g = new Goomba(1, 1, p);
+			Sprite* s = g->getSprite();
 
-	void createGoombaSprites() {
+			Goombas[s] = g;
 
-		//keep em in a list
-		for (Goomba* g : goombas) {
-			goombasSprites.push_back(g->getSprite());
-		}
-
-		//add em in the sprite manager
-		for (Sprite* s : goombasSprites) {
 			SpriteManager::GetSingleton().Add(s);
 		}
-
-		//add em in the map
-		SpriteManager::GetSingleton().CreateTypeList("goomba", goombasSprites);
 	}
 
-	void initialize(std::list<Point>point) {
-		createGoombas(point);
-		createGoombaSprites();
+	void ErasePair_freeGoomba(Sprite* s) {
+		Goomba* gToDel = Goombas[s];
+		Goombas.erase(s);
+		//delete gToDel; //exception when enabled
+	}
+
+	void Initialize(std::list<Point>points) {
+		//createGoombas(point);
+		//createGoombaSprites();
+		CreateGoombaMap(points);
 	}
 
 	static auto GetSingleton(void) -> GoombaHolder& { return holder; }
 	static auto GetSingletonConst(void) -> const GoombaHolder& { return holder; }
 
-	std::list<Sprite*> getGoombasSprites() {
-		return goombasSprites;
-	}
-
-	void deleteGoombaSprite(Sprite *s) {
-		goombasSprites.remove(s);
-	}
-
-	std::list<Goomba*> getGoombas() {
-		return goombas;
-	}
-
-	void setGoombasSprites(std::list<Sprite*>sprs) {
-		goombasSprites = std::list<Sprite*>(sprs);
-	}
-	void setGoombas(std::list<Goomba*>gs) {
-		goombas = std::list<Goomba*>(gs);
-	}
-
-	void walkGoombas() {
-		for (auto g : goombas) {
-			g->walk();
+	std::list<Sprite*> GetGoombaSpritesList() {
+		std::list<Sprite*>l;
+		for (auto e : Goombas) {
+			l.push_back(e.first);
 		}
+		return l;
+	}
+
+	std::list<Goomba*> GetGoombaClassList() {
+		std::list<Goomba*>l;
+		for (auto e : Goombas) {
+			l.push_back(e.second);
+		}
+		return l;
+	}
+
+	std::map<Sprite*, Goomba*>& GetGoombaMap() {
+		return Goombas;
+	}
+
+	void SetGoombaMap(std::map<Sprite*, Goomba*>gs) {
+		Goombas = std::map<Sprite*, Goomba*>(gs);
+	}
+
+	void WalkGoombas() {
+		for (auto g : Goombas) {
+			g.second->walk();
+		}
+	}
+
+	Goomba* GetInstanceOf(Sprite* s) {
+		return Goombas[s];
 	}
 };
 

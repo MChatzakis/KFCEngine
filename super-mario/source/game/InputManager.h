@@ -5,7 +5,7 @@
 #include "./Mario.h"
 #include "./Goomba.h"
 
-void viewWindowScrolling_DEBUG() {
+void debugShortcuts() {
 
 	int keyboard_offset = 16; //scroll offset should be always multiple of 16 ! (cant display half of a tile)
 
@@ -48,63 +48,7 @@ void viewWindowScrolling_DEBUG() {
 		gameMap->ScrollWithBoundsCheck(dx, dy);
 		//gameMap->ScrollWithBoundsCheck(1, 0);
 	}
-}
 
-
-void movingRectScroll_DEBUG() {
-
-	/*int basisDx = 4;
-	int basisDy = 4;
-
-	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
-		int dx = 0;
-		int dy = -basisDy;
-
-		std::cout << "Pressed W\n";
-		SoundsManager::GetSingleton().PlaySound("small_mario_jump");
-
-		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
-		gridWin->x += dx;
-		gridWin->y += dy;
-	}
-
-	if (al_key_down(&keyboard_state, ALLEGRO_KEY_S)) {
-		int dx = 0;
-		int dy = basisDy;
-
-		std::cout << "Pressed S\n";
-
-		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
-		gridWin->x += dx;
-		gridWin->y += dy;
-	}
-
-	if (al_key_down(&keyboard_state, ALLEGRO_KEY_D)) {
-		int dx = basisDx;
-		int dy = 0;
-
-		std::cout << "Pressed D\n";
-		//std::cout << "Before: (" << dx << ", " << dy << ")\n";
-		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
-		//std::cout << "After: (" << dx << ", " << dy << ")\n";
-		gridWin->x += dx;
-		gridWin->y += dy;
-	}
-
-	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
-		int dx = -basisDx;
-		int dy = 0;
-
-		std::cout << "Pressed A\n";
-		GridUtilities::FilterGridMotion(&grid, *gridWin, &dx, &dy);
-		gridWin->x += dx;
-		gridWin->y += dy;
-	}*/
-
-}
-
-
-void debugShortcuts() {
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_1) && al_key_down(&keyboard_state, ALLEGRO_KEY_LCTRL)) {
 		SHOW_GRID_DEBUG = 1;
 	}
@@ -129,29 +73,24 @@ void Input() {
 	al_get_keyboard_state(&keyboard_state);
 	al_get_mouse_state(&mouse_state);
 
-	viewWindowScrolling_DEBUG();
-	movingRectScroll_DEBUG();
-
 	debugShortcuts();
+
 	bool keypress = false;
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_D)) {
-		/*if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
-			gameMap->ScrollWithBoundsCheck(3, 0);
-
-		}*/
 		keypress = true;
+
 		if (al_key_down(&keyboard_state, ALLEGRO_KEY_B)) {
 			Mario::GetSingleton().runRight();
 		}
 		else
 			Mario::GetSingleton().walkRight();
-
-		
+	
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_A)) {
 		keypress = true;
+		
 		if (al_key_down(&keyboard_state, ALLEGRO_KEY_B))
 			Mario::GetSingleton().runLeft();
 		else
@@ -161,7 +100,7 @@ void Input() {
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
 		keypress = true;
 		Mario::GetSingleton().jumpVertical();
-		//SoundPlayer::playSound("small_mario_jump"); //na paei inside jump?
+		SoundPlayer::playSound("small_mario_jump"); //na paei inside jump? //OXI
 	}
 
 	if(!keypress) {
@@ -169,11 +108,6 @@ void Input() {
 	}
 
 	Mario::GetSingleton().AlignViewWin(gameMap);
-
-
-	/*if (al_key_down(&keyboard_state, ALLEGRO_KEY_V)) {
-		GoombaHolder::GetSingleton().walkGoombas();
-	}*/
 }
 
 

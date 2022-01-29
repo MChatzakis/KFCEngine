@@ -3,19 +3,45 @@
 
 #include "../engine/DestructionManager.h"
 
-void CommitDestructions() {
-	//destroy goombas
-	std::list<Sprite*>gs = GoombaHolder::GetSingleton().getGoombasSprites();
-	for (Sprite* g : gs) {
-		if (!g->IsAlive()) {
-			//the sprite is early destroyed in the action func of collision checker
-			//SpriteManager::GetSingleton().Remove(g);
-			CollisionChecker::GetSingleton().cancelAllTuplesOf(g);
-			GoombaHolder::GetSingleton().deleteGoombaSprite(g);
-		}
-	}
+void CommitDestructions();
+void RemoveDeadGoombas();
+void RemoveDeadKoopas();
 
-	//DestructionManager::Get().Commit();
+void CommitDestructions() {
+	RemoveDeadGoombas();
+	RemoveDeadKoopas();
+	//DestructionManager::Get().Commit(); //Produces an exception.
+}
+
+void RemoveDeadGoombas() {
+	std::map<Sprite*, Goomba*>gs = GoombaHolder::GetSingleton().GetGoombaMap();
+
+	for (auto e : gs) {
+		Sprite* gSprite = e.first;
+		Goomba* gClass = e.second;
+
+		if (!gSprite->IsAlive()) {
+			//gClass->stopAnimators();
+			CollisionChecker::GetSingleton().cancelAllTuplesOf(gSprite);
+			GoombaHolder::GetSingleton().ErasePair_freeGoomba(gSprite);
+		}
+
+	}
+}
+
+void RemoveDeadKoopas() {
+	std::map<Sprite*, Koopa*>gs = KoopaHolder::GetSingleton().GetKoopaMap();
+
+	for (auto e : gs) {
+		Sprite* kSprite = e.first;
+		Koopa* kClass = e.second;
+
+		if (!kSprite->IsAlive()) {
+			CollisionChecker::GetSingleton().cancelAllTuplesOf(kSprite);
+			KoopaHolder::GetSingleton().ErasePair(kSprite);
+		}
+
+	}
 }
 
 #endif _GAMEDESTRUCTIONMANAGER_H_
