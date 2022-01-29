@@ -35,7 +35,7 @@ FrameRangeAnimator::Progress(timestamp_t currTime) {
 		if (currFrame == anim->GetEndFrame())
 			if (!anim->IsForever() && ++currRep == anim->GetReps()) {
 				state = ANIMATOR_FINISHED;
-				//currRep = 0;
+				currRep = 0;
 				NotifyStopped();
 				return;
 			}
@@ -48,6 +48,13 @@ void FrameRange_Action(Sprite* sprite, Animator* animator, const FrameRangeAnima
 	auto* frameRangeAnimator = (FrameRangeAnimator*)animator;
 	if (frameRangeAnimator->GetCurrFrame() != anim.GetStartFrame() || frameRangeAnimator->GetCurrRep())
 		sprite->Move(anim.GetDx(), anim.GetDy());
+	sprite->SetFrame(frameRangeAnimator->GetCurrFrame());
+}
+
+void FrameRange_Action_DecreasingDY(Sprite* sprite, Animator* animator, const FrameRangeAnimation& anim) {
+	auto* frameRangeAnimator = (FrameRangeAnimator*)animator;
+	if (frameRangeAnimator->GetCurrFrame() != anim.GetStartFrame() || frameRangeAnimator->GetCurrRep())
+		sprite->Move(anim.GetDx(), anim.GetDy() - frameRangeAnimator->GetCurrFrame()/2);
 	sprite->SetFrame(frameRangeAnimator->GetCurrFrame());
 }
 

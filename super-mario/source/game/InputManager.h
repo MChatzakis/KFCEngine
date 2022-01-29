@@ -99,8 +99,8 @@ void Input() {
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_W)) {
 		keypress = true;
-		Mario::GetSingleton().jumpVertical();
-		SoundPlayer::playSound("small_mario_jump"); //na paei inside jump? //OXI
+		Mario::GetSingleton().jump();
+		//SoundPlayer::playSound("small_mario_jump"); //na paei inside jump? //OXI
 	}
 
 	if(!keypress) {
