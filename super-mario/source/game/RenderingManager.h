@@ -11,6 +11,7 @@ void GridDisplay() {
 
 void Render() {
 	al_clear_to_color(al_map_rgb(0, 0, 0));
+	
 	gameMap->Display(al_get_backbuffer(display));
 	
 	Rect screen = Rect(0, 0, gameMap->GetViewWindow().w, gameMap->GetViewWindow().h);
