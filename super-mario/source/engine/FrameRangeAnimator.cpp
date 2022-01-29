@@ -53,8 +53,20 @@ void FrameRange_Action(Sprite* sprite, Animator* animator, const FrameRangeAnima
 
 void FrameRange_Action_DecreasingDY(Sprite* sprite, Animator* animator, const FrameRangeAnimation& anim) {
 	auto* frameRangeAnimator = (FrameRangeAnimator*)animator;
-	if (frameRangeAnimator->GetCurrFrame() != anim.GetStartFrame() || frameRangeAnimator->GetCurrRep())
-		sprite->Move(anim.GetDx(), anim.GetDy() - frameRangeAnimator->GetCurrFrame()/2);
+	unsigned int reps = anim.GetReps();
+	unsigned int currRep = frameRangeAnimator->GetCurrRep();
+
+	if (frameRangeAnimator->GetCurrFrame() != anim.GetStartFrame() || currRep) {
+		unsigned int divReps = reps / 8; //divide X in 8 * x dxs
+		int offset = anim.GetDy() + ((currRep - 1) / divReps);
+		if (offset >= 0) {
+			offset++;
+			if(offset > 4)
+				offset = 4;
+		}
+
+		sprite->Move(anim.GetDx(), offset);
+	}
 	sprite->SetFrame(frameRangeAnimator->GetCurrFrame());
 }
 

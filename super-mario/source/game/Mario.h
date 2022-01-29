@@ -368,6 +368,8 @@ void Mario::jumpVerticalLeft() {
 
 	MovingAnimator* jumping = (MovingAnimator*) GetAnimator("jumping");
 	MovingAnimation* jumpingLeft = (MovingAnimation*)GetAnimation("vertical_jumping_left");
+	jumpingLeft->SetDy(-4);
+	jumpingLeft->SetDelay(20);
 	
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_JUMP_LEFT_ID), MARIO_JUMP_LEFT_ID);
 	
@@ -379,6 +381,9 @@ void Mario::jumpVerticalRight() {
 
 	MovingAnimator* jumping = (MovingAnimator*) GetAnimator("jumping");
 	MovingAnimation* jumpingRight = (MovingAnimation*) GetAnimation("vertical_jumping_right");
+	jumpingRight->SetDy(-4);
+	jumpingRight->SetDelay(20);
+	jumpingRight->SetReps(17);
 	
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_JUMP_RIGHT_ID), MARIO_JUMP_RIGHT_ID);
 	
@@ -390,9 +395,10 @@ void Mario::jumpRight() {
 
 	FrameRangeAnimator* parabola_jumping = (FrameRangeAnimator*)GetAnimator("parabola_jumping");
 	FrameRangeAnimation* parabola_jumpingRight = (FrameRangeAnimation*)GetAnimation("parabola_jumping_right");
-	parabola_jumpingRight->SetDx(2);
+	parabola_jumpingRight->SetDx(1);
 	parabola_jumpingRight->SetDy(-4);
 	parabola_jumpingRight->SetDelay(20);
+	parabola_jumpingRight->SetReps(65); // 8 * 8 + 1
 
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_JUMP_RIGHT_ID), MARIO_JUMP_RIGHT_ID);
 
@@ -404,9 +410,10 @@ void Mario::jumpLeft() {
 
 	FrameRangeAnimator* jumping = (FrameRangeAnimator*)GetAnimator("parabola_jumping");
 	FrameRangeAnimation* parabola_jumpingLeft = (FrameRangeAnimation*)GetAnimation("parabola_jumping_left");
-	parabola_jumpingLeft->SetDx(-2);
+	parabola_jumpingLeft->SetDx(-1);
 	parabola_jumpingLeft->SetDy(-4);
 	parabola_jumpingLeft->SetDelay(20);
+	parabola_jumpingLeft->SetReps(65);
 
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_JUMP_LEFT_ID), MARIO_JUMP_LEFT_ID);
 
