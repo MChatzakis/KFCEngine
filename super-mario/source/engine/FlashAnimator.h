@@ -18,6 +18,8 @@ public:
 	auto GetAnim(void) const -> const FlashAnimation&;
 	void Start(FlashAnimation* a, timestamp_t t);
 	FlashAnimator(void) = default;
+
+	
 };
 
 //void Sprite_MoveAction(Sprite* sprite, const FlashAnimation& anim); 

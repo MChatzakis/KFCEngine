@@ -12,16 +12,18 @@ public:
 	using Me = FlashAnimation;
 	Me& SetRepetitions(unsigned n) { repetitions = n; return *this; }
 	unsigned GetRepetitions(void) const { return repetitions; }
-	Me& SetHideDeay(unsigned d) { hideDelay = d; return *this; }
-	unsigned GetHideDeay(void) const { return hideDelay; }
-	Me& SetShowDeay(unsigned d) { showDelay = d; return *this; }
-	unsigned GetShowDeay(void) const { return showDelay; }
+	Me& SetHideDelay(unsigned d) { hideDelay = d; return *this; }
+	unsigned GetHideDelay(void) const { return hideDelay; }
+	Me& SetShowDelay(unsigned d) { showDelay = d; return *this; }
+	unsigned GetShowDelay(void) const { return showDelay; }
 	Animation* Clone(void) const override
 	{
 		return new FlashAnimation(id, repetitions, hideDelay, showDelay);
 	}
 	FlashAnimation(const std::string& _id, unsigned n, unsigned show, unsigned hide) :
 		Animation(id), repetitions(n), hideDelay(hide), showDelay(show) {}
+
+	
 };
 
 #endif _FLASHANIMATION_H_

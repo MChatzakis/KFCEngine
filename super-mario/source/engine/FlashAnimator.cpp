@@ -17,10 +17,10 @@ FlashAnimator::Start(FlashAnimation* a, timestamp_t t) {
 
 void
 FlashAnimator::Progress(timestamp_t currTime) {
-	while (currTime > lastTime && (currTime - lastTime) >= anim->GetDelay()) {
-		lastTime += anim->GetDelay();
+	while (currTime > lastTime && (currTime - lastTime) >= anim->GetShowDelay()) {
+		lastTime += anim->GetShowDelay();
 		NotifyAction(*anim);
-		if (!anim->IsForever() && ++currRep == anim->GetReps()) {
+		if (/*!anim->IsForever() && */++currRep == anim->GetRepetitions()) {
 			state = ANIMATOR_FINISHED;
 			NotifyStopped();
 			return;
