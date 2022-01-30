@@ -10,7 +10,7 @@ public:
 	static auto GetSingleton(void) -> ExtraScreens& { return screens; }
 	static auto GetSingletonConst(void) -> const ExtraScreens& { return screens; }
 
-	void StartingScreen(std::string imagePath) {
+	void DispScreen(std::string imagePath) {
 		ALLEGRO_BITMAP* bitmap = al_load_bitmap(imagePath.c_str());
 		
 		al_draw_bitmap(bitmap, 0, 0, 0);

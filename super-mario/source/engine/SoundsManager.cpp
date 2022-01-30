@@ -44,7 +44,7 @@ void SoundsManager::PlaySound(std::string id) {
 void SoundsManager::CleanUp()
 {
 	for (auto& i : sounds) {
-		al_destroy_sample(i.second->sample);
+		//al_destroy_sample(i.second->sample);
 		delete(i.second);
 	}
 	sounds.clear();

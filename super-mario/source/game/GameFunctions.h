@@ -2,6 +2,7 @@
 #define _GAMEFUNCTIONS_H_
 
 #include "./GameVars.h"
+#include "./ExtraScreens.h"
 
 #include "./InputManager.h"
 #include "./AIManager.h"
@@ -13,6 +14,12 @@
 #include "./DestructionManager.h"
 
 bool isFinished() {
+
+	if (Mario::GetSingleton().getTotalLifes() == 0) {
+		ExtraScreens::GetSingleton().DispScreen(DEATH_SCREEN_PATH);
+		return true;
+	}
+
 	return false;
 }
 

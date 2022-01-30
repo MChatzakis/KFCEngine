@@ -18,7 +18,9 @@ public:
 	void CleanUp(void);
 
 	BitmapLoader(void) {}
-	~BitmapLoader() { CleanUp(); }
+	~BitmapLoader() { 
+		//CleanUp(); 
+	}
 };
 
 

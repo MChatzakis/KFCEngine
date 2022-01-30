@@ -47,7 +47,7 @@ void Clear() {
 
 void Run() {
 	//SoundPlayer::playSound("main_sound");
-	ExtraScreens::GetSingleton().StartingScreen(DEATH_SCREEN_PATH);
+	ExtraScreens::GetSingleton().DispScreen(DEATH_SCREEN_PATH);
 
 	setGameActions();
 	game->MainLoop();

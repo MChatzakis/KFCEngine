@@ -316,6 +316,8 @@ void Mario::initialize(nlohmann::json _c) {
 	initializeAnimations();
 	initializeSprites();
 	initializeAnimators();
+
+	totalLifes = conf["totalLifes"];
 }
 
 void Mario::runRight() {

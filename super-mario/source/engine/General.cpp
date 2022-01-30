@@ -140,6 +140,7 @@ Bitmap BitmapClear(Bitmap bmp, Color c) {
 }
 
 void BitmapDestroy(Bitmap bmp) {
+
 	al_destroy_bitmap((ALLEGRO_BITMAP*)bmp);
 }
 
@@ -158,13 +159,13 @@ Dim BitmapGetHeight(Bitmap bmp) {
 void BitmapBlit(Bitmap src, const Rect& from, Bitmap dest, const Point& to) {
 
 	//ALLEGRO_BITMAP* currTarget = al_get_target_bitmap();
-	
+
 	//al_set_target_bitmap((ALLEGRO_BITMAP*)dest);
 	//al_draw_bitmap_region((ALLEGRO_BITMAP*)tiles, CustomGetCol(tile) * TILE_WIDTH, CustomGetRow(tile) * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, x, y, 0);
 
 	al_set_target_bitmap((ALLEGRO_BITMAP*)dest);
 	al_draw_bitmap_region((ALLEGRO_BITMAP*)src, from.x, from.y, from.w, from.h, to.x, to.y, 0);
-	
+
 	//al_set_target_bitmap(currTarget);
 }
 
@@ -613,7 +614,7 @@ void InstallPutPixel(void) // upon initialisation
 	currPutPixel = putPixelFuncs[GetDepth() - 1];
 }
 
-bool operator==(const Rect& l, const Rect& r) { 
+bool operator==(const Rect& l, const Rect& r) {
 	return (l.x == r.x && l.y == r.y && l.w == r.w && l.h == r.h);
 }
 

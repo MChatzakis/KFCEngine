@@ -59,4 +59,6 @@ TileLayer* gameMap;
 Clipper clipper;
 Bitmap tileSet;
 
+int GAME_HAS_ENDED = 0; /*0 means no, 1 means end completely, 2 means respawn*/
+
 #endif _GAMEVARS_H_

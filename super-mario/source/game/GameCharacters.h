@@ -52,6 +52,9 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 	if (!isMarioAbove(mario, goomba)) {
 		std::cout << "Mario killed by a goomba!";
 		//die mario
+		//SpriteManager::GetSingleton().Remove(mario);
+		//Mario::GetSingleton().Die();
+		Mario::GetSingleton().decreaseLifes();
 	}
 	else {
 		std::cout << "Mario killed a goomba!";
