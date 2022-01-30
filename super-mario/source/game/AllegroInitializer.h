@@ -2,6 +2,7 @@
 #define _ALLEGROINITIALIZER_H_
 
 #include "./GameVars.h"
+
 #include "allegro5/allegro_audio.h"
 #include "allegro5/allegro_acodec.h"
 
@@ -43,6 +44,16 @@ public:
 
 		if (!al_install_keyboard()) {
 			std::cout << "Could not install Allegro Keyboard!" << std::endl;
+			exit(-1);
+		}
+
+		if (!al_init_font_addon()) {
+			std::cout << "Could not install Allegro Font Addon!" << std::endl;
+			exit(-1);
+		}
+		
+		if (!al_init_ttf_addon()) {
+			std::cout << "Could not install Allegro TTF Addon!" << std::endl;
 			exit(-1);
 		}
 

@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include <nlohmann/json.hpp>
+
 #include "../engine/Sprite.h"
 #include "../engine/SpriteManager.h"
 
@@ -122,6 +124,15 @@ public:
 		createKoopaWalkAnimations();
 	}
 
+	Koopa(int _dx, int _dir, Point sp, int _del) {
+		direction = _dir;
+		dx = _dx;
+		delay = _del;
+
+		createSprite(sp);
+		createKoopaWalkAnimations();
+	}
+
 	Sprite* getSprite() {
 		return sprite;
 	}
@@ -193,14 +204,26 @@ class KoopaHolder {
 private:
 	static KoopaHolder holder;
 
-	/*std::list<Koopa*>koopas; //two lists corresponds to spritelist
-	std::list<Sprite*>koopasSprites;*/
-
 	std::map<Sprite*, Koopa*>Koopas;
 
 public:
 
-	void createKoopasMap(std::list<Point>point) {
+	void CreateKoopasMap(nlohmann::json conf) {
+		int dx = conf["dx"];
+		int delay = conf["delay"];
+		nlohmann::json entityArr = conf["koopas"];
+		for (auto g : entityArr) {
+			Koopa* gom = new Koopa(dx, g["direction"], Point{ g["x"], g["y"] }, delay);
+			Sprite* s = gom->getSprite();
+
+			Koopas[s] = gom;
+
+			SpriteManager::GetSingleton().Add(s);
+		}
+
+	}
+
+	void CreateKoopasMap(std::list<Point>point) {
 		for (auto p : point) {
 			Koopa* k = new Koopa(1, -1, p);
 			Sprite* s = k->getSprite();
@@ -210,35 +233,16 @@ public:
 		}
 	}
 
-	/*void createKoopaSprites() {
+	void Initialize(std::list<Point>point) {
+		CreateKoopasMap(point);
+	}
 
-		//keep em in a list
-		for (Koopa* g : koopas) {
-			koopasSprites.push_back(g->getSprite());
-		}
-
-		//add em in the sprite manager
-		for (Sprite* s : koopasSprites) {
-			SpriteManager::GetSingleton().Add(s);
-		}
-
-		//add em in the map
-		SpriteManager::GetSingleton().CreateTypeList("koopa", koopasSprites);
-	}*/
-
-	void initialize(std::list<Point>point) {
-		createKoopasMap(point);
+	void Initialize(nlohmann::json conf) {
+		CreateKoopasMap(conf);
 	}
 
 	static auto GetSingleton(void) -> KoopaHolder& { return holder; }
 	static auto GetSingletonConst(void) -> const KoopaHolder& { return holder; }
-
-	/*std::list<Sprite*> getKoopasSprites() {
-		return koopasSprites;
-	}
-	std::list<Koopa*> getKoopas() {
-		return koopas;
-	}*/
 
 	void ErasePair(Sprite *s) {
 		Koopas.erase(s);

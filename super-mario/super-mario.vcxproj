@@ -76,6 +76,8 @@
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_AddonAudio>true</Allegro_AddonAudio>
     <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -150,6 +152,9 @@
     <None Include="resources\characters\koopa.json" />
     <None Include="resources\characters\mario.json" />
     <None Include="resources\config\config.json" />
+    <None Include="resources\config\goombaConf.json" />
+    <None Include="resources\config\koopaConf.json" />
+    <None Include="resources\config\marioConf.json" />
     <None Include="resources\csv\level1-1_background.csv" />
     <None Include="resources\csv\level1-1_flag.csv" />
     <None Include="resources\csv\level1-1_Sky.csv" />
@@ -260,6 +265,7 @@
     <ClInclude Include="source\game\AnimationManager.h" />
     <ClInclude Include="source\game\CollisionManager.h" />
     <ClInclude Include="source\game\DestructionManager.h" />
+    <ClInclude Include="source\game\ExtraScreens.h" />
     <ClInclude Include="source\game\GameCharacters.h" />
     <ClInclude Include="source\game\GameFunctions.h" />
     <ClInclude Include="source\game\GameMain.h" />
@@ -273,6 +279,7 @@
     <ClInclude Include="source\game\RenderingManager.h" />
     <ClInclude Include="source\game\SoundPlayer.h" />
     <ClInclude Include="source\game\SuperMario.h" />
+    <ClInclude Include="source\game\TopTexts.h" />
     <ClInclude Include="source\game\UserCodeManager.h" />
     <ClInclude Include="source\game\VariableInitializer.h" />
     <ClInclude Include="source\utils\Utils.h" />
@@ -281,6 +288,7 @@
     <Image Include="resources\bitmaps\characters.gif" />
     <Image Include="resources\bitmaps\characters2.gif" />
     <Image Include="resources\bitmaps\tileset.png" />
+    <Image Include="resources\screens\deathScreen.png" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="resources\sounds\smb_1-up.wav" />
@@ -306,6 +314,9 @@
     <Media Include="resources\sounds\smb_vine.wav" />
     <Media Include="resources\sounds\smb_warning.wav" />
     <Media Include="resources\sounds\smb_world_clear.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resources\fonts\SuperMario256.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

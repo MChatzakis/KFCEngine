@@ -6,12 +6,12 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <list>
 
 #include "../engine/AnimationFilm.h"
 #include "../engine/AnimationFilmHolder.h"
 #include "../engine/SoundsManager.h"
 
-#include <list>
 
 nlohmann::json readJSON(const std::string filename);
 void writeJSON(nlohmann::json j, const std::string filename, unsigned short indent);

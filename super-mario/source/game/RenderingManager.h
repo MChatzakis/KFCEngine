@@ -5,6 +5,8 @@
 #include "./Mario.h"
 #include "./engine/Sprite.h"
 
+#include "./TopTexts.h"
+
 void GridDisplay() {
 	GridComputation::DisplayGrid(al_get_backbuffer(display), gameMap->GetViewWindow(), gameMap->GetGrid()->GetBuffer(), gameMap->GetTotalColumns());
 }
@@ -14,6 +16,8 @@ void Render() {
 	
 	gameMap->Display(al_get_backbuffer(display));
 	
+	TopTexts::GetSingleton().DrawText(Mario::GetSingleton().getScore(), Mario::GetSingleton().getTotalLifes(), Mario::GetSingleton().getCoins());
+
 	Rect screen = Rect(0, 0, gameMap->GetViewWindow().w, gameMap->GetViewWindow().h);
 	for (auto c : SpriteManager::GetSingleton().GetDisplayList()) {
 		c->Display(al_get_backbuffer(display), screen, clipper);

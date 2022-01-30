@@ -148,6 +148,15 @@
     <Filter Include="Source Files\Game\GameLogic\Managers">
       <UniqueIdentifier>{4d0761f7-a0cd-4270-afb7-ec847b886f69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\fonts">
+      <UniqueIdentifier>{963709f9-a554-4951-9725-333921d69ad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Extras">
+      <UniqueIdentifier>{12011277-1066-4d65-8820-9657ba49d0a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\screens">
+      <UniqueIdentifier>{fc177678-3cb5-408f-a57f-bb299137341b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -180,6 +189,15 @@
     </None>
     <None Include="resources\Sounds\sounds-config.json">
       <Filter>Resource Files\sounds</Filter>
+    </None>
+    <None Include="resources\config\goombaConf.json">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="resources\config\koopaConf.json">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="resources\config\marioConf.json">
+      <Filter>Resource Files\config</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -533,6 +551,12 @@
     <ClInclude Include="source\engine\FlashAnimator.h">
       <Filter>Header Files\Engine\Animation\Animators</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\TopTexts.h">
+      <Filter>Header Files\Game\Extras</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\ExtraScreens.h">
+      <Filter>Header Files\Game\Extras</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\bitmaps\tileset.png">
@@ -543,6 +567,9 @@
     </Image>
     <Image Include="resources\bitmaps\characters2.gif">
       <Filter>Resource Files\bitmap</Filter>
+    </Image>
+    <Image Include="resources\screens\deathScreen.png">
+      <Filter>Resource Files\screens</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -615,5 +642,10 @@
     <Media Include="resources\sounds\smb_world_clear.wav">
       <Filter>Resource Files\sounds</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resources\fonts\SuperMario256.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
 #include "../utils/Utils.h"
 
@@ -28,7 +29,17 @@
 #define KOOPA_ANIMATIONS_PATH "resources/characters/koopa.json"
 #define GOOMBA_ANIMATIONS_PATH "resources/characters/goomba.json"
 
+#define MARIO_CONF_PATH "resources/config/marioConf.json"
+#define KOOPA_CONF_PATH "resources/config/koopaConf.json"
+#define GOOMBA_CONF_PATH "resources/config/goombaConf.json"
+
 #define SCROLLABLE_TILE_COL 212
+
+#define FONT_PATH "resources/fonts/SuperMario256.ttf"
+#define FONT_SIZE 30
+
+#define DEATH_SCREEN_PATH "resources/screens/deathScreen.png"
+#define STARTING_SCREEN_PATH "resources/screens/startingScreen.png"
 
 /* Global Stuff */
 int SCREEN_WIDTH = 0;
@@ -43,15 +54,9 @@ ALLEGRO_EVENT_QUEUE* queue;
 ALLEGRO_KEYBOARD_STATE keyboard_state;
 ALLEGRO_MOUSE_STATE mouse_state;
 
-//Rect* viewWin;
-//Rect* gridWin;
-
 Game* game;
 TileLayer* gameMap;
 Clipper clipper;
 Bitmap tileSet;
-
-//class Mario;
-//Mario* mario;
 
 #endif _GAMEVARS_H_

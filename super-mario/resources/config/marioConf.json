@@ -1,0 +1,54 @@
+{
+  "totalLifes": 2,
+
+  "startingPosition": {
+    "x": 320,
+    "y": 180
+  },
+
+  "moving": {
+    "repetitions": 1,
+    "frames": 2,
+    "dx": 4,
+    "delay": 60
+  },
+
+  "walking": {
+    "repetitions": 1,
+    "frames": 2,
+    "dx": 2,
+    "delay": 120
+  },
+
+  "jumping": {
+    "repetitions": 65,
+    "frames": 1,
+    "dx": 1,
+    "dy": 4,
+    "delay": 20
+  },
+
+  "verticalJumping": {
+    "repetitions": 17,
+    "frames": 1,
+    "dx": 2,
+    "dy": 4,
+    "delay": 20
+  },
+
+  "smallJumping": {
+    "repetitions": 65,
+    "frames": 1,
+    "dx": 1,
+    "dy": 4,
+    "delay": 20
+  },
+
+  "smallVerticalJumping": {
+    "repetitions": 17,
+    "frames": 1,
+    "dx": 2,
+    "dy": 4,
+    "delay": 20
+  }
+}

@@ -1,6 +1,11 @@
 #ifndef _GAMECHARACTERS_H_
 #define _GAMECHARACTERS_H_
 
+#include "./GameVars.h"
+
+
+#include "../utils/Utils.h"
+
 #include "./Mario.h"
 #include "./Goomba.h"
 #include "./Koopa.h"
@@ -16,17 +21,15 @@ public:
 };
 
 void CharacterLoader::loadMario() {
-	Mario::GetSingleton().initialize();
+	Mario::GetSingleton().initialize(readJSON(MARIO_CONF_PATH));
 }
 
 void CharacterLoader::loadGoombas() {
-	std::list<Point>gPos = { Point{ 10,300 }, Point{ 500,300 } };
-	GoombaHolder::GetSingleton().Initialize(gPos);
+	GoombaHolder::GetSingleton().CreateGoombaMap(readJSON(GOOMBA_CONF_PATH));
 }
 
 void CharacterLoader::loadKoopas() {
-	std::list<Point>kPos = { Point{ 550,200 } };
-	KoopaHolder::GetSingleton().initialize(kPos);
+	KoopaHolder::GetSingleton().Initialize(readJSON(KOOPA_CONF_PATH));
 }
 
 void CharacterLoader::loadCharacters() {
@@ -54,6 +57,9 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 		std::cout << "Mario killed a goomba!";
 		SpriteManager::GetSingleton().Remove(goomba); //remove right away from the display list!
 		//GoombaHolder::GetSingleton().GetInstanceOf(goomba)->destroyAnimators();
+		
+		Mario::GetSingleton().increaseScoreBy(1);
+		Mario::GetSingleton().smallJump();
 		goomba->Destroy(); //kill the fucking goomba!
 		//trigger mario jump
 	}
@@ -67,6 +73,8 @@ void marioKoopaCollision(Sprite* mario, Sprite* koopa) {
 	else {
 		std::cout << "Mario killed a koopa!";
 		SpriteManager::GetSingleton().Remove(koopa); //remove right away from the display list!
+		Mario::GetSingleton().increaseScoreBy(1);
+		Mario::GetSingleton().smallJump();
 		koopa->Destroy(); //kill the fucking goomba!
 		//trigger mario jump
 	}

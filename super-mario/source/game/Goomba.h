@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include <nlohmann/json.hpp>
+
 #include "../engine/Sprite.h"
 #include "../engine/SpriteManager.h"
 
@@ -120,6 +122,15 @@ public:
 		createGoombaWalkAnimations();
 	}
 
+	Goomba(int _dx, int _dir, Point sp, int _del) {
+		direction = _dir;
+		dx = _dx;
+		delay = _del;
+
+		createSprite(sp);
+		createGoombaWalkAnimations();
+	}
+
 	Sprite* getSprite() {
 		return sprite;
 	}
@@ -183,6 +194,21 @@ private:
 
 public:
 
+	void CreateGoombaMap(nlohmann::json conf) {
+		int dx = conf["dx"];
+		int delay = conf["delay"];
+		nlohmann::json entityArr = conf["goombas"];
+		for (auto g : entityArr) {
+			Goomba *gom = new Goomba(dx, g["direction"], Point{ g["x"], g["y"] }, delay);
+			Sprite* s = gom->getSprite();
+			
+			Goombas[s] = gom;
+
+			SpriteManager::GetSingleton().Add(s);
+		}
+
+	}
+
 	void CreateGoombaMap(std::list<Point>point) {
 		for (auto p : point) {
 			Goomba* g = new Goomba(1, 1, p);
@@ -204,6 +230,12 @@ public:
 		//createGoombas(point);
 		//createGoombaSprites();
 		CreateGoombaMap(points);
+	}
+
+	void Initialize(nlohmann::json conf) {
+		//createGoombas(point);
+		//createGoombaSprites();
+		CreateGoombaMap(conf);
 	}
 
 	static auto GetSingleton(void) -> GoombaHolder& { return holder; }

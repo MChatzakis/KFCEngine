@@ -4,10 +4,8 @@
 #include "../engine/AnimatorManager.h"
 #include "../engine/Timing.h"
 
-
 void ProgressAnimations() {
 	AnimatorManager::GetSingleton().Progress(CurrTime());
 }
-
 
 #endif _ANIMATIONMANAGER_H_

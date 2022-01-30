@@ -13,6 +13,8 @@
 
 #include "./GameFunctions.h"
 #include "./GameCharacters.h"
+#include "./TopTexts.h"
+#include "./ExtraScreens.h"
 
 #include "../engine/BoundingArea.h"
 #include "../engine/BoundingCircle.h"
@@ -24,15 +26,10 @@ void Run();
 void GameMain();
 
 void Initialise() {
-	/* //clean after testing
-	BoundingArea* circle = new BoundingCircle(10, 10, 5);
-	BoundingArea* box = new BoundingBox(13, 13, 15, 15);
-	std::cout << (int)circle->Intersects(*box) << std::endl;*/
-
 	VariableInitializer::initializeVariables();
 	AllegroInitializer::initializeAllegro();
-
-	//showStartingScreen(); //blocking
+	
+	TopTexts::GetSingleton().Initialize(FONT_PATH, FONT_SIZE);
 }
 
 void Load() {
@@ -40,7 +37,6 @@ void Load() {
 	AnimationLoader::loadAnimations();
 	SoundPlayer::loadSounds();
 	CharacterLoader::loadCharacters();
-	//SoundPlayer::playSound("main_sound");
 }
 
 void Clear() {
@@ -50,6 +46,9 @@ void Clear() {
 }
 
 void Run() {
+	//SoundPlayer::playSound("main_sound");
+	ExtraScreens::GetSingleton().StartingScreen(DEATH_SCREEN_PATH);
+
 	setGameActions();
 	game->MainLoop();
 }
