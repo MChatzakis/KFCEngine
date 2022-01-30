@@ -397,8 +397,6 @@ void Mario::jumpVerticalLeft() {
 
 	MovingAnimator* jumping = (MovingAnimator*)GetAnimator("jumping");
 	MovingAnimation* jumpingLeft = (MovingAnimation*)GetAnimation("vertical_jumping_left");
-	/*jumpingLeft->SetDy(-1 * conf["running"]["dx"]);
-	jumpingLeft->SetDelay(conf["running"]["delay"]);*/
 	jumpingLeft->SetDy(-1 * conf["verticalJumping"]["dy"]);
 	jumpingLeft->SetDelay(conf["verticalJumping"]["delay"]);
 	jumpingLeft->SetReps(conf["verticalJumping"]["repetitions"]);
@@ -465,29 +463,23 @@ void Mario::jump() {
 	else if (spriteStateId == "idle_left") {
 		jumpVerticalLeft();
 	}
-	else if (spriteStateId == "walking_right") {
+	else if (spriteStateId == "walking_right" || spriteStateId == "running_right") {
 		jumpRight();
 	}
-	else if (spriteStateId == "running_right") {
-		jumpRight();
-	}
-	else if (spriteStateId == "running_left") {
-		jumpLeft();
-	}
-	else { //else if walking left
+	else { //else if spriteStateId == "walking_left" || spriteStateId == "running_left"
 		jumpLeft();
 	}
 }
 
 //for enemy kill animation
-void Mario::smallJump() {
+void Mario::smallJump() { //bounce
 	/*if (MARIO_JUMPING || MARIO_FALLING)
 		return;*/
 
 	std::string spriteStateId = currSprite->GetStateId();
 	StopAnimators();
 
-	jumpLeft();
+	jumpLeft(); //should jump with smaller parabola
 
 	std::cout << "Called!\n";
 }

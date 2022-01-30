@@ -71,7 +71,8 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 void marioKoopaCollision(Sprite* mario, Sprite* koopa) {
 	
 	if (!isMarioAbove(mario, koopa)) {
-		//std::cout << "Mario killed by a koopa!";
+		std::cout << "Mario killed by a koopa!";
+		Mario::GetSingleton().decreaseLifes();
 	}
 	else {
 		std::cout << "Mario killed a koopa!";
