@@ -41,6 +41,8 @@
 #define DEATH_SCREEN_PATH "resources/screens/deathScreen.png"
 #define STARTING_SCREEN_PATH "resources/screens/startingScreen.png"
 
+#define FALL_COORDINATES_LIST {Rect(1104, 432, 1135-1104, 479-432), Rect(1376, 432, 1423-1376, 479-432), Rect(2448, 432, 2479-2448, 479-432)}
+
 /* Global Stuff */
 int SCREEN_WIDTH = 0;
 int SCREEN_HEIGHT = 0;
@@ -60,5 +62,13 @@ Clipper clipper;
 Bitmap tileSet;
 
 int GAME_HAS_ENDED = 0; /*0 means no, 1 means end completely, 2 means respawn*/
+
+//1104, 432, 1135, 479
+
+//1376, 432, 1423, 479
+
+//2448, 432, 2479, 479
+
+
 
 #endif _GAMEVARS_H_

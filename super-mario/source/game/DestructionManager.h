@@ -1,15 +1,20 @@
 #ifndef _GAMEDESTRUCTIONMANAGER_H_
 #define _GAMEDESTRUCTIONMANAGER_H_
 
+#include "./GameVars.h"
 #include "../engine/DestructionManager.h"
 
 void CommitDestructions();
 void RemoveDeadGoombas();
 void RemoveDeadKoopas();
+void ValidateSpritePositions();
 
 void CommitDestructions() {
+	ValidateSpritePositions();
+
 	RemoveDeadGoombas();
 	RemoveDeadKoopas();
+
 	//DestructionManager::Get().Commit(); //Produces an exception.
 }
 
@@ -21,7 +26,6 @@ void RemoveDeadGoombas() {
 		Goomba* gClass = e.second;
 
 		if (!gSprite->IsAlive()) {
-			//gClass->stopAnimators();
 			CollisionChecker::GetSingleton().cancelAllTuplesOf(gSprite);
 			GoombaHolder::GetSingleton().ErasePair_freeGoomba(gSprite);
 		}
@@ -39,6 +43,25 @@ void RemoveDeadKoopas() {
 		if (!kSprite->IsAlive()) {
 			CollisionChecker::GetSingleton().cancelAllTuplesOf(kSprite);
 			KoopaHolder::GetSingleton().ErasePair(kSprite);
+		}
+
+	}
+}
+
+void ValidateSpritePositions() {
+	//delete the sprites that have fallen in the space
+	std::list<Sprite*> activeSprites = SpriteManager::GetSingleton().GetDisplayList();
+	for (auto s : activeSprites) {
+		int x = s->GetBox().x;
+		int y = s->GetBox().y;
+
+		for (auto r : FALL_COORDINATES_LIST) {
+			if (x <= (r.x + r.w) && x >= r.x) {
+				if (y >= r.y) {
+					s->Destroy();
+					SpriteManager::GetSingleton().Remove(s);
+				}
+			}
 		}
 
 	}
