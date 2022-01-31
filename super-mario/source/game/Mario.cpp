@@ -9,7 +9,7 @@ Sprite* Mario::GetCurrSprite() {
 }
 
 void Mario::backToIdle() {
-	if (MARIO_IDLE || MARIO_FALLING || MARIO_JUMPING)/*) || MARIO_FALLING || -> if we add that it jumps always in the same way*/
+	if (MARIO_IDLE || MARIO_FALLING || MARIO_BOUNCE) /* || MARIO_JUMPING)/*) || MARIO_FALLING || -> if we add that it jumps always in the same way*/
 		return;
 
 	std::string id = currSprite->GetStateId();
@@ -135,7 +135,7 @@ void Mario::initializeAnimators() {
 		[this](Animator* animator) {
 		std::string id = this->currSprite->GetStateId();
 
-		if (id == "jumping_vertical_right") {
+		if (id == "jumping_vertical_right" || id == "bouncing_vertical_right") {
 			this->currSprite->SetStateId("falling_right");
 		}
 		else {
@@ -164,7 +164,7 @@ void Mario::initializeAnimators() {
 		[this](Animator* animator) {
 		std::string id = this->currSprite->GetStateId();
 
-		if (id == "jumping_right") {
+		if (id == "jumping_right" || id == "bouncing_right") {
 			this->currSprite->SetStateId("falling_right");
 		}
 		else {
@@ -197,7 +197,7 @@ void Mario::initialize(nlohmann::json _c) {
 }
 
 void Mario::runRight() {
-	if (MARIO_JUMPING || MARIO_FALLING || (!(GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && */ currSprite->GetStateId() == "running_right"))
+	if (MARIO_BOUNCE || MARIO_JUMPING || MARIO_FALLING || (!(GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && */ currSprite->GetStateId() == "running_right"))
 		return;
 
 	currSprite->SetStateId("running_right");
@@ -215,7 +215,7 @@ void Mario::runRight() {
 }
 
 void Mario::walkRight() {
-	if (MARIO_JUMPING || MARIO_FALLING || (!(GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && */ currSprite->GetStateId() == "walking_right"))
+	if (MARIO_BOUNCE || MARIO_JUMPING || MARIO_FALLING || (!(GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_RIGHT_ID && */ currSprite->GetStateId() == "walking_right"))
 		return;
 
 	currSprite->SetStateId("walking_right");
@@ -233,7 +233,7 @@ void Mario::walkRight() {
 }
 
 void Mario::walkLeft() {
-	if (MARIO_JUMPING || MARIO_FALLING || (!(GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID &&*/ currSprite->GetStateId() == "walking_left"))
+	if (MARIO_BOUNCE || MARIO_JUMPING || MARIO_FALLING || (!(GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID &&*/ currSprite->GetStateId() == "walking_left"))
 		return;
 
 	currSprite->SetStateId("walking_left");
@@ -251,7 +251,7 @@ void Mario::walkLeft() {
 }
 
 void Mario::runLeft() {
-	if (MARIO_JUMPING || MARIO_FALLING || (!(GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID &&*/ currSprite->GetStateId() == "running_left"))
+	if (MARIO_BOUNCE || MARIO_JUMPING || MARIO_FALLING || (!(GetAnimator("running")->HasFinished()) && /*currSprite->GetAnimationFilm()->GetId() == MARIO_WALK_LEFT_ID &&*/ currSprite->GetStateId() == "running_left"))
 		return;
 
 	currSprite->SetStateId("running_left");
@@ -327,7 +327,7 @@ void Mario::jumpLeft() {
 }
 
 void Mario::jump() {
-	if (MARIO_JUMPING || MARIO_FALLING)
+	if (MARIO_BOUNCE || MARIO_JUMPING || MARIO_FALLING)
 		return;
 
 	std::string spriteStateId = currSprite->GetStateId();
@@ -351,17 +351,15 @@ void Mario::jump() {
 void Mario::smallJump() { //bounce
 
 	std::string spriteStateId = currSprite->GetStateId(); //take stateId before stop animators !!
-	std::cout << "Before: " << spriteStateId << std::endl;
 	StopAnimators();
-	std::cout << "After: " << currSprite->GetStateId() << std::endl;
 
-	if (spriteStateId == "falling_right" || spriteStateId == "jumping_vertical_right") {
+	if (spriteStateId == "falling_right" || spriteStateId == "jumping_vertical_right" || spriteStateId == "bouncing_vertical_right" || spriteStateId == "idle_right") {
 		smallJumpVerticalRight();
 	}
-	else if (spriteStateId == "falling_left" || spriteStateId == "jumping_vertical_left") {
+	else if (spriteStateId == "falling_left" || spriteStateId == "jumping_vertical_left" || spriteStateId == "bouncing_vertical_left" || spriteStateId == "idle_left") {
 		smallJumpVerticalLeft();
 	}
-	else if (spriteStateId == "jumping_right" || spriteStateId == "running_right" || spriteStateId == "walking_right") {
+	else if (spriteStateId == "jumping_right" || spriteStateId == "bouncing_right" || spriteStateId == "running_right" || spriteStateId == "walking_right") {
 		smallJumpRight();
 	}
 	else /*if (spriteStateId == "jumping_left" || spriteStateId == "running_left" || spriteStateId == "walking_left")*/ {
@@ -371,7 +369,7 @@ void Mario::smallJump() { //bounce
 
 //ok
 void Mario::smallJumpVerticalLeft() {
-	currSprite->SetStateId("jumping_vertical_left");
+	currSprite->SetStateId("bouncing_vertical_left");
 
 	MovingAnimator* jumping = (MovingAnimator*)GetAnimator("jumping");
 	MovingAnimation* jumpingLeft = (MovingAnimation*)GetAnimation("vertical_jumping_left");
@@ -388,7 +386,7 @@ void Mario::smallJumpVerticalLeft() {
 
 //ok
 void Mario::smallJumpVerticalRight() {
-	currSprite->SetStateId("jumping_vertical_right");
+	currSprite->SetStateId("bouncing_vertical_right");
 
 	MovingAnimator* jumping = (MovingAnimator*)GetAnimator("jumping");
 	MovingAnimation* jumpingRight = (MovingAnimation*)GetAnimation("vertical_jumping_right");
@@ -402,25 +400,8 @@ void Mario::smallJumpVerticalRight() {
 }
 
 //ok
-void Mario::smallJumpVertical() { //unused
-	std::string spriteStateId = currSprite->GetStateId();
-	if (MARIO_JUMPING)//|| */currSprite->GetGravityHandler().IsFalling())
-		return;
-
-	//std::string id = currSprite->GetAnimationFilm()->GetId();
-	StopAnimators();
-
-	if (spriteStateId == "running_right" || spriteStateId == "walking_right" || spriteStateId == "idle_right") {
-		smallJumpVerticalRight();
-	}
-	else /*if (id == MARIO_IDLE_LEFT_ID || id == MARIO_WALK_LEFT_ID)*/ {
-		smallJumpVerticalLeft();
-	}
-}
-
-//ok
 void Mario::smallJumpRight() {
-	currSprite->SetStateId("jumping_right");
+	currSprite->SetStateId("bouncing_right");
 
 	FrameRangeAnimator* parabola_jumping = (FrameRangeAnimator*)GetAnimator("parabola_jumping");
 	FrameRangeAnimation* parabola_jumpingRight = (FrameRangeAnimation*)GetAnimation("parabola_jumping_right");
@@ -436,7 +417,7 @@ void Mario::smallJumpRight() {
 
 //ok
 void Mario::smallJumpLeft() {
-	currSprite->SetStateId("jumping_left");
+	currSprite->SetStateId("bouncing_left");
 
 	FrameRangeAnimator* jumping = (FrameRangeAnimator*)GetAnimator("parabola_jumping");
 	FrameRangeAnimation* parabola_jumpingLeft = (FrameRangeAnimation*)GetAnimation("parabola_jumping_left");
@@ -448,22 +429,6 @@ void Mario::smallJumpLeft() {
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_JUMP_LEFT_ID), MARIO_JUMP_LEFT_ID);
 
 	jumping->Start(parabola_jumpingLeft, CurrTime());
-}
-
-void Mario::jumpVertical() { //unused
-	std::string spriteStateId = currSprite->GetStateId();
-	if (MARIO_JUMPING || MARIO_FALLING)//|| */currSprite->GetGravityHandler().IsFalling())
-		return;
-
-	//std::string id = currSprite->GetAnimationFilm()->GetId();
-	StopAnimators();
-
-	if (spriteStateId == "running_right" || spriteStateId == "walking_right" || spriteStateId == "idle_right") {
-		jumpVerticalRight();
-	}
-	else /*if (id == MARIO_IDLE_LEFT_ID || id == MARIO_WALK_LEFT_ID)*/ {
-		jumpVerticalLeft();
-	}
 }
 
 void Mario::displayMario(Bitmap target) {
@@ -546,6 +511,9 @@ void Mario::decreaseLifes() {
 void Mario::Respawn() {
 	currSprite->SetPos(conf["startingPosition"]["x"], conf["startingPosition"]["y"]);
 	currSprite->Move(1, 0);
+	StopAnimators();
+	currSprite->SetStateId("falling_right");
+	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
 	gameMap->SetViewWindow(Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)); //bad
 }
 

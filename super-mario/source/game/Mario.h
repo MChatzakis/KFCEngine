@@ -32,6 +32,7 @@
 #define MARIO_WALKING (currSprite->GetStateId() == "walking_right" || currSprite->GetStateId() == "walking_left")
 #define MARIO_RUNNING (currSprite->GetStateId() == "running_right" || currSprite->GetStateId() == "running_left")
 #define MARIO_IDLE (currSprite->GetStateId() == "idle_right" || currSprite->GetStateId() == "idle_left")
+#define MARIO_BOUNCE (currSprite->GetStateId() == "bouncing_right" || currSprite->GetStateId() == "bouncing_left" || currSprite->GetStateId() == "bouncing_vertical_right" || currSprite->GetStateId() == "bouncing_vertical_left")
 
 #define MARIO_MOVING_RIGHT (/*currSprite->GetStateId() == "falling_right" ||*/ currSprite->GetStateId() == "walking_right" || currSprite->GetStateId() == "running_right" || currSprite->GetStateId() == "jumping_right")
 #define MARIO_MOVING_LEFT (/*currSprite->GetStateId() == "falling_left" ||*/ currSprite->GetStateId() == "walking_left" || currSprite->GetStateId() == "running_left" || currSprite->GetStateId() == "jumping_left")
@@ -79,7 +80,6 @@ public:
 
 	void jumpVerticalLeft();
 	void jumpVerticalRight();
-	void jumpVertical();
 
 	void jumpRight();
 	void jumpLeft();
@@ -88,7 +88,6 @@ public:
 	void smallJump();
 	void smallJumpVerticalLeft();
 	void smallJumpVerticalRight();
-	void smallJumpVertical();
 	void smallJumpRight();
 	void smallJumpLeft();
 
