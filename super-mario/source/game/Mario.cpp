@@ -350,19 +350,21 @@ void Mario::jump() {
 //for enemy kill animation
 void Mario::smallJump() { //bounce
 
-	std::string spriteStateId = currSprite->GetStateId();
+	std::string spriteStateId = currSprite->GetStateId(); //take stateId before stop animators !!
+	std::cout << "Before: " << spriteStateId << std::endl;
 	StopAnimators();
+	std::cout << "After: " << currSprite->GetStateId() << std::endl;
 
-	if (spriteStateId == "idle_right") {
+	if (spriteStateId == "falling_right" || spriteStateId == "jumping_vertical_right") {
 		smallJumpVerticalRight();
 	}
-	else if (spriteStateId == "idle_left") {
+	else if (spriteStateId == "falling_left" || spriteStateId == "jumping_vertical_left") {
 		smallJumpVerticalLeft();
 	}
-	else if (MARIO_MOVING_RIGHT) {
+	else if (spriteStateId == "jumping_right" || spriteStateId == "running_right" || spriteStateId == "walking_right") {
 		smallJumpRight();
 	}
-	else {
+	else /*if (spriteStateId == "jumping_left" || spriteStateId == "running_left" || spriteStateId == "walking_left")*/ {
 		smallJumpLeft();
 	}
 }
@@ -400,7 +402,7 @@ void Mario::smallJumpVerticalRight() {
 }
 
 //ok
-void Mario::smallJumpVertical() {
+void Mario::smallJumpVertical() { //unused
 	std::string spriteStateId = currSprite->GetStateId();
 	if (MARIO_JUMPING)//|| */currSprite->GetGravityHandler().IsFalling())
 		return;
@@ -448,7 +450,7 @@ void Mario::smallJumpLeft() {
 	jumping->Start(parabola_jumpingLeft, CurrTime());
 }
 
-void Mario::jumpVertical() {
+void Mario::jumpVertical() { //unused
 	std::string spriteStateId = currSprite->GetStateId();
 	if (MARIO_JUMPING || MARIO_FALLING)//|| */currSprite->GetGravityHandler().IsFalling())
 		return;

@@ -33,8 +33,8 @@
 #define MARIO_RUNNING (currSprite->GetStateId() == "running_right" || currSprite->GetStateId() == "running_left")
 #define MARIO_IDLE (currSprite->GetStateId() == "idle_right" || currSprite->GetStateId() == "idle_left")
 
-#define MARIO_MOVING_RIGHT (currSprite->GetStateId() == "falling_right" || currSprite->GetStateId() == "walking_right" || currSprite->GetStateId() == "running_right" || currSprite->GetStateId() == "jumping_right")
-#define MARIO_MOVING_LEFT (currSprite->GetStateId() == "falling_left" || currSprite->GetStateId() == "walking_left" || currSprite->GetStateId() == "running_left" || currSprite->GetStateId() == "jumping_left")
+#define MARIO_MOVING_RIGHT (/*currSprite->GetStateId() == "falling_right" ||*/ currSprite->GetStateId() == "walking_right" || currSprite->GetStateId() == "running_right" || currSprite->GetStateId() == "jumping_right")
+#define MARIO_MOVING_LEFT (/*currSprite->GetStateId() == "falling_left" ||*/ currSprite->GetStateId() == "walking_left" || currSprite->GetStateId() == "running_left" || currSprite->GetStateId() == "jumping_left")
 
 
 class Mario {

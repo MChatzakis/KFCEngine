@@ -31,7 +31,7 @@
   "verticalJumping": {
     "repetitions": 15,
     "frames": 1,
-    "dx": 2,
+    "dx": 0,
     "dy": 4,
     "delay": 20
   },
@@ -47,7 +47,7 @@
   "smallVerticalJumping": {
     "repetitions": 10,
     "frames": 1,
-    "dx": 2,
+    "dx": 0,
     "dy": 2,
     "delay": 15
   }
