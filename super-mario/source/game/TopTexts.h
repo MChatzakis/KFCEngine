@@ -5,6 +5,8 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
+#include <iostream>
+#include <string>
 
 class TopTexts {
 private:
@@ -15,28 +17,18 @@ private:
 	
 public:
 
-	static auto GetSingleton(void) -> TopTexts& { return texts; }
-	static auto GetSingletonConst(void) -> const TopTexts& { return texts; }
+	static auto GetSingleton(void)->TopTexts&;
+	static auto GetSingletonConst(void) -> const TopTexts&;
 
-	void Initialize(const char* fontPath, int size) {
-		font = al_load_ttf_font(fontPath, size, 0);
-	}
+	void Initialize(const char* fontPath, int size);
 
-	void setFont(ALLEGRO_FONT* _font) {
-		font = _font;
-	}
+	void setFont(ALLEGRO_FONT* _font);
 
-	ALLEGRO_FONT* getFont() {
-		return font;
-	}
+	ALLEGRO_FONT* getFont();
 
-	void DrawText(int score, int lifes, int coins, int centerAroundX, int centerAroundY) {
-		std::string text = "SCORE:" + std::to_string(score) + " LIFES:" + std::to_string(lifes) + " LEVEL:1-1 COINS:" + std::to_string(coins);
-		al_draw_text(font, al_map_rgb(255, 255, 255), centerAroundX, centerAroundY, ALLEGRO_ALIGN_CENTER, text.c_str());
-	}
+	void DrawText(int score, int lifes, int coins, int centerAroundX, int centerAroundY);
 
 };
 
-TopTexts TopTexts::texts;
 
 #endif _TOPTEXTS_H_

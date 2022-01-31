@@ -46,23 +46,23 @@
 #define FALL_COORDINATES_LIST {Rect(1104, 432, 1135-1104, 479-432), Rect(1376, 432, 1423-1376, 479-432), Rect(2448, 432, 2479-2448, 479-432)}
 
 /* Global Stuff */
-int SCREEN_WIDTH = 0;
-int SCREEN_HEIGHT = 0;
+extern int SCREEN_WIDTH;
+extern int SCREEN_HEIGHT;
 
-int SHOW_GRID_DEBUG = 0;
-int TOGGLE_FILLED_RECT = 0;
+extern int SHOW_GRID_DEBUG;
+extern int TOGGLE_FILLED_RECT;
 
 /*ALLEGRO related*/
-ALLEGRO_DISPLAY* display;
-ALLEGRO_EVENT_QUEUE* queue;
-ALLEGRO_KEYBOARD_STATE keyboard_state;
-ALLEGRO_MOUSE_STATE mouse_state;
+extern ALLEGRO_DISPLAY* display;
+extern ALLEGRO_EVENT_QUEUE* queue;
+extern ALLEGRO_KEYBOARD_STATE keyboard_state;
+extern ALLEGRO_MOUSE_STATE mouse_state;
 
-Game* game;
-TileLayer* gameMap;
-Clipper clipper;
-Bitmap tileSet;
+extern Game* game;
+extern TileLayer* gameMap;
+extern Clipper clipper;
+extern Bitmap tileSet;
 
-int GAME_HAS_ENDED = 0;
+extern int GAME_HAS_ENDED;
 
 #endif _GAMEVARS_H_

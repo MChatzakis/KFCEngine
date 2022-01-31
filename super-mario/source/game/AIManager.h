@@ -4,9 +4,6 @@
 #include "./Goomba.h"
 #include "./Koopa.h"
 
-void AI() {
-	GoombaHolder::GetSingleton().WalkGoombas();
-	KoopaHolder::GetSingleton().WalkKoopas();
-}
+void AI();
 
 #endif _AIMANAGER_H_

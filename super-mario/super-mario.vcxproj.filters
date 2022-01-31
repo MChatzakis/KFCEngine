@@ -157,6 +157,9 @@
     <Filter Include="Resource Files\screens">
       <UniqueIdentifier>{fc177678-3cb5-408f-a57f-bb299137341b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Extras">
+      <UniqueIdentifier>{f4d15601-f079-4448-911c-62e92d37b06c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -318,9 +321,6 @@
     <ClCompile Include="source\game\SoundPlayer.cpp">
       <Filter>Source Files\Game\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="source\game\AnimationHolder.cpp">
-      <Filter>Source Files\Game\Loaders</Filter>
-    </ClCompile>
     <ClCompile Include="source\game\MapLoader.cpp">
       <Filter>Source Files\Game\Loaders</Filter>
     </ClCompile>
@@ -345,9 +345,6 @@
     <ClCompile Include="source\game\Goomba.cpp">
       <Filter>Source Files\Game\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="source\game\GameFunction.cpp">
-      <Filter>Source Files\Game\GameLogic</Filter>
-    </ClCompile>
     <ClCompile Include="source\engine\MovingPathAnimator.cpp">
       <Filter>Source Files\Engine\Animation\Animators</Filter>
     </ClCompile>
@@ -356,6 +353,48 @@
     </ClCompile>
     <ClCompile Include="source\engine\FlashAnimator.cpp">
       <Filter>Source Files\Engine\Animation\Animators</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\GameVars.cpp">
+      <Filter>Source Files\Game\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\AIManager.cpp">
+      <Filter>Source Files\Game\GameLogic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\CollisionManager.cpp">
+      <Filter>Source Files\Game\GameLogic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\PhysicsManager.cpp">
+      <Filter>Source Files\Game\GameLogic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\AnimationManager.cpp">
+      <Filter>Source Files\Game\GameLogic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\UserCodeManager.cpp">
+      <Filter>Source Files\Game\GameLogic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\RenderingManager.cpp">
+      <Filter>Source Files\Game\GameLogic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\InputManager.cpp">
+      <Filter>Source Files\Game\GameLogic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\TopTexts.cpp">
+      <Filter>Source Files\Game\Extras</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\ExtraScreens.cpp">
+      <Filter>Source Files\Game\Extras</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\AnimationLoader.cpp">
+      <Filter>Source Files\Game\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\GameFunctions.cpp">
+      <Filter>Source Files\Game\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\GameCharacters.cpp">
+      <Filter>Source Files\Game\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\DestructionManagement.cpp">
+      <Filter>Source Files\Game\GameLogic\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -500,9 +539,6 @@
     <ClInclude Include="source\game\UserCodeManager.h">
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="source\game\DestructionManager.h">
-      <Filter>Header Files\Game\GameLogic\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="source\game\CollisionManager.h">
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
@@ -556,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="source\game\ExtraScreens.h">
       <Filter>Header Files\Game\Extras</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\DestructionManagement.h">
+      <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

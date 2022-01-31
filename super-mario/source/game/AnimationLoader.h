@@ -8,17 +8,12 @@
 
 #include "../engine/BitmapLoader.h"
 #include "../engine/AnimationFilmHolder.h"
+#include "GameVars.h"
 
 class AnimationLoader {
 
 public:
-	static void loadAnimations() {
-		AnimationFilmHolder::GetSingleton().Load(MARIO_ANIMATIONS_PATH, (const AnimationFilmHolder::Parser &) getAnimationFilmDataParser);
-		AnimationFilmHolder::GetSingleton().Load(KOOPA_ANIMATIONS_PATH, (const AnimationFilmHolder::Parser &) getAnimationFilmDataParser);
-		AnimationFilmHolder::GetSingleton().Load(GOOMBA_ANIMATIONS_PATH, (const AnimationFilmHolder::Parser &) getAnimationFilmDataParser);
-		
-		AnimationFilmHolder::GetSingleton().printAnimationMap();
-	}
+	static void loadAnimations();
 
 };
 

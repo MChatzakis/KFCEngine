@@ -1,17 +1,7 @@
-#ifndef _GAMEDESTRUCTIONMANAGER_H_
-#define _GAMEDESTRUCTIONMANAGER_H_
-
-#include "./GameVars.h"
-#include "../engine/DestructionManager.h"
-
-void CommitDestructions();
-void RemoveDeadGoombas();
-void RemoveDeadKoopas();
-void ValidateSpritePositions();
-
+#include "DestructionManagement.h"
 
 void CommitDestructions() {
-	
+
 	ValidateSpritePositions();
 
 	RemoveDeadGoombas();
@@ -70,13 +60,10 @@ void ValidateSpritePositions() {
 						s->Destroy();
 						SpriteManager::GetSingleton().Remove(s);
 					}
-					
+
 				}
 			}
 		}
 
 	}
 }
-
-
-#endif _GAMEDESTRUCTIONMANAGER_H_
