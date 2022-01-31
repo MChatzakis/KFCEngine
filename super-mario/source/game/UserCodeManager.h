@@ -3,11 +3,20 @@
 
 #include"./Mario.h"
 
+void JumpPatch();
+void EvaluateWin();
+
 void UserCode() {
 	// hook for custom code at end
+	JumpPatch();
+	EvaluateWin();
+}
+
+
+void JumpPatch() {
 	//fix problem with stop animators on jump (animation delay but state changes immediately)
 	Sprite* marioSprite = Mario::GetSingleton().GetCurrSprite();
-	if(gameMap->GetGrid()->IsOnSolidGround(marioSprite->GetBox())) {
+	if (gameMap->GetGrid()->IsOnSolidGround(marioSprite->GetBox())) {
 		if (marioSprite->GetStateId() == "falling_right") {
 			//std::cout << "here we go again" << std::endl;
 			marioSprite->SetStateId("idle_right");
@@ -19,5 +28,13 @@ void UserCode() {
 		}
 	}
 }
+
+
+void EvaluateWin() {
+	if (Mario::GetSingleton().GetCurrSprite()->GetPosition().x == WIN_TILE_DX) {
+		GAME_HAS_ENDED = 2;
+	}
+}
+
 
 #endif _USERCODEMANAGER_H_

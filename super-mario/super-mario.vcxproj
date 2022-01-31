@@ -289,6 +289,8 @@
     <Image Include="resources\bitmaps\characters2.gif" />
     <Image Include="resources\bitmaps\tileset.png" />
     <Image Include="resources\screens\deathScreen.png" />
+    <Image Include="resources\screens\startingScreen.png" />
+    <Image Include="resources\screens\winScreen.png" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="resources\sounds\smb_1-up.wav" />

@@ -34,12 +34,14 @@
 #define GOOMBA_CONF_PATH "resources/config/goombaConf.json"
 
 #define SCROLLABLE_TILE_COL 212
+#define WIN_TILE_DX 3150
 
 #define FONT_PATH "resources/fonts/SuperMario256.ttf"
 #define FONT_SIZE 30
 
 #define DEATH_SCREEN_PATH "resources/screens/deathScreen.png"
 #define STARTING_SCREEN_PATH "resources/screens/startingScreen.png"
+#define WIN_SCREEN_PATH "resources/screens/winScreen.png"
 
 #define FALL_COORDINATES_LIST {Rect(1104, 432, 1135-1104, 479-432), Rect(1376, 432, 1423-1376, 479-432), Rect(2448, 432, 2479-2448, 479-432)}
 
@@ -61,14 +63,6 @@ TileLayer* gameMap;
 Clipper clipper;
 Bitmap tileSet;
 
-int GAME_HAS_ENDED = 0; /*0 means no, 1 means end completely, 2 means respawn*/
-
-//1104, 432, 1135, 479
-
-//1376, 432, 1423, 479
-
-//2448, 432, 2479, 479
-
-
+int GAME_HAS_ENDED = 0;
 
 #endif _GAMEVARS_H_

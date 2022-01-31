@@ -48,6 +48,7 @@ void FrameRange_Action(Sprite* sprite, Animator* animator, const FrameRangeAnima
 	auto* frameRangeAnimator = (FrameRangeAnimator*)animator;
 	if (frameRangeAnimator->GetCurrFrame() != anim.GetStartFrame() || frameRangeAnimator->GetCurrRep())
 		sprite->Move(anim.GetDx(), anim.GetDy());
+
 	sprite->SetFrame(frameRangeAnimator->GetCurrFrame());
 }
 
@@ -61,6 +62,7 @@ void FrameRange_Action_DecreasingDY(Sprite* sprite, Animator* animator, const Fr
 		int offset = anim.GetDy() + ((currRep - 1) / divReps);
 		if (offset >= 0) {
 			offset++;
+			
 			if(offset > 4)
 				offset = 4;
 		}

@@ -1,5 +1,5 @@
 {
-  "totalLifes": 1,
+  "totalLifes": 2,
 
   "startingPosition": {
     "x": 320,
@@ -17,7 +17,7 @@
     "repetitions": 1,
     "frames": 2,
     "dx": 2,
-    "delay": 120
+    "delay": 100
   },
 
   "jumping": {
@@ -29,7 +29,7 @@
   },
 
   "verticalJumping": {
-    "repetitions": 17,
+    "repetitions": 15,
     "frames": 1,
     "dx": 2,
     "dy": 4,
@@ -37,18 +37,18 @@
   },
 
   "smallJumping": {
-    "repetitions": 65,
+    "repetitions": 35,
     "frames": 1,
     "dx": 1,
-    "dy": 4,
-    "delay": 20
+    "dy": 2,
+    "delay": 15
   },
 
   "smallVerticalJumping": {
-    "repetitions": 17,
+    "repetitions": 10,
     "frames": 1,
     "dx": 2,
-    "dy": 4,
-    "delay": 20
+    "dy": 2,
+    "delay": 15
   }
 }

@@ -123,7 +123,8 @@ public:
 	int getCoins();
 	void increaseCoinsBy(int by);
 
-
+	void EvaluateDeathAction();
+	void Respawn();
 };
 
 Mario Mario::mario;
@@ -133,7 +134,7 @@ Sprite* Mario::GetCurrSprite() {
 }
 
 void Mario::backToIdle() {
-	if (MARIO_IDLE || MARIO_FALLING) /* || MARIO_JUMPING) || MARIO_FALLING || -> if we add that it jumps always in the same way*/
+	if (MARIO_IDLE || MARIO_FALLING || MARIO_JUMPING )/*) || MARIO_FALLING || -> if we add that it jumps always in the same way*/
 		return;
 
 	std::string id = currSprite->GetStateId();
@@ -473,15 +474,22 @@ void Mario::jump() {
 
 //for enemy kill animation
 void Mario::smallJump() { //bounce
-	/*if (MARIO_JUMPING || MARIO_FALLING)
-		return;*/
 
 	std::string spriteStateId = currSprite->GetStateId();
 	StopAnimators();
 
-	jumpLeft(); //should jump with smaller parabola
-
-	std::cout << "Called!\n";
+	if (spriteStateId == "idle_right") {
+		smallJumpVerticalRight();
+	}
+	else if (spriteStateId == "idle_left") {
+		smallJumpVerticalLeft();
+	}
+	else if (MARIO_MOVING_RIGHT) {
+		smallJumpRight();
+	}
+	else { 
+		smallJumpLeft();
+	}
 }
 
 //ok
@@ -595,6 +603,8 @@ void Mario::Die() {
 		x.second->Destroy();
 	}
 	currSprite->Destroy();
+
+	GAME_HAS_ENDED = 1;
 }
 
 void Mario::StopAnimators() {
@@ -656,6 +666,21 @@ void Mario::decreaseLifes() {
 	totalLifes--;
 }
 
+void Mario::Respawn() {
+	currSprite->SetPos(conf["startingPosition"]["x"], conf["startingPosition"]["y"]);
+	currSprite->Move(1, 0);
+	gameMap->SetViewWindow(Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)); //bad
+}
 
+void Mario::EvaluateDeathAction() {
+	decreaseLifes();
+
+	if (totalLifes == 0) {
+		Die();
+	}
+	else {
+		Respawn();
+	}
+}
 
 #endif _MARIO_H_

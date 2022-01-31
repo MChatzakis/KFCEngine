@@ -30,9 +30,9 @@ public:
 		return font;
 	}
 
-	void DrawText(int score, int lifes, int coins) {
+	void DrawText(int score, int lifes, int coins, int centerAroundX, int centerAroundY) {
 		std::string text = "SCORE:" + std::to_string(score) + " LIFES:" + std::to_string(lifes) + " LEVEL:1-1 COINS:" + std::to_string(coins);
-		al_draw_text(font, al_map_rgb(255, 255, 255), 0, 2, 0, text.c_str());
+		al_draw_text(font, al_map_rgb(255, 255, 255), centerAroundX, centerAroundY, ALLEGRO_ALIGN_CENTER, text.c_str());
 	}
 
 };

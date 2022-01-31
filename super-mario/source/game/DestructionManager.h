@@ -9,7 +9,9 @@ void RemoveDeadGoombas();
 void RemoveDeadKoopas();
 void ValidateSpritePositions();
 
+
 void CommitDestructions() {
+	
 	ValidateSpritePositions();
 
 	RemoveDeadGoombas();
@@ -17,6 +19,7 @@ void CommitDestructions() {
 
 	//DestructionManager::Get().Commit(); //Produces an exception.
 }
+
 
 void RemoveDeadGoombas() {
 	std::map<Sprite*, Goomba*>gs = GoombaHolder::GetSingleton().GetGoombaMap();
@@ -33,6 +36,7 @@ void RemoveDeadGoombas() {
 	}
 }
 
+
 void RemoveDeadKoopas() {
 	std::map<Sprite*, Koopa*>gs = KoopaHolder::GetSingleton().GetKoopaMap();
 
@@ -48,6 +52,7 @@ void RemoveDeadKoopas() {
 	}
 }
 
+
 void ValidateSpritePositions() {
 	//delete the sprites that have fallen in the space
 	std::list<Sprite*> activeSprites = SpriteManager::GetSingleton().GetDisplayList();
@@ -58,13 +63,20 @@ void ValidateSpritePositions() {
 		for (auto r : FALL_COORDINATES_LIST) {
 			if (x <= (r.x + r.w) && x >= r.x) {
 				if (y >= r.y) {
-					s->Destroy();
-					SpriteManager::GetSingleton().Remove(s);
+					if (s == Mario::GetSingleton().GetCurrSprite()) {
+						Mario::GetSingleton().EvaluateDeathAction();
+					}
+					else {
+						s->Destroy();
+						SpriteManager::GetSingleton().Remove(s);
+					}
+					
 				}
 			}
 		}
 
 	}
 }
+
 
 #endif _GAMEDESTRUCTIONMANAGER_H_

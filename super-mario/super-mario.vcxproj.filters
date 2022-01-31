@@ -571,6 +571,12 @@
     <Image Include="resources\screens\deathScreen.png">
       <Filter>Resource Files\screens</Filter>
     </Image>
+    <Image Include="resources\screens\startingScreen.png">
+      <Filter>Resource Files\screens</Filter>
+    </Image>
+    <Image Include="resources\screens\winScreen.png">
+      <Filter>Resource Files\screens</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="resources\sounds\smb_1-up.wav">
