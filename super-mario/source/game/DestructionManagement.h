@@ -11,6 +11,7 @@
 void CommitDestructions();
 void RemoveDeadGoombas();
 void RemoveDeadKoopas();
+void RemoveRetrievedCoins();
 void ValidateSpritePositions();
 
 

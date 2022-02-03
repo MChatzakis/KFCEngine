@@ -8,8 +8,6 @@
 #include "./TopTexts.h"
 
 void GridDisplay();
-
 void Render();
-
 
 #endif _RENDERINGMANAGER_H_

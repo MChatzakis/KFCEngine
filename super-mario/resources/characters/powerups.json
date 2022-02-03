@@ -1,0 +1,67 @@
+{
+    "path": "resources/bitmaps/tileset.png",
+  
+    "animations": [
+      {
+        "id": "coin",
+        "frames": [
+          {
+            "x": 0,
+            "y": 16,
+            "w": 16,
+            "h": 16
+          }
+        ]
+      },
+  
+      {
+        "id": "superMushroom",
+        "frames": [
+          {
+            "x": 128,
+            "y": 128,
+            "w": 16,
+            "h": 16
+          }
+        ]
+      },
+
+      {
+        "id": "1UpMushroom",
+        "frames": [
+          {
+            "x": 144,
+            "y": 128,
+            "w": 16,
+            "h": 16
+          }
+        ]
+      },
+
+      {
+        "id": "fireFlower",
+        "frames": [
+          {
+            "x": 112,
+            "y": 144,
+            "w": 16,
+            "h": 16
+          }
+        ]
+      },
+
+      {
+        "id": "star",
+        "frames": [
+          {
+            "x": 128,
+            "y": 176,
+            "w": 16,
+            "h": 16
+          }
+        ]
+      }
+  
+    ]
+  }
+

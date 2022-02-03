@@ -55,7 +55,6 @@ private:
 
 	int score = 0;
 	int totalCoins = 0;
-
 	int totalLifes = 3;
 
 public:

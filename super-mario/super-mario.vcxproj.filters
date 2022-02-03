@@ -202,6 +202,12 @@
     <None Include="resources\config\marioConf.json">
       <Filter>Resource Files\config</Filter>
     </None>
+    <None Include="resources\characters\powerups.json">
+      <Filter>Resource Files\characters</Filter>
+    </None>
+    <None Include="resources\config\powerupsConf.json">
+      <Filter>Resource Files\config</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -395,6 +401,9 @@
     </ClCompile>
     <ClCompile Include="source\game\DestructionManagement.cpp">
       <Filter>Source Files\Game\GameLogic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\Coin.cpp">
+      <Filter>Source Files\Game\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -595,6 +604,9 @@
     </ClInclude>
     <ClInclude Include="source\game\DestructionManagement.h">
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\Coin.h">
+      <Filter>Header Files\Game\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

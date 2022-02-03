@@ -151,10 +151,12 @@
     <None Include="resources\characters\goomba.json" />
     <None Include="resources\characters\koopa.json" />
     <None Include="resources\characters\mario.json" />
+    <None Include="resources\characters\powerups.json" />
     <None Include="resources\config\config.json" />
     <None Include="resources\config\goombaConf.json" />
     <None Include="resources\config\koopaConf.json" />
     <None Include="resources\config\marioConf.json" />
+    <None Include="resources\config\powerupsConf.json" />
     <None Include="resources\csv\level1-1_background.csv" />
     <None Include="resources\csv\level1-1_flag.csv" />
     <None Include="resources\csv\level1-1_Sky.csv" />
@@ -206,6 +208,7 @@
     <ClCompile Include="source\game\AllegroInitializer.cpp" />
     <ClCompile Include="source\game\AnimationLoader.cpp" />
     <ClCompile Include="source\game\AnimationManager.cpp" />
+    <ClCompile Include="source\game\Coin.cpp" />
     <ClCompile Include="source\game\CollisionManager.cpp" />
     <ClCompile Include="source\game\DestructionManagement.cpp" />
     <ClCompile Include="source\game\ExtraScreens.cpp" />
@@ -275,6 +278,7 @@
     <ClInclude Include="source\game\AllegroInitializer.h" />
     <ClInclude Include="source\game\AnimationLoader.h" />
     <ClInclude Include="source\game\AnimationManager.h" />
+    <ClInclude Include="source\game\Coin.h" />
     <ClInclude Include="source\game\CollisionManager.h" />
     <ClInclude Include="source\game\DestructionManagement.h" />
     <ClInclude Include="source\game\ExtraScreens.h" />

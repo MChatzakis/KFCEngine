@@ -1,4 +1,5 @@
 #include "DestructionManagement.h"
+#include "Coin.h"
 
 void CommitDestructions() {
 
@@ -6,10 +7,25 @@ void CommitDestructions() {
 
 	RemoveDeadGoombas();
 	RemoveDeadKoopas();
+	RemoveRetrievedCoins();
 
 	//DestructionManager::Get().Commit(); //Produces an exception.
 }
 
+void RemoveRetrievedCoins() {
+	std::map<Sprite*, Coin*>gs = CoinHolder::GetSingleton().GetCoinMap();
+
+	for (auto e : gs) {
+		Sprite* gSprite = e.first;
+		Coin* gClass = e.second;
+
+		if (!gSprite->IsAlive()) {
+			CollisionChecker::GetSingleton().cancelAllTuplesOf(gSprite);
+			CoinHolder::GetSingleton().Erase(gSprite);
+		}
+
+	}
+}
 
 void RemoveDeadGoombas() {
 	std::map<Sprite*, Goomba*>gs = GoombaHolder::GetSingleton().GetGoombaMap();

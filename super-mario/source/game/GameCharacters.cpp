@@ -1,4 +1,5 @@
 #include "GameCharacters.h"
+#include "./SoundPlayer.h"
 
 void CharacterLoader::loadMario() {
 	Mario::GetSingleton().initialize(readJSON(MARIO_CONF_PATH));
@@ -14,8 +15,13 @@ void CharacterLoader::loadKoopas() {
 	KoopaHolder::GetSingleton().Initialize(readJSON(KOOPA_CONF_PATH));
 }
 
+void CharacterLoader::loadPowerups() {
+	CoinHolder::GetSingleton().Initialize(readJSON(POWERUP_CONF_PATH));
+}
 
 void CharacterLoader::loadCharacters() {
+	
+	loadPowerups();
 	loadKoopas();
 	loadGoombas();
 	loadMario();
@@ -29,6 +35,7 @@ void CharacterLoader::createCollisionTuples() {
 
 	std::list<Sprite*> goombas = GoombaHolder::GetSingleton().GetGoombaSpritesList();
 	std::list<Sprite*> koopas = KoopaHolder::GetSingleton().GetKoopaSpritesList();
+	std::list<Sprite*> coins = CoinHolder::GetSingleton().GetSpriteList();
 
 	/*Register the pairs of mario-goombas and mario-koopas*/
 	for (Sprite* g : goombas) {
@@ -37,6 +44,10 @@ void CharacterLoader::createCollisionTuples() {
 
 	for (Sprite* k : koopas) {
 		CollisionChecker::GetSingleton().Register(mario, k, marioKoopaCollision);
+	}
+
+	for (Sprite* c : coins) {
+		CollisionChecker::GetSingleton().Register(mario, c, marioCoinCollision);
 	}
 }
 
@@ -84,4 +95,15 @@ void marioKoopaCollision(Sprite* mario, Sprite* koopa) {
 
 		koopa->Destroy();
 	}
+}
+
+void marioCoinCollision(Sprite* mario, Sprite* coin) {
+	SpriteManager::GetSingleton().Remove(coin);
+
+	Mario::GetSingleton().increaseScoreBy(1);
+	Mario::GetSingleton().increaseCoinsBy(1);
+
+	coin->Destroy();
+
+	SoundPlayer::playSound("coin");
 }
