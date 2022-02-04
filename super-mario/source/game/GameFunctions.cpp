@@ -1,9 +1,15 @@
-#include "GameFunctions.h"
+#include "./GameFunctions.h"
+#include "./SoundPlayer.h"
 
 bool isFinished() {
 
+
+
 	if (GAME_HAS_ENDED == 1) {
+		SoundPlayer::playSound("gameover");
+		
 		ExtraScreens::GetSingleton().DispScreen(DEATH_SCREEN_PATH);
+		
 		return true;
 	}
 	else if (GAME_HAS_ENDED == 2) {
