@@ -4,22 +4,14 @@
 #include "./game/GameMain.h"
 
 /*
-1) Split to .cpp files
-2) Stop jump animator on collision
-3) Get Ready for submission
-4) Implement timer for the toptext
-5) do a move(dy) when falling with speed (manos)
-6) Implement pause
-7) Add coins
- --------------------------- 
-1) Add shell animations and AI for koopas
-2) Fine tune the mario delay, coin and enemy positions (though json)
-3) Stop jump animator on collisions
-4) Add mario death animation
-5) Pipes
-6) Pause implemenetion
-7) Timer at the top
-8) Add remanining sounds
+1) Add shell animations and AI for koopas [Manos]
+2) Fine tune the mario delay, coin and enemy positions (though json) [Konto]
+3) Stop jump animator on collisions [Fanou]
+4) Add mario death animation [Manos]
+5) Pipes [all together at the end]
+6) Pause implemenetion [Fanou]
+7) Timer at the top [Manos]
+8) Add remanining sounds [Konto]
 ---------------
 9) Add super mario, powerups
 
