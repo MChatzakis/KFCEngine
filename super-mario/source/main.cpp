@@ -19,6 +19,9 @@
 5) Pipes
 6) Pause implemenetion
 7) Timer at the top
+8) Add remanining sounds
+---------------
+9) Add super mario, powerups
 
 ChangeLog:
 1) Patched scrolling to look more smooth
