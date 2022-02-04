@@ -10,6 +10,7 @@
 
 #include "../engine/AnimationFilmHolder.h"
 #include "../engine/Animator.h"
+#include "../engine/MovingAnimator.h"
 #include "../engine/Timing.h"
 #include "../engine/FrameRangeAnimator.h"
 
@@ -24,15 +25,15 @@ private:
 	int dx = 4;
 	int direction = 1; //1 or -1
 	int delay = 80;
+	int deathDelay = 80;
 
 	Sprite* sprite = nullptr;
 
 	FrameRangeAnimator* goombaWalkAnimator = nullptr;
 	FrameRangeAnimation* goombaWalkAnimation = nullptr;
 
-	Animation* deathAnimation = nullptr; //todo
-	Animator* deathAnimator = nullptr; //todo
-
+	MovingAnimation* deathAnimation = nullptr; //todo
+	MovingAnimator* deathAnimator = nullptr; //todo
 
 	void createSprite(Point p);
 
@@ -42,6 +43,8 @@ public:
 	Goomba(int _dx, int _dir, Point sp);
 
 	Goomba(int _dx, int _dir, Point sp, int _del);
+
+	Goomba(int _dx, int _dir, Point sp, int _del, int _ddel);
 
 	Sprite* getSprite();
 
@@ -57,8 +60,15 @@ public:
 
 	void destroyAnimators();
 
+	void stopAnimators();
+
 	void walk();
 
+	void die();
+
+	void dieAction();
+
+	MovingAnimator* getDeathAnimator();
 };
 
 

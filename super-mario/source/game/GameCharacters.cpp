@@ -63,6 +63,13 @@ bool isMarioAbove(Sprite* mario, Sprite* enemy) {
 
 
 void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
+
+	Goomba *g = GoombaHolder::GetSingleton().GetInstanceOf(goomba);
+
+	if (!g->getDeathAnimator()->HasFinished()) {
+		return;
+	}
+
 	if (!isMarioAbove(mario, goomba)) {
 		std::cout << "Mario killed by a goomba!";
 		Mario::GetSingleton().EvaluateDeathAction();
@@ -70,11 +77,12 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 	else {
 		std::cout << "Mario killed a goomba!";
 
-		SpriteManager::GetSingleton().Remove(goomba); //remove right away from the display list!		
-
 		Mario::GetSingleton().increaseScoreBy(1);
 		Mario::GetSingleton().smallJump();
 
+		//g->dieAction();
+		
+		SpriteManager::GetSingleton().Remove(goomba);
 		goomba->Destroy();
 	}
 }

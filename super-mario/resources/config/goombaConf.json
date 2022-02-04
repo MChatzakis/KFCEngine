@@ -1,6 +1,7 @@
 {
 	"dx": 1,
 	"delay": 80,
+	"deathDelay" : 80,
 	"goombas": [
 		{
 			"x": 10,

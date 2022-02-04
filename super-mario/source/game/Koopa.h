@@ -36,12 +36,14 @@ private:
 	MovingAnimator* greenKoopaShellAnimator = nullptr;
 	MovingAnimation* greenKoopaShellAnimation = nullptr;
 
-	Animation* deathAnimation = nullptr; //todo
-	Animator* deathAnimator = nullptr; //todo
+	//Animation* deathAnimation = nullptr; //todo
+	//Animator* deathAnimator = nullptr; //todo
 
 	void createSprite(Point p);
 
 	void createKoopaWalkAnimations();
+
+	void createKoopaShellAnimations();
 
 public:
 	Koopa(int _dx, int _dir, Point sp);

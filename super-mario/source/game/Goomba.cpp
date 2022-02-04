@@ -9,44 +9,44 @@ void Goomba::createSprite(Point p) {
 	sprite->SetMover(MakeSpriteGridLayerMover(gameMap->GetGrid(), sprite));
 	sprite->SetMover(
 		[this](const Rect& r, int* dx, int* dy) {
-		// the r is actually always the sprite->GetBox():
-		assert(r == this->sprite->GetBox());
-		//std::cout << "dx before: " << *dx << "\n";
-		gameMap->GetGrid()->FilterGridMotion(r, dx, dy);
-		//std::cout << "dx after: " << *dx << "\n";
-		//TriggerScrollUtilities::FilterGridMotion(gridLayer, r, dx, dy);
-		if (*dx || *dy)
-			this->sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
-		else {
-			this->setDirection(-1 * this->getDirection());
+			// the r is actually always the sprite->GetBox():
+			assert(r == this->sprite->GetBox());
+			//std::cout << "dx before: " << *dx << "\n";
+			gameMap->GetGrid()->FilterGridMotion(r, dx, dy);
+			//std::cout << "dx after: " << *dx << "\n";
+			//TriggerScrollUtilities::FilterGridMotion(gridLayer, r, dx, dy);
+			if (*dx || *dy)
+				this->sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
+			else {
+				this->setDirection(-1 * this->getDirection());
+			}
 		}
-	}
 	);
 
 	PrepareSpriteGravityHandler(gameMap->GetGrid(), sprite);
 
 	sprite->GetGravityHandler().SetOnStartFalling(
 		[this]()
-	{
-		return;
-	}
+		{
+			return;
+		}
 	);
 
 	sprite->GetGravityHandler().SetOnStopFalling(
 		[this]()
-	{
-		/*if (this->sprite->GetStateId() == "falling_right") {
-			this->sprite->SetStateId("idle_right");
-			this->sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
+		{
+			/*if (this->sprite->GetStateId() == "falling_right") {
+				this->sprite->SetStateId("idle_right");
+				this->sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
+			}
+			else if (this->sprite->GetStateId() == "falling_left") {
+				this->sprite->SetStateId("idle_left");
+				this->sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
+
+			}*/
+
+			return;
 		}
-		else if (this->sprite->GetStateId() == "falling_left") {
-			this->sprite->SetStateId("idle_left");
-			this->sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
-
-		}*/
-
-		return;
-	}
 	);
 
 	sprite->GetGravityHandler().SetGravityAddicted(true);
@@ -60,24 +60,46 @@ void Goomba::createGoombaWalkAnimations() {
 
 	goombaWalkAnimator->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
-		assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
-		FrameRange_Action(this->sprite, animator, (const FrameRangeAnimation&)anim);
-	}
+			assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
+			FrameRange_Action(this->sprite, animator, (const FrameRangeAnimation&)anim);
+		}
 	);
 
 	goombaWalkAnimator->SetOnFinish(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	goombaWalkAnimator->SetOnStart(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	goombaWalkAnimation = new FrameRangeAnimation(GOOMBA_WALK_ID, 0, 1, 2, dx * direction, 0, delay);
+
+	deathAnimator = new MovingAnimator();
+	deathAnimator->SetOnAction(
+		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const MovingAnimation*>(&anim));
+			Sprite_MoveAction(this->sprite, (const MovingAnimation&)anim);
+		}
+	);
+
+	deathAnimator->SetOnFinish(
+		[this](Animator* animator) {
+			die();
+		}
+	);
+
+	deathAnimator->SetOnStart(
+		[this](Animator* animator) {
+
+		}
+	);
+
+	deathAnimation = new MovingAnimation(GOOMBA_DEATH_ID, 1, 1, 1, deathDelay);
 }
 
 Goomba::Goomba(int _dx, int _dir, Point sp) {
@@ -92,6 +114,16 @@ Goomba::Goomba(int _dx, int _dir, Point sp, int _del) {
 	direction = _dir;
 	dx = _dx;
 	delay = _del;
+
+	createSprite(sp);
+	createGoombaWalkAnimations();
+}
+
+Goomba::Goomba(int _dx, int _dir, Point sp, int _del, int _ddel) {
+	direction = _dir;
+	dx = _dx;
+	delay = _del;
+	deathDelay = _ddel;
 
 	createSprite(sp);
 	createGoombaWalkAnimations();
@@ -152,7 +184,9 @@ void Goomba::walk() {
 //GOOMBA HOLDER
 
 GoombaHolder GoombaHolder::holder;
+
 auto GoombaHolder::GetSingleton(void) -> GoombaHolder& { return holder; }
+
 auto GoombaHolder::GetSingletonConst(void) -> const GoombaHolder& { return holder; }
 
 void GoombaHolder::CreateGoombaMap(nlohmann::json conf) {
@@ -199,7 +233,6 @@ void GoombaHolder::Initialize(nlohmann::json conf) {
 	CreateGoombaMap(conf);
 }
 
-
 std::list<Sprite*> GoombaHolder::GetGoombaSpritesList() {
 	std::list<Sprite*>l;
 	for (auto e : Goombas) {
@@ -233,3 +266,29 @@ void GoombaHolder::WalkGoombas() {
 Goomba* GoombaHolder::GetInstanceOf(Sprite* s) {
 	return Goombas[s];
 }
+
+void Goomba::stopAnimators() {
+	if (!goombaWalkAnimator->HasFinished()) {
+		goombaWalkAnimator->Stop();
+	}
+
+	if (!deathAnimator->HasFinished()) {
+		deathAnimator->Stop();
+	}
+}
+
+void Goomba::dieAction() {
+	stopAnimators();
+	sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GOOMBA_DEATH_ID), GOOMBA_DEATH_ID);
+	deathAnimator->Start(deathAnimation, CurrTime());
+}
+
+void Goomba::die() {
+	SpriteManager::GetSingleton().Remove(this->sprite);
+	this->sprite->Destroy();
+}
+
+MovingAnimator* Goomba::getDeathAnimator() {
+	return deathAnimator;
+}
+
