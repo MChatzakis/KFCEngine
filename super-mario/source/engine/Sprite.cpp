@@ -48,6 +48,10 @@ const Sprite::Mover MakeSpriteGridLayerMover(GridLayer* gridLayer, Sprite* sprit
 		//TriggerScrollUtilities::FilterGridMotion(gridLayer, r, dx, dy);
 		if (*dx || *dy)
 			sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
+		else {
+			//collision
+
+		}
 	};
 };
 

@@ -9,7 +9,7 @@
 #include "../engine/Sprite.h"
 #include "../engine/SpriteManager.h"
 
-#define COIN_ID "coin"
+#define COIN_ID "coin.blueBG"
 
 class Coin {
 private:

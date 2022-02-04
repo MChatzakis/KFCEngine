@@ -66,7 +66,7 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 
 	Goomba *g = GoombaHolder::GetSingleton().GetInstanceOf(goomba);
 
-	if (!g->getDeathAnimator()->HasFinished()) {
+	if (!g->getDeathAnimator()->HasFinished() || !goomba->IsAlive()) {
 		return;
 	}
 
@@ -80,10 +80,11 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 		Mario::GetSingleton().increaseScoreBy(1);
 		Mario::GetSingleton().smallJump();
 
-		//g->dieAction();
+		SoundPlayer::playSound("bump");
+		g->dieAction();
 		
-		SpriteManager::GetSingleton().Remove(goomba);
-		goomba->Destroy();
+		//SpriteManager::GetSingleton().Remove(goomba);
+		//goomba->Destroy();
 	}
 }
 

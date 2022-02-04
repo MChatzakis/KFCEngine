@@ -1,4 +1,5 @@
 #include "./Mario.h"
+#include "./SoundPlayer.h"
 
 Mario Mario::mario;
 auto Mario::GetSingleton(void) -> Mario& { return mario; }
@@ -332,6 +333,8 @@ void Mario::jump() {
 
 	std::string spriteStateId = currSprite->GetStateId();
 	StopAnimators();
+
+	SoundPlayer::playSound("small_mario_jump");
 
 	if (spriteStateId == "idle_right") {
 		jumpVerticalRight();

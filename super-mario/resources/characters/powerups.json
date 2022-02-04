@@ -3,7 +3,7 @@
   
     "animations": [
       {
-        "id": "coin",
+        "id": "coin.blueBG",
         "frames": [
           {
             "x": 0,

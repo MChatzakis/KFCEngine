@@ -1,4 +1,5 @@
 #include "Goomba.h"
+#include "../engine/CollisionChecker.h"
 
 //GOOMBAS
 void Goomba::createSprite(Point p) {
@@ -99,7 +100,7 @@ void Goomba::createGoombaWalkAnimations() {
 		}
 	);
 
-	deathAnimation = new MovingAnimation(GOOMBA_DEATH_ID, 1, 1, 1, deathDelay);
+	deathAnimation = new MovingAnimation(GOOMBA_DEATH_ID, 1, 4, 4, 500);
 }
 
 Goomba::Goomba(int _dx, int _dir, Point sp) {
@@ -175,7 +176,7 @@ void Goomba::destroyAnimators() {
 
 void Goomba::walk() {
 
-	if ((!(goombaWalkAnimator->HasFinished())/* && currSprite->GetStateId() == "running_right")*/))
+	if ((!(goombaWalkAnimator->HasFinished()) || !deathAnimator->HasFinished() || !this->sprite->IsAlive()))
 		return;
 
 	goombaWalkAnimator->Start(goombaWalkAnimation, CurrTime());
@@ -279,7 +280,10 @@ void Goomba::stopAnimators() {
 
 void Goomba::dieAction() {
 	stopAnimators();
+	
 	sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GOOMBA_DEATH_ID), GOOMBA_DEATH_ID);
+	//goombaWalkAnimator->Stop();
+	
 	deathAnimator->Start(deathAnimation, CurrTime());
 }
 
