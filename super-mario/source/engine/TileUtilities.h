@@ -43,6 +43,7 @@ public:
 	static Dim CustomGetRow(Index index);
 
 	static void PutTile(Bitmap dest, Dim x, Dim y, Bitmap tiles, Index tile);
+	static void PutTile(Bitmap dest, Dim x, Dim y, Bitmap tiles, Index tile, Dim startDx, Dim startDy, Dim tileWidth, Dim tileHeight);
 
 	static void SetTile(TileMap* m, Dim col, Dim row, Index index);
 

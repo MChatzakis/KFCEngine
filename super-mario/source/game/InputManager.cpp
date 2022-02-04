@@ -27,17 +27,17 @@ void debugShortcuts() {
 		int dx = 0, dy = 0;
 		/* We did not understand dx,dy meaning in instructions :P */
 		if (mouse_state.x > SCREEN_WIDTH / 2) {
-			dx = 16;
+			dx = 1;
 		}
 		else {
-			dx = -16;
+			dx = -1;
 		}
 
 		if (mouse_state.y > SCREEN_HEIGHT / 2) {
-			dy = 16;
+			dy = 1;
 		}
 		else {
-			dy = -16;
+			dy = -1;
 		}
 
 		gameMap->ScrollWithBoundsCheck(dx, dy);

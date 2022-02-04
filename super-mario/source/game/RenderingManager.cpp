@@ -7,7 +7,8 @@ void GridDisplay() {
 void Render() {
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
-	gameMap->Display(al_get_backbuffer(display));
+	//gameMap->Display(al_get_backbuffer(display));
+	gameMap->ConstantDisplay(al_get_backbuffer(display));
 
 	TopTexts::GetSingleton().DrawText(Mario::GetSingleton().getScore(), Mario::GetSingleton().getTotalLifes(), Mario::GetSingleton().getCoins(), SCREEN_WIDTH / 2, 2);
 

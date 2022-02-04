@@ -80,6 +80,12 @@ byte TileUtilities::MakeIndex(byte row, byte col)
 	BitmapBlit(tiles, Rect(CustomGetCol(tile) * TILE_WIDTH, CustomGetRow(tile) * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT), dest, Point(x, y));
 }
 
+ //startDx -> dx in pixels from the start of the bitmap tile. endDx -> dx in pixels from the start of the bitmap tile.
+ //it helps in order to not display all the tile
+ void TileUtilities::PutTile(Bitmap dest, Dim x, Dim y, Bitmap tiles, Index tile, Dim startDx, Dim startDy, Dim tileWidth, Dim tileHeight) {
+	 BitmapBlit(tiles, Rect(CustomGetCol(tile) * TILE_WIDTH + startDx, CustomGetRow(tile) * TILE_HEIGHT + startDy, tileWidth, tileHeight), dest, Point(x, y));
+ }
+
  void TileUtilities::SetTile(TileMap* m, Dim col, Dim row, Index index)
 {
 	(*m)[row][col] = index;

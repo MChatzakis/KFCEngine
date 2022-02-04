@@ -70,6 +70,7 @@ public:
 	void SetViewWindow(const Rect& r);
 
 	void Display(Bitmap dest/*, const Rect& displayArea*/);
+	void ConstantDisplay(Bitmap dest);
 
 	Bitmap GetBitmap(void) const;
 

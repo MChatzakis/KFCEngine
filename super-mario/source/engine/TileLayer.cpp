@@ -135,6 +135,66 @@ void TileLayer::Display(Bitmap dest/*, const Rect& displayArea*/) {
 	}
 }
 
+void TileLayer::ConstantDisplay(Bitmap dest/*, const Rect& displayArea*/) { //should be okay for maps with dimension (w,h) multiple of tile size
+	//al_clear_to_color(al_map_rgb(0, 0, 0)); //clear everything
+	//ScrollUtilities::TileTerrainDisplay(*map, dest, viewWin, tileSet);
+	//if (viewPosCached.x != viewWin.x || viewPosCached.y != viewWin.y) {
+	if (true) {
+		Dim startCol = DIV_TILE_WIDTH(viewWin.x);
+		Dim startRow = DIV_TILE_HEIGHT(viewWin.y);
+		Dim endCol = DIV_TILE_WIDTH(viewWin.x + viewWin.w - 1);
+		Dim endRow = DIV_TILE_HEIGHT(viewWin.y + viewWin.h - 1);
+		dpyX = MOD_TILE_WIDTH(viewWin.x);
+		dpyY = MOD_TILE_WIDTH(viewWin.y);
+		//std::cout << "Window: " << viewWin.toString() << std::endl;
+		//std::cout << "DPY: " << dpyX << "," << dpyY << std::endl;
+		viewPosCached.x = viewWin.x, viewPosCached.y = viewWin.y;
+
+		for (Dim row = startRow; row <= endRow; ++row) {
+			for (Dim col = startCol; col <= endCol; ++col) {
+				Dim startDx = 0, startDy = 0;
+				Dim DestX = MUL_TILE_WIDTH(col - startCol), DestY = MUL_TILE_HEIGHT(row - startRow);
+				Dim tileWidth = TILE_WIDTH, tileHeight = TILE_HEIGHT;
+
+				if (row == startRow) {
+					startDy = dpyY;
+					tileHeight -= startDy;
+				}
+				else if (row == endRow) {
+					if (dpyY) {
+						tileHeight -= (TILE_HEIGHT - dpyY);
+						DestY = MUL_TILE_HEIGHT(row - 1 - startRow) + (TILE_HEIGHT - dpyY);
+					}
+				}
+				else {
+					if (dpyY) {
+						DestY = MUL_TILE_HEIGHT(row - 1 - startRow) + (TILE_HEIGHT - dpyY);
+					}
+				}
+
+				if (col == startCol) {
+					startDx = dpyX;
+					tileWidth -= startDx;
+				}
+				else if (col == endCol) {
+					if (dpyX) {
+						tileWidth -= (TILE_WIDTH - dpyX);
+						DestX = MUL_TILE_WIDTH(col - 1 - startCol) + (TILE_WIDTH - dpyX);
+					}
+				}
+				else {
+					if (dpyX) {
+						DestX = MUL_TILE_WIDTH(col - 1 - startCol) + (TILE_WIDTH - dpyX);
+					}
+				}
+
+				//std::cout << "Dest X: " << DestX << "Dest Y: " << DestY << "Start DX: " << startDx << "Start DY: " << startDy << "Tile Width: " << tileWidth << "Tile Height: " << tileHeight << std::endl;
+				TileUtilities::PutTile(dest, DestX, DestY, tileSet, GetTile(col, row), startDx, startDy, tileWidth, tileHeight);
+			}
+		}
+	}
+}
+
 //ok
 Bitmap TileLayer::GetBitmap(void) const {
 	return dpyBuffer;
