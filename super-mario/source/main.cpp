@@ -21,6 +21,7 @@ ChangeLog:
 3) Added enemy death animation
 4) Fine tuned enemy positions, delays etc.
 5) Added shell transformation to turtles
+6) Added relocation to secret level
 
 */
 int main() {

@@ -3,8 +3,10 @@
 void UserCode() {
 	// hook for custom code at end
 	JumpPatch();
+	Mario::GetSingleton().SecretLevel(gameMap);
 	EvaluateWin();
 }
+
 
 
 void JumpPatch() {

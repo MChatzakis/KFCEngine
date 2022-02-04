@@ -17,6 +17,7 @@ void Render() {
 		c->Display(al_get_backbuffer(display), screen, clipper);
 	}
 
+
 	if (SHOW_GRID_DEBUG) {
 		GridDisplay();
 	}

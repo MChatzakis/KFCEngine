@@ -123,6 +123,11 @@ public:
 
 	void EvaluateDeathAction();
 	void Respawn();
+
+	void CenterViewWin(TileLayer* currLayer);
+	void AlignViewWinSecretLevel(TileLayer* currLayer);
+
+	void SecretLevel(TileLayer* currLayer);
 };
 
 #endif _MARIO_H_

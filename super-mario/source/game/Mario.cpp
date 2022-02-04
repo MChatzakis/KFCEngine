@@ -2,6 +2,7 @@
 #include "./SoundPlayer.h"
 
 Mario Mario::mario;
+
 auto Mario::GetSingleton(void) -> Mario& { return mario; }
 auto Mario::GetSingletonConst(void) -> const Mario& { return mario; }
 
@@ -181,9 +182,32 @@ void Mario::initializeAnimators() {
 	}
 	);
 
+	MovingAnimator* pipeAnimator = new MovingAnimator();
+
+	pipeAnimator->SetOnAction(
+		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const MovingAnimation*>(&anim));
+			Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
+			//this->currSprite->SetHasDirectMotion(true).Move(((const MovingAnimation&)anim).GetDx(), ((const MovingAnimation&)anim).GetDy()).SetHasDirectMotion(false);
+		}
+	);
+
+	pipeAnimator->SetOnFinish(
+		[this](Animator* animator) {
+			//todo?
+		}
+	);
+
+	pipeAnimator->SetOnStart(
+		[this](Animator* animator) {
+
+		}
+	);
+
 	AddAnimator("running", running);
 	AddAnimator("jumping", jumping);
 	AddAnimator("parabola_jumping", parabola_jumping);
+	AddAnimator("pipe", pipeAnimator);
 
 }
 
@@ -468,11 +492,62 @@ void Mario::AlignViewWin(TileLayer* currLayer) {
 
 	int viewWinCenter = viewWin.x + viewWin.w / 2;
 
-	if (mario_x >= viewWinCenter) {
+	if (mario_x >= viewWinCenter && !LOCK_SCROLL) {
 		if (viewWin.x + viewWin.w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
 			currLayer->ScrollWithBoundsCheck(mario_x - viewWinCenter, 0);
 			//currLayer->ScrollWithBoundsCheck(16, 0);
 		}
+	}
+}
+
+//dangerous, not to be used
+void Mario::CenterViewWin(TileLayer* currLayer) {
+	Rect viewWin = currLayer->GetViewWindow();
+	Point marioPos = currSprite->GetPosition();
+	
+	int mario_x = marioPos.x;
+	int mario_y = marioPos.y;
+
+	int viewWinCenter = viewWin.x + viewWin.w / 2;
+
+	if (mario_x != viewWinCenter) {
+		Rect r = Rect(mario_x - SCREEN_WIDTH/2, 0, viewWin.w, viewWin.h);
+		currLayer->SetViewWindow(r);
+	}
+}
+
+void Mario::AlignViewWinSecretLevel(TileLayer* currLayer) {
+	Rect viewWin = currLayer->GetViewWindow();
+	
+	Rect r = Rect((SCROLLABLE_TILE_COL) * TILE_WIDTH, 0, viewWin.w, viewWin.h);
+	currLayer->SetViewWindow(r);
+
+	LOCK_SCROLL = true;
+}
+
+void Mario::SecretLevel(TileLayer* currLayer) {
+
+
+	if ((currSprite->GetPosition().x >= PIPE_ENTER_COORDS.x - 2 && currSprite->GetPosition().x <= PIPE_ENTER_COORDS.x + 2)
+		/*&&
+		(currSprite->GetPosition().y >= PIPE_ENTER_COORDS.y - 2 && currSprite->GetPosition().y <= PIPE_ENTER_COORDS.y + 2)*/) {
+		LOCK_SCROLL = true;
+
+		currSprite->SetPos(SECRET_SPAWN_COORDS.x, SECRET_SPAWN_COORDS.y);
+		AlignViewWinSecretLevel(currLayer);
+		currSprite->Move(1, 1);
+
+	}
+
+	if ((currSprite->GetPosition().x >= SECRET_EXIT_COORDS.x - 2 && currSprite->GetPosition().x <= SECRET_EXIT_COORDS.x + 2) 
+		/*&&
+		(currSprite->GetPosition().y >= SECRET_EXIT_COORDS.y - 2 && currSprite->GetPosition().y <= SECRET_EXIT_COORDS.y + 2)*/) {
+		LOCK_SCROLL = false;
+
+		currSprite->SetPos(PIPE_EXIT_COORDS.x, PIPE_EXIT_COORDS.y);
+		CenterViewWin(currLayer);
+
+		currSprite->Move(1, 0);
 	}
 }
 

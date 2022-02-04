@@ -4,7 +4,6 @@
 bool isFinished() {
 
 
-
 	if (GAME_HAS_ENDED == 1) {
 		SoundPlayer::playSound("gameover");
 		

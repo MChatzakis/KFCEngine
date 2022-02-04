@@ -47,6 +47,11 @@
 
 #define FALL_COORDINATES_LIST {Rect(1104, 432, 1135-1104, 479-432), Rect(1376, 432, 1423-1376, 479-432), Rect(2448, 432, 2479-2448, 479-432)}
 
+#define PIPE_ENTER_COORDS Point(926,336)
+#define SECRET_SPAWN_COORDS Point(3447, 30)
+#define SECRET_EXIT_COORDS Point(3970, 383)
+#define PIPE_EXIT_COORDS Point(2623, 342)
+
 /* Global Stuff */
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
@@ -66,5 +71,6 @@ extern Clipper clipper;
 extern Bitmap tileSet;
 
 extern int GAME_HAS_ENDED;
+extern bool LOCK_SCROLL;
 
 #endif _GAMEVARS_H_
