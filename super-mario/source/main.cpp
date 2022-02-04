@@ -4,7 +4,7 @@
 #include "./game/GameMain.h"
 
 /*
-1) Add shell animations and AI for koopas [Manos]
+1) Add shell animations and AI for koopas [Manos] --> DONE
 2) Fine tune the mario delay, coin and enemy positions (though json) [Konto]
 3) Stop jump animator on collisions [Fanou]
 4) Add mario death animation [Manos]
@@ -20,7 +20,7 @@ ChangeLog:
 2) Added coins
 3) Added enemy death animation
 4) Fine tuned enemy positions, delays etc.
-5)
+5) Added shell transformation to turtles
 
 */
 int main() {

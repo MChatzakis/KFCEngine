@@ -4,47 +4,42 @@
 void Koopa::createSprite(Point p) {
 	if (direction > 0) {
 		sprite = new Sprite(p.x, p.y, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_RIGHT_ID), GREEN_KOOPA_WALK_RIGHT_ID);
-		//sprite->SetStateId("falling_right");
 	}
 	else {
 		sprite = new Sprite(p.x, p.y, (AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_WALK_LEFT_ID), GREEN_KOOPA_WALK_LEFT_ID);
-		//sprite->SetStateId("falling_left");
 	}
 
 	sprite->SetZorder(2);
 
 	sprite->SetMover(
 		[this](const Rect& r, int* dx, int* dy) {
-		assert(r == this->sprite->GetBox());
-		gameMap->GetGrid()->FilterGridMotion(r, dx, dy);
-		if (*dx || *dy)
-			this->sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
-		else {
-			this->setDirection(-1 * this->getDirection());
+			assert(r == this->sprite->GetBox());
+			gameMap->GetGrid()->FilterGridMotion(r, dx, dy);
+			if (*dx || *dy)
+				this->sprite->SetHasDirectMotion(true).Move(*dx, *dy).SetHasDirectMotion(false);
+			else {
+				this->setDirection(-1 * this->getDirection());
+			}
 		}
-	}
 	);
 
 	PrepareSpriteGravityHandler(gameMap->GetGrid(), sprite);
 
 	sprite->GetGravityHandler().SetOnStartFalling(
 		[this]()
-	{
-		return;
-	}
+		{
+			return;
+		}
 	);
 
 	sprite->GetGravityHandler().SetOnStopFalling(
 		[this]()
-	{
-		return;
-	}
+		{
+			return;
+		}
 	);
 
 	sprite->GetGravityHandler().SetGravityAddicted(true);
-	//sprite->Move(-1, 0);
-
-	//SpriteManager::GetSingleton().Add(sprite);
 }
 
 void Koopa::createKoopaWalkAnimations() {
@@ -52,21 +47,21 @@ void Koopa::createKoopaWalkAnimations() {
 
 	koopaWalkAnimator->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
-		assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
-		FrameRange_Action(this->sprite, animator, (const FrameRangeAnimation&)anim);
-	}
+			assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
+			FrameRange_Action(this->sprite, animator, (const FrameRangeAnimation&)anim);
+		}
 	);
 
 	koopaWalkAnimator->SetOnFinish(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	koopaWalkAnimator->SetOnStart(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	if (direction > 0) {
@@ -77,12 +72,37 @@ void Koopa::createKoopaWalkAnimations() {
 	}
 }
 
+void Koopa::createKoopaShellAnimations() {
+	greenKoopaShellAnimator = new MovingAnimator();
+	greenKoopaShellAnimator->SetOnAction(
+		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const MovingAnimation*>(&anim));
+			Sprite_MoveAction(this->sprite, (const MovingAnimation&)anim);
+		}
+	);
+
+	greenKoopaShellAnimator->SetOnFinish(
+		[this](Animator* animator) {
+
+		}
+	);
+
+	greenKoopaShellAnimator->SetOnStart(
+		[this](Animator* animator) {
+
+		}
+	);
+
+	greenKoopaShellAnimation = new MovingAnimation(GREEN_KOOPA_SHELL_ID, 1, 0, 0, shellDelay);
+}
+
 Koopa::Koopa(int _dx, int _dir, Point sp) {
 	direction = _dir;
 	dx = _dx;
 
 	createSprite(sp);
 	createKoopaWalkAnimations();
+	createKoopaShellAnimations();
 }
 
 Koopa::Koopa(int _dx, int _dir, Point sp, int _del) {
@@ -92,6 +112,20 @@ Koopa::Koopa(int _dx, int _dir, Point sp, int _del) {
 
 	createSprite(sp);
 	createKoopaWalkAnimations();
+	createKoopaShellAnimations();
+
+}
+
+Koopa::Koopa(int _dx, int _dir, Point sp, int _del, int _sdx, int _sdl) {
+	direction = _dir;
+	dx = _dx;
+	delay = _del;
+	shellDelay = _sdl;
+	shellDx = _sdx;
+
+	createSprite(sp);
+	createKoopaWalkAnimations();
+	createKoopaShellAnimations();
 }
 
 Sprite* Koopa::getSprite() {
@@ -119,6 +153,10 @@ void Koopa::setDirection(int _dir) {
 
 	direction = _dir;
 	koopaWalkAnimation->SetDx(dx * direction);
+
+	if (state == SHELL) {
+		return;
+	}
 
 	if (direction > 0) {
 		//sprite->SetStateId("running_right");
@@ -152,11 +190,71 @@ void Koopa::changeDirection() {
 
 void Koopa::walk() {
 
-	if ((!(koopaWalkAnimator->HasFinished())))
-		return;
+	if (state == SHELL) {
+		if ((!(greenKoopaShellAnimator->HasFinished())))
+			return;
+		
+		if (isAtShellStartingState) {
+			return;
+		}
 
-	koopaWalkAnimator->Start(koopaWalkAnimation, CurrTime());
+		greenKoopaShellAnimation->SetDx(direction * shellDx);
+		greenKoopaShellAnimator->Start(greenKoopaShellAnimation, CurrTime());
+
+		return;
+	}
+	else {
+		if ((!(koopaWalkAnimator->HasFinished())))
+			return;
+
+		koopaWalkAnimator->Start(koopaWalkAnimation, CurrTime());
+	}
+	
 }
+
+void Koopa::setState(KoopaState _s) {
+	state = _s;
+}
+
+KoopaState Koopa::getState() {
+	return state;
+}
+
+void Koopa::stopAnimators() {
+	if (!greenKoopaShellAnimator->HasFinished()) {
+		greenKoopaShellAnimator->Stop();
+	}
+
+	if (!koopaWalkAnimator->HasFinished()) {
+		koopaWalkAnimator->Stop();
+	}
+}
+
+void Koopa::transformToShell() {
+	state = SHELL;
+	isAtShellStartingState = true;
+
+	stopAnimators();
+	sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GREEN_KOOPA_SHELL_ID), GREEN_KOOPA_SHELL_ID);
+	
+	//greenKoopaShellAnimator->Start(greenKoopaShellAnimation, CurrTime());
+}
+
+void Koopa::evaluateStartingShellAction(int x) {
+	if (x >= sprite->GetPosition().x) {
+		direction = -1;
+	}
+	else {
+		direction = 1;
+	}
+
+	isAtShellStartingState = false;
+}
+
+bool Koopa::getIsAtShellStartingState() {
+	return isAtShellStartingState;
+}
+
 
 //KOOPA HOLDER
 
@@ -167,9 +265,11 @@ auto KoopaHolder::GetSingletonConst(void) -> const KoopaHolder& { return holder;
 void KoopaHolder::CreateKoopasMap(nlohmann::json conf) {
 	int dx = conf["dx"];
 	int delay = conf["delay"];
+	int shellDx = conf["shellDx"];
+	int shellDelay = conf["shellDelay"];
 	nlohmann::json entityArr = conf["koopas"];
 	for (auto g : entityArr) {
-		Koopa* gom = new Koopa(dx, g["direction"], Point{ g["x"], g["y"] }, delay);
+		Koopa* gom = new Koopa(dx, g["direction"], Point{ g["x"], g["y"] }, delay, shellDx, shellDelay);
 		Sprite* s = gom->getSprite();
 
 		Koopas[s] = gom;

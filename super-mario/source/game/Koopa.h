@@ -21,6 +21,10 @@
 #define GREEN_KOOPA_SHELL_ID "greenKoopa.shell"
 #define GREEN_KOOPA_DEATH_ID "greenKoopa.death"
 
+enum KoopaState {
+	WALKER,
+	SHELL
+};
 
 class Koopa {
 private:
@@ -28,21 +32,23 @@ private:
 	int direction = 1; //1 or -1
 	int delay = 80;
 
+	int shellDx = 4;
+	int shellDelay = 10;
+
+	KoopaState state = WALKER;
+	bool isAtShellStartingState = false;
+
 	Sprite* sprite = nullptr;
 
-	FrameRangeAnimator* koopaWalkAnimator = nullptr; //ok
+	FrameRangeAnimator* koopaWalkAnimator = nullptr;
 	FrameRangeAnimation* koopaWalkAnimation = nullptr;
 
 	MovingAnimator* greenKoopaShellAnimator = nullptr;
 	MovingAnimation* greenKoopaShellAnimation = nullptr;
 
-	//Animation* deathAnimation = nullptr; //todo
-	//Animator* deathAnimator = nullptr; //todo
-
 	void createSprite(Point p);
 
 	void createKoopaWalkAnimations();
-
 	void createKoopaShellAnimations();
 
 public:
@@ -50,9 +56,15 @@ public:
 
 	Koopa(int _dx, int _dir, Point sp, int _del);
 
+	Koopa(int _dx, int _dir, Point sp, int _del, int _sdx, int _sdl);
+
 	Sprite* getSprite();
 
 	void setSprite(Sprite* s);
+
+	void setState(KoopaState _s);
+
+	KoopaState getState();
 
 	int getDx();
 
@@ -65,6 +77,14 @@ public:
 	void changeDirection();
 
 	void walk();
+
+	void transformToShell();
+
+	void stopAnimators();
+
+	bool getIsAtShellStartingState();
+
+	void evaluateStartingShellAction(int x);
 
 };
 
@@ -99,6 +119,11 @@ public:
 	std::list<Koopa*> GetKoopaClassList();
 
 	void WalkKoopas();
+
+	Koopa* GetInstanceOf(Sprite* s) {
+		return Koopas[s];
+	}
+		
 };
 
 

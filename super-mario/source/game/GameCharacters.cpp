@@ -91,19 +91,45 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 
 void marioKoopaCollision(Sprite* mario, Sprite* koopa) {
 
-	if (!isMarioAbove(mario, koopa)) {
-		std::cout << "Mario killed by a koopa!";
-		Mario::GetSingleton().EvaluateDeathAction();
-	}
-	else {
-		std::cout << "Mario killed a koopa!";
-		SpriteManager::GetSingleton().Remove(koopa);
+	Koopa* k = KoopaHolder::GetSingleton().GetInstanceOf(koopa);
 
-		Mario::GetSingleton().increaseScoreBy(1);
-		Mario::GetSingleton().smallJump();
+	switch (k->getState()) {
+	case SHELL:
+		if (k->getIsAtShellStartingState()) {
+			k->evaluateStartingShellAction(mario->GetPosition().x);
+			SoundPlayer::playSound("bump");
+		}
+		else {
+			if (!isMarioAbove(mario, koopa)) {
+				std::cout << "Mario killed by a koopa!";
+				Mario::GetSingleton().EvaluateDeathAction();
+			}
+			else {
+				SoundPlayer::playSound("bump");
+				Mario::GetSingleton().smallJump();
+			}
+		}
 
-		koopa->Destroy();
+		break;
+
+	case /*Johny*/WALKER:
+		if (!isMarioAbove(mario, koopa)) {
+			std::cout << "Mario killed by a koopa!";
+			Mario::GetSingleton().EvaluateDeathAction();
+		}
+		else {
+			std::cout << "Mario killed a koopa!";
+
+			Mario::GetSingleton().increaseScoreBy(1);
+			Mario::GetSingleton().smallJump();
+
+			SoundPlayer::playSound("bump");
+			k->transformToShell();
+		}
+		break;
 	}
+
+	
 }
 
 void marioCoinCollision(Sprite* mario, Sprite* coin) {
