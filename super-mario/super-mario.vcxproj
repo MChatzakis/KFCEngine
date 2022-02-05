@@ -215,6 +215,7 @@
     <ClCompile Include="source\game\GameCharacters.cpp" />
     <ClCompile Include="source\game\GameFunctions.cpp" />
     <ClCompile Include="source\game\GameMain.cpp" />
+    <ClCompile Include="source\game\GameTimer.cpp" />
     <ClCompile Include="source\game\GameVars.cpp" />
     <ClCompile Include="source\game\Goomba.cpp" />
     <ClCompile Include="source\game\InputManager.cpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="source\game\MapLoader.cpp" />
     <ClCompile Include="source\game\Mario.cpp" />
     <ClCompile Include="source\game\PhysicsManager.cpp" />
+    <ClCompile Include="source\game\Pipe.cpp" />
     <ClCompile Include="source\game\RenderingManager.cpp" />
     <ClCompile Include="source\game\SoundPlayer.cpp" />
     <ClCompile Include="source\game\SuperMario.cpp" />
@@ -285,6 +287,7 @@
     <ClInclude Include="source\game\GameCharacters.h" />
     <ClInclude Include="source\game\GameFunctions.h" />
     <ClInclude Include="source\game\GameMain.h" />
+    <ClInclude Include="source\game\GameTimer.h" />
     <ClInclude Include="source\game\GameVars.h" />
     <ClInclude Include="source\game\Goomba.h" />
     <ClInclude Include="source\game\InputManager.h" />
@@ -292,6 +295,7 @@
     <ClInclude Include="source\game\MapLoader.h" />
     <ClInclude Include="source\game\Mario.h" />
     <ClInclude Include="source\game\PhysicsManager.h" />
+    <ClInclude Include="source\game\Pipe.h" />
     <ClInclude Include="source\game\RenderingManager.h" />
     <ClInclude Include="source\game\SoundPlayer.h" />
     <ClInclude Include="source\game\SuperMario.h" />

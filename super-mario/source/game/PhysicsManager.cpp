@@ -1,4 +1,6 @@
-#include "PhysicsManager.h"
+#include "./PhysicsManager.h"
+#include "./GameVars.h"
+
 
 void Physics() {
 	Gravity();

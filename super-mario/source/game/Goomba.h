@@ -33,6 +33,7 @@ private:
 	FrameRangeAnimation* goombaWalkAnimation = nullptr;
 
 	MovingAnimation* deathAnimation = nullptr; //todo
+	MovingAnimation* deathByKoopaAnimation = nullptr; //todo
 	MovingAnimator* deathAnimator = nullptr; //todo
 
 	void createSprite(Point p);
@@ -68,7 +69,11 @@ public:
 
 	void dieAction();
 
+	void dieByKoopaAction();
+
 	MovingAnimator* getDeathAnimator();
+
+	bool isDying();
 };
 
 

@@ -28,6 +28,7 @@ bool isMarioAbove(Sprite* mario, Sprite* enemy);
 void marioGoombaCollision(Sprite* mario, Sprite* goomba);
 void marioKoopaCollision(Sprite* mario, Sprite* koopa);
 void marioCoinCollision(Sprite* mario, Sprite* coin);
+void goombaKoopaCollision(Sprite* goomba, Sprite* koopa);
 
 
 #endif _GAMECHARACTERS_H_

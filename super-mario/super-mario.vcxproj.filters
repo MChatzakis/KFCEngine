@@ -405,6 +405,12 @@
     <ClCompile Include="source\game\Coin.cpp">
       <Filter>Source Files\Game\Items</Filter>
     </ClCompile>
+    <ClCompile Include="source\game\GameTimer.cpp">
+      <Filter>Source Files\Game\Extras</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\Pipe.cpp">
+      <Filter>Source Files\Game\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\utils\Utils.h">
@@ -606,6 +612,12 @@
       <Filter>Header Files\Game\GameLogic\Managers</Filter>
     </ClInclude>
     <ClInclude Include="source\game\Coin.h">
+      <Filter>Header Files\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\GameTimer.h">
+      <Filter>Header Files\Game\Extras</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\Pipe.h">
       <Filter>Header Files\Game\Items</Filter>
     </ClInclude>
   </ItemGroup>

@@ -128,6 +128,8 @@ public:
 	void AlignViewWinSecretLevel(TileLayer* currLayer);
 
 	void SecretLevel(TileLayer* currLayer);
+	bool isDying();
+	bool isGoingDownAPipe();
 };
 
 #endif _MARIO_H_

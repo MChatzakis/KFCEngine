@@ -35,6 +35,7 @@ Animator* Mario::GetAnimator(std::string id) {
 void Mario::AddAnimator(std::string id, Animator* animator) {
 	assert(!GetAnimator(id));
 	animators.insert({ id, animator });
+	
 }
 
 Animation* Mario::GetAnimation(std::string id) {
@@ -98,6 +99,9 @@ void Mario::initializeAnimations() {
 
 	AddAnimation("parabola_jumping_right", new FrameRangeAnimation(MARIO_JUMP_RIGHT_ID, 0, 0, conf["verticalJumping"]["repetitions"], 0, 0, 0));
 	AddAnimation("parabola_jumping_left", new FrameRangeAnimation(MARIO_JUMP_LEFT_ID, 0, 0, conf["verticalJumping"]["repetitions"], 0, 0, 0));
+
+	AddAnimation("pipe_animation", new MovingAnimation(MARIO_IDLE_RIGHT_ID, 1, 1, 1, 500));
+	AddAnimation("death_animation", new MovingAnimation(MARIO_DEATH_ID, 40, 0, 0, 90));
 }
 
 void Mario::initializeAnimators() {
@@ -204,10 +208,40 @@ void Mario::initializeAnimators() {
 		}
 	);
 
+	MovingAnimator* deathAnimator = new MovingAnimator();
+
+	deathAnimator->SetOnAction(
+		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const MovingAnimation*>(&anim));
+			Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
+			//this->currSprite->SetHasDirectMotion(true).Move(((const MovingAnimation&)anim).GetDx(), ((const MovingAnimation&)anim).GetDy()).SetHasDirectMotion(false);
+		}
+	);
+
+	deathAnimator->SetOnFinish(
+		[this](Animator* animator) {
+			currSprite->GetGravityHandler().SetGravityAddicted(true);
+			currSprite->SetHasDirectMotion(false);
+			if (totalLifes == 0) {
+				Die();
+			}
+			else {
+				Respawn();
+			}
+		}
+	);
+
+	deathAnimator->SetOnStart(
+		[this](Animator* animator) {
+
+		}
+	);
+
 	AddAnimator("running", running);
 	AddAnimator("jumping", jumping);
 	AddAnimator("parabola_jumping", parabola_jumping);
 	AddAnimator("pipe", pipeAnimator);
+	AddAnimator("death", deathAnimator);
 
 }
 
@@ -525,29 +559,87 @@ void Mario::AlignViewWinSecretLevel(TileLayer* currLayer) {
 	LOCK_SCROLL = true;
 }
 
-void Mario::SecretLevel(TileLayer* currLayer) {
 
+void Mario::SecretLevel(TileLayer* currLayer) {
 
 	if ((currSprite->GetPosition().x >= PIPE_ENTER_COORDS.x - 2 && currSprite->GetPosition().x <= PIPE_ENTER_COORDS.x + 2)
 		/*&&
 		(currSprite->GetPosition().y >= PIPE_ENTER_COORDS.y - 2 && currSprite->GetPosition().y <= PIPE_ENTER_COORDS.y + 2)*/) {
-		LOCK_SCROLL = true;
+		MovingAnimation* anim = (MovingAnimation *)GetAnimation("pipe_animation");
+		MovingAnimator* animator = (MovingAnimator*)GetAnimator("pipe");
 
-		currSprite->SetPos(SECRET_SPAWN_COORDS.x, SECRET_SPAWN_COORDS.y);
-		AlignViewWinSecretLevel(currLayer);
-		currSprite->Move(1, 1);
+		if (!animator->HasFinished()) {
+			return;
+		}
 
+		anim->SetDx(0);
+		anim->SetDy(1);
+		anim->SetDelay(50);
+		anim->SetReps(50);
+		
+		StopAnimators();
+
+		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
+		currSprite->SetStateId("idle_right");
+		currSprite->SetHasDirectMotion(true);
+		currSprite->GetGravityHandler().SetGravityAddicted(false);
+
+		animator->SetOnFinish(
+			[this, currLayer](Animator* animator) {
+				//backToIdle();
+				//this->currSprite->Move(1, 1);
+				currSprite->SetHasDirectMotion(false);
+				currSprite->GetGravityHandler().SetGravityAddicted(true);
+
+				LOCK_SCROLL = true;
+				this->currSprite->SetPos(SECRET_SPAWN_COORDS.x, SECRET_SPAWN_COORDS.y);
+				AlignViewWinSecretLevel(currLayer);
+				this->currSprite->Move(1, 1);
+			}
+		);
+
+		animator->Start(anim, CurrTime());
 	}
 
 	if ((currSprite->GetPosition().x >= SECRET_EXIT_COORDS.x - 2 && currSprite->GetPosition().x <= SECRET_EXIT_COORDS.x + 2) 
 		/*&&
 		(currSprite->GetPosition().y >= SECRET_EXIT_COORDS.y - 2 && currSprite->GetPosition().y <= SECRET_EXIT_COORDS.y + 2)*/) {
-		LOCK_SCROLL = false;
+		MovingAnimation* anim = (MovingAnimation*)GetAnimation("pipe_animation");
+		MovingAnimator* animator = (MovingAnimator*)GetAnimator("pipe");
 
-		currSprite->SetPos(PIPE_EXIT_COORDS.x, PIPE_EXIT_COORDS.y);
-		CenterViewWin(currLayer);
+		if (!animator->HasFinished()) {
+			return;
+		}
 
-		currSprite->Move(1, 0);
+		anim->SetDx(1);
+		anim->SetDy(0);
+		anim->SetDelay(50);
+		anim->SetReps(50);
+
+		StopAnimators();
+
+		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
+		currSprite->SetStateId("idle_right");
+		currSprite->SetHasDirectMotion(true);
+		currSprite->GetGravityHandler().SetGravityAddicted(false);
+		
+		animator->SetOnFinish(
+			[this, currLayer](Animator* animator) {
+			
+				currSprite->SetHasDirectMotion(false);
+				currSprite->GetGravityHandler().SetGravityAddicted(true);
+				LOCK_SCROLL = false;
+
+				currSprite->SetPos(PIPE_EXIT_COORDS.x, PIPE_EXIT_COORDS.y);
+				CenterViewWin(currLayer);
+
+				currSprite->Move(1, 0);	
+			}
+		);
+
+		animator->Start(anim, CurrTime());
+		
+		
 	}
 }
 
@@ -597,12 +689,39 @@ void Mario::Respawn() {
 }
 
 void Mario::EvaluateDeathAction() {
-	decreaseLifes();
+	MovingAnimator* animator = (MovingAnimator *) GetAnimator("death");
+	MovingAnimation* animation =(MovingAnimation*) GetAnimation("death_animation");
+	
+	if (!animator->HasFinished()) {
+		return;
+	}
 
-	if (totalLifes == 0) {
+	decreaseLifes();
+	animation->SetDy(4);
+	
+	StopAnimators();
+
+	SoundPlayer::playSound("mario_die");
+
+	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_DEATH_ID), MARIO_DEATH_ID);
+	currSprite->GetGravityHandler().SetGravityAddicted(false);
+	currSprite->SetHasDirectMotion(true);
+	animator->Start(animation, CurrTime());
+
+	/*if (totalLifes == 0) {
 		Die();
 	}
 	else {
 		Respawn();
-	}
+	}*/
+}
+
+bool Mario::isDying() {
+	MovingAnimator* animator = (MovingAnimator*)GetAnimator("death");
+	return !animator->HasFinished();
+}
+
+bool Mario::isGoingDownAPipe() {
+	MovingAnimator* animator = (MovingAnimator*)GetAnimator("pipe");
+	return !animator->HasFinished();
 }

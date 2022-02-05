@@ -69,6 +69,10 @@ void Input() {
 	al_get_mouse_state(&mouse_state);
 
 	debugShortcuts();
+	
+	if (MARIO_DYING || MARIO_PIPING) {
+		return;
+	}
 
 	bool keypress = false;
 

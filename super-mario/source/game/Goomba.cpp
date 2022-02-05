@@ -101,6 +101,8 @@ void Goomba::createGoombaWalkAnimations() {
 	);
 
 	deathAnimation = new MovingAnimation(GOOMBA_DEATH_ID, 1, 4, 4, 500);
+
+	deathByKoopaAnimation = new MovingAnimation(GOOMBA_WALK_ID, 1, 0, 0, 500);
 }
 
 Goomba::Goomba(int _dx, int _dir, Point sp) {
@@ -180,6 +182,27 @@ void Goomba::walk() {
 		return;
 
 	goombaWalkAnimator->Start(goombaWalkAnimation, CurrTime());
+}
+
+void Goomba::dieByKoopaAction() {
+	if (!deathAnimator->HasFinished()) {
+		return;
+	}
+
+	stopAnimators();
+
+	deathByKoopaAnimation->SetDx(0);
+	deathByKoopaAnimation->SetDy(2);
+	deathByKoopaAnimation->SetDelay(20);
+	deathByKoopaAnimation->SetReps(50);
+
+	sprite->GetGravityHandler().SetGravityAddicted(false);
+	sprite->SetHasDirectMotion(true);
+
+	sprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(GOOMBA_WALK_ID), GOOMBA_WALK_ID);
+	//goombaWalkAnimator->Stop();
+
+	deathAnimator->Start(deathByKoopaAnimation, CurrTime());
 }
 
 //GOOMBA HOLDER
@@ -294,5 +317,9 @@ void Goomba::die() {
 
 MovingAnimator* Goomba::getDeathAnimator() {
 	return deathAnimator;
+}
+
+bool Goomba::isDying() {
+	return !deathAnimator->HasFinished();
 }
 

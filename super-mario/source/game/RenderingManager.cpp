@@ -1,4 +1,5 @@
-#include "RenderingManager.h"
+#include "./RenderingManager.h"
+#include "./GameTimer.h"
 
 void GridDisplay() {
 	GridComputation::DisplayGrid(al_get_backbuffer(display), gameMap->GetViewWindow(), gameMap->GetGrid()->GetBuffer(), gameMap->GetTotalColumns());
@@ -10,7 +11,7 @@ void Render() {
 	//gameMap->Display(al_get_backbuffer(display));
 	gameMap->ConstantDisplay(al_get_backbuffer(display));
 
-	TopTexts::GetSingleton().DrawText(Mario::GetSingleton().getScore(), Mario::GetSingleton().getTotalLifes(), Mario::GetSingleton().getCoins(), SCREEN_WIDTH / 2, 2);
+	TopTexts::GetSingleton().DrawText(Mario::GetSingleton().getScore(), Mario::GetSingleton().getTotalLifes(),Mario::GetSingleton().getCoins(), GameTimer::GetSingleton().GetTimeInSeconds(), SCREEN_WIDTH / 2, 2);
 
 	Rect screen = Rect(0, 0, gameMap->GetViewWindow().w, gameMap->GetViewWindow().h);
 	for (auto c : SpriteManager::GetSingleton().GetDisplayList()) {

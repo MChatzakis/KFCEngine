@@ -39,18 +39,23 @@
 #define WIN_TILE_DX 3150
 
 #define FONT_PATH "resources/fonts/SuperMario256.ttf"
-#define FONT_SIZE 30
+#define FONT_SIZE 25
 
 #define DEATH_SCREEN_PATH "resources/screens/deathScreen.png"
 #define STARTING_SCREEN_PATH "resources/screens/startingScreen.png"
 #define WIN_SCREEN_PATH "resources/screens/winScreen.png"
 
-#define FALL_COORDINATES_LIST {Rect(1104, 432, 1135-1104, 479-432), Rect(1376, 432, 1423-1376, 479-432), Rect(2448, 432, 2479-2448, 479-432)}
+#define FALL_HEIGHT_START 452
+#define FALL_HEIGHT_END 489-FALL_HEIGHT_START
+#define FALL_COORDINATES_LIST {Rect(1104, FALL_HEIGHT_START, 1135-1104, FALL_HEIGHT_END), Rect(1376, FALL_HEIGHT_START, 1423-1376, FALL_HEIGHT_END), Rect(2448, FALL_HEIGHT_START, 2479-2448, FALL_HEIGHT_END)}
 
 #define PIPE_ENTER_COORDS Point(926,336)
 #define SECRET_SPAWN_COORDS Point(3447, 30)
 #define SECRET_EXIT_COORDS Point(3970, 383)
 #define PIPE_EXIT_COORDS Point(2623, 342)
+
+#define MARIO_DYING Mario::GetSingleton().isDying()
+#define MARIO_PIPING Mario::GetSingleton().isGoingDownAPipe()
 
 /* Global Stuff */
 extern int SCREEN_WIDTH;

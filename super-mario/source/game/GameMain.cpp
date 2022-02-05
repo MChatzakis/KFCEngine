@@ -1,10 +1,12 @@
-#include "GameMain.h"
+#include "./GameMain.h"
+#include "./GameTimer.h"
 
 void Initialise() {
 	VariableInitializer::initializeVariables();
 	AllegroInitializer::initializeAllegro();
 
 	TopTexts::GetSingleton().Initialize(FONT_PATH, FONT_SIZE);
+	GameTimer::GetSingleton().init();
 }
 
 void Load() {

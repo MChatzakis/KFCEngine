@@ -49,6 +49,14 @@ void CharacterLoader::createCollisionTuples() {
 	for (Sprite* c : coins) {
 		CollisionChecker::GetSingleton().Register(mario, c, marioCoinCollision);
 	}
+
+	for (Sprite* g : goombas) {
+		for (Sprite* k : koopas) {
+			CollisionChecker::GetSingleton().Register(g, k, goombaKoopaCollision);
+		}
+
+	}
+
 }
 
 //Other useful functions
@@ -66,7 +74,7 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 
 	Goomba *g = GoombaHolder::GetSingleton().GetInstanceOf(goomba);
 
-	if (!g->getDeathAnimator()->HasFinished() || !goomba->IsAlive()) {
+	if (!g->getDeathAnimator()->HasFinished() || !goomba->IsAlive() || MARIO_DYING) {
 		return;
 	}
 
@@ -92,6 +100,10 @@ void marioGoombaCollision(Sprite* mario, Sprite* goomba) {
 void marioKoopaCollision(Sprite* mario, Sprite* koopa) {
 
 	Koopa* k = KoopaHolder::GetSingleton().GetInstanceOf(koopa);
+
+	if (MARIO_DYING) {
+		return;
+	}
 
 	switch (k->getState()) {
 	case SHELL:
@@ -141,4 +153,17 @@ void marioCoinCollision(Sprite* mario, Sprite* coin) {
 	coin->Destroy();
 
 	SoundPlayer::playSound("coin");
+}
+
+void goombaKoopaCollision(Sprite* goomba, Sprite* koopa) {
+	Goomba *g = GoombaHolder::GetSingleton().GetInstanceOf(goomba);
+	Koopa *k = KoopaHolder::GetSingleton().GetInstanceOf(koopa);
+
+	if (g->isDying()) {
+		return;
+	}
+
+	if (k->getState() == SHELL && !k->getIsAtShellStartingState()) { //a stable shell wont kill a goomba
+		g->dieByKoopaAction();
+	}
 }

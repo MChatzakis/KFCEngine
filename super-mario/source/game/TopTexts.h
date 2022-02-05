@@ -26,7 +26,7 @@ public:
 
 	ALLEGRO_FONT* getFont();
 
-	void DrawText(int score, int lifes, int coins, int centerAroundX, int centerAroundY);
+	void DrawText(int score, int lifes, int coins, int timePassed,int centerAroundX, int centerAroundY);
 
 };
 
