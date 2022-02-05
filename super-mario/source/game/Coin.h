@@ -26,8 +26,6 @@ public:
 		createSprite(x, y);
 	}
 
-
-
 };
 
 class CoinHolder {

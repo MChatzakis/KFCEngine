@@ -9,6 +9,7 @@
 #include "./Goomba.h"
 #include "./Koopa.h"
 #include "./Coin.h"
+#include "./Pipe.h"
 
 #include "../engine/CollisionChecker.h"
 
@@ -19,6 +20,7 @@ public:
 	static void loadKoopas();
 	static void loadCharacters();
 	static void loadPowerups();
+	static void loadPipes();
 
 	static void createCollisionTuples();
 };

@@ -1,0 +1,29 @@
+{
+    "path": "resources/bitmaps/tileset.png",
+  
+    "animations": [
+      {
+        "id": "pipe.vertical",
+        "frames": [
+          {
+            "x": 224,
+            "y": 0,
+            "w": 32,
+            "h": 32
+          }
+        ]
+      },
+
+      {
+        "id": "pipe.horizontal",
+        "frames": [
+          {
+            "x": 192,
+            "y": 112,
+            "w": 32,
+            "h": 32
+          }
+        ]
+      }
+    ]
+}

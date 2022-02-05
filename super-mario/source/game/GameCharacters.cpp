@@ -19,12 +19,17 @@ void CharacterLoader::loadPowerups() {
 	CoinHolder::GetSingleton().Initialize(readJSON(POWERUP_CONF_PATH));
 }
 
+void CharacterLoader::loadPipes() {
+	PipeHolder::GetSingleton().Initialize(readJSON(PIPE_CONF_PATH));
+}
+
 void CharacterLoader::loadCharacters() {
 	
 	loadPowerups();
 	loadKoopas();
 	loadGoombas();
 	loadMario();
+	loadPipes(); // here, to have higher zorder
 
 	createCollisionTuples();
 }

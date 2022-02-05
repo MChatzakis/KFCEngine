@@ -575,7 +575,7 @@ void Mario::SecretLevel(TileLayer* currLayer) {
 		anim->SetDx(0);
 		anim->SetDy(1);
 		anim->SetDelay(50);
-		anim->SetReps(50);
+		anim->SetReps(30);
 		
 		StopAnimators();
 
@@ -614,7 +614,7 @@ void Mario::SecretLevel(TileLayer* currLayer) {
 		anim->SetDx(1);
 		anim->SetDy(0);
 		anim->SetDelay(50);
-		anim->SetReps(50);
+		anim->SetReps(30);
 
 		StopAnimators();
 

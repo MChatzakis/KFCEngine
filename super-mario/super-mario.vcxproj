@@ -151,11 +151,13 @@
     <None Include="resources\characters\goomba.json" />
     <None Include="resources\characters\koopa.json" />
     <None Include="resources\characters\mario.json" />
+    <None Include="resources\characters\pipes.json" />
     <None Include="resources\characters\powerups.json" />
     <None Include="resources\config\config.json" />
     <None Include="resources\config\goombaConf.json" />
     <None Include="resources\config\koopaConf.json" />
     <None Include="resources\config\marioConf.json" />
+    <None Include="resources\config\pipeConf.json" />
     <None Include="resources\config\powerupsConf.json" />
     <None Include="resources\csv\level1-1_background.csv" />
     <None Include="resources\csv\level1-1_flag.csv" />

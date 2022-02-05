@@ -208,6 +208,12 @@
     <None Include="resources\config\powerupsConf.json">
       <Filter>Resource Files\config</Filter>
     </None>
+    <None Include="resources\characters\pipes.json">
+      <Filter>Resource Files\characters</Filter>
+    </None>
+    <None Include="resources\config\pipeConf.json">
+      <Filter>Resource Files\config</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">

@@ -29,11 +29,13 @@
 #define KOOPA_ANIMATIONS_PATH "resources/characters/koopa.json"
 #define GOOMBA_ANIMATIONS_PATH "resources/characters/goomba.json"
 #define POWERUP_ANIMATIONS_PATH "resources/characters/powerups.json"
+#define PIPE_ANIMATIONS_PATH "resources/characters/pipes.json"
 
 #define MARIO_CONF_PATH "resources/config/marioConf.json"
 #define KOOPA_CONF_PATH "resources/config/koopaConf.json"
 #define GOOMBA_CONF_PATH "resources/config/goombaConf.json"
 #define POWERUP_CONF_PATH "resources/config/powerupsConf.json"
+#define PIPE_CONF_PATH "resources/config/pipeConf.json"
 
 #define SCROLLABLE_TILE_COL 212
 #define WIN_TILE_DX 3150
