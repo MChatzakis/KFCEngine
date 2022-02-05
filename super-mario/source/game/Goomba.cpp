@@ -320,6 +320,7 @@ MovingAnimator* Goomba::getDeathAnimator() {
 }
 
 bool Goomba::isDying() {
+	//if (deathAnimator == nullptr) return true;
 	return !deathAnimator->HasFinished();
 }
 

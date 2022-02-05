@@ -164,7 +164,7 @@ void goombaKoopaCollision(Sprite* goomba, Sprite* koopa) {
 	Goomba *g = GoombaHolder::GetSingleton().GetInstanceOf(goomba);
 	Koopa *k = KoopaHolder::GetSingleton().GetInstanceOf(koopa);
 
-	if (g->isDying()) {
+	if (g == nullptr || g->isDying()) {
 		return;
 	}
 
