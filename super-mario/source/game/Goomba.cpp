@@ -312,6 +312,7 @@ void Goomba::dieAction() {
 
 void Goomba::die() {
 	SpriteManager::GetSingleton().Remove(this->sprite);
+	this->destroyAnimators();
 	this->sprite->Destroy();
 }
 

@@ -7,17 +7,19 @@
   },
 
   "moving": {
-    "repetitions": 1,
+    "repetitions": 10,
     "frames": 2,
     "dx": 4,
-    "delay": 60
+    "delay": 40,
+    "anim_delay" : 80
   },
 
   "walking": {
-    "repetitions": 1,
+    "repetitions": 10,
     "frames": 2,
     "dx": 2,
-    "delay": 100
+    "delay": 50,
+    "anim_delay": 100
   },
 
   "jumping": {
