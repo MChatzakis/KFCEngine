@@ -614,9 +614,8 @@ void Mario::AlignViewWinSecretLevel(TileLayer* currLayer) {
 
 void Mario::SecretLevel(TileLayer* currLayer) {
 
-	if ((currSprite->GetPosition().x >= PIPE_ENTER_COORDS.x - 2 && currSprite->GetPosition().x <= PIPE_ENTER_COORDS.x + 2)
-		/*&&
-		(currSprite->GetPosition().y >= PIPE_ENTER_COORDS.y - 2 && currSprite->GetPosition().y <= PIPE_ENTER_COORDS.y + 2)*/) {
+	if ((currSprite->GetPosition().x >= PIPE_ENTER_COORDS.x && currSprite->GetPosition().x <= PIPE_ENTER_COORDS.x + 12) //from 914 to 926
+		&& (currSprite->GetPosition().y >= PIPE_ENTER_COORDS.y /* && currSprite->GetPosition().y <= PIPE_ENTER_COORDS.y + 2*/ )) {
 		MovingAnimation* anim = (MovingAnimation *)GetAnimation("pipe_animation");
 		MovingAnimator* animator = (MovingAnimator*)GetAnimator("pipe");
 
@@ -653,9 +652,7 @@ void Mario::SecretLevel(TileLayer* currLayer) {
 		animator->Start(anim, CurrTime());
 	}
 
-	if ((currSprite->GetPosition().x >= SECRET_EXIT_COORDS.x - 2 && currSprite->GetPosition().x <= SECRET_EXIT_COORDS.x + 2) 
-		/*&&
-		(currSprite->GetPosition().y >= SECRET_EXIT_COORDS.y - 2 && currSprite->GetPosition().y <= SECRET_EXIT_COORDS.y + 2)*/) {
+	if (currSprite->GetPosition().x == SECRET_EXIT_COORDS.x && currSprite->GetPosition().y == SECRET_EXIT_COORDS.y) {
 		MovingAnimation* anim = (MovingAnimation*)GetAnimation("pipe_animation");
 		MovingAnimator* animator = (MovingAnimator*)GetAnimator("pipe");
 
