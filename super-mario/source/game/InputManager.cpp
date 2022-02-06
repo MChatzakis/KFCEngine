@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include "GameFunctions.h"
 
 void debugShortcuts() {
 
@@ -62,17 +63,34 @@ void debugShortcuts() {
 
 }
 
+void HandleToglePauseResume(Game& game) {
+	if (game.IsPaused())
+		game.Resume();
+	else
+		game.Pause(GetGameTime());
+}
+
+
 
 void Input() {
 
 	al_get_keyboard_state(&keyboard_state);
 	al_get_mouse_state(&mouse_state);
 
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_P)) {
+		HandleToglePauseResume(*game);
+	}
+
+	if (game->IsPaused()) {
+		return;
+	}
+
 	debugShortcuts();
 	
 	if (MARIO_DYING || MARIO_PIPING) {
 		return;
 	}
+
 
 	bool keypress = false;
 

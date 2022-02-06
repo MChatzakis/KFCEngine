@@ -19,6 +19,7 @@ public:
 	void MarkAsRunning(Animator* a);
 	void MarkAsSuspended(Animator* a);
 	void Progress(timestamp_t currTime);
+	void TimeShift(unsigned dt);
 
 	static auto GetSingleton(void) -> AnimatorManager& { return singleton; }
 	static auto GetSingletonConst(void) -> const AnimatorManager& { return singleton; }

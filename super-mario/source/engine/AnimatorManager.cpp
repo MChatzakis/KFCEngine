@@ -32,3 +32,8 @@ void AnimatorManager::Progress(timestamp_t currTime) {
 	for (auto* a : copied)
 		a->Progress(currTime);
 }
+
+void AnimatorManager::TimeShift(unsigned dt) {
+	for (auto* a : running)
+		a->TimeShift(dt);
+}

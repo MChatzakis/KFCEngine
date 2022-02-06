@@ -7,6 +7,6 @@
 
 void debugShortcuts();
 void Input();
-
+void HandleToglePauseResume(Game& game);
 
 #endif _INPUTMANAGER_H_

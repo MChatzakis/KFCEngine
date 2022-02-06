@@ -15,5 +15,7 @@
 
 bool isFinished();
 void setGameActions();
+void InstallPauseResumeHandler(Game& game);
+uint64_t GetGameTime();
 
 #endif _GAMEFUNCTIONS_H_

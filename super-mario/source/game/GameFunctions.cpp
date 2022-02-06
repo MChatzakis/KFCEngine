@@ -1,5 +1,6 @@
 #include "./GameFunctions.h"
 #include "./SoundPlayer.h"
+#include "../engine/Timing.h"
 
 bool isFinished() {
 
@@ -29,4 +30,17 @@ void setGameActions() {
 	game->SetUserCode(UserCode);
 	game->SetDestructions(CommitDestructions);
 	game->SetIsFinished(isFinished);
+}
+
+uint64_t GetGameTime() {
+	return GetSystemTime();
+}
+
+void InstallPauseResumeHandler(Game& game) {
+	game.SetOnPauseResume(
+		[&game](void) {
+		if (!game.IsPaused()) // just resumed
+			AnimatorManager::GetSingleton().TimeShift(GetGameTime() - game.GetPauseTime());
+	}
+	);
 }

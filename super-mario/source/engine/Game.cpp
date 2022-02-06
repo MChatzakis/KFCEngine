@@ -44,10 +44,35 @@ void Game::MainLoop(void) {
 void Game::MainLoopIteration(void) {
 	Render();
 	Input();
-	ProgressAnimations();
-	AI();
-	Physics();
-	CollisionChecking();
-	UserCode(); // hook for custom code at end
-	CommitDestructions();
+	if (!IsPaused()) {
+		ProgressAnimations();
+		AI();
+		Physics();
+		CollisionChecking();
+		UserCode(); // hook for custom code at end
+		CommitDestructions();
+	}
+}
+
+//Pause functionality
+
+void Game::SetOnPauseResume(const Game::Action& f)
+{
+	pauseResume = f;
+}
+void Game::Pause(uint64_t t)
+{
+	isPaused = true; pauseTime = t; Invoke(pauseResume);
+}
+void Game::Resume(void)
+{
+	isPaused = false; Invoke(pauseResume); pauseTime = 0;
+}
+bool Game::IsPaused(void) const
+{
+	return isPaused;
+}
+uint64_t Game::GetPauseTime(void) const
+{
+	return pauseTime;
 }

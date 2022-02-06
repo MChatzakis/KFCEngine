@@ -3,6 +3,7 @@
 
 #include "./GameVars.h"
 #include "./Mario.h"
+#include "./GameFunctions.h"
 
 class VariableInitializer {
 public:

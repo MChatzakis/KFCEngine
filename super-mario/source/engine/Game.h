@@ -12,6 +12,10 @@ private:
 	Action render, anim, input, ai, physics, destruct, collisions, user;
 	Pred done;
 
+	Action	pauseResume;
+	bool		isPaused = false;
+	uint64_t	pauseTime = 0;
+
 	void Invoke(const Action& f);
 public:
 	Game();
@@ -26,6 +30,13 @@ public:
 	void SetCollisionChecking(const Action& f);
 	void SetUserCode(const Action& f);
 	void SetIsFinished(const Pred& f);
+	void SetOnPauseResume(const Action& f);
+
+	//Pause functionality
+	void Pause(uint64_t t);
+	void Resume(void);
+	bool IsPaused(void) const;
+	uint64_t GetPauseTime(void) const;
 
 	//Invokes
 	void Render(void);
@@ -41,6 +52,5 @@ public:
 	void MainLoop(void);
 	void MainLoopIteration(void);
 };
-
 
 #endif _GAME_H_

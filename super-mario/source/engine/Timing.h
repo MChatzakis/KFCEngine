@@ -15,5 +15,6 @@ public:
 	uint64_t nano_secs(void) const;
 };
 
+uint64_t GetSystemTime(void);
 
 #endif _TIMING_H_
