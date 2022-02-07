@@ -835,7 +835,7 @@ void Mario::Win() {
 		return;
 	}
 
-	SoundPlayer::playSound("stage_clear");
+	//SoundPlayer::playSound("stage_clear");
 
 	StopAnimators();
 

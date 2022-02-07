@@ -6,13 +6,15 @@ bool isFinished() {
 
 
 	if (GAME_HAS_ENDED == 1) {
+		SoundPlayer::stopSound("main_sound");
 		SoundPlayer::playSound("gameover");
-		
 		ExtraScreens::GetSingleton().DispScreen(DEATH_SCREEN_PATH);
 		
 		return true;
 	}
 	else if (GAME_HAS_ENDED == 2) {
+		SoundPlayer::stopSound("main_sound");
+		SoundPlayer::playSound("stage_clear");
 		ExtraScreens::GetSingleton().DispScreen(WIN_SCREEN_PATH);
 		return true;
 	}
