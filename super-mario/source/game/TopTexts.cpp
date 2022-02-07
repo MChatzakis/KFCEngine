@@ -26,6 +26,6 @@ void TopTexts::DrawPauseText(int centerAroundX, int centerAroundY) {
 	std::string gamePause = "GAME PAUSED";
 	std::string cont = "PRESS SPACE TO CONTINUE";
 
-	al_draw_text(font, al_map_rgb(0, 0, 0), centerAroundX, centerAroundY - 13, ALLEGRO_ALIGN_CENTER, gamePause.c_str());
-	al_draw_text(font, al_map_rgb(0, 0, 0), centerAroundX, centerAroundY + 13, ALLEGRO_ALIGN_CENTER, cont.c_str());
+	al_draw_text(font, al_map_rgb(255, 0, 0), centerAroundX, centerAroundY - 13, ALLEGRO_ALIGN_CENTER, gamePause.c_str());
+	al_draw_text(font, al_map_rgb(255, 0, 0), centerAroundX, centerAroundY + 13, ALLEGRO_ALIGN_CENTER, cont.c_str());
 }

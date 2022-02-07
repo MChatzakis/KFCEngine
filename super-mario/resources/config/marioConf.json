@@ -1,20 +1,20 @@
 {
-  "totalLifes": 3,
+  "totalLifes": 1,
 
   "checkpoints": [
     {
       "x": 820,
-      "y": 180
+      "y": 150
     },
     {
       "x": 1120,
-      "y": 180
+      "y": 150
     }
   ],
 
   "startingPosition": {
-    "x": 3000,
-    "y": 180
+    "x": 100,
+    "y": 300
   },
 
   "moving": {

@@ -614,12 +614,24 @@ void Mario::AlignViewWin(TileLayer* currLayer) {
 
 	int viewWinCenter = viewWin.x + viewWin.w / 2;
 
-	if (mario_x >= viewWinCenter && !LOCK_SCROLL) {
+	if (LOCK_SCROLL) {
+		return;
+	}
+
+	if (mario_x >= viewWinCenter ) {
 		if (viewWin.x + viewWin.w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
 			currLayer->ScrollWithBoundsCheck(mario_x - viewWinCenter, 0);
 			//currLayer->ScrollWithBoundsCheck(16, 0);
 		}
 	}
+	else {
+		if (viewWin.x + viewWin.w >= 0 && ENABLE_REVERSE_SCROLL) {
+			currLayer->ScrollWithBoundsCheck(mario_x - viewWinCenter, 0);
+			//currLayer->ScrollWithBoundsCheck(16, 0);
+		}
+	}
+
+	
 }
 
 //dangerous, not to be used
@@ -789,6 +801,8 @@ void Mario::Respawn() {
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
 		
 	CenterViewWin(gameMap);
+
+	SoundPlayer::playSound("main_sound");
 }
 
 void Mario::EvaluateDeathAction() {
@@ -804,6 +818,7 @@ void Mario::EvaluateDeathAction() {
 
 	StopAnimators();
 
+	SoundPlayer::stopSound("main_sound");
 	SoundPlayer::playSound("mario_die");
 
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_DEATH_ID), MARIO_DEATH_ID);

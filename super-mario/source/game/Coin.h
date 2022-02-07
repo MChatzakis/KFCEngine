@@ -9,12 +9,18 @@
 #include "../engine/Sprite.h"
 #include "../engine/SpriteManager.h"
 
-#define COIN_ID "coin.blueBG"
+#define BLUE_COIN_ID "coin.blueBG"
+#define BLACK_COIN_ID "coin.blackBG"
+
+enum CoinType {
+	BLUE,
+	BLACK
+};
 
 class Coin {
 private:
 	Sprite* coinSprite = nullptr;
-
+	CoinType type = BLUE;
 	void createSprite(int x, int y);
 
 public: 
@@ -22,9 +28,13 @@ public:
 	Sprite* GetSprite();
 	void SetSprite(Sprite* s);
 
-	Coin(int x, int y) {
+	Coin(int x, int y, CoinType t) {
+		type = t;
 		createSprite(x, y);
 	}
+
+	CoinType getType();
+	void setType(CoinType t);
 
 };
 
@@ -38,15 +48,26 @@ public:
 	static auto GetSingletonConst(void) -> const CoinHolder&;
 
 	void createCoinMap(nlohmann::json conf) {
-		nlohmann::json coinArr = conf["coins"];
+		nlohmann::json coinArr = conf["coins.blue"];
 		for (auto coinData : coinArr) {
-			Coin* CoinC = new Coin(coinData["x"], coinData["y"]);
+			Coin* CoinC = new Coin(coinData["x"], coinData["y"], BLUE);
 			Sprite* s = CoinC->GetSprite();
 			
 			Coins[s] = CoinC;
 
 			SpriteManager::GetSingleton().Add(s);
 		}
+
+		coinArr = conf["coins.black"];
+		for (auto coinData : coinArr) {
+			Coin* CoinC = new Coin(coinData["x"], coinData["y"], BLACK);
+			Sprite* s = CoinC->GetSprite();
+
+			Coins[s] = CoinC;
+
+			SpriteManager::GetSingleton().Add(s);
+		}
+
 	}
 
 	std::map<Sprite*, Coin*>& GetCoinMap() {

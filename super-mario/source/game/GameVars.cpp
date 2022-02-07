@@ -19,3 +19,4 @@ Bitmap tileSet = nullptr;
 
 int GAME_HAS_ENDED = 0;
 bool LOCK_SCROLL = false;
+bool ENABLE_REVERSE_SCROLL = true;

@@ -41,7 +41,7 @@
 #define WIN_TILE_DX 3155
 
 #define FONT_PATH "resources/fonts/SuperMario256.ttf"
-#define FONT_SIZE 25
+#define FONT_SIZE 22
 
 #define DEATH_SCREEN_PATH "resources/screens/deathScreen.png"
 #define STARTING_SCREEN_PATH "resources/screens/startingScreen.png"
@@ -80,5 +80,6 @@ extern Bitmap tileSet;
 
 extern int GAME_HAS_ENDED;
 extern bool LOCK_SCROLL;
+extern bool ENABLE_REVERSE_SCROLL;
 
 #endif _GAMEVARS_H_
