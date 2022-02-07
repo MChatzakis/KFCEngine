@@ -4,6 +4,7 @@ void UserCode() {
 	// hook for custom code at end
 	JumpPatch();
 	Mario::GetSingleton().SecretLevel(gameMap);
+	
 	EvaluateWin();
 }
 
@@ -28,6 +29,7 @@ void JumpPatch() {
 
 void EvaluateWin() {
 	if (Mario::GetSingleton().GetCurrSprite()->GetPosition().x == WIN_TILE_DX) {
+		//Mario::GetSingleton().Win();
 		GAME_HAS_ENDED = 2;
 	}
 }

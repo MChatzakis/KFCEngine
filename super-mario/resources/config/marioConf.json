@@ -1,8 +1,19 @@
 {
   "totalLifes": 3,
 
+  "checkpoints": [
+    {
+      "x": 820,
+      "y": 180
+    },
+    {
+      "x": 1120,
+      "y": 180
+    }
+  ],
+
   "startingPosition": {
-    "x": 220,
+    "x": 3000,
     "y": 180
   },
 
@@ -11,7 +22,7 @@
     "frames": 2,
     "dx": 4,
     "delay": 40,
-    "anim_delay" : 80
+    "anim_delay": 80
   },
 
   "walking": {
@@ -52,5 +63,12 @@
     "dx": 0,
     "dy": 2,
     "delay": 15
+  },
+
+  "winning": {
+    "repetitions": 50,
+    "frames": 2,
+    "dx": 1,
+    "delay": 200
   }
 }

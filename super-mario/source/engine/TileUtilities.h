@@ -10,7 +10,7 @@
 
 #include "./General.h"
 
-#define TOTAL_EMPTY_INDICES  17
+#define TOTAL_EMPTY_INDICES  18
 extern int EMPTY_INDICES[TOTAL_EMPTY_INDICES];
 
 //This class has all the functions related to tilemap modifications. Made for grouping. Everything is static.

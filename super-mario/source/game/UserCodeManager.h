@@ -7,6 +7,5 @@
 void JumpPatch();
 void EvaluateWin();
 void UserCode();
-void secretLevel();
 
 #endif _USERCODEMANAGER_H_

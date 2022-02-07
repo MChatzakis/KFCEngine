@@ -28,6 +28,7 @@ public:
 
 	void DrawText(int score, int lifes, int coins, int timePassed,int centerAroundX, int centerAroundY);
 
+	void DrawPauseText(int centerAroundX, int centerAroundY);
 };
 
 

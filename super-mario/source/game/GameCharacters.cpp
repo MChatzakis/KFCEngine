@@ -168,6 +168,10 @@ void goombaKoopaCollision(Sprite* goomba, Sprite* koopa) {
 		return;
 	}
 
+	if (k == nullptr) {
+		return;
+	}
+
 	if (k->getState() == SHELL && !k->getIsAtShellStartingState()) { //a stable shell wont kill a goomba
 		g->dieByKoopaAction();
 	}

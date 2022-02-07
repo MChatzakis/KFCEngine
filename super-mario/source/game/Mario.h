@@ -57,6 +57,8 @@ private:
 	int totalCoins = 0;
 	int totalLifes = 3;
 
+	std::list<Point>checkpoints;
+
 public:
 
 	Mario() {
@@ -130,6 +132,14 @@ public:
 	void SecretLevel(TileLayer* currLayer);
 	bool isDying();
 	bool isGoingDownAPipe();
+
+	void Win();
+	void WinAction();
+	void InitializeCheckpoints();
+
+	Point evalSpawnPos(Point currPos);
+
+	bool isWinning();
 };
 
 #endif _MARIO_H_

@@ -21,3 +21,11 @@ void TopTexts::DrawText(int score, int lifes, int coins, int timePassed,int cent
 	std::string text = "SCORE:" + std::to_string(score) + " LIFES:" + std::to_string(lifes) + " LEVEL:1-1 COINS:" + std::to_string(coins) + " TIME: " + std::to_string(timePassed);
 	al_draw_text(font, al_map_rgb(255, 255, 255), centerAroundX, centerAroundY, ALLEGRO_ALIGN_CENTER, text.c_str());
 }
+
+void TopTexts::DrawPauseText(int centerAroundX, int centerAroundY) {
+	std::string gamePause = "GAME PAUSED";
+	std::string cont = "PRESS SPACE TO CONTINUE";
+
+	al_draw_text(font, al_map_rgb(0, 0, 0), centerAroundX, centerAroundY - 13, ALLEGRO_ALIGN_CENTER, gamePause.c_str());
+	al_draw_text(font, al_map_rgb(0, 0, 0), centerAroundX, centerAroundY + 13, ALLEGRO_ALIGN_CENTER, cont.c_str());
+}

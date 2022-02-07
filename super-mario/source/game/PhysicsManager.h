@@ -9,7 +9,7 @@
 //#define SPRITE_WALKING (currSprite->GetStateId() == "walking_right" || currSprite->GetStateId() == "walking_left")
 //#define SPRITE_RUNNING (currSprite->GetStateId() == "running_right" || currSprite->GetStateId() == "running_left")
 
-#define GRAVITY_FORCE 2
+#define GRAVITY_FORCE 1
 
 void Gravity();
 void Physics();

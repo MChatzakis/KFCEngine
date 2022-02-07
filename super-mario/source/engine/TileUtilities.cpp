@@ -1,6 +1,6 @@
 #include "./TileUtilities.h"
 
-int EMPTY_INDICES[TOTAL_EMPTY_INDICES] = { 10,11,12,61,62,63,87,88,89/*plants*/,344/*sky*/,472,473,474,498, 499, 500,/*clouds 16 ews edw*/549 };
+int EMPTY_INDICES[TOTAL_EMPTY_INDICES] = { 10,11,12,61,62,63,87,88,89/*plants*/,344/*sky*/,472,473,474,498, 499, 500,/*clouds 16 ews edw*/549,496};
 
 byte TileUtilities::MakeIndex(byte row, byte col)
 {

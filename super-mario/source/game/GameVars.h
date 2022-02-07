@@ -38,7 +38,7 @@
 #define PIPE_CONF_PATH "resources/config/pipeConf.json"
 
 #define SCROLLABLE_TILE_COL 212
-#define WIN_TILE_DX 3150
+#define WIN_TILE_DX 3155
 
 #define FONT_PATH "resources/fonts/SuperMario256.ttf"
 #define FONT_SIZE 25
@@ -57,6 +57,7 @@
 #define PIPE_EXIT_COORDS Point(2623, 342)
 
 #define MARIO_DYING Mario::GetSingleton().isDying()
+#define MARIO_WINNING Mario::GetSingleton().isWinning()
 #define MARIO_PIPING Mario::GetSingleton().isGoingDownAPipe()
 
 /* Global Stuff */

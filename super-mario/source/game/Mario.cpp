@@ -1,6 +1,8 @@
 #include "./Mario.h"
 #include "./SoundPlayer.h"
 
+#include <math.h>
+
 Mario Mario::mario;
 
 auto Mario::GetSingleton(void) -> Mario& { return mario; }
@@ -35,7 +37,7 @@ Animator* Mario::GetAnimator(std::string id) {
 void Mario::AddAnimator(std::string id, Animator* animator) {
 	assert(!GetAnimator(id));
 	animators.insert({ id, animator });
-	
+
 }
 
 Animation* Mario::GetAnimation(std::string id) {
@@ -59,36 +61,36 @@ void Mario::initializeSprites() {
 
 	currSprite->GetGravityHandler().SetOnStartFalling(
 		[this]()
-	{
-		MovingAnimator* moving = (MovingAnimator*)GetAnimator("moving");
-		FrameRangeAnimator* running = (FrameRangeAnimator*)GetAnimator("running");
-		if (!moving->HasFinished())
-			moving->Stop();
+		{
+			MovingAnimator* moving = (MovingAnimator*)GetAnimator("moving");
+			FrameRangeAnimator* running = (FrameRangeAnimator*)GetAnimator("running");
+			if (!moving->HasFinished())
+				moving->Stop();
 
-		if (!running->HasFinished())
-			running->Stop();
+			if (!running->HasFinished())
+				running->Stop();
 
-		return;
-	}
+			return;
+		}
 	);
 
 	currSprite->GetGravityHandler().SetOnStopFalling(
 		[this]()
-	{
-		std::string id = this->currSprite->GetStateId();
+		{
+			std::string id = this->currSprite->GetStateId();
 
-		if (id == "falling_right") { //if animation finished or stopped
-			this->currSprite->SetStateId("idle_right");
-			this->currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
+			if (id == "falling_right") { //if animation finished or stopped
+				this->currSprite->SetStateId("idle_right");
+				this->currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
+			}
+			else if (id == "falling_left") {
+				this->currSprite->SetStateId("idle_left");
+				this->currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
+
+			}
+
+			return;
 		}
-		else if (id == "falling_left") {
-			this->currSprite->SetStateId("idle_left");
-			this->currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
-
-		}
-
-		return;
-	}
 	);
 
 	currSprite->GetGravityHandler().SetGravityAddicted(true);
@@ -111,6 +113,8 @@ void Mario::initializeAnimations() {
 
 	AddAnimation("pipe_animation", new MovingAnimation(MARIO_IDLE_RIGHT_ID, 1, 1, 1, 500));
 	AddAnimation("death_animation", new MovingAnimation(MARIO_DEATH_ID, 40, 0, 0, 90));
+
+	AddAnimation("win_animation", new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, conf["winning"]["frames"], conf["winning"]["repetitions"], 0, 0, 0));
 }
 
 void Mario::initializeAnimators() {
@@ -119,101 +123,101 @@ void Mario::initializeAnimators() {
 
 	moving->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
-		assert(dynamic_cast<const MovingAnimation*>(&anim));
-		Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
-	}
+			assert(dynamic_cast<const MovingAnimation*>(&anim));
+			Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
+		}
 	);
 
 	moving->SetOnFinish(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	moving->SetOnStart(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	FrameRangeAnimator* running = new FrameRangeAnimator();
 
 	running->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
-		assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
-		FrameRange_Action(this->currSprite, animator, (const FrameRangeAnimation&)anim);
-	}
+			assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
+			FrameRange_Action(this->currSprite, animator, (const FrameRangeAnimation&)anim);
+		}
 	);
 
 	running->SetOnFinish(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	running->SetOnStart(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	MovingAnimator* jumping = new MovingAnimator();
 
 	jumping->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
-		assert(dynamic_cast<const MovingAnimation*>(&anim));
-		Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
-		//this->currSprite->SetHasDirectMotion(true).Move(((const MovingAnimation&)anim).GetDx(), ((const MovingAnimation&)anim).GetDy()).SetHasDirectMotion(false);
-	}
+			assert(dynamic_cast<const MovingAnimation*>(&anim));
+			Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
+			//this->currSprite->SetHasDirectMotion(true).Move(((const MovingAnimation&)anim).GetDx(), ((const MovingAnimation&)anim).GetDy()).SetHasDirectMotion(false);
+		}
 	);
 
 	jumping->SetOnFinish(
 		[this](Animator* animator) {
-		std::string id = this->currSprite->GetStateId();
+			std::string id = this->currSprite->GetStateId();
 
-		if (id == "jumping_vertical_right" || id == "bouncing_vertical_right") {
-			this->currSprite->SetStateId("falling_right");
-		}
-		else {
-			this->currSprite->SetStateId("falling_left");
-		}
+			if (id == "jumping_vertical_right" || id == "bouncing_vertical_right") {
+				this->currSprite->SetStateId("falling_right");
+			}
+			else {
+				this->currSprite->SetStateId("falling_left");
+			}
 
-	}
+		}
 	);
 
 	jumping->SetOnStart(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	FrameRangeAnimator* parabola_jumping = new FrameRangeAnimator();
 
 	parabola_jumping->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
-		assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
-		FrameRange_Action_DecreasingDY(this->currSprite, animator, (const FrameRangeAnimation&)anim);
-	}
+			assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
+			FrameRange_Action_DecreasingDY(this->currSprite, animator, (const FrameRangeAnimation&)anim);
+		}
 	);
 
 	parabola_jumping->SetOnFinish(
 		[this](Animator* animator) {
-		std::string id = this->currSprite->GetStateId();
+			std::string id = this->currSprite->GetStateId();
 
-		if (id == "jumping_right" || id == "bouncing_right") {
-			this->currSprite->SetStateId("falling_right");
-		}
-		else {
-			this->currSprite->SetStateId("falling_left");
-		}
+			if (id == "jumping_right" || id == "bouncing_right") {
+				this->currSprite->SetStateId("falling_right");
+			}
+			else {
+				this->currSprite->SetStateId("falling_left");
+			}
 
-	}
+		}
 	);
 
 	parabola_jumping->SetOnStart(
 		[this](Animator* animator) {
 
-	}
+		}
 	);
 
 	MovingAnimator* pipeAnimator = new MovingAnimator();
@@ -267,12 +271,35 @@ void Mario::initializeAnimators() {
 		}
 	);
 
+	FrameRangeAnimator* winAnimator = new FrameRangeAnimator();
+
+	winAnimator->SetOnAction(
+		[this](Animator* animator, const Animation& anim) {
+			assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
+			FrameRange_Action(this->currSprite, animator, (const FrameRangeAnimation&)anim);
+		}
+	);
+
+	winAnimator->SetOnFinish(
+		[this](Animator* animator) {
+			WinAction();
+		}
+	);
+
+	winAnimator->SetOnStart(
+		[this](Animator* animator) {
+
+		}
+	);
+
 	AddAnimator("moving", moving);
 	AddAnimator("running", running);
 	AddAnimator("jumping", jumping);
 	AddAnimator("parabola_jumping", parabola_jumping);
 	AddAnimator("pipe", pipeAnimator);
 	AddAnimator("death", deathAnimator);
+	AddAnimator("win", winAnimator);
+
 
 }
 
@@ -282,8 +309,17 @@ void Mario::initialize(nlohmann::json _c) {
 	initializeAnimations();
 	initializeAnimators();
 	initializeSprites();
+	InitializeCheckpoints();
 
 	totalLifes = conf["totalLifes"];
+}
+
+void Mario::InitializeCheckpoints() {
+	nlohmann::json checkpointArray = conf["checkpoints"];
+
+	for (auto pos : checkpointArray) {
+		checkpoints.push_back(Point(pos["x"], pos["y"]));
+	}
 }
 
 void Mario::runRight() {
@@ -292,7 +328,7 @@ void Mario::runRight() {
 
 	currSprite->SetStateId("running_right");
 	StopAnimators();
-	
+
 	MovingAnimator* moving = (MovingAnimator*)GetAnimator("moving");
 	FrameRangeAnimator* running = (FrameRangeAnimator*)GetAnimator("running");
 
@@ -590,33 +626,32 @@ void Mario::AlignViewWin(TileLayer* currLayer) {
 void Mario::CenterViewWin(TileLayer* currLayer) {
 	Rect viewWin = currLayer->GetViewWindow();
 	Point marioPos = currSprite->GetPosition();
-	
+
 	int mario_x = marioPos.x;
 	int mario_y = marioPos.y;
 
 	int viewWinCenter = viewWin.x + viewWin.w / 2;
 
 	if (mario_x != viewWinCenter) {
-		Rect r = Rect(mario_x - SCREEN_WIDTH/2, 0, viewWin.w, viewWin.h);
+		Rect r = Rect(mario_x - SCREEN_WIDTH / 2, 0, viewWin.w, viewWin.h);
 		currLayer->SetViewWindow(r);
 	}
 }
 
 void Mario::AlignViewWinSecretLevel(TileLayer* currLayer) {
 	Rect viewWin = currLayer->GetViewWindow();
-	
-	Rect r = Rect((SCROLLABLE_TILE_COL) * TILE_WIDTH, 0, viewWin.w, viewWin.h);
+
+	Rect r = Rect((SCROLLABLE_TILE_COL)*TILE_WIDTH, 0, viewWin.w, viewWin.h);
 	currLayer->SetViewWindow(r);
 
 	LOCK_SCROLL = true;
 }
 
-
 void Mario::SecretLevel(TileLayer* currLayer) {
 
 	if ((currSprite->GetPosition().x >= PIPE_ENTER_COORDS.x && currSprite->GetPosition().x <= PIPE_ENTER_COORDS.x + 12) //from 914 to 926
-		&& (currSprite->GetPosition().y >= PIPE_ENTER_COORDS.y /* && currSprite->GetPosition().y <= PIPE_ENTER_COORDS.y + 2*/ )) {
-		MovingAnimation* anim = (MovingAnimation *)GetAnimation("pipe_animation");
+		&& (currSprite->GetPosition().y >= PIPE_ENTER_COORDS.y /* && currSprite->GetPosition().y <= PIPE_ENTER_COORDS.y + 2*/)) {
+		MovingAnimation* anim = (MovingAnimation*)GetAnimation("pipe_animation");
 		MovingAnimator* animator = (MovingAnimator*)GetAnimator("pipe");
 
 		if (!animator->HasFinished()) {
@@ -627,7 +662,7 @@ void Mario::SecretLevel(TileLayer* currLayer) {
 		anim->SetDy(1);
 		anim->SetDelay(50);
 		anim->SetReps(30);
-		
+
 		StopAnimators();
 
 		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
@@ -671,10 +706,10 @@ void Mario::SecretLevel(TileLayer* currLayer) {
 		currSprite->SetStateId("idle_right");
 		currSprite->SetHasDirectMotion(true);
 		currSprite->GetGravityHandler().SetGravityAddicted(false);
-		
+
 		animator->SetOnFinish(
 			[this, currLayer](Animator* animator) {
-			
+
 				currSprite->SetHasDirectMotion(false);
 				currSprite->GetGravityHandler().SetGravityAddicted(true);
 				LOCK_SCROLL = false;
@@ -682,13 +717,13 @@ void Mario::SecretLevel(TileLayer* currLayer) {
 				currSprite->SetPos(PIPE_EXIT_COORDS.x, PIPE_EXIT_COORDS.y);
 				CenterViewWin(currLayer);
 
-				currSprite->Move(1, 0);	
+				currSprite->Move(1, 0);
 			}
 		);
 
 		animator->Start(anim, CurrTime());
-		
-		
+
+
 	}
 }
 
@@ -728,26 +763,45 @@ void Mario::decreaseLifes() {
 	totalLifes--;
 }
 
+Point Mario::evalSpawnPos(Point currPos) {
+	int currDist = 10000000; //den thiumamai se poio lib einai to max_int
+	Point ret = Point(conf["startingPosition"]["x"], conf["startingPosition"]["y"]);
+	for (auto p : checkpoints) {
+		//check x1 x2
+		if (p.x <= currPos.x && abs(p.x - currPos.x) < currDist) {
+			currDist = abs(p.x - currPos.x);
+			ret = p;
+		}
+	}
+	//std::cout << "New Checkpoint: " << ret.x << "," << ret.y << std::endl;
+	return ret;
+}
+
 void Mario::Respawn() {
-	currSprite->SetPos(conf["startingPosition"]["x"], conf["startingPosition"]["y"]);
+	Point spawnPos = evalSpawnPos(currSprite->GetPosition());
+
+	currSprite->SetPos(spawnPos.x, spawnPos.y);
 	currSprite->Move(1, 0);
+	
 	StopAnimators();
+	
 	currSprite->SetStateId("falling_right");
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
-	gameMap->SetViewWindow(Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)); //bad
+		
+	CenterViewWin(gameMap);
 }
 
 void Mario::EvaluateDeathAction() {
-	MovingAnimator* animator = (MovingAnimator *) GetAnimator("death");
-	MovingAnimation* animation =(MovingAnimation*) GetAnimation("death_animation");
-	
+	MovingAnimator* animator = (MovingAnimator*)GetAnimator("death");
+	MovingAnimation* animation = (MovingAnimation*)GetAnimation("death_animation");
+
 	if (!animator->HasFinished()) {
 		return;
 	}
 
 	decreaseLifes();
 	animation->SetDy(4);
-	
+
 	StopAnimators();
 
 	SoundPlayer::playSound("mario_die");
@@ -755,14 +809,8 @@ void Mario::EvaluateDeathAction() {
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_DEATH_ID), MARIO_DEATH_ID);
 	currSprite->GetGravityHandler().SetGravityAddicted(false);
 	currSprite->SetHasDirectMotion(true);
-	animator->Start(animation, CurrTime());
 
-	/*if (totalLifes == 0) {
-		Die();
-	}
-	else {
-		Respawn();
-	}*/
+	animator->Start(animation, CurrTime());
 }
 
 bool Mario::isDying() {
@@ -773,4 +821,37 @@ bool Mario::isDying() {
 bool Mario::isGoingDownAPipe() {
 	MovingAnimator* animator = (MovingAnimator*)GetAnimator("pipe");
 	return !animator->HasFinished();
+}
+
+void Mario::Win() {
+
+	//I implemented a different animator to set a different on finish action
+	LOCK_SCROLL = true;
+
+	FrameRangeAnimator* winAnimator = (FrameRangeAnimator* )GetAnimator("win");
+	FrameRangeAnimation* winAnimation = (FrameRangeAnimation* )GetAnimation("win_animation");
+
+	if (!winAnimator->HasFinished()) {
+		return;
+	}
+
+	SoundPlayer::playSound("stage_clear");
+
+	StopAnimators();
+
+	winAnimation->SetDelay(conf["winning"]["delay"]);
+	winAnimation->SetDx(conf["winning"]["dx"]);
+	winAnimation->SetReps(conf["winning"]["repetitions"]);
+	
+	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_RIGHT_ID), MARIO_WALK_RIGHT_ID);
+
+	winAnimator->Start(winAnimation, CurrTime());
+}
+
+void Mario::WinAction() {
+	GAME_HAS_ENDED = 2;
+}
+
+bool Mario::isWinning() {
+	return !(FrameRangeAnimator*)GetAnimator("win")->HasFinished();
 }

@@ -1,5 +1,6 @@
-#include "InputManager.h"
-#include "GameFunctions.h"
+#include "./InputManager.h"
+#include "./GameFunctions.h"
+#include "./SoundPlayer.h"
 
 void debugShortcuts() {
 
@@ -78,7 +79,17 @@ void Input() {
 	al_get_mouse_state(&mouse_state);
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_P)) {
-		HandleToglePauseResume(*game);
+		//HandleToglePauseResume(*game);
+		if (!game->IsPaused()) {
+			SoundPlayer::playSound("pause");
+			game->Pause(GetGameTime());
+		}	
+		
+	}
+
+	if (al_key_down(&keyboard_state, ALLEGRO_KEY_SPACE)) {
+		if (game->IsPaused())
+			game->Resume();
 	}
 
 	if (game->IsPaused()) {
@@ -87,7 +98,7 @@ void Input() {
 
 	debugShortcuts();
 	
-	if (MARIO_DYING || MARIO_PIPING) {
+	if (MARIO_DYING || MARIO_PIPING || MARIO_WINNING) {
 		return;
 	}
 
