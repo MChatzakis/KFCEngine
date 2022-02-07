@@ -24,7 +24,7 @@ void Clear() {
 
 void Run() {
 
-	//SoundPlayer::playSound("main_sound");
+	SoundPlayer::playSound("main_sound");
 	ExtraScreens::GetSingleton().DispScreen(STARTING_SCREEN_PATH);
 
 	setGameActions();

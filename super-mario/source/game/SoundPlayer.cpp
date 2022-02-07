@@ -6,5 +6,9 @@ void SoundPlayer::loadSounds() {
 }
 
 void SoundPlayer::playSound(std::string id) {
-	SoundsManager::GetSingleton().PlaySound(id); //magas
+	SoundsManager::GetSingleton().PlaySound(id);
+}
+
+void SoundPlayer::stopSound(std::string id) {
+	SoundsManager::GetSingleton().StopSound(id);
 }

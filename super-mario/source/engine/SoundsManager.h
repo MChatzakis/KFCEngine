@@ -17,6 +17,7 @@ struct Sound {
 	float pan;
 	float speed;
 	ALLEGRO_PLAYMODE loop;
+	ALLEGRO_SAMPLE_ID sampleId;
 
 	Sound(std::string _id, ALLEGRO_SAMPLE* _sample, std::string _sample_path, float _gain, float _pan, float _speed, ALLEGRO_PLAYMODE _loop);
 	Sound();
@@ -35,9 +36,10 @@ public:
 	~SoundsManager();
 	static SoundsManager& GetSingleton();
 	static auto Get(void) -> const SoundsManager&;
-	const Sound* GetSound(std::string id);
+	Sound* GetSound(std::string id);
 	void LoadSounds(std::string filename, const SoundsManager::Parser& parser);
 	void PlaySound(std::string id);
+	void StopSound(std::string id);
 	void CleanUp();
 	void PrintSoundsList();
 };

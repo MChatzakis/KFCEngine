@@ -81,6 +81,7 @@ void Input() {
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_P)) {
 		//HandleToglePauseResume(*game);
 		if (!game->IsPaused()) {
+			SoundPlayer::stopSound("main_sound");
 			SoundPlayer::playSound("pause");
 			game->Pause(GetGameTime());
 		}	
@@ -88,8 +89,10 @@ void Input() {
 	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_SPACE)) {
-		if (game->IsPaused())
+		if (game->IsPaused()) {
+			SoundPlayer::playSound("main_sound");
 			game->Resume();
+		}
 	}
 
 	if (game->IsPaused()) {

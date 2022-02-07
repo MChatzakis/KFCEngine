@@ -11,6 +11,7 @@ class SoundPlayer {
 public:
 	static void loadSounds();
 	static void playSound(std::string id);
+	static void stopSound(std::string id);
 };
 
 

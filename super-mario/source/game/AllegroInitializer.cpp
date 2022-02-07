@@ -26,7 +26,7 @@ void AllegroInitializer::initializeAllegro() {
 		exit(-1);
 	}
 
-	al_reserve_samples(2); //can play 2 sounds at the same time
+	al_reserve_samples(3); //can play 3 sounds at the same time
 
 	//Allegro requires installing drivers for all input devices before they can be used.
 	if (!al_install_mouse()) {
