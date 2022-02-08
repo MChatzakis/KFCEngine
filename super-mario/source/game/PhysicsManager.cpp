@@ -9,6 +9,10 @@ void Physics() {
 
 
 void Gravity() {
+	if (Mario::GetSingleton().isWinning()) {
+		return;
+	}
+
 	std::list<Sprite*>activeSrpites = SpriteManager::GetSingleton().GetDisplayList();
 	for (auto currSprite : activeSrpites) {
 		if (!SPRITE_JUMPING && !SPRITE_BOUNCING && ((currSprite->GetGravityHandler().GetGravityAddicted() && currSprite->GetGravityHandler().IsFalling()))) {

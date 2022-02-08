@@ -38,7 +38,7 @@
 #define PIPE_CONF_PATH "resources/config/pipeConf.json"
 
 #define SCROLLABLE_TILE_COL 212
-#define WIN_TILE_DX 3155
+#define WIN_TILE_POINT Point(3152,384)
 
 #define FONT_PATH "resources/fonts/SuperMario256.ttf"
 #define FONT_SIZE 22

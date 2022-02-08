@@ -13,7 +13,7 @@ Sprite* Mario::GetCurrSprite() {
 }
 
 void Mario::backToIdle() {
-	if (MARIO_IDLE || MARIO_FALLING || MARIO_BOUNCE) /* || MARIO_JUMPING)/*) || MARIO_FALLING || -> if we add that it jumps always in the same way*/
+	if (MARIO_IDLE || MARIO_FALLING || MARIO_BOUNCE) /* || MARIO_JUMPING)/*) -> if we add that it jumps always in the same way*/
 		return;
 
 	std::string id = currSprite->GetStateId();
@@ -276,12 +276,14 @@ void Mario::initializeAnimators() {
 	winAnimator->SetOnAction(
 		[this](Animator* animator, const Animation& anim) {
 			assert(dynamic_cast<const FrameRangeAnimation*>(&anim));
+			this->GetCurrSprite()->SetHasDirectMotion(true);
 			FrameRange_Action(this->currSprite, animator, (const FrameRangeAnimation&)anim);
 		}
 	);
 
 	winAnimator->SetOnFinish(
 		[this](Animator* animator) {
+			this->GetCurrSprite()->SetHasDirectMotion(false);
 			WinAction();
 		}
 	);
@@ -857,7 +859,7 @@ void Mario::Win() {
 	winAnimation->SetReps(conf["winning"]["repetitions"]);
 	
 	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_WALK_RIGHT_ID), MARIO_WALK_RIGHT_ID);
-
+	std::cout << "start win animation" << std::endl;
 	winAnimator->Start(winAnimation, CurrTime());
 }
 

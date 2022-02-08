@@ -28,8 +28,9 @@ void JumpPatch() {
 
 
 void EvaluateWin() {
-	if (Mario::GetSingleton().GetCurrSprite()->GetPosition().x == WIN_TILE_DX) {
-		//Mario::GetSingleton().Win();
-		GAME_HAS_ENDED = 2;
+	Point marioPosition = Mario::GetSingleton().GetCurrSprite()->GetPosition();
+	if (marioPosition.x == WIN_TILE_POINT.x && marioPosition.y == WIN_TILE_POINT.y) {
+		Mario::GetSingleton().Win();
+		//GAME_HAS_ENDED = 2;
 	}
 }

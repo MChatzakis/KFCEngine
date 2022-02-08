@@ -5,6 +5,9 @@
 void debugShortcuts() {
 
 	int keyboard_offset = 16; //scroll offset should be always multiple of 16 ! (cant display half of a tile)
+	if (Mario::GetSingleton().isWinning()) {
+		return;
+	}
 
 	if (al_key_down(&keyboard_state, ALLEGRO_KEY_RIGHT)) {
 		if (gameMap->GetViewWindow().x + gameMap->GetViewWindow().w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
