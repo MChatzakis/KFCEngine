@@ -262,6 +262,7 @@ void Koopa::destroyAnimators() {
 
 void Koopa::die() {
 	SpriteManager::GetSingleton().Remove(this->sprite);
+	this->stopAnimators();
 	this->destroyAnimators();
 	this->sprite->Destroy();
 }

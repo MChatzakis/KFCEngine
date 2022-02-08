@@ -9,7 +9,7 @@ void CommitDestructions() {
 	RemoveDeadKoopas();
 	RemoveRetrievedCoins();
 
-	//DestructionManager::Get().Commit(); //Produces an exception.
+	DestructionManager::Get().Commit(); //Produces an exception.
 }
 
 void RemoveRetrievedCoins() {

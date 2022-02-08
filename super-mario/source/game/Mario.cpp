@@ -588,9 +588,7 @@ void Mario::displayMario(Bitmap target, const Rect& rect, const Clipper& clip) {
 void Mario::Die() {
 	for (auto const& x : animators)
 	{
-		/*if (!(x.second->HasFinished())) {
-			x.second->Stop();
-		}*/
+		x.second->Stop();
 		x.second->Destroy();
 	}
 	currSprite->Destroy();
