@@ -86,6 +86,9 @@ public:
 
 	void evaluateStartingShellAction(int x);
 
+	void die();
+	void destroyAnimators();
+
 };
 
 
@@ -120,9 +123,7 @@ public:
 
 	void WalkKoopas();
 
-	Koopa* GetInstanceOf(Sprite* s) {
-		return Koopas[s];
-	}
+	Koopa* GetInstanceOf(Sprite* s);
 		
 };
 

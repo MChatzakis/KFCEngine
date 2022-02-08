@@ -17,7 +17,7 @@ void Mario::backToIdle() {
 		return;
 
 	std::string id = currSprite->GetStateId();
-	StopAnimators(); //or in ifs for safety?
+	StopAnimators();
 
 	if (id == "walking_right" || id == "running_right") {
 		currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_RIGHT_ID), MARIO_IDLE_RIGHT_ID);
@@ -64,10 +64,10 @@ void Mario::initializeSprites() {
 		{
 			MovingAnimator* moving = (MovingAnimator*)GetAnimator("moving");
 			FrameRangeAnimator* running = (FrameRangeAnimator*)GetAnimator("running");
-			if (!moving->HasFinished())
+			//if (!moving->HasFinished())
 				moving->Stop();
 
-			if (!running->HasFinished())
+			//if (!running->HasFinished())
 				running->Stop();
 
 			return;

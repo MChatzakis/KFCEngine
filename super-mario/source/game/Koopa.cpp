@@ -255,6 +255,17 @@ bool Koopa::getIsAtShellStartingState() {
 	return isAtShellStartingState;
 }
 
+void Koopa::destroyAnimators() {
+	greenKoopaShellAnimator->Destroy();
+	koopaWalkAnimator->Destroy();
+}
+
+void Koopa::die() {
+	SpriteManager::GetSingleton().Remove(this->sprite);
+	this->destroyAnimators();
+	this->sprite->Destroy();
+}
+
 
 //KOOPA HOLDER
 
@@ -330,4 +341,9 @@ void KoopaHolder::WalkKoopas() {
 	for (auto g : Koopas) {
 		g.second->walk();
 	}
+}
+
+Koopa* KoopaHolder::GetInstanceOf(Sprite* s) {
+	auto i = Koopas.find(s);
+	return i != Koopas.end() ? i->second : nullptr;
 }

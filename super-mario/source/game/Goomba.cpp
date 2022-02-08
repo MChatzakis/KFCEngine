@@ -288,7 +288,8 @@ void GoombaHolder::WalkGoombas() {
 }
 
 Goomba* GoombaHolder::GetInstanceOf(Sprite* s) {
-	return Goombas[s];
+	auto i = Goombas.find(s);
+	return i != Goombas.end() ? i->second : nullptr;
 }
 
 void Goomba::stopAnimators() {

@@ -164,13 +164,13 @@ void goombaKoopaCollision(Sprite* goomba, Sprite* koopa) {
 	Goomba *g = GoombaHolder::GetSingleton().GetInstanceOf(goomba);
 	Koopa *k = KoopaHolder::GetSingleton().GetInstanceOf(koopa);
 
-	if (g == nullptr || g->isDying()) {
+	if (/*g == nullptr ||*/ g->isDying()) {
 		return;
 	}
 
-	if (k == nullptr) {
+	/*if (k == nullptr) {
 		return;
-	}
+	}*/
 
 	if (k->getState() == SHELL && !k->getIsAtShellStartingState()) { //a stable shell wont kill a goomba
 		g->dieByKoopaAction();

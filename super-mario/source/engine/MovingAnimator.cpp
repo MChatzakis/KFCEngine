@@ -13,6 +13,7 @@ MovingAnimator::Start(MovingAnimation* a, timestamp_t t) {
 	state = ANIMATOR_RUNNING;
 	currRep = 0; //?
 	NotifyStarted();
+	//NotifyAction(*anim); //frame range animator has notify action here
 }
 
 void

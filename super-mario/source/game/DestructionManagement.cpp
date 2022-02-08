@@ -65,18 +65,25 @@ void ValidateSpritePositions() {
 	for (auto s : activeSprites) {
 		int x = s->GetBox().x;
 		int y = s->GetBox().y;
+		Goomba* goomba = GoombaHolder::GetSingleton().GetInstanceOf(s);
+		Koopa* koopa = KoopaHolder::GetSingleton().GetInstanceOf(s);
 
 		for (auto r : FALL_COORDINATES_LIST) {
 			if (x <= (r.x + r.w) && x >= r.x) {
 				if (y >= r.y) {
-					if (s == Mario::GetSingleton().GetCurrSprite()) {
+					if (s == Mario::GetSingleton().GetCurrSprite()) { //mario fall
 						Mario::GetSingleton().EvaluateDeathAction();
 					}
-					else {
-						s->Destroy();
-						SpriteManager::GetSingleton().Remove(s);
+					else if(goomba != nullptr){ //goomba fall
+						goomba->die();
+						GoombaHolder::GetSingleton().ErasePair_freeGoomba(s);
+						CollisionChecker::GetSingleton().cancelAllTuplesOf(s);
 					}
-
+					else if (koopa != nullptr) { //goomba fall
+						koopa->die();
+						KoopaHolder::GetSingleton().ErasePair(s);
+						CollisionChecker::GetSingleton().cancelAllTuplesOf(s);
+					}
 				}
 			}
 		}

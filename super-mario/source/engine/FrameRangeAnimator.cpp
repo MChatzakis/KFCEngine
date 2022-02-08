@@ -30,8 +30,6 @@ FrameRangeAnimator::Progress(timestamp_t currTime) {
 		lastTime += anim->GetDelay();
 		NotifyAction(*anim);
 
-		//++currRep;
-
 		if (currFrame == anim->GetEndFrame())
 			if (!anim->IsForever() && ++currRep == anim->GetReps()) {
 				state = ANIMATOR_FINISHED;

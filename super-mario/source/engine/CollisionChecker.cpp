@@ -50,13 +50,19 @@ bool CollisionChecker::In(Sprite* s1, Sprite* s2) {
 }
 
 void CollisionChecker::cancelAllTuplesOf(Sprite* s) {
-	
-	entries.erase(std::find_if(
-		entries.begin(),
-		entries.end(),
-		[s](const Entry& e)
-		{
-			return (std::get<0>(e) == s || std::get<1>(e) == s);
-		})
-	);
+
+	for (size_t size = 0; size < entries.size(); ++size) {
+		auto e = std::find_if(
+			entries.begin(),
+			entries.end(),
+			[s](const Entry& e)
+			{
+				return (std::get<0>(e) == s || std::get<1>(e) == s);
+			});
+
+		if (e == entries.end()) {
+			break; //found all
+		}
+		entries.erase(e);
+	}
 }
