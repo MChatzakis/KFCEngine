@@ -654,7 +654,7 @@ void Mario::AlignViewWin(TileLayer* currLayer) {
 	}
 
 	if (mario_x >= viewWinCenter ) {
-		if (viewWin.x + viewWin.w < SCROLLABLE_TILE_COL * TILE_WIDTH) {
+		if (viewWin.x + viewWin.w < SCROLLABLE_TILE_COL * TILE_WIDTH - 1) {
 			currLayer->ScrollWithBoundsCheck(mario_x - viewWinCenter, 0);
 			//currLayer->ScrollWithBoundsCheck(16, 0);
 		}

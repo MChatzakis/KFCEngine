@@ -74,7 +74,7 @@ void HandleToglePauseResume(Game& game) {
 
 
 void Input() {
-	if (Mario::GetSingleton().hasMarioWon())
+	if (Mario::GetSingleton().hasMarioWon() || MARIO_DYING)
 		return;
 
 	al_get_keyboard_state(&keyboard_state);
