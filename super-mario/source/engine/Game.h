@@ -4,6 +4,8 @@
 #include <iostream>
 #include <functional>
 
+#include "./FPSCalculator.h"
+
 class Game { // app::Game namespace, the mother application
 public:
 	using Action = std::function<void(void)>;

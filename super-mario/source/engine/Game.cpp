@@ -8,7 +8,8 @@ void Game::Invoke(const Action& f) {
 	f();
 }
 
-Game::Game() {};
+Game::Game() {
+};
 
 void  Game::SetRender(const Action& f) { render = f; }
 void  Game::SetProgressAnimations(const Action& f) { anim = f; }

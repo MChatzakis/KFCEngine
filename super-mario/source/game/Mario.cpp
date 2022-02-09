@@ -833,6 +833,7 @@ void Mario::Respawn() {
 		
 	CenterViewWin(gameMap);
 
+	SoundPlayer::stopSound("main_sound");
 	SoundPlayer::playSound("main_sound");
 }
 

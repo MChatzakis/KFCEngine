@@ -37,11 +37,11 @@
 #define POWERUP_CONF_PATH "resources/config/powerupsConf.json"
 #define PIPE_CONF_PATH "resources/config/pipeConf.json"
 
-#define SCROLLABLE_TILE_COL 212
+#define SCROLLABLE_TILE_COL 211
 #define WIN_TILE_POINT Point(3158,384)
 
 #define FONT_PATH "resources/fonts/SuperMario256.ttf"
-#define FONT_SIZE 22
+#define FONT_SIZE 20
 
 #define DEATH_SCREEN_PATH "resources/screens/deathScreen.png"
 #define STARTING_SCREEN_PATH "resources/screens/startingScreen.png"

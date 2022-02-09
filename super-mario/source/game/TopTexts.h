@@ -14,7 +14,7 @@ private:
 	ALLEGRO_FONT* font;
 
 	int offset = 5;
-	
+
 public:
 
 	static auto GetSingleton(void)->TopTexts&;
@@ -23,11 +23,9 @@ public:
 	void Initialize(const char* fontPath, int size);
 
 	void setFont(ALLEGRO_FONT* _font);
-
 	ALLEGRO_FONT* getFont();
 
-	void DrawText(int score, int lifes, int coins, int timePassed,int centerAroundX, int centerAroundY);
-
+	void DrawText(int score, int lifes, int coins, int timePassed, int FPS, int centerAroundX, int centerAroundY);
 	void DrawPauseText(int centerAroundX, int centerAroundY);
 };
 

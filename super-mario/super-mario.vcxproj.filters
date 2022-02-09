@@ -417,6 +417,9 @@
     <ClCompile Include="source\game\Pipe.cpp">
       <Filter>Source Files\Game\Items</Filter>
     </ClCompile>
+    <ClCompile Include="source\engine\FPSCalculator.cpp">
+      <Filter>Source Files\Engine\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\utils\Utils.h">
@@ -625,6 +628,9 @@
     </ClInclude>
     <ClInclude Include="source\game\Pipe.h">
       <Filter>Header Files\Game\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\FPSCalculator.h">
+      <Filter>Header Files\Engine\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

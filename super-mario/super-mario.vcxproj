@@ -180,6 +180,7 @@
     <ClCompile Include="source\engine\CollisionChecker.cpp" />
     <ClCompile Include="source\engine\DestructionManager.cpp" />
     <ClCompile Include="source\engine\FlashAnimator.cpp" />
+    <ClCompile Include="source\engine\FPSCalculator.cpp" />
     <ClCompile Include="source\engine\FrameListAnimation.cpp" />
     <ClCompile Include="source\engine\FrameRangeAnimation.cpp" />
     <ClCompile Include="source\engine\FrameRangeAnimator.cpp" />
@@ -252,6 +253,7 @@
     <ClInclude Include="source\engine\DestructionManager.h" />
     <ClInclude Include="source\engine\FlashAnimation.h" />
     <ClInclude Include="source\engine\FlashAnimator.h" />
+    <ClInclude Include="source\engine\FPSCalculator.h" />
     <ClInclude Include="source\engine\FrameListAnimation.h" />
     <ClInclude Include="source\engine\FrameListAnimator.h" />
     <ClInclude Include="source\engine\FrameRangeAnimation.h" />

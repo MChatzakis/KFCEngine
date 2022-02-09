@@ -66,7 +66,7 @@ void CharacterLoader::createCollisionTuples() {
 
 //Other useful functions
 bool isMarioAbove(Sprite* mario, Sprite* enemy) {
-	int marioY = mario->GetBox().y + mario->GetBox().h / 2; //prosoxi sto meiwn
+	int marioY = mario->GetBox().y + mario->GetBox().h - 4;// / 2; //prosoxi sto meiwn
 	int enemyY = enemy->GetBox().y; //prosoxi sto meiwn //give a look again
 
 	std::cout << "Mario Bottom Y: " << marioY << " Enemy Head Y: " << enemyY << "\n";
