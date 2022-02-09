@@ -615,6 +615,13 @@ void Mario::displayMario(Bitmap target, const Rect& rect, const Clipper& clip) {
 	currSprite->Display(target, rect, clip);
 }
 
+bool Mario::isAlive() {
+	if (currSprite != nullptr) {
+		return currSprite->IsAlive();
+	}
+	return false;
+}
+
 void Mario::Die() {
 	for (auto const& x : animators)
 	{

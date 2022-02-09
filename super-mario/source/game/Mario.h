@@ -144,6 +144,7 @@ public:
 
 	bool isWinning();
 	bool hasMarioWon();
+	bool isAlive();
 };
 
 #endif _MARIO_H_

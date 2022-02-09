@@ -221,13 +221,8 @@ KoopaState Koopa::getState() {
 }
 
 void Koopa::stopAnimators() {
-	if (!greenKoopaShellAnimator->HasFinished()) {
-		greenKoopaShellAnimator->Stop();
-	}
-
-	if (!koopaWalkAnimator->HasFinished()) {
-		koopaWalkAnimator->Stop();
-	}
+	greenKoopaShellAnimator->Stop();
+	koopaWalkAnimator->Stop();
 }
 
 void Koopa::transformToShell() {

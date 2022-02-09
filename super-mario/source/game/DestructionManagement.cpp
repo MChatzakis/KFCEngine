@@ -9,7 +9,7 @@ void CommitDestructions() {
 	RemoveDeadKoopas();
 	RemoveRetrievedCoins();
 
-	DestructionManager::Get().Commit(); //Produces an exception.
+	DestructionManager::Get().Commit();
 }
 
 void RemoveRetrievedCoins() {
@@ -71,8 +71,12 @@ void ValidateSpritePositions() {
 		for (auto r : FALL_COORDINATES_LIST) {
 			if (x <= (r.x + r.w) && x >= r.x) {
 				if (y >= r.y) {
-					if (s == Mario::GetSingleton().GetCurrSprite()) { //mario fall
+					if (s == Mario::GetSingleton().GetCurrSprite() && s->IsAlive()) { //mario fall
 						Mario::GetSingleton().EvaluateDeathAction();
+						if (!(Mario::GetSingleton().GetCurrSprite()->IsAlive())) { //if died
+							CollisionChecker::GetSingleton().cancelAllTuplesOf(s);
+							SpriteManager::GetSingleton().Remove(s);
+						}
 					}
 					else if(goomba != nullptr){ //goomba fall
 						goomba->die();

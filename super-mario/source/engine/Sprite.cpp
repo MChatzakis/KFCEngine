@@ -92,13 +92,21 @@ byte Sprite::GetFrame(void) const {
 
 void Sprite::SetBoundingArea(const BoundingArea& area)
 {
-	//assert(!boundingArea); 
+	//assert(!boundingArea);
+	if (boundingArea) {
+		delete boundingArea;
+	}
+
 	boundingArea = area.Clone();
 }
 
 void Sprite::SetBoundingArea(BoundingArea* area)
 {
 	//assert(!boundingArea);
+	if (boundingArea) {
+		delete boundingArea;
+	}
+
 	boundingArea = area;
 }
 

@@ -1,5 +1,5 @@
 {
-  "totalLifes": 3,
+  "totalLifes": 2,
 
   "checkpoints": [
     {
@@ -13,7 +13,7 @@
   ],
 
   "startingPosition": {
-    "x": 10,
+    "x": 2010,
     "y": 300
   },
 
