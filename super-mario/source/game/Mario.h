@@ -56,6 +56,7 @@ private:
 	int score = 0;
 	int totalCoins = 0;
 	int totalLifes = 3;
+	bool won = false;
 
 	std::list<Point>checkpoints;
 
@@ -133,6 +134,8 @@ public:
 	bool isDying();
 	bool isGoingDownAPipe();
 
+	void DropFlag();
+	bool isDroppingTheFlag();
 	void Win();
 	void WinAction();
 	void InitializeCheckpoints();
@@ -140,6 +143,7 @@ public:
 	Point evalSpawnPos(Point currPos);
 
 	bool isWinning();
+	bool hasMarioWon();
 };
 
 #endif _MARIO_H_

@@ -13,8 +13,8 @@
   ],
 
   "startingPosition": {
-    "x": 3100,
-    "y": 100
+    "x": 10,
+    "y": 300
   },
 
   "moving": {
@@ -70,5 +70,25 @@
     "frames": 2,
     "dx": 3,
     "delay": 120
+  },
+
+  "drop_flag": {
+    "repetitions": 80,
+    "dy": 0,
+    "delay": 100
+  },
+
+  "death": {
+    "repetitions": 40,
+    "dy": 4,
+    "dx": 0,
+    "delay": 90
+  },
+
+  "onPipe": {
+    "repetitions": 30,
+    "dy": 1,
+    "dx" : 1,
+    "delay": 50
   }
 }

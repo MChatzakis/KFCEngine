@@ -13,9 +13,6 @@ bool isFinished() {
 		return true;
 	}
 	else if (GAME_HAS_ENDED == 2) {
-		SoundPlayer::stopSound("main_sound");
-		SoundPlayer::playSound("stage_clear");
-		//Mario::GetSingleton().Win();
 		ExtraScreens::GetSingleton().DispScreen(WIN_SCREEN_PATH);
 		return true;
 	}

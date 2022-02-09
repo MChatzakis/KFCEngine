@@ -1,6 +1,9 @@
 #include "UserCodeManager.h"
+#include "SoundPlayer.h"
 
 void UserCode() {
+	if (Mario::GetSingleton().hasMarioWon())
+		return;
 	// hook for custom code at end
 	JumpPatch();
 	Mario::GetSingleton().SecretLevel(gameMap);
@@ -29,8 +32,12 @@ void JumpPatch() {
 
 void EvaluateWin() {
 	Point marioPosition = Mario::GetSingleton().GetCurrSprite()->GetPosition();
-	if (marioPosition.x == WIN_TILE_POINT.x && marioPosition.y == WIN_TILE_POINT.y) {
-		Mario::GetSingleton().Win();
-		//GAME_HAS_ENDED = 2;
+	if (marioPosition.x >= WIN_TILE_POINT.x && marioPosition.x <= WIN_TILE_POINT.x + 3) { //on win tile
+		SoundPlayer::stopSound("main_sound");
+		SoundPlayer::playSound("stage_clear");
+		if (marioPosition.y == WIN_TILE_POINT.y)
+			Mario::GetSingleton().Win();
+		else
+			Mario::GetSingleton().DropFlag();
 	}
 }

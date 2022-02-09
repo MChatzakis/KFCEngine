@@ -88,6 +88,11 @@ void Mario::initializeSprites() {
 				this->currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_IDLE_LEFT_ID), MARIO_IDLE_LEFT_ID);
 
 			}
+			else if (id == "hold_flag_right") {
+				this->currSprite->SetStateId("idle_left");
+				MovingAnimator* dropFlag = (MovingAnimator*)GetAnimator("drop_flag");
+				dropFlag->Stop();
+			}
 
 			return;
 		}
@@ -111,9 +116,10 @@ void Mario::initializeAnimations() {
 	AddAnimation("parabola_jumping_right", new FrameRangeAnimation(MARIO_JUMP_RIGHT_ID, 0, 0, conf["verticalJumping"]["repetitions"], 0, 0, 0));
 	AddAnimation("parabola_jumping_left", new FrameRangeAnimation(MARIO_JUMP_LEFT_ID, 0, 0, conf["verticalJumping"]["repetitions"], 0, 0, 0));
 
-	AddAnimation("pipe_animation", new MovingAnimation(MARIO_IDLE_RIGHT_ID, 1, 1, 1, 500));
-	AddAnimation("death_animation", new MovingAnimation(MARIO_DEATH_ID, 40, 0, 0, 90));
+	AddAnimation("pipe_animation", new MovingAnimation(MARIO_IDLE_RIGHT_ID, conf["onPipe"]["repetitions"], 0, 0, conf["onPipe"]["delay"]));
+	AddAnimation("death_animation", new MovingAnimation(MARIO_DEATH_ID, conf["death"]["repetitions"], conf["death"]["dx"], conf["death"]["dy"], conf["death"]["delay"]));
 
+	AddAnimation("drop_flag", new MovingAnimation(MARIO_HOLD_FLAG_RIGHT_ID, conf["drop_flag"]["repetitions"], 0, 0, 0));
 	AddAnimation("win_animation", new FrameRangeAnimation(MARIO_WALK_RIGHT_ID, 0, conf["winning"]["frames"], conf["winning"]["repetitions"], 0, 0, 0));
 }
 
@@ -294,6 +300,27 @@ void Mario::initializeAnimators() {
 		}
 	);
 
+	MovingAnimator* dropFlag = new MovingAnimator();
+
+	dropFlag->SetOnAction(
+		[this](Animator* animator, const Animation& anim) {
+		assert(dynamic_cast<const MovingAnimation*>(&anim));
+		Sprite_MoveAction(this->currSprite, (const MovingAnimation&)anim);
+	}
+	);
+
+	dropFlag->SetOnFinish(
+		[this](Animator* animator) {
+			Win();
+		}
+	);
+
+	dropFlag->SetOnStart(
+		[this](Animator* animator) {
+
+	}
+	);
+
 	AddAnimator("moving", moving);
 	AddAnimator("running", running);
 	AddAnimator("jumping", jumping);
@@ -301,6 +328,7 @@ void Mario::initializeAnimators() {
 	AddAnimator("pipe", pipeAnimator);
 	AddAnimator("death", deathAnimator);
 	AddAnimator("win", winAnimator);
+	AddAnimator("drop_flag", dropFlag);
 
 
 }
@@ -671,9 +699,7 @@ void Mario::SecretLevel(TileLayer* currLayer) {
 		}
 
 		anim->SetDx(0);
-		anim->SetDy(1);
-		anim->SetDelay(50);
-		anim->SetReps(30);
+		anim->SetDy(conf["onPipe"]["dy"]);
 
 		StopAnimators();
 
@@ -707,10 +733,8 @@ void Mario::SecretLevel(TileLayer* currLayer) {
 			return;
 		}
 
-		anim->SetDx(1);
 		anim->SetDy(0);
-		anim->SetDelay(50);
-		anim->SetReps(30);
+		anim->SetDx(conf["onPipe"]["dx"]);
 
 		StopAnimators();
 
@@ -814,7 +838,6 @@ void Mario::EvaluateDeathAction() {
 	}
 
 	decreaseLifes();
-	animation->SetDy(4);
 
 	StopAnimators();
 
@@ -838,9 +861,28 @@ bool Mario::isGoingDownAPipe() {
 	return !animator->HasFinished();
 }
 
-void Mario::Win() {
+void Mario::DropFlag() {
+	won = true;
+	MovingAnimator* dropFlagAnimator = (MovingAnimator*)GetAnimator("drop_flag");
+	MovingAnimation* dropFlagAnimation = (MovingAnimation*)GetAnimation("drop_flag");
+	StopAnimators();
 
+	dropFlagAnimation->SetDelay(conf["drop_flag"]["delay"]);
+	dropFlagAnimation->SetDy(conf["drop_flag"]["dy"]);
+
+	currSprite->SetStateId("hold_flag_right");
+	currSprite->ChangeAnimationFilm((AnimationFilm*)AnimationFilmHolder::GetSingleton().GetFilm(MARIO_HOLD_FLAG_RIGHT_ID), MARIO_HOLD_FLAG_RIGHT_ID);
+	dropFlagAnimator->Start(dropFlagAnimation, CurrTime());
+}
+
+bool Mario::isDroppingTheFlag()
+{
+	return !((MovingAnimator*)GetAnimator("drop_flag")->HasFinished());
+}
+
+void Mario::Win() {
 	//I implemented a different animator to set a different on finish action
+	won = true;
 	LOCK_SCROLL = true;
 
 	FrameRangeAnimator* winAnimator = (FrameRangeAnimator* )GetAnimator("win");
@@ -869,4 +911,9 @@ void Mario::WinAction() {
 
 bool Mario::isWinning() {
 	return !(FrameRangeAnimator*)GetAnimator("win")->HasFinished();
+}
+
+bool Mario::hasMarioWon()
+{
+	return won;
 }
